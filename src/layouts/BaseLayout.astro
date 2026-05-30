@@ -1,0 +1,449 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  lang?: "zh" | "en";
+  image?: string;
+  activeNav?: string;
+}
+const {
+  title,
+  description = "BTC & ETH 价格行为分析、链上数据、衍生品分析。中英双语。",
+  lang = "zh",
+  image = "/og-default.png",
+  activeNav = "",
+} = Astro.props;
+
+const zhPath = Astro.url.pathname.replace(/^\/en\//, "/zh/");
+const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
+---
+
+<!doctype html>
+<html lang={lang === "zh" ? "zh-CN" : "en-US"} class="fade-in">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="1H Crypto Trader" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title + " - 1H币研"} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="1H币研 | 1H Crypto" />
+    <meta property="og:locale" content={lang === "zh" ? "zh_CN" : "en_US"} />
+    <meta property="og:locale:alternate" content={lang === "zh" ? "en_US" : "zh_CN"} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={title + " - 1H币研"} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Schema.org - Organization + WebSite -->
+    <script type="application/ld+json" set:html={`{
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "1H币研",
+          "alternateName": "1H Crypto",
+          "url": "https://1hcrypto.com",
+          "description": "${description}",
+          "inLanguage": "${lang === "zh" ? "zh-CN" : "en-US"}",
+          "sameAs": [
+            "https://twitter.com/1hcrypto",
+            "https://t.me/1hcrypto"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "name": "1H币研 | 1H Crypto",
+          "url": "https://1hcrypto.com",
+          "description": "${description}",
+          "inLanguage": "${lang === "zh" ? "zh-CN" : "en-US"}",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://1hcrypto.com/${lang === "zh" ? "zh" : "en"}/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }`}></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/global.css" />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <!-- 滚动进度条 -->
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+
+    <!-- 鼠标跟随光晕（仅桌面端） -->
+    <div id="cursor-glow" class="cursor-glow hidden md:block"></div>
+
+    <!-- 背景浮动粒子 -->
+    <div class="bg-particles hidden md:block">
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-glass sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+
+          <!-- Logo -->
+          <a href={lang === "zh" ? "/zh/" : "/en/"} class="flex items-center gap-2 hover:opacity-80 transition-opacity no-underline">
+            <span class="text-xl font-bold tracking-tight gradient-text">1H币研</span>
+          </a>
+
+          <!-- Desktop Nav Links -->
+          <div class="hidden md:flex items-center gap-6 text-sm">
+            <a
+              href={lang === "zh" ? "/zh/" : "/en/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "home" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "首页" : "Home"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/daily/" : "/en/daily/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "daily" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "每日研判" : "Daily"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/news/" : "/en/news/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "news" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "新闻快报" : "News"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/weekly/" : "/en/weekly/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "weekly" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "周度复盘" : "Weekly"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/trading/" : "/en/trading/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "trading" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "模拟盘" : "Paper"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/tools/" : "/en/tools/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "tools" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "推荐注册" : "Recommended"}
+            </a>
+            <a
+              href={lang === "zh" ? "/zh/about/" : "/en/about/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "about" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "关于" : "About"}
+            </a>
+
+            <!-- Lang Switcher -->
+            <a
+              href={lang === "zh" ? enPath : zhPath}
+              class="ml-2 px-3 py-1.5 text-xs rounded-full border border-[var(--border)] hover:border-primary/50 text-[var(--text-muted)] hover:text-white transition-colors no-underline"
+            >
+              {lang === "zh" ? "EN" : "中"}
+            </a>
+
+            <!-- Theme Toggle -->
+            <button
+              id="theme-toggle-btn"
+              class="ml-1 w-9 h-9 rounded-lg border border-[var(--border)] hover:border-primary/50 flex items-center justify-center text-sm text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+              aria-label="Toggle theme"
+            >
+              <span id="theme-icon">☀️</span>
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden p-2 text-[var(--text-muted)] hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Nav Panel -->
+        <div id="mobile-menu" class="mobile-nav-panel hidden">
+          <a href={lang === "zh" ? "/zh/" : "/en/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">首页</a>
+          <a href={lang === "zh" ? "/zh/daily/" : "/en/daily/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "每日研判" : "Daily"}</a>
+          <a href={lang === "zh" ? "/zh/news/" : "/en/news/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "新闻快报" : "News"}</a>
+          <a href={lang === "zh" ? "/zh/weekly/" : "/en/weekly/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "周度复盘" : "Weekly"}</a>
+          <a href={lang === "zh" ? "/zh/trading/" : "/en/trading/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">模拟盘</a>
+          <a href={lang === "zh" ? "/zh/tools/" : "/en/tools/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "推荐注册" : "Recommended"}</a>
+          <a href={lang === "zh" ? "/zh/about/" : "/en/about/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">关于</a>
+          <div class="pt-3 mt-2 border-t border-[var(--border)] flex gap-3">
+            <a href={lang === "zh" ? enPath : zhPath} class="text-sm text-[var(--text-muted)] hover:text-white no-underline px-3 py-1.5 rounded-full border border-[var(--border)]">
+              {lang === "zh" ? "English →" : "中文 →"}
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border)] mt-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+
+          <!-- Brand -->
+          <div>
+            <div class="text-lg font-bold mb-3 gradient-text">1H币研</div>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed mb-4">
+              {lang === "zh"
+                ? "用阿尔·布鲁克斯价格行为学做 BTC & ETH 日内分析。每日四维研判：价格行为 + 链上数据 + 衍生品 + 模拟盘。"
+                : "BTC & ETH intraday analysis using Al Brooks price action methodology. Daily multi-dimensional research."}
+            </p>
+            <!-- Social Icons -->
+            <div class="flex gap-3">
+              <a href="#" class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-primary hover:border-primary/50 transition-colors" aria-label="Twitter/X">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.979 6.817h-3.309l7.733-8.835-8.168-10.665h6.994l4.83 6.37 5.623-6.37zm-1.161 17.522h1.833l-11.966-15.616h-1.928l11.061 15.616z"/></svg>
+              </a>
+              <a href="#" class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-primary hover:border-primary/50 transition-colors" aria-label="Telegram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0011.944 0zm4.962 7.225c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.504 1.201-.82 1.23-.696.066-1.219-.46-1.89-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.185 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.33-.913.49-1.302.48-.428-.009-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.033-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.645z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Content Links -->
+          <div>
+            <div class="text-white font-semibold mb-3 text-sm">{lang === "zh" ? "内容" : "Content"}</div>
+            <div class="space-y-2 text-sm">
+              <a href={lang === "zh" ? "/zh/daily/" : "/en/daily/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "每日研判" : "Daily Analysis"}</a>
+              <a href={lang === "zh" ? "/zh/weekly/" : "/en/weekly/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "周度复盘" : "Weekly Review"}</a>
+              <a href={lang === "zh" ? "/zh/monthly/" : "/en/monthly/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "月度深度" : "Monthly Deep Dive"}</a>
+              <a href={lang === "zh" ? "/zh/trading/" : "/en/trading/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "模拟盘追踪" : "Paper Trading"}</a>
+            </div>
+          </div>
+
+          <!-- Resources Links -->
+          <div>
+            <div class="text-white font-semibold mb-3 text-sm">{lang === "zh" ? "资源" : "Resources"}</div>
+            <div class="space-y-2 text-sm">
+              <a href={lang === "zh" ? "/zh/tools/" : "/en/tools/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "推荐注册" : "Recommended"}</a>
+              <a href={lang === "zh" ? "/zh/disclosure/" : "/en/disclosure/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "推荐链接声明" : "Affiliate Disclosure"}</a>
+              <a href={lang === "zh" ? "/zh/disclaimer/" : "/en/disclaimer/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "免责声明" : "Disclaimer"}</a>
+              <a href={lang === "zh" ? "/zh/about/" : "/en/about/"} class="block text-[var(--text-muted)] hover:text-primary transition-colors no-underline">{lang === "zh" ? "关于本站" : "About"}</a>
+            </div>
+          </div>
+
+          <!-- Subscribe CTA -->
+          <div>
+            <div class="text-white font-semibold mb-3 text-sm">{lang === "zh" ? "订阅更新" : "Subscribe"}</div>
+            <p class="text-sm text-[var(--text-muted)] mb-3 leading-relaxed">
+              {lang === "zh" ? "每日 8:00 准时推送最新研判。" : "Get daily analysis delivered at 08:00 Beijing Time."}
+            </p>
+            <form class="flex gap-2" onsubmit="return false;">
+              <input
+                type="email"
+                placeholder={lang === "zh" ? "your@email.com" : "your@email.com"}
+                class="flex-1 bg-[var(--bg-card)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-primary/50 transition-colors"
+              />
+              <button
+                type="submit"
+                class="px-4 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
+              >
+                {lang === "zh" ? "订阅" : "Go"}
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="pt-6 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
+          <p>{lang === "zh" ? "本文不构成投资建议。加密货币交易存在高风险。" : "Not financial advice. Crypto trading involves high risk."}</p>
+          <p>&copy; {new Date().getFullYear()} 1HCrypto.com — {lang === "zh" ? "保留所有权利" : "All rights reserved"}.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      document.getElementById("mobile-menu-btn")?.addEventListener("click", () => {
+        document.getElementById("mobile-menu")?.classList.toggle("hidden");
+      });
+    </script>
+
+    <!-- 增强特效脚本：主题切换 / 滚动进度条 / 光晕 / 滚动触发 / 3D 卡片 / 数字动画 / 打字效果 -->
+    <script>
+      // 0. 主题切换
+      (function() {
+        const saved = localStorage.getItem("theme");
+        const theme = saved || "dark";
+        const icon = document.getElementById("theme-icon");
+        if (!icon) return;
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+          icon.textContent = "🌙";
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+          icon.textContent = "☀️";
+        }
+        document.getElementById("theme-toggle-btn")?.addEventListener("click", () => {
+          const isDark = document.documentElement.getAttribute("data-theme") !== "light";
+          if (isDark) {
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+            icon.textContent = "🌙";
+          } else {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "dark");
+            icon.textContent = "☀️";
+          }
+        });
+      })();
+
+      // 1. 滚动进度条
+      (function() {
+        const bar = document.getElementById("scroll-progress");
+        if (!bar) return;
+        window.addEventListener("scroll", () => {
+          const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+          bar.style.width = pct + "%";
+        }, { passive: true });
+      })();
+
+      // 2. 鼠标跟随光晕（桌面端）
+      (function() {
+        const glow = document.getElementById("cursor-glow");
+        if (!glow || window.innerWidth < 768) return;
+        let mx = 0, my = 0, cx = 0, cy = 0;
+        document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+        (function anim() {
+          cx += (mx - cx) * 0.12;
+          cy += (my - cy) * 0.12;
+          glow.style.left = cx + "px";
+          glow.style.top  = cy + "px";
+          requestAnimationFrame(anim);
+        })();
+      })();
+
+      // 3. 滚动视口触发 fadeIn
+      (function() {
+        const items = document.querySelectorAll(".fade-in-on-scroll");
+        if (!items.length) return;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 80);
+              observer.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        items.forEach(el => observer.observe(el));
+      })();
+
+      // 4. 卡片 3D 倾斜效果
+      (function() {
+        document.querySelectorAll(".card-3d").forEach(el => {
+          const inner = el.querySelector(".card-3d-inner") || el;
+          el.addEventListener("mousemove", e => {
+            const rect = el.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width  - 0.5;
+            const y = (e.clientY - rect.top)  / rect.height - 0.5;
+            inner.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
+          });
+          el.addEventListener("mouseleave", () => {
+            inner.style.transform = "rotateY(0) rotateX(0) scale(1)";
+          });
+        });
+      })();
+
+      // 5. 数字滚动动画（进入视口时触发）
+      (function() {
+        const els = document.querySelectorAll(".metric-value");
+        if (!els.length) return;
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            const txt = el.textContent.trim();
+            if (txt === "--" || txt === "-,---" || txt === "--,---" || txt === "---") return;
+            const nums = txt.replace(/[^0-9.]/g, "");
+            if (!nums || nums === "0") return;
+            const target = parseFloat(nums.replace(/,/g, ""));
+            if (isNaN(target)) return;
+            const suffix = txt.replace(/[0-9,.]/g, "").trim();
+            const duration = 1500;
+            const start = performance.now();
+            el.textContent = "0" + (suffix ? " " + suffix : "");
+            el.classList.add("metric-animate");
+            function update(now) {
+              const pct = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - pct, 3);
+              const val = Math.round(eased * target);
+              el.textContent = val.toLocaleString() + (suffix ? " " + suffix : "");
+              if (pct < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+            obs.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        els.forEach(el => obs.observe(el));
+      })();
+
+      // 6. 打字机效果（应用于 .typing-effect 元素）
+      (function() {
+        const el = document.querySelector(".typing-effect");
+        if (!el) return;
+        const text = el.textContent.trim();
+        el.textContent = "";
+        let i = 0;
+        const speed = 50;
+        el.classList.add("typing-cursor");
+        function type() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed + Math.random() * 30);
+          } else {
+            el.classList.remove("typing-cursor");
+          }
+        }
+        const obs = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) { setTimeout(type, 300); obs.unobserve(el); }
+        }, { threshold: 0.5 });
+        obs.observe(el);
+      })();
+    </script>
+  </body>
+</html>

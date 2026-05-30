@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Daily Analysis - BTC & ETH 1H Price Action",
+  "description": "BTC/USDT & ETH/USDT hourly price action analysis. Published daily at 08:00 Beijing Time.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-01T00:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader",
+    "url": "https://1hcrypto.com/en/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://1hcrypto.com/en/daily/"
+  }
+};
+---
+<BaseLayout title="Daily Analysis - BTC & ETH 1H Price Action | 1H Crypto" description="BTC/USDT & ETH/USDT hourly price action analysis. Published daily at 08:00 Beijing Time." lang="en" activeNav="daily">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl font-bold text-white mb-2">Daily Analysis</h1>
+      <p class="text-[var(--text-muted)]">BTC/USDT & ETH/USDT hourly price action · Published daily at 08:00 Beijing Time</p>
+    </div>
+
+    <!-- BTC Card -->
+    <div class="card p-6 mb-6 hover:border-primary/30 transition-colors fade-in-on-scroll">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="badge badge-blue">Price Action</span>
+        <span class="text-xs text-[var(--text-muted)]">2026-06-01</span>
+      </div>
+      <h2 class="text-xl font-bold text-white mb-3">BTC/USDT Hourly Price Action</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Pin Bar at channel lower band · Watch 67,200 breakout · Awaiting long entry</p>
+
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-2 border-primary">
+        <p class="text-xs text-primary font-semibold mb-2">📌 Key Takeaways</p>
+        <p class="text-sm text-[var(--text-primary)]">Market structure: Trading range day (66,800-67,800). Key level: $67,200 (POC). Core thesis: Wait for breakout confirmation or retest of channel lower band.</p>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">Key Levels</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">R2</div><div class="text-sm font-bold text-white font-mono">68,500</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">R1</div><div class="text-sm font-bold text-white font-mono">67,800</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">Pivot</div><div class="text-sm font-bold text-primary font-mono">67,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">S1</div><div class="text-sm font-bold text-white font-mono">66,800</div></div>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">On-Chain Snapshot</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Exchange BTC Balance</div><div class="text-sm font-bold text-green-400 font-mono">-3,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-accent font-mono">+2.1%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-red-400 font-mono">0.03%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow (7d)</div><div class="text-sm font-bold text-green-400 font-mono">-1,800</div></div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+        <span>⏱ 5 min read</span>
+        <span>📊 On-chain + derivatives</span>
+      </div>
+    </div>
+
+    <!-- ETH Card -->
+    <div class="card p-6 mb-6 hover:border-accent/30 transition-colors fade-in-on-scroll" style="animation-delay: 0.1s">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="badge badge-amber">Price Action</span>
+        <span class="text-xs text-[var(--text-muted)]">2026-06-01</span>
+      </div>
+      <h2 class="text-xl font-bold text-white mb-3">ETH/USDT Hourly Price Action</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Double bottom forming · Watch neckline at 3,720 · Volume confirming buying</p>
+
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-2 border-accent">
+        <p class="text-xs text-accent font-semibold mb-2">📌 Key Takeaways</p>
+        <p class="text-sm text-[var(--text-primary)]">Market structure: Double bottom (W-bottom) forming around 3,600. Neckline at 3,680. Key level: $3,720. Core thesis: Pattern is bullish but wait for confirmed breakout above 3,720.</p>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">Key Levels</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">R2</div><div class="text-sm font-bold text-white font-mono">3,800</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">Neckline</div><div class="text-sm font-bold text-accent font-mono">3,720</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">S1</div><div class="text-sm font-bold text-white font-mono">3,600</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">S2</div><div class="text-sm font-bold text-white font-mono">3,550</div></div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+        <span>⏱ 4 min read</span>
+        <span>📊 On-chain + derivatives</span>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card p-6 bg-[var(--bg-secondary)]/50 fade-in-on-scroll" style="animation-delay: 0.2s">
+      <h3 class="text-white font-semibold mb-3">📋 Today's Content Summary (2026-06-01)</h3>
+      <div class="space-y-2 text-sm">
+        <div class="flex items-center gap-2"><span class="badge badge-blue w-20 text-center">Analysis</span> BTC/USDT — Trading range · Pin Bar at lower band</div>
+        <div class="flex items-center gap-2"><span class="badge badge-amber w-20 text-center">Analysis</span> ETH/USDT — Double bottom · Watch neckline breakout</div>
+        <div class="flex items-center gap-2"><span class="badge badge-green w-20 text-center">News</span> BTC ETF inflows day 5 · Fed speakers lined up</div>
+        <div class="flex items-center gap-2"><span class="badge badge-purple w-20 text-center">Alert</span> BTC 2.3% drop in 15min · 66,800 stop cluster hit</div>
+      </div>
+      <div class="mt-4 text-xs text-[var(--text-muted)]">Content produced daily 08:00-08:35 · Bilingual (EN/CN)</div>
+    </div>
+  </div>
+</BaseLayout>

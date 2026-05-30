@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Dynamically read English news Markdown files
+const newsFiles = await import.meta.glob("../content/en/news/*.md", { eager: true });
+
+// Parse all news articles
+const articles = Object.entries(newsFiles).map(([filePath, module]) => {
+  const slug = filePath.split("/").pop().replace(".md", "");
+  const data = module.frontmatter || {};
+  return {
+    slug,
+    title: data.title || "Untitled",
+    date: data.date || new Date().toISOString(),
+    source: data.source || "",
+    url: data.url || "",
+    sentiment: data.sentiment || "Neutral",
+    coins: data.coins || [],
+    importance: data.importance || "Low",
+    tags: data.tags || [],
+    draft: data.draft || false,
+    content: module.compiledContent ? module.compiledContent() : "",
+  };
+}).filter(article => !article.draft)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// Sentiment color mapping
+const sentimentColor = {
+  "Bullish": "text-green-400 bg-green-500/10",
+  "Bearish": "text-red-400 bg-red-500/10",
+  "Neutral": "text-yellow-400 bg-yellow-500/10",
+};
+
+const importanceColor = {
+  "High": "border-l-red-500",
+  "Medium": "border-l-yellow-500",
+  "Low": "border-l-green-500",
+};
+---
+
+<BaseLayout 
+  title="Crypto News | Daily Market Headlines | 1H Crypto" 
+  description="Daily crypto market news: BTC ETF flows, regulatory updates, macro data." 
+  lang="en" 
+  activeNav="news"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl font-bold text-white mb-2">📰 Crypto News</h1>
+      <p class="text-[var(--text-muted)]">Daily market headlines · Data-driven · No noise</p>
+    </div>
+
+    <!-- Auto-update indicator -->
+    <div class="card p-4 mb-6 border border-[var(--primary)]/20 bg-[var(--primary)]/5 fade-in-on-scroll">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--primary)]"></span>
+        </span>
+        <span class="text-[var(--primary)] font-medium">Auto News System Active</span>
+        <span class="text-[var(--text-muted)] ml-2">Daily auto-fetch, analyze & publish</span>
+      </div>
+    </div>
+
+    <!-- News list -->
+    {articles.length > 0 ? (
+      <div class="space-y-4 fade-in-on-scroll">
+        {articles.map((article, idx) => (
+          <div class={`card p-5 border-l-4 ${importanceColor[article.importance] || "border-l-gray-500"} hover:border-[var(--primary)]/50 transition-colors`}>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class={`text-xs font-bold px-2 py-0.5 rounded ${sentimentColor[article.sentiment] || "text-gray-400 bg-gray-500/10"}`}>
+                {article.sentiment}
+              </span>
+              <span class="text-[var(--text-muted)] text-xs">{new Date(article.date).toLocaleDateString('en-US')}</span>
+              {article.source && (
+                <span class="text-[var(--text-muted)] text-xs">· {article.source}</span>
+              )}
+              {article.importance === "High" && (
+                <span class="badge badge-red">Important</span>
+              )}
+            </div>
+            <h3 class="text-white font-semibold mb-2 hover:text-[var(--primary)] transition-colors">
+              <a href={`/en/news/${article.slug}`} class="no-underline">{article.title}</a>
+            </h3>
+            {article.coins.length > 0 && (
+              <div class="flex flex-wrap gap-1 mb-2">
+                {article.coins.map(coin => (
+                  <span class="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-card)] text-[var(--primary)] font-mono">{coin}</span>
+                ))}
+              </div>
+            )}
+            <p class="text-sm text-[var(--text-secondary)] line-clamp-2">{article.content.substring(0, 150)}...</p>
+            {article.url && (
+              <a href={article.url} target="_blank" rel="noopener noreferrer" class="text-xs text-[var(--primary)] hover:underline mt-2 inline-block">
+                View Original →
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="card p-8 text-center fade-in-on-scroll">
+        <p class="text-[var(--text-muted)] mb-4">No news data yet</p>
+        <p class="text-xs text-[var(--text-muted)]">Auto news system running, please refresh later</p>
+      </div>
+    )}
+
+    <!-- Archive info -->
+    <div class="card p-6 mt-8 fade-in-on-scroll" style="animation-delay: 0.1s">
+      <h3 class="text-white font-semibold mb-3">📋 Archive</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">All historical news auto-archived. Click article titles above to view full content.</p>
+      <div class="text-xs text-[var(--text-muted)]">
+        <p>✅ Auto-fetch: CoinDesk, CoinTelegraph, Jinse, Bishijie</p>
+        <p>✅ AI Analysis: DeepSeek API auto-generates summaries & sentiment</p>
+        <p>✅ Auto-publish: GitHub Actions auto-deploy</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+    <div class="p-4 bg-[var(--bg-card)]/50 border border-[var(--border)] rounded-lg text-xs text-[var(--text-muted)]">
+      <strong>⚠️ Disclaimer:</strong> News compiled from public sources for informational purposes only. Not investment advice.
+    </div>
+  </div>
+</BaseLayout>

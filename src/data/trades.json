@@ -1,0 +1,20 @@
+[
+  {
+    "id": "trade-001",
+    "date": "2026-05-30",
+    "session": "亚洲盘",
+    "pair": "BTC/USDT",
+    "direction": "long",
+    "entryPrice": 73250,
+    "stopLoss": 72500,
+    "takeProfit": 74800,
+    "riskReward": "1:2.2",
+    "status": "open",
+    "closePrice": null,
+    "pnl": null,
+    "pnlPct": null,
+    "reason": "1H 出现看涨信号条，close > EMA20，volume 放大。支撑位 72800 守住。",
+    "linkedAnalysis": "/zh/daily/",
+    "screenshot": null
+  }
+]

@@ -1,0 +1,244 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import trades from "../../../data/trades.json";
+
+// 计算统计指标
+function calcStats(trades: any[]) {
+  const closed = trades.filter(t => t.status === "closed" && t.pnlPct != null);
+  const wins = closed.filter(t => (t.pnlPct || 0) > 0);
+  const totalPnl = closed.reduce((s, t) => s + (t.pnlPct || 0), 0);
+  const winRate = closed.length > 0 ? (wins.length / closed.length * 100) : null;
+  const nav = 1000000 * (1 + totalPnl / 100);
+  const maxDrawdown = calcMaxDrawdown(trades);
+  return { closed: closed.length, wins: wins.length, winRate, nav: Math.round(nav), totalPnl: totalPnl.toFixed(2), maxDrawdown };
+}
+
+function calcMaxDrawdown(trades: any[]) {
+  let peak = 1000000;
+  let maxDD = 0;
+  let nav = 1000000;
+  for (const t of trades.filter(t => t.status === "closed")) {
+    nav *= (1 + (t.pnlPct || 0) / 100);
+    if (nav > peak) peak = nav;
+    const dd = (peak - nav) / peak * 100;
+    if (dd > maxDD) maxDD = dd;
+  }
+  return maxDD.toFixed(2);
+}
+
+const stats = calcStats(trades);
+const openTrades = trades.filter(t => t.status === "open");
+const closedTrades = trades.filter(t => t.status === "closed").slice(0, 10);
+
+// 把 openTrades 序列化成 JSON 供前端脚本使用
+const openTradesJson = JSON.stringify(openTrades);
+---
+
+<BaseLayout title="模拟盘追踪 - 100 万 USDT 虚拟资金" lang="zh" activeNav="trading">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-3xl font-bold text-white mb-2">模拟盘追踪</h1>
+    <p class="text-[var(--text-muted)] mb-8 text-sm">起始资金：100 万 USDT（虚拟货币）。交易标的：BTC & ETH。交易周期：1H K线。策略：Al Brooks 价格行为学。</p>
+
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-10">
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">初始资金</div>
+        <div class="text-lg font-bold text-white font-mono">1,000,000</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">当前净值</div>
+        <div class="text-lg font-bold font-mono {stats.nav >= 1000000 ? 'text-green-400' : 'text-red-400'}">{stats.nav.toLocaleString()}</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">胜率</div>
+        <div class="text-lg font-bold font-mono {stats.winRate && stats.winRate >= 50 ? 'text-green-400' : 'text-red-400'}">
+          {stats.winRate != null ? stats.winRate.toFixed(1) + '%' : '--'}
+        </div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">最大回撤</div>
+        <div class="text-lg font-bold text-red-400 font-mono">{stats.maxDrawdown}%</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">总盈亏</div>
+        <div class="text-lg font-bold font-mono {Number(stats.totalPnl) >= 0 ? 'text-green-400' : 'text-red-400'}">
+          {Number(stats.totalPnl) >= 0 ? '+' : ''}{stats.totalPnl}%
+        </div>
+      </div>
+    </div>
+
+    <!-- 当前持仓 -->
+    {openTrades.length > 0 && (
+      <div class="mb-10">
+        <h2 class="text-xl font-bold text-white mb-4">当前持仓 <span class="text-xs text-[var(--text-muted)] font-normal ml-2" id="pnl-update-time"></span></h2>
+        <div class="space-y-3" id="open-trades-list">
+          {openTrades.map(t => (
+            <div class="card p-4" id={"trade-" + t.id}>
+              <div class="flex flex-wrap items-center gap-3 mb-2">
+                <span class:list={["text-sm font-bold px-2 py-0.5 rounded", t.direction === "long" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"]}>
+                  {t.direction === "long" ? "多" : "空"}
+                </span>
+                <span class="text-white font-mono text-sm">{t.pair}</span>
+                <span class="text-[var(--text-muted)] text-xs">{t.session}</span>
+                <span class="text-[var(--text-muted)] text-xs">{t.date}</span>
+                <!-- 实时盈亏标签，JS 会填入内容 -->
+                <span class="text-sm font-mono font-bold" id={"pnl-" + t.id}></span>
+              </div>
+              <div class="grid grid-cols-3 md:grid-cols-5 gap-2 text-xs text-[var(--text-muted)]">
+                <div>入场 <span class="text-white font-mono">{t.entryPrice?.toLocaleString()}</span></div>
+                <div>止损 <span class="text-red-400 font-mono">{t.stopLoss?.toLocaleString()}</span></div>
+                <div>目标 <span class="text-green-400 font-mono">{t.takeProfit?.toLocaleString()}</span></div>
+                <div>风险回报 <span class="text-amber-400 font-mono">{t.riskReward}</span></div>
+                <div>
+                  <a href={t.linkedAnalysis} class="text-primary hover:underline text-xs">查看分析 →</a>
+                </div>
+              </div>
+              {t.reason && <p class="text-xs text-[var(--text-muted)] mt-2">{t.reason}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- 历史记录 -->
+    <div>
+      <h2 class="text-xl font-bold text-white mb-4">历史记录</h2>
+      {closedTrades.length === 0 ? (
+        <div class="card p-8 text-center text-[var(--text-muted)] text-sm">暂无平仓记录，每日交易记录将同步发布。</div>
+      ) : (
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-[var(--text-muted)] text-xs border-b border-[var(--border)]">
+                <th class="text-left py-2 px-2">日期</th>
+                <th class="text-left py-2 px-2">标的</th>
+                <th class="text-left py-2 px-2">方向</th>
+                <th class="text-right py-2 px-2">入场</th>
+                <th class="text-right py-2 px-2">出场</th>
+                <th class="text-right py-2 px-2">盈亏</th>
+              </tr>
+            </thead>
+            <tbody>
+              {closedTrades.map(t => (
+                <tr class="border-b border-[var(--border)]/50 hover:bg-white/5">
+                  <td class="py-2 px-2 text-[var(--text-muted)] text-xs">{t.date}</td>
+                  <td class="py-2 px-2 text-white font-mono text-xs">{t.pair}</td>
+                  <td class="py-2 px-2">
+                    <span class:list={["text-xs", t.direction === "long" ? "text-green-400" : "text-red-400"]}>
+                      {t.direction === "long" ? "多" : "空"}
+                    </span>
+                  </td>
+                  <td class="py-2 px-2 text-white font-mono text-xs text-right">{t.entryPrice?.toLocaleString()}</td>
+                  <td class="py-2 px-2 text-white font-mono text-xs text-right">{t.closePrice?.toLocaleString()}</td>
+                  <td class="py-2 px-2 font-mono text-xs text-right {t.pnlPct && t.pnlPct >= 0 ? 'text-green-400' : 'text-red-400'}">
+                    {t.pnlPct && t.pnlPct >= 0 ? '+' : ''}{(t.pnlPct || 0).toFixed(2)}%
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Real-time P&L Calculator -->
+  <script define:vars={{ openTradesJson }}>
+    (function() {
+      // openTradesData is injected from Astro backend
+      const openTrades = JSON.parse(openTradesJson);
+
+      // Map pair names to Binance symbols
+      const pairMap = {
+        'BTC/USDT': 'BTCUSDT',
+        'ETH/USDT': 'ETHUSDT',
+        'BTC': 'BTCUSDT',
+        'ETH': 'ETHUSDT'
+      };
+
+      // Calculate P&L percentage for a trade
+      function calcPnlPct(trade, currentPrice) {
+        const entry = trade.entryPrice;
+        if (!entry || !currentPrice) return null;
+        if (trade.direction === 'long') {
+          return (currentPrice - entry) / entry * 100;
+        } else {
+          return (entry - currentPrice) / entry * 100;
+        }
+      }
+
+      // Format P&L for display
+      function fmtPnl(pnl) {
+        if (pnl === null || pnl === undefined) return '--';
+        const cls = pnl >= 0 ? 'text-green-400' : 'text-red-400';
+        const sign = pnl >= 0 ? '+' : '';
+        return '<span class="' + cls + '">' + sign + pnl.toFixed(2) + '%</span>';
+      }
+
+      // Update P&L display for all open trades
+      async function updateOpenTradesPnl() {
+        if (!openTrades || openTrades.length === 0) return;
+
+        // Build symbols list
+        const symbols = [...new Set(openTrades.map(t => pairMap[t.pair] || t.pair.replace('/', '')))];
+
+        try {
+          const symParam = encodeURIComponent(JSON.stringify(symbols));
+          const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=' + symParam, {
+            headers: { 'Accept': 'application/json' }
+          });
+          if (!res.ok) throw new Error('Binance API error: ' + res.status);
+          const data = await res.json();
+
+          // Build price map
+          const priceMap = {};
+          data.forEach(d => {
+            priceMap[d.symbol] = parseFloat(d.lastPrice);
+          });
+
+          // Update each open trade
+          openTrades.forEach(t => {
+            const symbol = pairMap[t.pair] || t.pair.replace('/', '');
+            const currentPrice = priceMap[symbol];
+            if (!currentPrice) return;
+
+            const pnl = calcPnlPct(t, currentPrice);
+            const pnlEl = document.getElementById('pnl-' + t.id);
+            if (pnlEl) {
+              pnlEl.innerHTML = '浮动盈亏：' + fmtPnl(pnl);
+            }
+
+            // Also update the card border color based on P&L
+            const cardEl = document.getElementById('trade-' + t.id);
+            if (cardEl && pnl !== null) {
+              if (pnl > 0) {
+                cardEl.classList.add('border-green-500/30');
+                cardEl.classList.remove('border-red-500/30');
+              } else if (pnl < 0) {
+                cardEl.classList.add('border-red-500/30');
+                cardEl.classList.remove('border-green-500/30');
+              }
+            }
+          });
+
+          // Update timestamp
+          const tsEl = document.getElementById('pnl-update-time');
+          if (tsEl) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            tsEl.textContent = '（实时盈亏更新：' + timeStr + '）';
+          }
+
+          console.log('[P&L] Updated successfully');
+        } catch (e) {
+          console.warn('[P&L] Update failed, retrying in 30s:', e.message);
+          setTimeout(updateOpenTradesPnl, 30000);
+        }
+      }
+
+      // Initial update and poll every 60s
+      updateOpenTradesPnl();
+      setInterval(updateOpenTradesPnl, 60000);
+    })();
+  </script>
+</BaseLayout>

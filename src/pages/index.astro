@@ -1,0 +1,206 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE_TITLE, SITE_DESC_ZH } from "../config.ts";
+---
+
+<BaseLayout title={`BTC & ETH 价格行为分析 | 1H币研`} lang="zh">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 md:py-28">
+    <div class="hero-glow"></div>
+    <div class="relative z-1 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-1.5 mb-4 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        用阿尔·布鲁克斯方法做 BTC & ETH 日内分析
+      </div>
+      <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+        用 <span class="gradient-text">价格行为</span> 读懂<br class="hidden sm:block" />加密市场
+      </h1>
+      <p class="text-[var(--text-muted)] text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+        每天上午 8:00（北京时间），发布 BTC & ETH 小时图价格行为分析。<br class="hidden sm:block" />四维研判体系：价格行为 + 链上数据 + 衍生品 + 模拟盘实证。
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/zh/daily/" class="btn-primary text-sm sm:text-base no-underline">
+          今日研判 →
+        </a>
+        <a href="/zh/about/" class="px-4 py-2 border border-[var(--border)] text-[var(--text-muted)] hover:text-white hover:border-primary/50 rounded-lg text-sm sm:text-base transition-colors no-underline">
+          关于本站
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Metrics Strip -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-card)]/30 backdrop-blur-sm" id="price-strip">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div>
+          <div class="text-lg font-bold font-mono" id="price-btc">--</div>
+          <div class="text-xs text-[var(--text-muted)] mt-0.5">BTC/USDT</div>
+        </div>
+        <div>
+          <div class="text-lg font-bold font-mono" id="price-eth">--</div>
+          <div class="text-xs text-[var(--text-muted)] mt-0.5">ETH/USDT</div>
+        </div>
+        <div>
+          <div class="text-lg font-bold font-mono" id="price-fear">--</div>
+          <div class="text-xs text-[var(--text-muted)] mt-0.5">恐慌指数</div>
+        </div>
+        <div>
+          <div class="text-lg font-bold font-mono text-primary" id="price-nav">1,000,000</div>
+          <div class="text-xs text-[var(--text-muted)] mt-0.5">模拟净值</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Dimension Analysis -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+    <h2 class="text-xl font-bold text-white mb-2 text-center">四维分析体系</h2>
+    <p class="text-[var(--text-muted)] text-sm mb-8 text-center">每一篇研判，都包含以下四个维度</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Card 1 -->
+      <div class="card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30">
+        <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+          <svg class="w-4.5 h-4.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13h4v8H3zM10 8h4v13h-4zM17 3h4v18h-4z"/></svg>
+        </div>
+        <h3 class="text-white font-semibold mb-1.5 text-sm">价格行为分析</h3>
+        <p class="text-xs text-[var(--text-muted)] leading-relaxed">Al Brooks 框架下的 1H K 线形态识别、支撑/阻力位标注、信号条和信号棒判定。</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30">
+        <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
+          <svg class="w-4.5 h-4.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        </div>
+        <h3 class="text-white font-semibold mb-1.5 text-sm">链上数据</h3>
+        <p class="text-xs text-[var(--text-muted)] leading-relaxed">交易所余额变化、活跃地址数、大户转账追踪——数据说话，不靠感觉。</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30">
+        <div class="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center mb-3">
+          <svg class="w-4.5 h-4.5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <h3 class="text-white font-semibold mb-1.5 text-sm">衍生品情绪</h3>
+        <p class="text-xs text-[var(--text-muted)] leading-relaxed">资金费率、未平仓合约、多空比——读懂聪明钱的仓位方向。</p>
+      </div>
+      <!-- Card 4 -->
+      <div class="card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30">
+        <div class="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center mb-3">
+          <svg class="w-4.5 h-4.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="text-white font-semibold mb-1.5 text-sm">模拟盘实证</h3>
+        <p class="text-xs text-[var(--text-muted)] leading-relaxed">100 万 USDT 虚拟资金，每一笔操作都有记录、有复盘、有结果。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="card p-8 text-center">
+      <h2 class="text-xl font-bold text-white mb-3">每天早上 8:00，打开 1H币研</h2>
+      <p class="text-[var(--text-muted)] max-w-lg mx-auto mb-6">
+        365 天后，你会拥有 365 份 BTC & ETH 带验证的价格行为分析记录——这个积累，别人抄不来。
+      </p>
+      <a href="/zh/daily/" class="btn-primary no-underline">查看今日研判 →</a>
+    </div>
+  </section>
+
+  <!-- Price Ticker Bar (below CTA) -->
+  <section class="border-t border-[var(--border)] bg-[var(--bg-card)]/50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 overflow-hidden">
+      <div class="ticker-wrap flex items-center gap-6 text-sm whitespace-nowrap" id="ticker-wrap">
+        <span class="text-[var(--text-muted)]">实时报价</span>
+        <span class="text-white font-mono" id="ticker-btc">BTC/USDT: --</span>
+        <span class="text-[var(--text-muted)]">|</span>
+        <span class="text-white font-mono" id="ticker-eth">ETH/USDT: --</span>
+        <span class="text-[var(--text-muted)]">|</span>
+        <span class="text-[var(--text-muted)] text-xs" id="ticker-fear">恐慌指数: --</span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Real-time price fetcher — uses Binance public API (accessible in China)
+  // Binance %24hr ticker — batch request for BTCUSDT & ETHUSDT
+  async function fetchPrice() {
+    try {
+      const res = await fetch(
+        'https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D',
+        { headers: { 'Accept': 'application/json' } }
+      );
+      if (!res.ok) throw new Error('Binance API error: ' + res.status);
+      const data = await res.json();
+      // data = [{symbol, lastPrice, priceChangePercent}, ...]
+      const btc = data.find(d => d.symbol === 'BTCUSDT');
+      const eth = data.find(d => d.symbol === 'ETHUSDT');
+      updatePriceUI({ btc, eth });
+    } catch (e) {
+      console.warn('[Price] fetch error, retrying in 10s:', e.message);
+      setTimeout(fetchPrice, 10000);
+    }
+  }
+
+  function fmt(n) {
+    if (n == null) return '--';
+    const num = Number(n);
+    return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtChange(v) {
+    if (v == null) return '';
+    const num = Number(v);
+    const sign = num >= 0 ? '+' : '';
+    const cls = num >= 0 ? 'text-green-400' : 'text-red-400';
+    return '<span class="' + cls + '">' + sign + num.toFixed(2) + '%</span>';
+  }
+
+  function updatePriceUI({ btc, eth }) {
+    // BTC
+    var btcEl = document.getElementById('price-btc');
+    if (btcEl && btc && btc.lastPrice != null) {
+      btcEl.innerHTML = '<span class="' + (Number(btc.priceChangePercent) >= 0 ? 'text-green-400' : 'text-red-400') + '">' + fmt(btc.lastPrice) + '</span> ' + fmtChange(btc.priceChangePercent);
+    }
+    // ETH
+    var ethEl = document.getElementById('price-eth');
+    if (ethEl && eth && eth.lastPrice != null) {
+      ethEl.innerHTML = '<span class="' + (Number(eth.priceChangePercent) >= 0 ? 'text-green-400' : 'text-red-400') + '">' + fmt(eth.lastPrice) + '</span> ' + fmtChange(eth.priceChangePercent);
+    }
+
+    // Ticker bar
+    var tBtc = document.getElementById('ticker-btc');
+    var tEth = document.getElementById('ticker-eth');
+    if (tBtc) tBtc.textContent = 'BTC/USDT: ' + fmt(btc && btc.lastPrice);
+    if (tEth) tEth.textContent = 'ETH/USDT: ' + fmt(eth && eth.lastPrice);
+  }
+
+  // Fear & Greed (fetched once per page load)
+  async function fetchFearGreed() {
+    try {
+      var res = await fetch('https://api.alternative.me/fng/?limit=1', {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) return;
+      var data = await res.json();
+      var item = data && data.data && data.data[0];
+      if (!item) return;
+      var v = parseInt(item.value);
+      var cls = '';
+      if (v <= 25) cls = 'text-red-400';
+      else if (v <= 45) cls = 'text-orange-400';
+      else if (v <= 55) cls = 'text-amber-400';
+      else if (v <= 75) cls = 'text-green-400';
+      else cls = 'text-emerald-400';
+
+      var fgEl = document.getElementById('price-fear');
+      if (fgEl) fgEl.innerHTML = '<span class="' + cls + '">' + v + '</span>';
+
+      var tFear = document.getElementById('ticker-fear');
+      if (tFear) tFear.textContent = '恐慌指数: ' + v + ' (' + (item.value_classification || '') + ')';
+    } catch (e) { /* silent fail */ }
+  }
+
+  // Init
+  fetchPrice();
+  fetchFearGreed();
+  setInterval(fetchPrice, 60000);
+</script>

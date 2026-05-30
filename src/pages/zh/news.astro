@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import siteConfig from "../../config/site-config.ts";
+
+// 动态读取中文新闻 Markdown 文件
+const newsFiles = await import.meta.glob("../content/zh/news/*.md", { eager: true });
+
+// 解析所有新闻文章
+const articles = Object.entries(newsFiles).map(([filePath, module]) => {
+  const slug = filePath.split("/").pop().replace(".md", "");
+  const data = module.frontmatter || {};
+  return {
+    slug,
+    title: data.title || "无标题",
+    date: data.date || new Date().toISOString(),
+    source: data.source || "",
+    url: data.url || "",
+    sentiment: data.sentiment || "中性",
+    coins: data.coins || [],
+    importance: data.importance || "低",
+    tags: data.tags || [],
+    draft: data.draft || false,
+    content: module.compiledContent ? module.compiledContent() : "",
+  };
+}).filter(article => !article.draft)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// 情绪标签颜色映射
+const sentimentColor = {
+  "看涨": "text-green-400 bg-green-500/10",
+  "看跌": "text-red-400 bg-red-500/10",
+  "中性": "text-yellow-400 bg-yellow-500/10",
+};
+
+const importanceColor = {
+  "高": "border-l-red-500",
+  "中": "border-l-yellow-500",
+  "低": "border-l-green-500",
+};
+---
+
+<BaseLayout 
+  title="新闻快报 | 加密市场每日要闻 | 1H币研" 
+  description="每日加密市场新闻速递，BTC ETF 流入流出，监管动态，宏观数据。" 
+  lang="zh" 
+  activeNav="news"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="section-header-nonflex mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl font-bold text-white mb-2">📰 新闻快报</h1>
+      <p class="text-[var(--text-muted)]">加密市场每日要闻速递 · 数据驱动 · 不带情绪</p>
+    </div>
+
+    <!-- 自动更新提示 -->
+    <div class="card p-4 mb-6 border border-[var(--primary)]/20 bg-[var(--primary)]/5 fade-in-on-scroll">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--primary)]"></span>
+        </span>
+        <span class="text-[var(--primary)] font-medium">自动资讯系统已启用</span>
+        <span class="text-[var(--text-muted)] ml-2">每日自动抓取、分析、发布</span>
+      </div>
+    </div>
+
+    <!-- 新闻列表 -->
+    {articles.length > 0 ? (
+      <div class="space-y-4 fade-in-on-scroll">
+        {articles.map((article, idx) => (
+          <div class={`card p-5 border-l-4 ${importanceColor[article.importance] || "border-l-gray-500"} hover:border-[var(--primary)]/50 transition-colors`}>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class={`text-xs font-bold px-2 py-0.5 rounded ${sentimentColor[article.sentiment] || "text-gray-400 bg-gray-500/10"}`}>
+                {article.sentiment}
+              </span>
+              <span class="text-[var(--text-muted)] text-xs">{new Date(article.date).toLocaleDateString('zh-CN')}</span>
+              {article.source && (
+                <span class="text-[var(--text-muted)] text-xs">· {article.source}</span>
+              )}
+              {article.importance === "高" && (
+                <span class="badge badge-red">重要</span>
+              )}
+            </div>
+            <h3 class="text-white font-semibold mb-2 hover:text-[var(--primary)] transition-colors">
+              <a href={`/zh/news/${article.slug}`} class="no-underline">{article.title}</a>
+            </h3>
+            {article.coins.length > 0 && (
+              <div class="flex flex-wrap gap-1 mb-2">
+                {article.coins.map(coin => (
+                  <span class="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-card)] text-[var(--primary)] font-mono">{coin}</span>
+                ))}
+              </div>
+            )}
+            <p class="text-sm text-[var(--text-secondary)] line-clamp-2">{article.content.substring(0, 150)}...</p>
+            {article.url && (
+              <a href={article.url} target="_blank" rel="noopener noreferrer" class="text-xs text-[var(--primary)] hover:underline mt-2 inline-block">
+                查看原文 →
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="card p-8 text-center fade-in-on-scroll">
+        <p class="text-[var(--text-muted)] mb-4">暂无新闻数据</p>
+        <p class="text-xs text-[var(--text-muted)]">自动资讯系统运行中，请稍后刷新页面</p>
+      </div>
+    )}
+
+    <!-- 新闻归档提示 -->
+    <div class="card p-6 mt-8 fade-in-on-scroll" style="animation-delay: 0.1s">
+      <h3 class="text-white font-semibold mb-3">📋 历史快讯</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">所有历史新闻已自动归档，点击上方文章标题查看完整内容。</p>
+      <div class="text-xs text-[var(--text-muted)]">
+        <p>✅ 自动抓取：CoinDesk、CoinTelegraph、金色财经、币世界</p>
+        <p>✅ AI 分析：DeepSeek API 自动生成摘要与情绪分析</p>
+        <p>✅ 自动发布：GitHub Actions 定时任务自动部署</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 免责声明 -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+    <div class="p-4 bg-[var(--bg-card)]/50 border border-[var(--border)] rounded-lg text-xs text-[var(--text-muted)]">
+      <strong class="text-[var(--text-secondary)]">⚠️ 免责声明：</strong>以上新闻信息整理自公开渠道，仅供参考，不构成投资建议。
+    </div>
+  </div>
+</BaseLayout>

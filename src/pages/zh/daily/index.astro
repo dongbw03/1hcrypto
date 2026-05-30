@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "每日研判 - BTC & ETH 小时图价格行为分析",
+  "description": "BTC/USDT & ETH/USDT 小时图价格行为分析。每天上午 8:00（北京时间）发布。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-01T00:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader",
+    "url": "https://1hcrypto.com/zh/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://1hcrypto.com/zh/daily/"
+  }
+};
+---
+<BaseLayout title="每日研判 - BTC & ETH 小时图价格行为分析 | 1H币研" description="BTC/USDT & ETH/USDT 小时图价格行为分析。每天上午 8:00（北京时间）发布。" lang="zh" activeNav="daily">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <!-- 页面标题 -->
+    <div class="section-header-nonflex mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl font-bold text-white mb-2">每日研判</h1>
+      <p class="text-[var(--text-muted)]">BTC/USDT & ETH/USDT 小时图价格行为分析 · 每天上午 8:00（北京时间）发布</p>
+    </div>
+
+    <!-- BTC 分析卡片 -->
+    <div class="card p-6 mb-6 hover:border-primary/30 transition-colors fade-in-on-scroll">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="badge badge-blue">价格行为</span>
+        <span class="text-xs text-[var(--text-muted)]">2026-06-01</span>
+      </div>
+      <h2 class="text-xl font-bold text-white mb-3">BTC/USDT 小时图价格行为分析</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Pin Bar 出现在通道下轨 · 关注 67,200 突破回踩确认 · 多头等待入场</p>
+
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-2 border-primary">
+        <p class="text-xs text-primary font-semibold mb-2">📌 核心摘要</p>
+        <p class="text-sm text-[var(--text-primary)]">市场结构：交易区间日。价格在 66,800 - 67,800 之间来回震荡。最关键水平：$67,200（区间中轴 + POC）。核心判断：等待 67,200 的突破确认或通道下轨的二次测试。</p>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">关键水平</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力 R2</div><div class="text-sm font-bold text-white font-mono">68,500</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力 R1</div><div class="text-sm font-bold text-white font-mono">67,800</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">中枢 POC</div><div class="text-sm font-bold text-primary font-mono">67,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑 S1</div><div class="text-sm font-bold text-white font-mono">66,800</div></div>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">链上数据快照</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">交易所 BTC 余额</div><div class="text-sm font-bold text-green-400 font-mono">-3,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">未平仓合约</div><div class="text-sm font-bold text-[var(--accent)] font-mono">+2.1%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">资金费率</div><div class="text-sm font-bold text-red-400 font-mono">0.03%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">净流量（7d）</div><div class="text-sm font-bold text-green-400 font-mono">-1,800</div></div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+        <span>⏱ 阅读 5 min</span>
+        <span>📊 含链上 + 衍生品</span>
+      </div>
+    </div>
+
+    <!-- ETH 分析卡片 -->
+    <div class="card p-6 mb-6 hover:border-accent/30 transition-colors fade-in-on-scroll" style="animation-delay: 0.1s">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="badge badge-amber">价格行为</span>
+        <span class="text-xs text-[var(--text-muted)]">2026-06-01</span>
+      </div>
+      <h2 class="text-xl font-bold text-white mb-3">ETH/USDT 小时图价格行为分析</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">双底形态初现 · 关注 3,720 颈线突破 · 成交量放大确认买盘</p>
+
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-2 border-accent">
+        <p class="text-xs text-accent font-semibold mb-2">📌 核心摘要</p>
+        <p class="text-sm text-[var(--text-primary)]">市场结构：双底（W 底）形成中。ETH 在 3,600 附近形成两次低点，颈线在 3,680。最关键水平：$3,720（突破确认线）。核心判断：双底偏多，但需等 3,720 突破确认。</p>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">关键水平</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力 R2</div><div class="text-sm font-bold text-white font-mono">3,800</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">颈线</div><div class="text-sm font-bold text-accent font-mono">3,720</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑 S1</div><div class="text-sm font-bold text-white font-mono">3,600</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑 S2</div><div class="text-sm font-bold text-white font-mono">3,550</div></div>
+      </div>
+
+      <h3 class="text-white font-semibold mb-2">链上数据快照</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">交易所 ETH 余额</div><div class="text-sm font-bold text-green-400 font-mono">-15.2 万</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">未平仓合约</div><div class="text-sm font-bold text-green-400 font-mono">+3.5%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">资金费率</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">0.005%</div></div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+        <span>⏱ 阅读 4 min</span>
+        <span>📊 含链上 + 衍生品</span>
+      </div>
+    </div>
+
+    <!-- 今日发布汇总 -->
+    <div class="card p-6 bg-[var(--bg-secondary)]/50 fade-in-on-scroll" style="animation-delay: 0.2s">
+      <h3 class="text-white font-semibold mb-3">📋 今日内容汇总（2026-06-01）</h3>
+      <div class="space-y-2 text-sm">
+        <div class="flex items-center gap-2"><span class="badge badge-blue w-16 text-center">分析</span> BTC/USDT — 交易区间日 · Pin Bar 在通道下轨</div>
+        <div class="flex items-center gap-2"><span class="badge badge-amber w-16 text-center">分析</span> ETH/USDT — 双底形态初现 · 关注颈线突破</div>
+        <div class="flex items-center gap-2"><span class="badge badge-green w-16 text-center">快讯</span> BTC ETF 连续第 5 日净流入 · 美联储官员密集发声</div>
+        <div class="flex items-center gap-2"><span class="badge badge-purple w-16 text-center">播报</span> BTC 15 分钟内下跌 2.3% · 触发 66,800 止损集群</div>
+      </div>
+      <div class="mt-4 text-xs text-[var(--text-muted)]">所有内容每日 08:00-08:35 完成生产 · 中英双语发布</div>
+    </div>
+  </div>
+</BaseLayout>

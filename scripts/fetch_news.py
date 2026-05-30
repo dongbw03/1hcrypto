@@ -14,10 +14,13 @@ API_URL  = "https://api.deepseek.com/v1/chat/completions"
 ZH_DIR  = Path(__file__).parent.parent / "src" / "content" / "zh" / "news"
 EN_DIR  = Path(__file__).parent.parent / "src" / "content" / "en" / "news"
 
+# 请求头（避免被反爬）
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; 1hcrypto-bot/1.0)"}
+
 # 只用全球可访问的 RSS 源（GitHub Actions 能访问）
 RSS_SOURCES = [
     ("CoinTelegraph", "https://cointelegraph.com/rss"),
-    ("CoinDesk",     "https://www.coindesk.com/feed/"),
+    ("CoinDesk",     "https://www.coindesk.com/arc/outboundfeeds/rss/"),
     ("The Block",     "https://www.theblock.co/rss.xml"),
     ("Decrypt",       "https://decrypt.co/feed/"),
     ("BitcoinMag",    "https://bitcoinmagazine.com/.rss/full/"),
@@ -30,7 +33,7 @@ MAX_PER_RUN  = 8   # 每次最多处理条数
 # ── RSS 抓取 ─────────────────────────────────────
 def fetch_rss(name, url):
     try:
-        resp = requests.get(url, timeout=20, verify=False)
+        resp = requests.get(url, timeout=20, verify=False, headers=HEADERS)
         resp.raise_for_status()
         root = ET.fromstring(resp.content)
     except Exception as e:

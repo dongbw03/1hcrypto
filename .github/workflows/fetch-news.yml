@@ -1,4 +1,4 @@
-name: Fetch Crypto News
+name: Fetch Crypto News & Price Analysis
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:  # 允许手动触发
 
 jobs:
-  fetch-news:
+  fetch-news-and-analysis:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,19 +26,25 @@ jobs:
       - name: Install dependencies
         run: pip install requests
       
-      - name: Run fetch_news.py
+      - name: Run fetch_news.py (资讯抓取)
         env:
-          DEEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_news.py
       
-      - name: Commit and push new news
+      - name: Run price_analysis.py (价格分析)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/price_analysis.py
+      
+      - name: Commit and push new content
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add src/content/zh/news/ src/content/en/news/ || true
+          git add src/content/zh/analysis/ src/content/en/analysis/ || true
           if git diff --cached --quiet; then
-            echo "No new news to commit"
+            echo "No new content to commit"
           else
-            git commit -m "auto: fetch crypto news $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "auto: fetch news & price analysis $(date +'%Y-%m-%d %H:%M')"
             git push
           fi

@@ -1,0 +1,78 @@
+---
+title: "Price Analysis - 1HCrypto"
+description: "Professional BTC & ETH Price Analysis Reports"
+layout: ../../layouts/BaseLayout.astro
+---
+
+<h1 class="text-3xl font-bold mb-8">📊 Price Analysis</h1>
+<p class="text-gray-400 mb-8">Professional BTC & ETH Technical Analysis Reports (1H Timeframe)</p>
+
+<div id="analysis-list" class="space-y-6">
+  <!-- Analysis reports will be loaded dynamically via JavaScript -->
+  <div class="text-center py-12">
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
+    <p class="mt-4 text-gray-400">Loading analysis reports...</p>
+  </div>
+</div>
+
+<script>
+  // Dynamically load Markdown analysis files
+  async function loadAnalysis() {
+    try {
+      // Get all analysis files (via glob import)
+      const modules = import.meta.glob('/src/content/en/analysis/*.md');
+      
+      if (Object.keys(modules).length === 0) {
+        document.getElementById('analysis-list').innerHTML = `
+          <div class="text-center py-12 text-gray-400">
+            <p class="text-xl">No analysis reports yet</p>
+            <p class="mt-2">Auto-generated daily at 8:00 and 20:00 (Beijing time)</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Sort by filename (newest first)
+      const files = Object.keys(modules).sort().reverse();
+      
+      const analysisList = document.getElementById('analysis-list');
+      analysisList.innerHTML = '';
+      
+      for (const file of files.slice(0, 10)) {  // Show only latest 10
+        const module = await modules[file]();
+        
+        const article = document.createElement('article');
+        article.className = 'bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition cursor-pointer';
+        article.onclick = () => window.location.href = `/en/analysis/${file.split('/').pop().replace('.md', '')}`;
+        
+        article.innerHTML = `
+          <h2 class="text-2xl font-bold mb-3 text-yellow-400">${module.frontmatter.title}</h2>
+          <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+            <span>📅 ${new Date(module.frontmatter.date).toLocaleDateString('en-US')}</span>
+            <span>|</span>
+            <span>Importance: ${module.frontmatter.importance === 'high' ? '🔥 High' : module.frontmatter.importance === 'medium' ? '⭐ Medium' : '📌 Low'}</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            ${module.frontmatter.tags.map(tag => `<span class="px-3 py-1 bg-gray-700 rounded-full text-sm">${tag}</span>`).join('')}
+          </div>
+          <p class="text-gray-300 line-clamp-3">${module.compiledContent().replace(/<[^>]*>/g, '').substring(0, 200)}...</p>
+          <div class="mt-4 text-yellow-400 hover:text-yellow-300">Read full report →</div>
+        `;
+        
+        analysisList.appendChild(article);
+      }
+      
+    } catch (error) {
+      console.error('Failed to load analysis reports:', error);
+      document.getElementById('analysis-list').innerHTML = `
+        <div class="text-center py-12 text-red-400">
+          <p class="text-xl">Failed to load</p>
+          <p class="mt-2">${error.message}</p>
+        </div>
+      `;
+    }
+  }
+  
+  // Execute on page load
+  document.addEventListener('DOMContentLoaded', loadAnalysis);
+</script>

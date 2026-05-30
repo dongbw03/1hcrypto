@@ -1,0 +1,78 @@
+---
+title: "价格分析 - 1HCrypto"
+description: "BTC 和 ETH 专业技术分析报告"
+layout: ../../layouts/BaseLayout.astro
+---
+
+<h1 class="text-3xl font-bold mb-8">📊 价格分析</h1>
+<p class="text-gray-400 mb-8">BTC & ETH 专业技术分析报告（基于 1 小时线）</p>
+
+<div id="analysis-list" class="space-y-6">
+  <!-- 分析报告将通过 JavaScript 动态加载 -->
+  <div class="text-center py-12">
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
+    <p class="mt-4 text-gray-400">加载分析报告中...</p>
+  </div>
+</div>
+
+<script>
+  // 动态加载 Markdown 分析文件
+  async function loadAnalysis() {
+    try {
+      // 获取所有分析文件（通过 glob 导入）
+      const modules = import.meta.glob('/src/content/zh/analysis/*.md');
+      
+      if (Object.keys(modules).length === 0) {
+        document.getElementById('analysis-list').innerHTML = `
+          <div class="text-center py-12 text-gray-400">
+            <p class="text-xl">暂无分析报告</p>
+            <p class="mt-2">每天 8:00 和 20:00 自动生成</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // 按文件名排序（最新的在前）
+      const files = Object.keys(modules).sort().reverse();
+      
+      const analysisList = document.getElementById('analysis-list');
+      analysisList.innerHTML = '';
+      
+      for (const file of files.slice(0, 10)) {  // 只显示最新 10 篇
+        const module = await modules[file]();
+        
+        const article = document.createElement('article');
+        article.className = 'bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition cursor-pointer';
+        article.onclick = () => window.location.href = `/zh/analysis/${file.split('/').pop().replace('.md', '')}`;
+        
+        article.innerHTML = `
+          <h2 class="text-2xl font-bold mb-3 text-yellow-400">${module.frontmatter.title}</h2>
+          <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+            <span>📅 ${new Date(module.frontmatter.date).toLocaleDateString('zh-CN')}</span>
+            <span>|</span>
+            <span>重要性: ${module.frontmatter.importance === 'high' ? '🔥 高' : module.frontmatter.importance === 'medium' ? '⭐ 中' : '📌 低'}</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            ${module.frontmatter.tags.map(tag => `<span class="px-3 py-1 bg-gray-700 rounded-full text-sm">${tag}</span>`).join('')}
+          </div>
+          <p class="text-gray-300 line-clamp-3">${module.compiledContent().replace(/<[^>]*>/g, '').substring(0, 200)}...</p>
+          <div class="mt-4 text-yellow-400 hover:text-yellow-300">阅读全文 →</div>
+        `;
+        
+        analysisList.appendChild(article);
+      }
+      
+    } catch (error) {
+      console.error('加载分析报告失败:', error);
+      document.getElementById('analysis-list').innerHTML = `
+        <div class="text-center py-12 text-red-400">
+          <p class="text-xl">加载失败</p>
+          <p class="mt-2">${error.message}</p>
+        </div>
+      `;
+    }
+  }
+  
+  // 页面加载时执行
+  document.addEventListener('DOMContentLoaded', loadAnalysis);
+</script>

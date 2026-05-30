@@ -3,3 +3,4 @@ dist/
 .cache/
 .env
 *.log
+debug_*.txt

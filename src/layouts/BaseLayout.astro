@@ -149,6 +149,12 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
               {lang === "zh" ? "价格分析" : "Analysis"}
             </a>
             <a
+              href={lang === "zh" ? "/zh/derivatives/" : "/en/derivatives/"}
+              class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "derivatives" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
+            >
+              {lang === "zh" ? "衍生品" : "Derivatives"}
+            </a>
+            <a
               href={lang === "zh" ? "/zh/weekly/" : "/en/weekly/"}
               class:list={["no-underline transition-colors px-3 py-2 rounded-lg", activeNav === "weekly" ? "text-white bg-primary/10" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
             >
@@ -209,6 +215,7 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
           <a href={lang === "zh" ? "/zh/daily/" : "/en/daily/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "每日研判" : "Daily"}</a>
           <a href={lang === "zh" ? "/zh/news/" : "/en/news/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "新闻快报" : "News"}</a>
           <a href={lang === "zh" ? "/zh/analysis/" : "/en/analysis/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "价格分析" : "Analysis"}</a>
+          <a href={lang === "zh" ? "/zh/derivatives/" : "/en/derivatives/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "衍生品" : "Derivatives"}</a>
           <a href={lang === "zh" ? "/zh/weekly/" : "/en/weekly/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "周度复盘" : "Weekly"}</a>
           <a href={lang === "zh" ? "/zh/trading/" : "/en/trading/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">模拟盘</a>
           <a href={lang === "zh" ? "/zh/tools/" : "/en/tools/"} class="block py-2.5 text-[var(--text-muted)] hover:text-white no-underline rounded-lg px-3 hover:bg-white/5">{lang === "zh" ? "推荐注册" : "Recommended"}</a>

@@ -206,6 +206,13 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "zh": {
+"analysis/2026-05-30-10-30-BTC与ETH：缩量震荡下的十字路口，方向选择一触即发.md": {
+	id: "analysis/2026-05-30-10-30-BTC与ETH：缩量震荡下的十字路口，方向选择一触即发.md";
+  slug: "analysis/2026-05-30-10-30-btc与eth缩量震荡下的十字路口方向选择一触即发";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
 "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md": {
 	id: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md";
   slug: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as";

@@ -52,7 +52,11 @@ def fetch_rss(name, url):
                         return el.text.strip()
                 return ""
             title = _find("title", f"{ns}title")
-            link_el = item.find("link") or item.find(f"{ns}link")
+            # Python 3.13: Element.__bool__ is based on len(), so <link> (no children) is falsy.
+            # Must use explicit "is not None" check instead of "or".
+            link_el = item.find("link")
+            if link_el is None:
+                link_el = item.find(f"{ns}link")
             link = ""
             if link_el is not None:
                 link = (link_el.get("href") or link_el.text or "").strip()

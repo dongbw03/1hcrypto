@@ -1,6 +1,6 @@
 ---
 title: "Bitcoin dip buyers place $500M in bids as $70K retest looms"
-date: 2026-05-30T09:52:16+08:00
+date: 2026-05-30T13:01:21+08:00
 source: "CoinTelegraph"
 url: "https://cointelegraph.com/markets/bitcoin-dip-buyers-place-350m-in-bids-as-70k-retest-looms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
 sentiment: "Bullish"
@@ -16,7 +16,7 @@ draft: false
 
 ## Summary
 
-Over $500 million in Bitcoin buy orders are placed near $70,000, with options traders and futures positions converging at the same level, signaling a potential retest of the $70K support.
+Over $500 million in Bitcoin buy orders are clustered near $70,000, with options traders and futures positions also converging at this level, indicating strong market interest and a potential key support retest.
 
 ## Original Link
 

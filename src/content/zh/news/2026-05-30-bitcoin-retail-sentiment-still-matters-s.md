@@ -1,6 +1,6 @@
 ---
 title: "Bitcoin retail sentiment still matters, says Swan Bitcoin CEO"
-date: 2026-05-30T09:52:13+08:00
+date: 2026-05-30T13:01:16+08:00
 source: "CoinTelegraph"
 url: "https://cointelegraph.com/news/bitcoin-retail-sentiment-still-matters-says-swan-bitcoin-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
 sentiment: "看涨"
@@ -16,7 +16,7 @@ draft: false
 
 ## 摘要（中文）
 
-Swan Bitcoin CEO Cory Klippsten表示，零售情绪对比特币仍然重要，因为所有权远未集中，并非由Blackrock等机构主导。他强调关注散户投资者情绪的必要性。
+Swan Bitcoin CEO Cory Klippsten表示，比特币的零售情绪仍然重要，因为所有权尚未集中，并非由Blackrock等机构主导。他强调关注散户情绪有助于理解市场动态。
 
 ## 原文链接
 

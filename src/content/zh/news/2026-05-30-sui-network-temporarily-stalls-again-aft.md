@@ -1,6 +1,6 @@
 ---
 title: "Sui network temporarily stalls again after Thursday's outage"
-date: 2026-05-30T09:52:27+08:00
+date: 2026-05-30T13:01:32+08:00
 source: "CoinTelegraph"
 url: "https://cointelegraph.com/news/sui-temporary-stall-several-hours-second-day?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
 sentiment: "看跌"
@@ -16,7 +16,7 @@ draft: false
 
 ## 摘要（中文）
 
-Sui网络再次因同一软件更新漏洞导致临时停滞，此前周四的故障已造成近六小时停机。该问题影响了网络稳定性，引发市场关注。
+Sui网络再次因同一软件漏洞导致交易暂停，此前周四已发生近六小时宕机。此次中断再次引发对网络稳定性的担忧。
 
 ## 原文链接
 

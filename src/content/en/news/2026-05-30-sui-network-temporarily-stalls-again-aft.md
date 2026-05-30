@@ -1,6 +1,6 @@
 ---
 title: "Sui network temporarily stalls again after Thursday's outage"
-date: 2026-05-30T09:52:27+08:00
+date: 2026-05-30T13:01:32+08:00
 source: "CoinTelegraph"
 url: "https://cointelegraph.com/news/sui-temporary-stall-several-hours-second-day?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
 sentiment: "Bearish"
@@ -16,7 +16,7 @@ draft: false
 
 ## Summary
 
-Sui network experienced another temporary stall due to the same software update bug that caused a nearly six-hour outage on Thursday, raising concerns about network reliability.
+Sui network stalled again due to the same software bug that caused a six-hour outage on Thursday, raising concerns about network reliability.
 
 ## Original Link
 

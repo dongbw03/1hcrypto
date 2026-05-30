@@ -1,6 +1,6 @@
 ---
 title: "US has seized nearly $1 billion in Iranian crypto, Treasury secretary says"
-date: 2026-05-30T09:52:09+08:00
+date: 2026-05-30T13:01:13+08:00
 source: "CoinTelegraph"
 url: "https://cointelegraph.com/news/us-has-seized-nearly-1-billion-in-iranian-crypto-treasury-secretary-says?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
 sentiment: "中性"
@@ -16,7 +16,7 @@ draft: false
 
 ## 摘要（中文）
 
-美国财政部长斯科特·贝森特表示，美国已扣押了约10亿美元的伊朗加密货币资产，这一数字是4月底披露金额的两倍。此举显示美国加强对伊朗加密货币的监管和打击力度。
+美国财政部长斯科特·贝森特表示，美国已扣押了约10亿美元的伊朗加密货币资产，这一数字是4月底披露金额的两倍。此举显示美国加强对伊朗利用加密货币规避制裁的打击力度。
 
 ## 原文链接
 

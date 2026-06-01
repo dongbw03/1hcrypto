@@ -1,0 +1,409 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// 读取衍生品数据
+let derivativesData = null;
+let error = null;
+
+try {
+  const filePath = path.join(process.cwd(), 'src/data/derivatives.json');
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    derivativesData = JSON.parse(fileContent);
+  }
+} catch (err) {
+  error = err.message;
+}
+
+// 处理数据用于展示
+let btcData = null;
+let ethData = null;
+
+if (derivativesData && derivativesData.symbols) {
+  btcData = derivativesData.symbols['BTCUSDT'];
+  ethData = derivativesData.symbols['ETHUSDT'];
+}
+
+// 情绪颜色映射
+const sentimentColors = {
+  'bullish': 'bg-green-500/20 text-green-400 border border-green-500/30',
+  'bearish': 'bg-red-500/20 text-red-400 border border-red-500/30',
+  'contrarian_bullish': 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+  'contrarian_bearish': 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+  'neutral': 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+};
+
+const sentimentLabels = {
+  'zh': {
+    'bullish': '看涨',
+    'bearish': '看跌',
+    'contrarian_bullish': '逆向看涨',
+    'contrarian_bearish': '逆向看跌',
+    'neutral': '中性'
+  },
+  'en': {
+    'bullish': 'Bullish',
+    'bearish': 'Bearish',
+    'contrarian_bullish': 'Contrarian Bullish',
+    'contrarian_bearish': 'Contrarian Bearish',
+    'neutral': 'Neutral'
+  }
+};
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "衍生品市场情绪 - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/derivatives/"
+  }
+}`}></script>
+<BaseLayout title="衍生品市场情绪 - 1H币研" lang="zh" activeNav="derivatives">
+  <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <section class="py-12 px-4 max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          衍生品市场情绪
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] max-w-2xl mx-auto">
+          基于 Binance Futures 实时数据，追踪资金费率、未平仓合约、多空比、大户持仓、主动买卖量
+        </p>
+        {derivativesData && (
+          <p class="text-sm text-[var(--text-muted)] mt-4">
+            更新时间: {new Date(derivativesData.timestamp).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
+          </p>
+        )}
+      </div>
+
+      {error && (
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-8">
+          <p class="text-red-400">⚠️ 数据加载失败: {error}</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">请确保已运行 python scripts/fetch_derivatives.py</p>
+        </div>
+      )}
+
+      <!-- BTC 和 ETH 数据卡片 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        <!-- BTC 数据 -->
+        {btcData && (
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 text-yellow-500 text-2xl font-bold">₿</div>
+                <div>
+                  <h2 class="text-2xl font-bold">BTC</h2>
+                  <p class="text-sm text-[var(--text-muted)]">BTC/USDT 永续合约</p>
+                </div>
+              </div>
+              {btcData.sentiment_analysis && (
+                <span class:list={["px-3 py-1 rounded-full text-sm font-medium", sentimentColors[btcData.sentiment_analysis.sentiment] || 'bg-gray-500/20 text-gray-400']}>
+                  {sentimentLabels['zh'][btcData.sentiment_analysis.sentiment] || btcData.sentiment_analysis.sentiment}
+                </span>
+              )}
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <!-- 资金费率 -->
+              {btcData.funding_rate && btcData.funding_rate.length > 0 && (
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">资金费率</p>
+                  <p class:list={["text-2xl font-bold", btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500']}>
+                    {btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                    {btcData.funding_rate[btcData.funding_rate.length - 1].rate.toFixed(4)}%
+                  </p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">最新</p>
+                </div>
+              )}
+
+              <!-- 未平仓合约 -->
+              {btcData.open_interest && (
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">未平仓合约</p>
+                  <p class="text-2xl font-bold">
+                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0 }).format(btcData.open_interest.open_interest)}
+                  </p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">BTC</p>
+                </div>
+              )}
+            </div>
+
+            <!-- 多空比 -->
+            {btcData.long_short_ratio && btcData.long_short_ratio.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">多空账户比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-[var(--text-muted)]">多头占比</span>
+                    <span class="text-green-500 font-bold">
+                      {(btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
+                    <div 
+                      class="bg-green-500 h-3 rounded-full" 
+                      style={`width: ${btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100}%`}
+                    ></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">空头占比</span>
+                    <span class="text-red-500 font-bold">
+                      {(btcData.long_short_ratio[btcData.long_short_ratio.length - 1].short_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <!-- 大户持仓比 -->
+            {btcData.top_trader_ls_ratio && btcData.top_trader_ls_ratio.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">大户持仓比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-[var(--text-muted)]">大户多头占比</span>
+                    <span class="text-green-500 font-bold">
+                      {(btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
+                    <div 
+                      class="bg-blue-500 h-3 rounded-full" 
+                      style={`width: ${btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
+                    ></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">大户空头占比</span>
+                    <span class="text-red-500 font-bold">
+                      {(btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].short_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <!-- 主动买卖量比 -->
+            {btcData.taker_longshort_ratio && btcData.taker_longshort_ratio.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">主动买卖量比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">主动买入量 / 主动卖出量</span>
+                    <span class="text-yellow-500 font-bold">
+                      {btcData.taker_longshort_ratio[btcData.taker_longshort_ratio.length - 1].buy_sell_ratio.toFixed(2)}
+                    </span>
+                  </div>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">
+                    {btcData.taker_longshort_ratio[btcData.taker_longshort_ratio.length - 1].buy_sell_ratio > 1 
+                      ? '主动买入强势，市场看涨' 
+                      : '主动卖出强势，市场看跌'}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <!-- 情绪信号 -->
+            {btcData.sentiment_analysis && btcData.sentiment_analysis.signals && (
+              <div>
+                <h3 class="text-lg font-semibold mb-3">情绪信号</h3>
+                <div class="space-y-2">
+                  {btcData.sentiment_analysis.signals.map((signal) => (
+                    <div class="flex items-start gap-2 text-sm bg-[var(--bg-primary)]/50 rounded-lg p-3">
+                      <span class="text-yellow-500 mt-0.5 flex-shrink-0">●</span>
+                      <span class="text-[var(--text-secondary)]">{signal}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- ETH 数据 -->
+        {ethData && (
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 text-blue-500 text-2xl font-bold">Ξ</div>
+                <div>
+                  <h2 class="text-2xl font-bold">ETH</h2>
+                  <p class="text-sm text-[var(--text-muted)]">ETH/USDT 永续合约</p>
+                </div>
+              </div>
+              {ethData.sentiment_analysis && (
+                <span class:list={["px-3 py-1 rounded-full text-sm font-medium", sentimentColors[ethData.sentiment_analysis.sentiment] || 'bg-gray-500/20 text-gray-400']}>
+                  {sentimentLabels['zh'][ethData.sentiment_analysis.sentiment] || ethData.sentiment_analysis.sentiment}
+                </span>
+              )}
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <!-- 资金费率 -->
+              {ethData.funding_rate && ethData.funding_rate.length > 0 && (
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">资金费率</p>
+                  <p class:list={["text-2xl font-bold", ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500']}>
+                    {ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                    {ethData.funding_rate[ethData.funding_rate.length - 1].rate.toFixed(4)}%
+                  </p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">最新</p>
+                </div>
+              )}
+
+              <!-- 未平仓合约 -->
+              {ethData.open_interest && (
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">未平仓合约</p>
+                  <p class="text-2xl font-bold">
+                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0 }).format(ethData.open_interest.open_interest)}
+                  </p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">ETH</p>
+                </div>
+              )}
+            </div>
+
+            <!-- 多空比 -->
+            {ethData.long_short_ratio && ethData.long_short_ratio.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">多空账户比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-[var(--text-muted)]">多头占比</span>
+                    <span class="text-green-500 font-bold">
+                      {(ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
+                    <div 
+                      class="bg-green-500 h-3 rounded-full" 
+                      style={`width: ${ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100}%`}
+                    ></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">空头占比</span>
+                    <span class="text-red-500 font-bold">
+                      {(ethData.long_short_ratio[ethData.long_short_ratio.length - 1].short_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <!-- 大户持仓比 -->
+            {ethData.top_trader_ls_ratio && ethData.top_trader_ls_ratio.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">大户持仓比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-[var(--text-muted)]">大户多头占比</span>
+                    <span class="text-green-500 font-bold">
+                      {(ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
+                    <div 
+                      class="bg-blue-500 h-3 rounded-full" 
+                      style={`width: ${ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
+                    ></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">大户空头占比</span>
+                    <span class="text-red-500 font-bold">
+                      {(ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].short_ratio * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <!-- 主动买卖量比 -->
+            {ethData.taker_longshort_ratio && ethData.taker_longshort_ratio.length > 0 && (
+              <div>
+                <h3 class="text-lg font-semibold mb-3">主动买卖量比</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-[var(--text-muted)]">主动买入量 / 主动卖出量</span>
+                    <span class="text-yellow-500 font-bold">
+                      {ethData.taker_longshort_ratio[ethData.taker_longshort_ratio.length - 1].buy_sell_ratio.toFixed(2)}
+                    </span>
+                  </div>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">
+                    {ethData.taker_longshort_ratio[ethData.taker_longshort_ratio.length - 1].buy_sell_ratio > 1 
+                      ? '主动买入强势，市场看涨' 
+                      : '主动卖出强势，市场看跌'}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <!-- 使用说明 -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
+        <h2 class="text-2xl font-bold mb-6">数据说明</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3">资金费率 (Funding Rate)</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              永续合约每8小时收取一次。正费率表示多头支付给空头，负费率表示空头支付给多头。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 费率 &gt; 0.01%：市场看涨情绪强烈</li>
+              <li>• 费率 &lt; -0.01%：市场看跌情绪较强</li>
+              <li>• 费率接近 0：市场情绪中性</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">未平仓合约 (Open Interest)</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              市场所有未平仓合约的总价值。增加表示资金流入，减少表示资金流出。
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">多空账户比</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              多头账户数 / 总账户数。极端值（&gt;60% 或 &lt;40%）可能预示反转。
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">大户持仓比</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              头部交易员的多空持仓比。通常被视为"聪明钱"的方向。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 免责声明 -->
+      <div class="mt-10 pt-6 border-t border-[var(--border)]">
+        <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。<a href="/zh/disclosure/" class="text-[var(--primary)] hover:underline">详见推荐链接声明</a>。</p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

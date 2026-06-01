@@ -153,7 +153,7 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
               href={lang === "zh" ? "/zh/daily/" : "/en/daily/"}
               class:list={["relative no-underline transition-colors px-3 py-2 rounded-md", activeNav === "daily" ? "text-primary font-semibold" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
             >
-              {lang === "zh" ? "每日研判" : "Daily"}
+              {lang === "zh" ? "每日研判" : "Daily Analysis"}
               {activeNav === "daily" && <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full"></span>}
             </a>
             <a
@@ -167,14 +167,14 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
               href={lang === "zh" ? "/zh/trading/" : "/en/trading/"}
               class:list={["relative no-underline transition-colors px-3 py-2 rounded-md", activeNav === "trading" ? "text-primary font-semibold" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
             >
-              {lang === "zh" ? "模拟盘" : "Paper"}
+              {lang === "zh" ? "模拟盘" : "Paper Trading"}
               {activeNav === "trading" && <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full"></span>}
             </a>
             <a
               href={lang === "zh" ? "/zh/tools/" : "/en/tools/"}
               class:list={["relative no-underline transition-colors px-3 py-2 rounded-md", activeNav === "tools" ? "text-primary font-semibold" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}
             >
-              {lang === "zh" ? "推荐注册" : "Tools"}
+              {lang === "zh" ? "推荐注册" : "Recommended"}
               {activeNav === "tools" && <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full"></span>}
             </a>
 
@@ -233,10 +233,10 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
         <!-- Mobile Nav Panel -->
         <div id="mobile-menu" class="mobile-nav-panel hidden">
           <a href={lang === "zh" ? "/zh/" : "/en/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "home" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>首页</a>
-          <a href={lang === "zh" ? "/zh/daily/" : "/en/daily/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "daily" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "每日研判" : "Daily"}</a>
-          <a href={lang === "zh" ? "/zh/analysis/" : "/en/analysis/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "analysis" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "价格分析" : "Analysis"}</a>
-          <a href={lang === "zh" ? "/zh/trading/" : "/en/trading/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "trading" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "模拟盘" : "Paper"}</a>
-          <a href={lang === "zh" ? "/zh/tools/" : "/en/tools/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "tools" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "推荐注册" : "Tools"}</a>
+          <a href={lang === "zh" ? "/zh/daily/" : "/en/daily/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "daily" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "每日研判" : "Daily Analysis"}</a>
+          <a href={lang === "zh" ? "/zh/analysis/" : "/en/analysis/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "analysis" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "价格分析" : "Price Analysis"}</a>
+          <a href={lang === "zh" ? "/zh/trading/" : "/en/trading/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "trading" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "模拟盘" : "Paper Trading"}</a>
+          <a href={lang === "zh" ? "/zh/tools/" : "/en/tools/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "tools" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "推荐注册" : "Recommended"}</a>
           <div class="border-t border-[var(--border)] my-1"></div>
           <a href={lang === "zh" ? "/zh/news/" : "/en/news/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "news" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "新闻快报" : "News"}</a>
           <a href={lang === "zh" ? "/zh/derivatives/" : "/en/derivatives/"} class:list={["block py-2.5 no-underline rounded-lg px-3", activeNav === "derivatives" ? "nav-active" : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"]}>{lang === "zh" ? "衍生品" : "Derivatives"}</a>

@@ -17,7 +17,7 @@ const currentBalance = (1000000 + totalPnl).toLocaleString();
 // 服务端获取市场数据（构建时预填）
 let btcPrice = null, btcChange = null, ethPrice = null, ethChange = null, fearValue = null, fearLabel = '';
 try {
-  const priceRes = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(5000) });
+  const priceRes = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(15000) });
   if (priceRes.ok) {
     const priceData = await priceRes.json();
     const btc = priceData.find(d => d.symbol === 'BTCUSDT');
@@ -353,20 +353,28 @@ function fearColor(v) {
 
   <!-- Real-time Price Fetcher -->
   <script>
+    let priceRetryCount = 0;
+    const MAX_PRICE_RETRIES = 5;
+
     async function fetchPrice() {
       try {
         const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', {
           headers: { 'Accept': 'application/json' },
-          signal: AbortSignal.timeout(8000)
+          signal: AbortSignal.timeout(10000)
         });
         if (!res.ok) throw new Error('Binance API error: ' + res.status);
         const data = await res.json();
         const btc = data.find(d => d.symbol === 'BTCUSDT');
         const eth = data.find(d => d.symbol === 'ETHUSDT');
         updatePriceUI({ btc, eth });
+        priceRetryCount = 0;
       } catch (e) {
-        console.warn('[Price] fetch error, retrying in 15s:', e.message);
-        setTimeout(fetchPrice, 15000);
+        priceRetryCount++;
+        const delay = priceRetryCount <= 2 ? 2000 : 8000;
+        console.warn('[Price] fetch error (attempt ' + priceRetryCount + '), retrying in ' + delay + 'ms:', e.message);
+        if (priceRetryCount < MAX_PRICE_RETRIES) {
+          setTimeout(fetchPrice, delay);
+        }
       }
     }
 

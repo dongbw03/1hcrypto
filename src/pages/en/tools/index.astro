@@ -2,116 +2,545 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Recommended - 1H Crypto" lang="en">
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-  <h1 class="text-3xl font-bold text-white mb-2">Recommended</h1>
-  <p class="text-[var(--text-muted)] mb-8">
-    These are the tools and services I genuinely use in my daily analysis. Some links are affiliate links — using them may earn me a commission at no extra cost to you.
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Recommended Tools - 1H Crypto",
+  "description": "Curated crypto exchanges, trading tools, hardware wallets, and quant tools with referral codes and registration links",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T21:30:00+08:00",
+  "dateModified": "2026-05-31T21:30:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/tools/"
+  }
+}`}></script>
+<BaseLayout title="Recommended Tools - 1H Crypto" lang="en" activeNav="tools">
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <h1 class="text-3xl font-bold text-white mb-2">Recommended Tools</h1>
+  <p class="text-[var(--text-muted)] mb-8 leading-relaxed">
+    These are tools and services I <span class="text-white">genuinely use</span> in my daily analysis and trading.
+    Every recommendation includes my actual reasons and key differentiators — even experienced traders will find the nuances useful.
   </p>
-
-  <div class="space-y-4">
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">Binance</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            The world's largest crypto exchange. Deep BTC & ETH liquidity, full suite of spot/derivatives products, and excellent sub-account management.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Sign Up →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">OKX</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            Best user experience for Chinese traders. Smooth web and mobile apps, transparent funding rate data, and responsive Chinese customer support.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Sign Up →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">Bybit</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            Top choice for derivatives trading. Intuitive UI, complete historical funding rate data, well-suited for price action traders.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Sign Up →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">TradingView</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            All chart analysis is done on TradingView. Bar labeling, multi-timeframe switching, custom scripting — the best tool for price action analysis.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Try →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">Coinglass</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            Go-to for derivatives data. Funding rates, open interest, long/short ratios, liquidation heatmaps — all in one place.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Use →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">Ledger</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            Hardware wallet. Long-term BTC & ETH holdings are stored here. Security first.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Buy →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">3Commas</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            Quantitative trading tool. Useful for strategy backtesting and signal management. Best for users with some programming background.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Sign Up →</a>
-      </div>
-    </div>
-
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-4">
-        <div class="flex-1">
-          <h3 class="text-white font-semibold mb-1">CryptoQuant</h3>
-          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
-            On-chain data platform. Exchange flows, holder distribution, miner behavior — all the on-chain signals in one dashboard.
-          </p>
-        </div>
-        <a href="#" class="shrink-0 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap">Use →</a>
-      </div>
-    </div>
+  <div class="mb-8 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+      <span class="text-primary font-semibold">💡 How to use referral links:</span>
+      Click "Sign Up via Link" to register with automatic referral binding.
+      If the link doesn't open, don't worry — manually enter the referral code during registration to get the same benefits.
+      All codes are ready for you; click "Copy" to use.
+    </p>
   </div>
 
-  <div class="mt-8 p-4 bg-amber-600/10 border border-amber-600/20 rounded-lg">
-    <p class="text-sm text-amber-300">
-      <strong>Disclaimer:</strong> Some links are affiliate links. Using them may earn me a commission at no extra cost to you. See <a href="/en/disclosure/" class="text-amber-400 underline">Affiliate Disclosure</a>.
+  <!-- Exchanges -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[#F0B90B] flex items-center justify-center text-black font-bold text-sm">1</div>
+      <h2 class="text-xl font-bold text-white">Exchanges</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Exchanges are the infrastructure of crypto trading. <strong class="text-white">Why do you need multiple exchanges?</strong>
+      Different exchanges have different listing paces, liquidity depths, and fee structures.
+      Binance has the deepest liquidity, OKX has the best Chinese user experience, Bybit has the most intuitive derivatives UI, and Gate.io has the widest altcoin selection.
+      Multi-exchange positioning lets you capture opportunities across the entire market.
     </p>
+    <div class="space-y-5">
+      <!-- Binance -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Binance — World's Largest Exchange</h3>
+              <span class="px-1.5 py-0.5 bg-[#F0B90B]/20 rounded text-[9px] text-[#F0B90B] font-medium">Essential</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">💧 Liquidity Advantage:</strong> Binance's BTC/USDT and ETH/USDT pairs have the deepest order books globally.
+                This means minimal slippage when executing orders at key price action levels (support/resistance).
+                For Al Brooks price action traders, liquidity = execution quality.</p>
+              <p><strong class="text-white">📊 Complete Product Suite:</strong> Spot, margin, futures (USDT-margined/coin-margined), options, and Earn (flexible/locked/Launchpool) — all covered.
+                You don't need to transfer funds between multiple platforms; one account handles all strategies.</p>
+              <p><strong class="text-white">🔑 Sub-account System:</strong> This is Binance's most practical feature for professional traders.
+                You can create multiple sub-accounts for: live trading, paper trading, long-term holdings, and Earn products.
+                Funds transfer instantly between main and sub-accounts without interference.</p>
+              <p><strong class="text-white">⚡ Fee Rebate:</strong> Register via this site's link or enter the referral code to enjoy 20% spot / 10% futures fee rebate.
+                For high-frequency traders, this can save substantial amounts over a year.</p>
+            </div>
+            <!-- Referral Code Display -->
+            <div class="mt-4 p-3 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)]">
+              <div class="flex items-center justify-between gap-3 mb-2">
+                <span class="text-xs text-[var(--text-muted)]">Referral Code (enter manually during sign-up)</span>
+                <button onclick="navigator.clipboard.writeText('CPA_00ZIV33RO4').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap">Copy Code</button>
+              </div>
+              <div class="font-mono text-primary font-bold text-sm select-all bg-black/20 p-2 rounded">CPA_00ZIV33RO4</div>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00ZIV33RO4" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-[#F0B90B] hover:bg-[#d4a009] text-black font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.binance.com/en/support/faq" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Fee Schedule ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OKX -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">OKX — Best for Chinese-Speaking Users</h3>
+              <span class="px-1.5 py-0.5 bg-green-500/20 rounded text-[9px] text-green-400 font-medium">Recommended</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🇨🇳 Best Chinese UX:</strong> OKX's web and mobile apps are extremely friendly to Chinese-speaking users.
+                The derivatives trading interface is intuitive, funding rate data is transparent, and Chinese customer support is available.
+                For traders unfamiliar with English interfaces, this is the biggest advantage.</p>
+              <p><strong class="text-white">📈 Funding Rate Advantage:</strong> OKX's funding rate data updates promptly with complete historical records.
+                For perpetual futures traders, this is critical data for judging market sentiment and arbitrage opportunities.</p>
+              <p><strong class="text-white">🔄 Unified Account Mode:</strong> OKX's Unified Account allows you to trade spot, futures, and options using the same margin pool.
+                Capital utilization is higher; no need to transfer margin between multiple accounts.</p>
+              <p><strong class="text-white">💎 Copy Trading:</strong> OKX's copy trading feature is well-developed; you can follow successful traders' operations.
+                For beginners still in the learning phase, this is a decent way to learn.</p>
+            </div>
+            <!-- Referral Code Display -->
+            <div class="mt-4 p-3 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)]">
+              <div class="flex items-center justify-between gap-3 mb-2">
+                <span class="text-xs text-[var(--text-muted)]">Referral Code (enter manually during sign-up)</span>
+                <button onclick="navigator.clipboard.writeText('47930867').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap">Copy Code</button>
+              </div>
+              <div class="font-mono text-primary font-bold text-sm select-all bg-black/20 p-2 rounded">47930867</div>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.promoohubly.com/join/47930867" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.okx.com/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Unified Account Guide ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bybit -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Bybit — Best for Derivatives Trading</h3>
+              <span class="px-1.5 py-0.5 bg-blue-500/20 rounded text-[9px] text-blue-400 font-medium">Derivatives</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">📊 Most Intuitive Derivatives UI:</strong> Bybit's futures trading interface is designed exactly how price action traders want it.
+                K-line charts are clear, depth charts (Order Book) are well-visualized, and stop-loss/take-profit settings are convenient.
+                For traders focusing on futures, this is the best choice.</p>
+              <p><strong class="text-white">📈 Complete Historical Funding Rate Data:</strong> Bybit provides complete funding rate history via API,
+                enabling backtesting analysis. For traders doing funding rate arbitrage or market sentiment research, this is highly valuable data.</p>
+              <p><strong class="text-white">💰 Low Entry Barrier:</strong> Bybit supports multiple deposit methods including credit card direct purchase, P2P trading, and cross-chain bridges.
+                For beginners, the entry barrier is lower than Binance and OKX.</p>
+              <p><strong class="text-white">🎓 Bybit Learn:</strong> Bybit's free educational content (Bybit Learn) is high quality,
+                covering everything from beginner to advanced. For users wanting to systematically learn crypto trading, this is an excellent free resource.</p>
+            </div>
+            <!-- Referral Code Display -->
+            <div class="mt-4 p-3 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)]">
+              <div class="flex items-center justify-between gap-3 mb-2">
+                <span class="text-xs text-[var(--text-muted)]">Referral Code (enter manually during sign-up)</span>
+                <button onclick="navigator.clipboard.writeText('BKWZKJN').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap">Copy Code</button>
+              </div>
+              <div class="font-mono text-primary font-bold text-sm select-all bg-black/20 p-2 rounded">BKWZKJN</div>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.bybit.com/invite?ref=BKWZKJN&medium=referral&utm_campaign=evergreen&share_to=link" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://learn.bybit.com/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Visit Bybit Learn ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gate.io -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Gate.io — Altcoin Discovery Hub</h3>
+              <span class="px-1.5 py-0.5 bg-purple-500/20 rounded text-[9px] text-purple-400 font-medium">Altcoins</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🪙 Widest Altcoin Selection:</strong> Gate.io lists far more tokens than Binance and OKX.
+                Many low-cap tokens list on Gate.io before appearing on major exchanges. For traders who like early positioning and discovering potential coins, this is an essential platform.</p>
+              <p><strong class="text-white">🔍 Fast Listing Pace:</strong> Gate.io's token listing review is relatively lenient; many emerging project tokens list here first.
+                Of course, this also means higher risk. You need to do your own research (DYOR) to distinguish opportunities from scams.</p>
+              <p><strong class="text-white">🇨🇳 Chinese Interface Friendly:</strong> Gate.io's Chinese interface and Chinese customer support are decent,
+                making the user experience relatively smooth for those unfamiliar with English.</p>
+              <p><strong class="text-white">⚠️ Risk Warning:</strong> Small-cap tokens on Gate.io may have poor liquidity with larger bid-ask spreads.
+                Be careful of slippage risk when moving large amounts of capital. It's recommended to only use small funds (amounts you can afford to lose completely) for testing.</p>
+            </div>
+            <!-- Referral Code Display -->
+            <div class="mt-4 p-3 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)]">
+              <div class="flex items-center justify-between gap-3 mb-2">
+                <span class="text-xs text-[var(--text-muted)]">Referral Code (enter manually during sign-up)</span>
+                <button onclick="navigator.clipboard.writeText('VFJAXQWNBQ').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap">Copy Code</button>
+              </div>
+              <div class="font-mono text-primary font-bold text-sm select-all bg-black/20 p-2 rounded">VFJAXQWNBQ</div>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.gatewebsite.net/zh/signup/VFJAXQWNBQ?ref_type=103" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.gate.io/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Risk Warning ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trading Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[#2962FF] flex items-center justify-center text-white font-bold text-sm">2</div>
+      <h2 class="text-xl font-bold text-white">Trading Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Good trading tools make your decisions more precise. <strong class="text-white">Why do you need a professional charting tool?</strong>
+      The charting features built into exchanges are usually basic and cannot meet the needs of price action analysis.
+      TradingView is currently the most powerful charting platform on the market — all professional traders use it.
+      It supports multi-timeframe analysis, custom indicators, real-time alerts, and more. It's an indispensable tool for technical analysis.
+    </p>
+    <div class="space-y-5">
+      <!-- TradingView -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">TradingView — The Standard Charting Tool</h3>
+              <span class="px-1.5 py-0.5 bg-[#2962FF]/20 rounded text-[9px] text-[#2962FF] font-medium">Essential</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">📊 Source of All Analysis Charts on This Site:</strong> Every K-line chart, price action annotation, and support/resistance analysis you see on 1H Crypto
+                was created using TradingView. Its chart rendering quality, data accuracy, and interface smoothness are all industry-leading.</p>
+              <p><strong class="text-white">🎨 Best Tool for Price Action Analysis:</strong> TradingView supports custom chart annotations (lines, text, shapes),
+                perfectly presenting all Al Brooks price action concepts: trend lines, channels, breakouts, pullbacks, price action signals, etc.</p>
+              <p><strong class="text-white">⏱️ Multi-Timeframe Analysis:</strong> Professional traders need to analyze across multiple timeframes (1H, 4H, 1D, 1W) simultaneously.
+                TradingView's "multi-chart layout" feature lets you open charts across multiple timeframes at once, quickly switching perspectives.</p>
+              <p><strong class="text-white">🔔 Real-Time Alert Function:</strong> You can set price alerts on TradingView (e.g., "notify me when BTC drops below $60,000").
+                This is extremely practical for traders who cannot watch the market 24/7. The free version supports 1 alert; Pro versions support more.</p>
+              <p><strong class="text-white">💡 Free Version Is Sufficient:</strong> For most individual traders, TradingView's free version is already adequate.
+                You only need to consider upgrading to Pro if you need to open more than 3 charts simultaneously, use custom scripts, or set multiple alerts.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.tradingview.com/pricing/?share_your_love=dongbw03" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-[#2962FF] hover:bg-[#1e4fd8] text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">View TradingView Plans →</a>
+            <a href="https://www.tradingview.com/support/solutions/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Free vs Pro ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hardware Wallets -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[#00A4E4] flex items-center justify-center text-white font-bold text-sm">3</div>
+      <h2 class="text-xl font-bold text-white">Hardware Wallets</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      "<strong class="text-white">Not your keys, not your crypto.</strong>" (If you don't hold the private keys, it's not your cryptocurrency).
+      This is the golden rule of crypto. Coins on an exchange are essentially an IOU from the exchange.
+      If the exchange runs away or gets hacked, your assets may vanish. A hardware wallet lets you truly control your assets — suitable for long-term holders.
+    </p>
+    <div class="space-y-5">
+      <!-- Ledger -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Ledger — Industry Standard Hardware Wallet</h3>
+              <span class="px-1.5 py-0.5 bg-[#00A4E4]/20 rounded text-[9px] text-[#00A4E4] font-medium">Security</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🔐 Offline Private Key Storage:</strong> The core principle of Ledger is: private keys never leave the device.
+                All signing operations are completed inside the hardware device. Even if your computer is hacked, the private key will not be exposed.
+                For long-term BTC and ETH holdings, this is the safest storage method.</p>
+              <p><strong class="text-white">💎 Supports 5500+ Cryptocurrencies:</strong> Ledger supports 5500+ tokens through Ledger Live software.
+                Whether you hold mainstream coins (BTC, ETH, BNB) or altcoins, you can securely manage them on Ledger.</p>
+              <p><strong class="text-white">🖥️ Ledger Live Software Is Smooth:</strong> Ledger Live is the official companion management software,
+                supporting send/receive, staking for yield, buy/swap cryptocurrencies, and more. The interface design is clean, and the operation logic is clear — even beginners can get started quickly.</p>
+              <p><strong class="text-white">💰 Nano S Plus Has the Best Value:</strong> Ledger currently has three products:
+                Nano S Plus (entry-level, ~$79), Nano X (Bluetooth-enabled, ~$149), and Stax (touchscreen, ~$279).
+                For most people, the Nano S Plus is completely sufficient. Unless you need Bluetooth or a touchscreen, there's no need to buy the more expensive models.</p>
+              <p><strong class="text-white">⚠️ Important Reminder:</strong> Always purchase Ledger through official channels (official website or authorized resellers).
+                Devices from the second-hand market or unknown sources may have malicious firmware implanted, leading to private key theft.
+                The recovery phrase (Recovery Phrase) must never be shared with anyone — not even Ledger officials will ask you for it.</p>
+            </div>
+            <!-- Referral Link -->
+            <div class="mt-4 p-3 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)]">
+              <div class="flex items-center justify-between gap-3 mb-2">
+                <span class="text-xs text-[var(--text-muted)]">Official Purchase Link (with referral bonus)</span>
+                <button onclick="navigator.clipboard.writeText('5b63cc287be0').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap">Copy Code</button>
+              </div>
+              <div class="font-mono text-primary font-bold text-sm select-all bg-black/20 p-2 rounded">Referral Code: 5b63cc287be0</div>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://shop.ledger.com/?r=5b63cc287be0" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-[#00A4E4] hover:bg-[#0088c2] text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Buy on Official Site →</a>
+            <a href="https://www.ledger.com/academy" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Ledger Academy ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quantitative Trading Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-purple-500 flex items-center justify-center text-white font-bold text-sm">4</div>
+      <h2 class="text-xl font-bold text-white">Quantitative Trading Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Quantitative trading tools can help you execute repetitive trading strategies without 24/7 monitoring.
+      <strong class="text-white">Who are they for?</strong> People with some trading experience who understand basic concepts (grid trading, DCA, take-profit/stop-loss),
+      but don't have the time or technical ability to write code. If you're a complete beginner, it's recommended to manually trade for a while first —
+      understand the strategy logic before using quant tools.
+    </p>
+    <div class="space-y-5">
+      <!-- 3Commas -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">3Commas — Most Comprehensive Quant Platform</h3>
+              <span class="px-1.5 py-0.5 bg-purple-500/20 rounded text-[9px] text-purple-400 font-medium">Comprehensive</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🤖 Supports Multiple Bot Strategies:</strong> 3Commas supports Grid Bots,
+                DCA Bots (Dollar Cost Averaging), and Smart Trading Terminal.
+                Grid Bots are suitable for ranging markets, DCA Bots for dip-buying strategies, and Smart Terminal for complex TP/SL logic.</p>
+              <p><strong class="text-white">👥 Copy Trading Feature:</strong> 3Commas' copy trading feature lets you replicate successful traders' operations.
+                You can view other users' bot performance history and choose stable performers to copy. Of course, copy trading has risks — you need to judge for yourself.</p>
+              <p><strong class="text-white">🔗 Supports 18+ Exchanges:</strong> 3Commas can connect to Binance, OKX, Bybit, Gate.io, and other major exchanges,
+                eliminating the need to switch between different quant platforms. Manage quant strategies for all exchanges from one 3Commas account.</p>
+              <p><strong class="text-white">🎓 Suitable for Users with Some Experience:</strong> 3Commas has rich features; beginners may need some time to learn.
+                The official site has detailed usage tutorials. It's recommended to start with small amounts and low leverage for testing.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://3commas.io/?utm_source=referral&utm_medium=cabinet&c=tc2231897" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on 3Commas →</a>
+            <a href="https://www.3commas.io/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Beginner Tutorial ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bitsgap -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Bitsgap — Best for Grid Trading</h3>
+              <span class="px-1.5 py-0.5 bg-blue-500/20 rounded text-[9px] text-blue-400 font-medium">Grid Expert</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🌐 Best Grid Trading Experience:</strong> Bitsgap's Grid Bot setup is simple,
+                with an intuitive interface. You can choose "Smart Grid" (AI auto-calculates grid parameters) or manually set grid density and price range.
+                For traders who like trading ranging markets, this is the easiest tool to get started with.</p>
+              <p><strong class="text-white">📊 Backtesting Feature:</strong> Bitsgap supports strategy backtesting, letting you verify grid strategy performance using historical data.
+                Before committing real capital, use the backtesting feature to see how the strategy performed in the past, then make your decision.</p>
+              <p><strong class="text-white">🔗 Supports 25+ Exchanges:</strong> One Bitsgap account can connect to 25+ exchanges,
+                managing all accounts from one interface. You can operate Grid Bots on Binance, OKX, Bybit, and other exchanges within the Bitsgap interface.</p>
+              <p><strong class="text-white">💰 Basic Plan Is Sufficient:</strong> Bitsgap's Basic Plan (~$19/month) already supports 2 active bots.
+                For most individual users, this configuration is already adequate. You only need to upgrade if you need more bots or arbitrage features.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://bitsgap.com/?ref=257b2d5" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Bitsgap →</a>
+            <a href="https://bitsgap.com/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Grid Trading Guide ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coinrule -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Coinrule — No-Code Quant Strategy</h3>
+              <span class="px-1.5 py-0.5 bg-green-500/20 rounded text-[9px] text-green-400 font-medium">No-Code</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">🧩 If-Then Logic, No Coding Needed:</strong> Coinrule's biggest feature is "No-Code".
+                You can create trading rules using simple "If-Then" logic, e.g., "If BTC price drops below $60,000, then sell 50%".
+                No programming background is needed — suitable for users who want to do quant but lack technical background.</p>
+              <p><strong class="text-white">📚 Strategy Template Library:</strong> Coinrule provides many preset strategy templates,
+                e.g., "Buy the Dip", "Trailing Take Profit", etc.
+                You can use these templates directly, or modify them based on the templates to quickly create your own strategies.</p>
+              <p><strong class="text-white">🔗 Supports 10+ Exchanges:</strong> Although the number of supported exchanges is less than 3Commas and Bitsgap,
+                it covers major exchanges (Binance, Coinbase, Kraken, etc.). For most users, this is already sufficient.</p>
+              <p><strong class="text-white">👨‍🎓 Beginner-Friendly:</strong> Coinrule's interface design is very clean, with a gentle learning curve.
+                If you're a complete quant beginner, it's recommended to start with Coinrule, understand the basic logic, then consider more professional tools.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://web.coinrule.com/coupon/25REFERRALDISCOUNT?tobilling=true&fpr=lzh8v4" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Coinrule →</a>
+            <a href="https://coinrule.com/learn/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Strategy Learning Center ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cryptohopper -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Cryptohopper — Cloud-Based Automated Trading</h3>
+              <span class="px-1.5 py-0.5 bg-yellow-500/20 rounded text-[9px] text-yellow-400 font-medium">Cloud-Based</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">☁️ Runs in the Cloud — No Need to Keep PC On:</strong> All trading bots on Cryptohopper run in the cloud,
+                no need to keep your computer powered on. As long as you've set a strategy, it will execute 24/7 automatically.
+                For users without time to watch the market, this is the biggest advantage.</p>
+              <p><strong class="text-white">🛒 Strategy Marketplace:</strong> Cryptohopper has a strategy marketplace where you can directly purchase strategies developed by other traders.
+                Of course, you must carefully review the strategy's historical performance and risk assessment before purchasing — don't blindly copy.</p>
+              <p><strong class="text-white">📊 Supports 130+ Technical Indicators:</strong> Cryptohopper has 130+ built-in technical analysis indicators (RSI, MACD, Bollinger Bands, etc.),
+                you can combine multiple indicators to create complex trading strategies. For quant traders who like technical analysis, this is a very powerful feature.</p>
+              <p><strong class="text-white">🔗 Supports 17+ Exchanges:</strong> Covers major exchanges including Binance, OKX, Kraken, Huobi, etc.
+                One Cryptohopper account can manage trading bots across multiple exchanges.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.cryptohopper.com/?atid=40729" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Cryptohopper →</a>
+            <a href="https://www.cryptohopper.com/tutorials/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">View Tutorials ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tax Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-white font-bold text-sm">5</div>
+      <h2 class="text-xl font-bold text-white">Tax Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      If you have tax filing obligations in <strong class="text-white">Western countries</strong>, cryptocurrency tax calculation tools are essential.
+      Different countries handle cryptocurrency taxation differently (capital gains tax, income tax, etc.), and manual calculation is tedious and error-prone.
+      These tools can automatically sync exchange and wallet data to generate tax reports compliant with local laws.
+    </p>
+    <div class="space-y-5">
+      <!-- Koinly -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Koinly — Crypto Tax Calculator</h3>
+              <span class="px-1.5 py-0.5 bg-amber-500/20 rounded text-[9px] text-amber-400 font-medium">Tax</span>
+            </div>
+            <div class="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p><strong class="text-white">📊 Automatic Exchange & Wallet Data Sync:</strong> Koinly supports automatic syncing from 350+ exchanges and 40+ wallets.
+                You only need to grant read permissions; Koinly will automatically import your transaction history — no need to manually upload CSV files.</p>
+              <p><strong class="text-white">📄 Generates Tax Reports Compliant with Local Laws:</strong> Koinly supports the tax laws of 100+ countries,
+                generating compliant tax reports (e.g., Form 8949 in the US, Capital Gains Summary in the UK, etc.).
+                Report formats are standardized and can be directly submitted to tax authorities or accountants.</p>
+              <p><strong class="text-white">💰 Multiple Cost Basis Methods:</strong> Koinly supports FIFO (First-In-First-Out), LIFO (Last-In-First-Out),
+                HIFO (High-In-First-Out), and Weighted Average cost methods. You can choose the method that best suits your tax situation.</p>
+              <p><strong class="text-white">⚠️ Target Audience:</strong> Koinly is mainly aimed at users with tax filing requirements in Western countries.
+                If you're in mainland China, cryptocurrency tax policy is not yet clear, so you may not need such tools for now.
+                But if you have tax resident status in other countries, it's recommended to understand the relevant requirements in advance.</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://koinly.io/?via=E5E574C6&utm_source=affiliate" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Use Koinly →</a>
+            <a href="https://koinly.io/guides" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Tax Guides by Country ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Educational Articles Section -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center text-white font-bold text-sm">📚</div>
+      <h2 class="text-xl font-bold text-white">Educational Articles</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Below are cryptocurrency trading educational articles I've written, covering price action analysis, exchange selection, risk management, and other practical content.
+      These articles will be updated continuously — bookmark this page for easy reference.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Article Card 1 -->
+      <a href="/en/learn/price-action-basics" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary text-lg shrink-0">📊</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">Price Action Analysis Basics</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Core Al Brooks concepts: trends, breakouts, pullbacks, key level judgment...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article Card 2 -->
+      <a href="/en/learn/how-to-register-exchange" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-[#F0B90B]/20 flex items-center justify-center text-[#F0B90B] text-lg shrink-0">🏦</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">How to Choose & Register an Exchange</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Binance vs OKX vs Bybit vs Gate.io comparison, registration walkthrough...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article Card 3 -->
+      <a href="/en/learn/okx-review" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 text-lg shrink-0">🔍</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">OKX Exchange Deep Review</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Unified account, funding rates, copy trading, fee structure fully analyzed...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article Card 4 -->
+      <a href="/en/learn/risk-management" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400 text-lg shrink-0">⚠️</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">Risk Management: Protect Your Capital</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Position sizing, stop-loss placement, leverage selection, black swan response...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <div class="mt-8 p-5 bg-amber-600/10 border border-amber-600/20 rounded-lg">
+    <h3 class="text-amber-300 font-semibold mb-2">⚠️ Disclaimer & Terms</h3>
+    <div class="text-sm text-amber-200/80 leading-relaxed space-y-2">
+      <p><strong>Referral Link Disclosure:</strong> Some links on this site are referral links. If you register, subscribe, or purchase through these links, I may earn a small commission;
+        you may also receive exclusive discounts, cash rebates, or lower trading fees.
+        All commissions are used solely for site maintenance, content updates, and server costs. Your costs are never increased, and your rights are never affected.</p>
+      <p><strong>Risk Warning:</strong> Cryptocurrency trading carries extreme risk and may result in total loss of capital.
+        All content on this site (including recommended tools, educational articles, and analysis opinions) is for learning and communication purposes only — not investment advice.
+        Please make investment decisions cautiously after fully understanding the risks. Past performance does not guarantee future results.</p>
+      <p><strong>Liability Disclaimer:</strong> This site and its author assume no responsibility for any direct or indirect losses caused by using recommended tools or referencing this site's content.
+        Please do your own research (DYOR) and understand the risks before using any recommended tools.</p>
+    </div>
   </div>
 </div>
 

@@ -2,6 +2,37 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BTC & ETH Price Action Analysis | 1H Crypto",
+  "description": "Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain +",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/"
+  }
+}`}></script>
 <BaseLayout
   title="BTC & ETH Price Action Analysis | 1H Crypto"
   description="Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain + derivatives + paper trading."
@@ -92,49 +123,52 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <!-- Card 1: Price Action -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.1s">
-        <div class="card-3d-inner card p-6! hover:border-primary/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 16l4-8 4 4 6-6"/></svg>
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.1s">
+        <div class="card-3d-inner card p-6! hover:border-primary/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 16l4-8 4 4 6-6"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Price Action Analysis</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Al Brooks framework: identify candlestick patterns, breakouts, failed signals, and key levels.</p>
+          <div class="mt-auto pt-4 text-xs text-blue-400 font-medium">BTC & ETH daily →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">Price Action Analysis</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">Al Brooks framework: identify candlestick patterns, breakouts, failed signals, and key levels.</p>
-        <div class="mt-4 text-xs text-blue-400 font-medium">BTC & ETH daily →</div>
       </div>
 
       <!-- Card 2: On-Chain Data -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.2s">
-        <div class="card-3d-inner card p-6! hover:border-green-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.2s">
+        <div class="card-3d-inner card p-6! hover:border-green-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">On-Chain Data</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Exchange netflow, active addresses, whale transfers — on-chain fundamentals at a glance.</p>
+          <div class="mt-auto pt-4 text-xs text-green-400 font-medium">Updated daily →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">On-Chain Data</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">Exchange netflow, active addresses, whale transfers — on-chain fundamentals at a glance.</p>
-        <div class="mt-4 text-xs text-green-400 font-medium">Updated daily →</div>
       </div>
 
       <!-- Card 3: Derivatives -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.3s">
-        <div class="card-3d-inner card p-6! hover:border-purple-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.3s">
+        <div class="card-3d-inner card p-6! hover:border-purple-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Derivatives Sentiment</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Funding rates, open interest, long/short ratio — decode the derivatives market sentiment game.</p>
+          <div class="mt-auto pt-4 text-xs text-purple-400 font-medium">Updated daily →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">Derivatives Sentiment</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">Funding rates, open interest, long/short ratio — decode the derivatives market sentiment game.</p>
-        <div class="mt-4 text-xs text-purple-400 font-medium">Updated daily →</div>
       </div>
 
       <!-- Card 4: Paper Trading -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.4s">
-        <div class="card-3d-inner card p-6! hover:border-amber-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.4s">
+        <div class="card-3d-inner card p-6! hover:border-amber-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Paper Trading Tracker</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">$1M USDT virtual capital. Al Brooks signals strictly executed. Full transparency on real decision-making.</p>
+          <div class="mt-auto pt-4 text-xs text-amber-400 font-medium">Live tracking →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">Paper Trading Tracker</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">$1M USDT virtual capital. Al Brooks signals strictly executed. Full transparency on real decision-making.</p>
-        <div class="mt-4 text-xs text-amber-400 font-medium">Live tracking →</div>
       </div>
-    </div>
   </section>
 
   <!-- Today's Analysis Preview -->

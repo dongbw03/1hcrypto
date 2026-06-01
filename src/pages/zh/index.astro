@@ -1,7 +1,51 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import fs from 'fs';
+import path from 'path';
+
+// 读取模拟盘数据，计算当前资金
+const tradesPath = path.resolve('src/data/trades.json');
+let trades = [];
+try {
+  trades = JSON.parse(fs.readFileSync(tradesPath, 'utf-8'));
+} catch (e) {
+  trades = [];
+}
+const totalPnl = trades.filter(t => t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
+const currentBalance = (1000000 + totalPnl).toLocaleString();
 ---
 
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BTC & ETH 价格行为分析 | 1H币研",
+  "description": "用阿尔·布鲁克斯价格行为学进行 BTC & ETH 日内分析。每日四维研判：价格行为 + 链上数据 + 衍生品 + 模拟盘实证。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/"
+  }
+}`}></script>
 <BaseLayout
   title="BTC & ETH 价格行为分析 | 1H币研"
   description="用阿尔·布鲁克斯价格行为学进行 BTC & ETH 日内分析。每日四维研判：价格行为 + 链上数据 + 衍生品 + 模拟盘实证。"
@@ -74,8 +118,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         </div>
         <!-- Portfolio NAV -->
         <div class="card p-4! hover:border-green-500/30 transition-colors cursor-default">
-          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">模拟净值</div>
-          <div class="metric-value text-green-400 text-lg md:text-xl">1,000,000</div>
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">模拟资金总额</div>
+          <div class="metric-value text-green-400 text-lg md:text-xl">{currentBalance}</div>
           <div class="text-[var(--text-muted)] text-xs mt-0.5">USDT</div>
         </div>
       </div>
@@ -84,54 +128,58 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
   <!-- 4-Dimension Cards -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-    <div class="text-center mb-12 fade-in-on-scroll">
+    <div class="text-center mb-12">
       <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">每日四维研判体系</h2>
       <p class="text-[var(--text-muted)] max-w-lg mx-auto">不是单一观点，而是四个维度的交叉验证，让每一篇分析都有据可查。</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <!-- Card 1: 价格行为 -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.1s">
-        <div class="card-3d-inner card p-6! hover:border-primary/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 16l4-8 4 4 6-6"/></svg>
+      <div class="card-3d group cursor-pointer h-full">
+        <div class="card-3d-inner card p-6! hover:border-primary/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 16l4-8 4 4 6-6"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">价格行为分析</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Al Brooks 框架，识别 K 线形态、突破、失败信号与关键水平。</p>
+          <div class="mt-auto pt-4 text-xs text-blue-400 font-medium">BTC & ETH 双币种 →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">价格行为分析</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">Al Brooks 框架，识别 K 线形态、突破、失败信号与关键水平。</p>
-        <div class="mt-4 text-xs text-blue-400 font-medium">BTC & ETH 双币种 →</div>
       </div>
 
       <!-- Card 2: 链上数据 -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.2s">
-        <div class="card-3d-inner card p-6! hover:border-green-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <div class="card-3d group cursor-pointer h-full">
+        <div class="card-3d-inner card p-6! hover:border-green-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">链上数据</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">交易所净流入、活跃地址、巨鲸转账——链上基本面一目了然。</p>
+          <div class="mt-auto pt-4 text-xs text-green-400 font-medium">每日更新 →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">链上数据</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">交易所净流入、活跃地址、巨鲸转账——链上基本面一目了然。</p>
-        <div class="mt-4 text-xs text-green-400 font-medium">每日更新 →</div>
       </div>
 
       <!-- Card 3: 衍生品 -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.3s">
-        <div class="card-3d-inner card p-6! hover:border-purple-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <div class="card-3d group cursor-pointer h-full">
+        <div class="card-3d-inner card p-6! hover:border-purple-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">衍生品情绪</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">资金费率、未平仓合约、多空比——读懂衍生品市场的情绪博弈。</p>
+          <div class="mt-auto pt-4 text-xs text-purple-400 font-medium">每日更新 →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">衍生品情绪</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">资金费率、未平仓合约、多空比——读懂衍生品市场的情绪博弈。</p>
-        <div class="mt-4 text-xs text-purple-400 font-medium">每日更新 →</div>
       </div>
 
       <!-- Card 4: 模拟盘 -->
-      <div class="card-3d group cursor-pointer fade-in-on-scroll" style="animation-delay: 0.4s">
-        <div class="card-3d-inner card p-6! hover:border-amber-500/30 transition-colors">
-        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      <div class="card-3d group cursor-pointer h-full">
+        <div class="card-3d-inner card p-6! hover:border-amber-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">模拟盘追踪</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">{currentBalance} USDT 模拟资金总额，严格执行 Al Brooks 信号，透明展示实盘决策过程。</p>
+          <div class="mt-auto pt-4 text-xs text-amber-400 font-medium">实况追踪 →</div>
         </div>
-        <h3 class="text-white font-semibold mb-2">模拟盘追踪</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">100 万 USDT 虚拟资金，严格执行 Al Brooks 信号，透明展示实盘决策过程。</p>
-        <div class="mt-4 text-xs text-amber-400 font-medium">实况追踪 →</div>
       </div>
     </div>
   </section>
@@ -177,7 +225,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   <!-- CTA Section -->
   <section class="border-t border-[var(--border)]">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20 text-center fade-in-on-scroll">
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">每天早上 8:00，打开 1H币研</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">每天早上 8:30，打开 1H币研</h2>
       <p class="text-[var(--text-muted)] max-w-lg mx-auto mb-8 leading-relaxed">
         365 天后，你会拥有 365 份 BTC & ETH 带验证的价格行为分析记录——这个积累，别人抄不来。
       </p>

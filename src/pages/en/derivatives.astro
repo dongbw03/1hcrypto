@@ -1,16 +1,9 @@
 ---
-title: "Derivatives Market Sentiment"
-description: "Binance Futures data: Funding rate, Open interest, Long/Short ratio, Top trader positions, Taker buy/sell ratio"
-layout: "../../layouts/BaseLayout.astro"
----
-
-import { Grommet, Card, Badge, Button } from 'grommet';
-import { LineChart, TrendingUp, TrendingDown, BarChart, Activity, DollarSign } from 'lucide-astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
 
-// Read derivatives data
+// Read derivatives data at build time
 let derivativesData = null;
 let error = null;
 
@@ -35,20 +28,20 @@ if (derivativesData && derivativesData.symbols) {
 
 // Sentiment color mapping
 const sentimentColors = {
-  'bullish': 'status-ok',
-  'bearish': 'status-error',
-  'contrarian_bullish': 'status-warning',
-  'contrarian_bearish': 'status-warning',
-  'neutral': 'status-unknown'
+  'bullish': 'bg-green-500/20 text-green-400 border border-green-500/30',
+  'bearish': 'bg-red-500/20 text-red-400 border border-red-500/30',
+  'contrarian_bullish': 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+  'contrarian_bearish': 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+  'neutral': 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
 };
 
 const sentimentLabels = {
   'zh': {
-    'bullish': 'Bullish',
-    'bearish': 'Bearish',
-    'contrarian_bullish': 'Contrarian Bullish',
-    'contrarian_bearish': 'Contrarian Bearish',
-    'neutral': 'Neutral'
+    'bullish': '看涨',
+    'bearish': '看跌',
+    'contrarian_bullish': '逆向看涨',
+    'contrarian_bearish': '逆向看跌',
+    'neutral': '中性'
   },
   'en': {
     'bullish': 'Bullish',
@@ -60,19 +53,49 @@ const sentimentLabels = {
 };
 ---
 
-<GrommetRoot>
-  <div class="min-h-screen bg-background text-text-primary">
-    <!-- Page Header -->
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Derivatives Market Sentiment - 1H Crypto",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/derivatives/"
+  }
+}`}></script>
+<BaseLayout title="Derivatives Market Sentiment - 1H Crypto" lang="en" activeNav="derivatives">
+  <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
     <section class="py-12 px-4 max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           Derivatives Market Sentiment
         </h1>
-        <p class="text-lg text-text-muted max-w-2xl mx-auto">
+        <p class="text-lg text-[var(--text-muted)] max-w-2xl mx-auto">
           Real-time Binance Futures data: funding rate, open interest, long/short ratio, top trader positions, taker buy/sell ratio
         </p>
         {derivativesData && (
-          <p class="text-sm text-text-muted mt-4">
+          <p class="text-sm text-[var(--text-muted)] mt-4">
             Last updated: {new Date(derivativesData.timestamp).toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}
           </p>
         )}
@@ -81,324 +104,302 @@ const sentimentLabels = {
       {error && (
         <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-8">
           <p class="text-red-400">⚠️ Failed to load data: {error}</p>
-          <p class="text-sm text-text-muted mt-2">Please run: python scripts/fetch_derivatives.py</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Please run: python scripts/fetch_derivatives.py</p>
         </div>
       )}
 
-      {/* BTC and ETH Data Cards */}
+      <!-- BTC and ETH Data Cards -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-        {/* BTC Data */}
+        <!-- BTC Data -->
         {btcData && (
-          <Card class="bg-surface border-border p-6 rounded-2xl">
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <DollarSign class="w-8 h-8 text-yellow-500" />
+                <div class="w-8 h-8 text-yellow-500 text-2xl font-bold">₿</div>
                 <div>
                   <h2 class="text-2xl font-bold">BTC</h2>
-                  <p class="text-sm text-text-muted">BTC/USDT Perpetual</p>
+                  <p class="text-sm text-[var(--text-muted)]">BTC/USDT Perpetual</p>
                 </div>
               </div>
               {btcData.sentiment_analysis && (
-                <Badge class={`px-3 py-1 rounded-full text-sm font-medium ${
-                  sentimentColors[btcData.sentiment_analysis.sentiment] || 'status-unknown'
-                }`}>
+                <span class:list={["px-3 py-1 rounded-full text-sm font-medium", sentimentColors[btcData.sentiment_analysis.sentiment] || 'bg-gray-500/20 text-gray-400']}>
                   {sentimentLabels['en'][btcData.sentiment_analysis.sentiment] || btcData.sentiment_analysis.sentiment}
-                </Badge>
+                </span>
               )}
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-6">
-              {/* Funding Rate */}
+              <!-- Funding Rate -->
               {btcData.funding_rate && btcData.funding_rate.length > 0 && (
-                <div class="bg-background/50 rounded-xl p-4">
-                  <p class="text-sm text-text-muted mb-1">Funding Rate</p>
-                  <p class={`text-2xl font-bold ${
-                    btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500'
-                  }`}>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">Funding Rate</p>
+                  <p class:list={["text-2xl font-bold", btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500']}>
                     {btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? '+' : ''}
                     {btcData.funding_rate[btcData.funding_rate.length - 1].rate.toFixed(4)}%
                   </p>
-                  <p class="text-xs text-text-muted mt-1">Latest</p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">Latest</p>
                 </div>
               )}
 
-              {/* Open Interest */}
+              <!-- Open Interest -->
               {btcData.open_interest && (
-                <div class="bg-background/50 rounded-xl p-4">
-                  <p class="text-sm text-text-muted mb-1">Open Interest</p>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">Open Interest</p>
                   <p class="text-2xl font-bold">
                     {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(btcData.open_interest.open_interest)}
                   </p>
-                  <p class="text-xs text-text-muted mt-1">BTC</p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">BTC</p>
                 </div>
               )}
             </div>
 
-            {/* Long/Short Ratio */}
+            <!-- Long/Short Ratio -->
             {btcData.long_short_ratio && btcData.long_short_ratio.length > 0 && (
               <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">Long/Short Account Ratio</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm text-text-muted">Long</span>
+                    <span class="text-sm text-[var(--text-muted)]">Long</span>
                     <span class="text-green-500 font-bold">
                       {(btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <div class="w-full bg-background/30 rounded-full h-3 mb-2">
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
                       class="bg-green-500 h-3 rounded-full" 
                       style={`width: ${btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Short</span>
+                    <span class="text-sm text-[var(--text-muted)]">Short</span>
                     <span class="text-red-500 font-bold">
                       {(btcData.long_short_ratio[btcData.long_short_ratio.length - 1].short_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Extreme values (&gt;60% or &lt;40%) may signal reversal.
+                </p>
               </div>
             )}
 
-            {/* Top Trader Ratio */}
+            <!-- Top Trader Ratio -->
             {btcData.top_trader_ls_ratio && btcData.top_trader_ls_ratio.length > 0 && (
               <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-3">Top Trader Positions</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <h3 class="text-lg font-semibold mb-3">Top Trader Ratio</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm text-text-muted">Long</span>
+                    <span class="text-sm text-[var(--text-muted)]">Top Trader Long</span>
                     <span class="text-green-500 font-bold">
                       {(btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <div class="w-full bg-background/30 rounded-full h-3 mb-2">
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
                       class="bg-blue-500 h-3 rounded-full" 
                       style={`width: ${btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Short</span>
+                    <span class="text-sm text-[var(--text-muted)]">Top Trader Short</span>
                     <span class="text-red-500 font-bold">
                       {(btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].short_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Often considered the "smart money" direction.
+                </p>
               </div>
             )}
 
-            {/* Taker Long/Short Ratio */}
+            <!-- Taker Buy/Sell Ratio -->
             {btcData.taker_longshort_ratio && btcData.taker_longshort_ratio.length > 0 && (
-              <div class="mb-6">
+              <div>
                 <h3 class="text-lg font-semibold mb-3">Taker Buy/Sell Ratio</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Taker Buy Vol / Sell Vol</span>
+                    <span class="text-sm text-[var(--text-muted)]">Taker Buy / Taker Sell</span>
                     <span class="text-yellow-500 font-bold">
                       {btcData.taker_longshort_ratio[btcData.taker_longshort_ratio.length - 1].buy_sell_ratio.toFixed(2)}
                     </span>
                   </div>
-                  <p class="text-xs text-text-muted mt-1">
+                  <p class="text-xs text-[var(--text-muted)] mt-1">
                     {btcData.taker_longshort_ratio[btcData.taker_longshort_ratio.length - 1].buy_sell_ratio > 1 
-                      ? 'Aggressive buying dominant' 
-                      : 'Aggressive selling dominant'}
+                      ? 'More buying pressure from takers' 
+                      : 'More selling pressure from takers'}
                   </p>
                 </div>
               </div>
             )}
-
-            {/* Sentiment Signals */}
-            {btcData.sentiment_analysis && btcData.sentiment_analysis.signals && (
-              <div>
-                <h3 class="text-lg font-semibold mb-3">Sentiment Signals</h3>
-                <div class="space-y-2">
-                  {btcData.sentiment_analysis.signals.map((signal, index) => (
-                    <div class="flex items-start gap-2 text-sm bg-background/50 rounded-lg p-3">
-                      <Activity class="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      <span class="text-text-secondary">{signal}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </Card>
+          </div>
         )}
 
-        {/* ETH Data */}
+        <!-- ETH Data -->
         {ethData && (
-          <Card class="bg-surface border-border p-6 rounded-2xl">
+          <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <Activity class="w-8 h-8 text-blue-500" />
+                <div class="w-8 h-8 text-blue-500 text-2xl font-bold">Ξ</div>
                 <div>
                   <h2 class="text-2xl font-bold">ETH</h2>
-                  <p class="text-sm text-text-muted">ETH/USDT Perpetual</p>
+                  <p class="text-sm text-[var(--text-muted)]">ETH/USDT Perpetual</p>
                 </div>
               </div>
               {ethData.sentiment_analysis && (
-                <Badge class={`px-3 py-1 rounded-full text-sm font-medium ${
-                  sentimentColors[ethData.sentiment_analysis.sentiment] || 'status-unknown'
-                }`}>
+                <span class:list={["px-3 py-1 rounded-full text-sm font-medium", sentimentColors[ethData.sentiment_analysis.sentiment] || 'bg-gray-500/20 text-gray-400']}>
                   {sentimentLabels['en'][ethData.sentiment_analysis.sentiment] || ethData.sentiment_analysis.sentiment}
-                </Badge>
+                </span>
               )}
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-6">
-              {/* Funding Rate */}
+              <!-- Funding Rate -->
               {ethData.funding_rate && ethData.funding_rate.length > 0 && (
-                <div class="bg-background/50 rounded-xl p-4">
-                  <p class="text-sm text-text-muted mb-1">Funding Rate</p>
-                  <p class={`text-2xl font-bold ${
-                    ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500'
-                  }`}>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">Funding Rate</p>
+                  <p class:list={["text-2xl font-bold", ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? 'text-green-500' : 'text-red-500']}>
                     {ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? '+' : ''}
                     {ethData.funding_rate[ethData.funding_rate.length - 1].rate.toFixed(4)}%
                   </p>
-                  <p class="text-xs text-text-muted mt-1">Latest</p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">Latest</p>
                 </div>
               )}
 
-              {/* Open Interest */}
+              <!-- Open Interest -->
               {ethData.open_interest && (
-                <div class="bg-background/50 rounded-xl p-4">
-                  <p class="text-sm text-text-muted mb-1">Open Interest</p>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                  <p class="text-sm text-[var(--text-muted)] mb-1">Open Interest</p>
                   <p class="text-2xl font-bold">
                     {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ethData.open_interest.open_interest)}
                   </p>
-                  <p class="text-xs text-text-muted mt-1">ETH</p>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">ETH</p>
                 </div>
               )}
             </div>
 
-            {/* Long/Short Ratio */}
+            <!-- Long/Short Ratio -->
             {ethData.long_short_ratio && ethData.long_short_ratio.length > 0 && (
               <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">Long/Short Account Ratio</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm text-text-muted">Long</span>
+                    <span class="text-sm text-[var(--text-muted)]">Long</span>
                     <span class="text-green-500 font-bold">
                       {(ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <div class="w-full bg-background/30 rounded-full h-3 mb-2">
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
                       class="bg-green-500 h-3 rounded-full" 
                       style={`width: ${ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Short</span>
+                    <span class="text-sm text-[var(--text-muted)]">Short</span>
                     <span class="text-red-500 font-bold">
                       {(ethData.long_short_ratio[ethData.long_short_ratio.length - 1].short_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Extreme values (&gt;60% or &lt;40%) may signal reversal.
+                </p>
               </div>
             )}
 
-            {/* Top Trader Ratio */}
+            <!-- Top Trader Ratio -->
             {ethData.top_trader_ls_ratio && ethData.top_trader_ls_ratio.length > 0 && (
               <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-3">Top Trader Positions</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <h3 class="text-lg font-semibold mb-3">Top Trader Ratio</h3>
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm text-text-muted">Long</span>
+                    <span class="text-sm text-[var(--text-muted)]">Top Trader Long</span>
                     <span class="text-green-500 font-bold">
                       {(ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <div class="w-full bg-background/30 rounded-full h-3 mb-2">
+                  <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
                       class="bg-blue-500 h-3 rounded-full" 
                       style={`width: ${ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Short</span>
+                    <span class="text-sm text-[var(--text-muted)]">Top Trader Short</span>
                     <span class="text-red-500 font-bold">
                       {(ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].short_ratio * 100).toFixed(1)}%
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Often considered the "smart money" direction.
+                </p>
               </div>
             )}
 
-            {/* Taker Long/Short Ratio */}
+            <!-- Taker Buy/Sell Ratio -->
             {ethData.taker_longshort_ratio && ethData.taker_longshort_ratio.length > 0 && (
-              <div class="mb-6">
+              <div>
                 <h3 class="text-lg font-semibold mb-3">Taker Buy/Sell Ratio</h3>
-                <div class="bg-background/50 rounded-xl p-4">
+                <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm text-text-muted">Taker Buy Vol / Sell Vol</span>
+                    <span class="text-sm text-[var(--text-muted)]">Taker Buy / Taker Sell</span>
                     <span class="text-yellow-500 font-bold">
                       {ethData.taker_longshort_ratio[ethData.taker_longshort_ratio.length - 1].buy_sell_ratio.toFixed(2)}
                     </span>
                   </div>
-                  <p class="text-xs text-text-muted mt-1">
+                  <p class="text-xs text-[var(--text-muted)] mt-1">
                     {ethData.taker_longshort_ratio[ethData.taker_longshort_ratio.length - 1].buy_sell_ratio > 1 
-                      ? 'Aggressive buying dominant' 
-                      : 'Aggressive selling dominant'}
+                      ? 'More buying pressure from takers' 
+                      : 'More selling pressure from takers'}
                   </p>
                 </div>
               </div>
             )}
-
-            {/* Sentiment Signals */}
-            {ethData.sentiment_analysis && ethData.sentiment_analysis.signals && (
-              <div>
-                <h3 class="text-lg font-semibold mb-3">Sentiment Signals</h3>
-                <div class="space-y-2">
-                  {ethData.sentiment_analysis.signals.map((signal, index) => (
-                    <div class="flex items-start gap-2 text-sm bg-background/50 rounded-lg p-3">
-                      <Activity class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span class="text-text-secondary">{signal}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </Card>
+          </div>
         )}
       </div>
 
-      {/* Data Explanation */}
-      <Card class="bg-surface border-border p-6 rounded-2xl">
-        <h2 class="text-2xl font-bold mb-6">Data Explanation</h2>
+      <!-- How to Read This Page -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
+        <h2 class="text-2xl font-bold mb-6">How to Read This Page</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 class="text-lg font-semibold mb-3">Funding Rate</h3>
-            <p class="text-text-secondary mb-2">
-              Charged every 8 hours on perpetual contracts. Positive rate = longs pay shorts; negative rate = shorts pay longs.
+            <p class="text-[var(--text-secondary)] mb-2">
+              Fee paid between longs and shorts. Positive = longs pay shorts (bullish); negative = shorts pay longs (bearish).
             </p>
-            <ul class="text-sm text-text-muted space-y-1">
-              <li>• Rate > 0.01%: Strong bullish sentiment</li>
-              <li>• Rate < -0.01%: Strong bearish sentiment</li>
-              <li>• Rate near 0: Neutral sentiment</li>
-            </ul>
+            <p class="text-sm text-yellow-500">Updated every 8 hours on Binance.</p>
           </div>
+
           <div>
             <h3 class="text-lg font-semibold mb-3">Open Interest</h3>
-            <p class="text-text-secondary mb-2">
+            <p class="text-[var(--text-secondary)] mb-2">
               Total value of all open positions. Increasing = money flowing in; decreasing = money flowing out.
             </p>
           </div>
+
           <div>
             <h3 class="text-lg font-semibold mb-3">Long/Short Account Ratio</h3>
-            <p class="text-text-secondary mb-2">
-              Long accounts / total accounts. Extreme values (>60% or <40%) may signal reversal.
+            <p class="text-[var(--text-secondary)] mb-2">
+              Long accounts / total accounts. Extreme values (&gt;60% or &lt;40%) may signal reversal.
             </p>
           </div>
+
           <div>
             <h3 class="text-lg font-semibold mb-3">Top Trader Ratio</h3>
-            <p class="text-text-secondary mb-2">
+            <p class="text-[var(--text-secondary)] mb-2">
               Long/short ratio of top traders. Often considered the "smart money" direction.
             </p>
           </div>
         </div>
-      </Card>
+      </div>
+
+      <!-- Affiliate Disclosure -->
+      <div class="mt-10 pt-6 border-t border-[var(--border)]">
+        <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. Using them may earn me a commission at no extra cost to you. <a href="/en/disclosure/" class="text-[var(--primary)] hover:underline">See Affiliate Disclosure</a>.</p>
+      </div>
     </section>
   </div>
-</GrommetRoot>
+</BaseLayout>

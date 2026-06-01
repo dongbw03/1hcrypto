@@ -1,0 +1,11 @@
+# Cloudflare Pages _redirects
+# SPA fallback - all routes go to index.html for Astro SSR-like behavior
+# Not needed for static export, but kept for safety
+
+# Redirect old RSS feeds if any
+# /rss.xml /zh/rss.xml 301
+
+# Affiliate link redirect (clean links)
+/signup/binance /https://www.binance.com/zh-CN/register?ref=YOUR_CODE 301
+/signup/okx /https://www.okx.com/join/YOUR_CODE 301
+/signup/bybit /https://www.bybit.com/invite?af=YOUR_CODE 301

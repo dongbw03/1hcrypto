@@ -20,20 +20,36 @@
 - Format: 1H price action + 4-dimensional analysis
 - Data sources: Binance API, CryptoQuant, Glassnode, Coinglass
 - Methodology: Al Brooks price action on 1H BTC/USDT & ETH/USDT charts
+- Example: https://1hcrypto.com/zh/daily/2026-05-31/
+- Example: https://1hcrypto.com/en/daily/2026-05-31/
 
 ### Weekly Review (Sundays)
 - URL: https://1hcrypto.com/{zh|en}/weekly/
 - Content: Prediction accuracy review, key levels for next week, positioning guidance
+- Example: https://1hcrypto.com/zh/weekly/
 
 ### Monthly Deep Dive (First week of month)
 - URL: https://1hcrypto.com/{zh|en}/monthly/
 - Content: Macro trends, regime changes, strategic positioning
+- Example: https://1hcrypto.com/zh/monthly/
 
 ### Paper Trading (Real-time updates)
 - URL: https://1hcrypto.com/{zh|en}/trading/
 - Virtual portfolio: $1M USDT
 - Full transparency: Entry/exit reasons, P&L tracking
 - No sanitized results - all trades shown
+- Example: https://1hcrypto.com/zh/trading/
+
+### Learn Center (Evergreen Content)
+- URL: https://1hcrypto.com/{zh|en}/learn/
+- Topics: Blockchain basics, trading, security, DeFi, derivatives
+- Evergreen articles:
+  - https://1hcrypto.com/en/learn/crypto-tax-guide/ (Crypto Tax Guide 2026)
+  - https://1hcrypto.com/en/learn/cross-exchange-hedge/ (Cross-Exchange Hedge Strategy)
+  - https://1hcrypto.com/en/learn/bear-market-survival/ (Bear Market Survival Guide)
+  - https://1hcrypto.com/zh/learn/crypto-tax-guide/ (加密货币税务指南 2026)
+  - https://1hcrypto.com/zh/learn/cross-exchange-hedge/ (跨交易所对冲策略)
+  - https://1hcrypto.com/zh/learn/bear-market-survival/ (熊市生存手册)
 
 ## Core Methodology
 

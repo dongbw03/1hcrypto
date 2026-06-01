@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "稳定币是什么？USDT、USDC、DAI有什么区别？ - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/stablecoins-guide/"
+  }
+}`}></script>
+<BaseLayout title="稳定币是什么？USDT、USDC、DAI有什么区别？ - 1H币研" lang="zh" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">稳定币是什么？USDT、USDC、DAI有什么区别？</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">更新：2026年5月</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>你刚进币圈，看到BTC涨涨跌跌心脏受不了，但又不想把钱退回到法币——这时候稳定币就是你的"避风港"。简单说，<strong>稳定币就是和某法币（通常是美元）1:1锚定的加密货币</strong>，价格几乎不波动。</p>
+
+    <h3>为什么需要稳定币？</h3>
+    <p>加密货币交易所里，大部分交易对都是"币对币"，而不是"币对法币"。比如你想买ETH，通常要用USDT去买，而不是直接用人民币或美元买。稳定币相当于币圈里的"美元"，是所有交易的计价单位和中间媒介。</p>
+
+    <h3>USDT（Tether）—— 市场份额最大，但争议也最多</h3>
+    <p>USDT是目前市场份额最大的稳定币，几乎所有交易所都支持。但Tether公司（发行USDT的公司）一直有"储备金不透明"的争议——他们声称每1枚USDT都有1美元储备支撑，但审计报告一直不完整。</p>
+    <p><strong>适合场景</strong>：需要快速转账、在交易所之间划转资金。不适合长期存放大额资金。</p>
+
+    <h3>USDC（USD Coin）—— 合规性最好</h3>
+    <p>USDC由Circle公司发行，受美国金融监管，每月公布由第三方审计的储备金报告。储备金存放在受保的银行里，透明度比USDT高很多。</p>
+    <p><strong>适合场景</strong>：长期持有稳定币、需要合规保障的用户。如果你在意资金安全，选USDC比USDT更稳妥。</p>
+
+    <h3>DAI（MakerDAO）—— 去中心化稳定币</h3>
+    <p>DAI不和任何公司绑定，它是由智能合约自动发行的。如果你想借DAI，你需要把ETH等资产作为抵押品锁进智能合约里，系统自动借给你DAI。<strong>整个过程没有人工干预，也没有公司可以冻结你的DAI</strong>。</p>
+    <p><strong>适合场景</strong>：在意去中心化、不想依赖任何公司的用户。但DAI的锚定偶尔会轻微脱锚（比如1 DAI = 0.98 USD），不如USDT/USDC稳定。</p>
+
+    <h3>三种稳定币对比</h3>
+    <table class="w-full text-sm my-4">
+      <thead><tr class="border-b border-[var(--border)]"><th class="text-left py-2">对比项</th><th class="text-left py-2">USDT</th><th class="text-left py-2">USDC</th><th class="text-left py-2">DAI</th></tr></thead>
+      <tbody>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">发行方</td><td>中心化公司（Tether）</td><td>中心化公司（Circle）</td><td>去中心化（MakerDAO）</td></tr>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">合规性</td><td>较差，审计不透明</td><td>好，每月审计</td><td>无需信任公司</td></tr>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">稳定性</td><td>很好</td><td>很好</td><td>偶尔轻微脱锚</td></tr>
+        <tr><td class="py-2">推荐度</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+      </tbody>
+    </table>
+
+    <h3>稳定币有风险吗？</h3>
+    <p>有。<strong>最大的风险是"脱锚"</strong>——如果市场恐慌，大家同时抛售USDT，它的价格可能跌到0.90美元甚至更低，你的1 USDT就买不回1美元的东西了。不过对于USDC和USDT来说，这种极端情况很少发生，而且通常会在几天内恢复锚定。</p>
+    <p>另一个风险是<strong>发行公司被监管打击</strong>。如果美国政府突然宣布USDT非法，你存在Tether公司的储备金可能就被冻结了。这种风险对USDC也存在，但Circle的合规性更好，风险相对更低。</p>
+  </article>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+  </div>
+</div>
+
+</BaseLayout>

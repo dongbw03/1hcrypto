@@ -111,6 +111,32 @@
     <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/tools/"/>
   </url>
 
+  <!-- Evergreen Articles (English) -->
+  <url>
+    <loc>https://1hcrypto.com/en/learn/crypto-tax-guide/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/crypto-tax-guide/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/crypto-tax-guide/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/learn/cross-exchange-hedge/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/cross-exchange-hedge/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/cross-exchange-hedge/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/learn/bear-market-survival/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/bear-market-survival/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/bear-market-survival/"/>
+  </url>
+
   <!-- About -->
   <url>
     <loc>https://1hcrypto.com/zh/about/</loc>

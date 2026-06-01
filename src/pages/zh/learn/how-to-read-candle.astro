@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "如何理解K线图——从一根蜡烛看透多空博弈 - 1H币研",
+  "description": "不需要任何技术分析基础，用最直白的语言讲清楚K线图的每一个细节，附实战案例。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/how-to-read-candle/"
+  }
+}`}></script>
+<BaseLayout title="如何理解K线图——从一根蜡烛看透多空博弈 - 1H币研" lang="zh" description="不需要任何技术分析基础，用最直白的语言讲清楚K线图的每一个细节，附实战案例。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">如何理解K线图——从一根蜡烛看透多空博弈</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 阅读时间约 10 分钟</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">K线图（Candlestick Chart）是技术分析的"字母表"——不懂K线，后面的均线、MACD、布林带全是空中楼阁。这篇文章用最直白的方式，把K线讲透。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">一根K线的四个价格</h2>
+    <p>每根K线代表一个时间段（比如1小时、1天）内的四样东西：</p>
+    <ul class="list-disc pl-6 space-y-1 mt-3">
+      <li><strong>开盘价（Open）</strong>：这个时间段的第一笔成交价</li>
+      <li><strong>收盘价（Close）</strong>：这个时间段的最后一笔成交价</li>
+      <li><strong>最高价（High）</strong>：这个时间段内的最高成交价</li>
+      <li><strong>最低价（Low）</strong>：这个时间段内的最低成交价</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">阳线 vs 阴线（国内外差异）</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">类型</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">国际惯例（TradingView等）</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">中国A股惯例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">收盘 &gt; 开盘</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]"><span class="text-green-400">🟢 绿色（涨）</span></td>
+            <td class="py-3 text-[var(--text-secondary)]"><span class="text-red-400">🔴 红色（涨）</span></td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">收盘 &lt; 开盘</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]"><span class="text-red-400">🔴 红色（跌）</span></td>
+            <td class="py-3 text-[var(--text-secondary)]"><span class="text-green-400">🟢 绿色（跌）</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">⚠️ 加密货币交易默认遵循<strong>国际惯例</strong>（绿涨红跌）。如果你是从A股过来的，需要重新适应颜色含义。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">实体和影线的含义</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>实体（Body）</strong>：开盘价和收盘价之间的矩形区域。实体越长，说明这个时间段内买卖力量越一边倒。</li>
+      <li><strong>上影线（Upper Shadow）</strong>：实体上方的细线，代表最高价。上影线越长，说明上方抛压越重。</li>
+      <li><strong>下影线（Lower Shadow）</strong>：实体下方的细线，代表最低价。下影线越长，说明下方有支撑。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">必须认识的 6 种单K线形态</h2>
+
+    <div class="space-y-6 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">1. 大阳线（Long Bullish Candle）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">收盘价远高于开盘价，实体很长。说明买方完全主导，短期内继续上涨的概率较高。出现在底部时尤其值得关注。</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">2. 大阴线（Long Bearish Candle）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">收盘价远低于开盘价，实体很长。说明卖方完全主导，短期内继续下跌的概率较高。不要盲目"抄底"。</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">3. 锤子线（Hammer）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">实体小、下影线很长（&gt;2倍实体）。出现在下跌趋势底部时，是潜在的<strong>反转信号</strong>——说明卖方试图打压但被买方收复失地。</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">4. 上吊线（Hanging Man）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">形态和锤子线一样，但出现在<strong>上涨趋势顶部</strong>。是潜在的见顶信号，需要下一根K线确认（跌破实体底部）。</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">5. 十字星（Doji）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">开盘价≈收盘价，实体几乎是一条线。说明多空力量均衡，市场犹豫不决。出现在趋势末端时，是潜在的变盘信号。</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">6. 吞没形态（Engulfing）</h3>
+        <p class="text-[var(--text-secondary)] text-sm">后一根K线的实体完全"吞没"前一根的实体。看涨吞没（底部）和看跌吞没（顶部）都是较强的反转信号，需要配合成交量确认。</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">实战胜率提升技巧</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>永远看多时间周期</strong>：1分钟K线的信号噪声极大，建议从4小时或日线开始学起。</li>
+      <li><strong>结合成交量看</strong>：一根大阳线如果伴随巨量，说明是真涨；如果量能萎缩，可能是诱多。</li>
+      <li><strong>支撑阻力位上的K线信号更有效</strong>：在已知支撑位出现的锤子线，远比随机出现的锤子线可靠。</li>
+      <li><strong>不要孤立即K线</strong>：单根K线的信号强度有限，必须结合趋势、均线、成交量一起判断。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">新手推荐工具</h2>
+    <p>学习K线最推荐 <strong>TradingView</strong>，免费版就支持几乎所有交易所的K线数据，画图工具也很完善。</p>
+    <a href="https://cn.tradingview.com/pricing/?share_your_love=dongbw03" class="inline-block mt-3 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity" target="_blank" rel="sponsored noopener">免费注册 TradingView →</a>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">总结</h2>
+    <p>K线是技术分析的起点，但不是终点。学会读K线是必须的，但别指望"看一根K线就能稳定盈利"——那是不存在的。把K线作为"感知市场情绪"的工具，而不是"预测未来的水晶球"。</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 本文属于<a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>系列，持续更新中。</p>
+  </div>
+</div>
+</BaseLayout>

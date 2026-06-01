@@ -17,6 +17,7 @@
 
   /* 品牌色 */
   --primary:       #0ea5e9;
+  --primary-rgb:   14, 165, 233;
   --primary-light: #38bdf8;
   --accent:        #f59e0b;
   --accent-light:  #fbbf24;
@@ -44,9 +45,24 @@
   --shadow-lg:     0 10px 25px rgba(0,0,0,0.08);
 }
 
+/* --- 导航高亮（绕过 Tailwind CSS 变量透明度限制） --- */
+.nav-active {
+  color: var(--primary) !important;
+  background-color: rgba(14, 165, 233, 0.15) !important;
+  font-weight: 600 !important;
+}
+[data-theme="light"] .nav-active {
+  color: #0284c7 !important;
+  background-color: rgba(2, 132, 199, 0.10) !important;
+}
+
 /* --- 全局重置 & 基础 --- */
 html {
   scroll-behavior: smooth;
+  background-color: #020617;
+}
+body {
+  background-color: var(--bg-primary);
 }
 
 body {
@@ -379,3 +395,9 @@ og-image,
 [property="og:image"] {
   max-width: 1200px;
 }
+
+.typing-effect { display: inline; }
+.typing-cursor::after {
+  content: "|"; animation: blink 1s step-end infinite; color: #0ea5e9;
+}
+@keyframes blink { 0%%,100%% { opacity: 1; } 50%% { opacity: 0; } }

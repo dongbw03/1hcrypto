@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Read Candlestick Charts (No Experience Needed) - 1H Crypto",
+  "description": "Before you trade, you need to understand what those green and red candles actually mean. Start here.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/how-to-read-candles/"
+  }
+}`}></script>
+<BaseLayout title="How to Read Candlestick Charts (No Experience Needed) - 1H Crypto" lang="en" description="Before you trade, you need to understand what those green and red candles actually mean. Start here." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">How to Read Candlestick Charts (No Experience Needed)</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">January 2026 · 10 min read</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">If you're going to trade crypto, you need to understand candlesticks. This is the "alphabet" of technical analysis.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">What Each Candle Shows</h2>
+    <p>Every single candle shows four prices for that time period:</p>
+    <ul class="list-disc pl-6 space-y-1 mt-3">
+      <li><strong>Open</strong>: Price at the start</li>
+      <li><strong>Close</strong>: Price at the end</li>
+      <li><strong>High</strong>: Highest price during the period</li>
+      <li><strong>Low</strong>: Lowest price during the period</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Green vs. Red (International Standard)</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Candle</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Close > Open</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">Close < Open</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Color (Crypto standard)</td>
+            <td class="py-3 pr-4 text-green-400">🟢 Green (Bullish)</td>
+            <td class="py-3 text-red-400">🔴 Red (Bearish)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Body and Wicks (Shadows)</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Body</strong>: The rectangle between Open and Close. A long body = strong buying or selling pressure.</li>
+      <li><strong>Upper Wick</strong>: How high price went above the body. Long upper wick = buyers tried but were rejected.</li>
+      <li><strong>Lower Wick</strong>: How low price went below the body. Long lower wick = sellers tried but were rejected.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">6 Candlestick Patterns Every Beginner Should Know</h2>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">1. Hammer (Bottom Reversal)</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Small body at the top, long lower wick. After a downtrend, it suggests sellers are exhausted and buyers are stepping in.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">2. Shooting Star (Top Reversal)</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Small body at the bottom, long upper wick. After an uptrend, it suggests buyers are exhausted and sellers may take over.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">3. Doji (Indecision)</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Open ≈ Close. The market doesn't know which direction to go. Often appears at trend reversals.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">4. Bullish Engulfing</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A green candle that completely "engulfs" the previous red candle's body. Strong bullish signal when confirmed by volume.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">5. Morning Star (3-Candle Reversal)</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A large red candle → a small candle → a large green candle. Signals a potential bottom.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">6. Evening Star (3-Candle Top)</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A large green candle → a small candle → a large red candle. Signals a potential top.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Timeframes: Which One to Use?</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>1m / 5m</strong>: Noise. Mostly useless for beginners.</li>
+      <li><strong>15m / 1h</strong>: Short-term trading. High stress, high fees.</li>
+      <li><strong>4h / 1D</strong>: The sweet spot for most traders. Clear signals, less noise.</li>
+      <li><strong>1W</strong>: Long-term trend identification.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Volume: The Confirmation Signal</h2>
+    <p>A candle pattern with <strong>high volume</strong> is much more reliable than one with low volume. If a bullish engulfing candle appears on low volume, it could be a fake-out.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Best Free Tool for Learning</h2>
+    <p><a href="https://www.tradingview.com/" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">TradingView</a> is the best free charting tool. You can practice identifying candlestick patterns on historical data without risking real money.</p>
+    <a href="https://www.tradingview.com/pricing/?share_your_love=dongbw03" class="inline-block mt-3 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity" target="_blank" rel="sponsored noopener">Try TradingView Free →</a>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Bottom Line</h2>
+    <p>Candlestick patterns are not crystal balls. They show <em>probability</em>, not certainty. Always combine them with support/resistance levels, volume, and trend direction. And never, ever trade based on a single candle pattern alone.</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 Part of <a href="/en/learn/" class="text-primary hover:underline">Learning Center</a>.</p>
+  </div>
+</div>
+</BaseLayout>

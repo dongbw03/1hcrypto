@@ -2,14 +2,45 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="About 1H Crypto" lang="en">
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "About 1H Crypto",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/about/"
+  }
+}`}></script>
+<BaseLayout title="About 1H Crypto" lang="en" activeNav="about">
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
   <h1 class="text-3xl font-bold text-white mb-2">About 1H Crypto</h1>
   <p class="text-[var(--text-muted)] mb-8">An independent trader doing BTC & ETH intraday analysis using the Al Brooks price action methodology.</p>
   <div class="space-y-4 text-[var(--text-secondary)] text-sm leading-relaxed">
     <div class="card p-6"><h3 class="text-white font-semibold mb-2">Not An Analyst</h3><p>I am an independent trader who uses Al Brooks price action analysis for crypto intraday analysis. No investment advice, no signal calls, no private groups.</p></div>
-    <div class="card p-6"><h3 class="text-white font-semibold mb-2">Research Framework</h3><p>Every day at 08:00 Beijing Time (00:00 UTC), I publish a BTC/USDT and ETH/USDT hourly price action analysis covering candlestick patterns, on-chain data, derivatives sentiment, and paper trading results.</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">Research Framework</h3><p>Every day at 08:30 Beijing Time (00:30 UTC), I publish a BTC/USDT and ETH/USDT hourly price action analysis covering candlestick patterns, on-chain data, derivatives sentiment, and paper trading results.</p></div>
     <div class="card p-6"><h3 class="text-white font-semibold mb-2">The Goal</h3><p>365 days, 365 verified price action analysis records. A research archive no one can replicate.</p></div>
   </div>
 </div>

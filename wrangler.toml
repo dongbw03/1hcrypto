@@ -5,6 +5,11 @@ compatibility_date = "2025-01-01"
 # Build output directory
 pages_build_output_dir = "dist"
 
+# KV namespace for email subscribers
+[[kv_namespaces]]
+binding = "SUBSCRIBERS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
 # Environment variables (non-secret)
 [vars]
 SITE_URL = "https://1hcrypto.com"

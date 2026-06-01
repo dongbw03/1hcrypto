@@ -2,15 +2,87 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="推荐链接声明" lang="zh">
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "推荐链接声明 - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/disclosure/"
+  }
+}`}></script>
+<BaseLayout title="推荐链接声明 - 1H币研" lang="zh" activeNav="disclosure">
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
   <h1 class="text-3xl font-bold text-white mb-2">推荐链接声明</h1>
-  <p class="text-[var(--text-muted)] mb-8">Affiliate Disclosure</p>
-  <div class="space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
-    <div class="card p-6"><h3 class="text-white font-semibold mb-2">什么是推荐链接？</h3><p>推荐链接（Affiliate Links）是指包含追踪代码的特殊 URL，通过此类链接注册或购买，我们可能获得佣金。</p></div>
-    <div class="card p-6"><h3 class="text-white font-semibold mb-2">对你的影响</h3><p>通过推荐链接注册或购买，不会增加你的任何费用。</p></div>
-    <div class="card p-6"><h3 class="text-white font-semibold mb-2">我们的原则</h3><p>我们只推荐真实使用并认可的工具和服务。</p></div>
+  <p class="text-[var(--text-muted)] mb-8">最后更新：2026年5月</p>
+
+  <div class="space-y-6 text-sm text-[var(--text-secondary)] leading-relaxed">
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">本站推荐链接说明</h3>
+      <p>本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。</p>
+      <p class="mt-3">所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">对我的分析有影响吗？</h3>
+      <p>没有。分析文章和交易记录都是我独立完成的，不会因为某个平台给了佣金就写假话。如果我觉得某个工具不好用，哪怕有佣金我也会说实话，或者干脆不下推荐链接。</p>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">我推荐的东西多吗？</h3>
+      <p>不多。只放我自己真在用的。没用过的东西我不会推荐，更不会为了佣金去推垃圾产品。如果某个工具我不用了，链接会撤下来。</p>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">涉及哪些平台？</h3>
+      <p class="mb-2">目前本站推荐链接涉及以下平台：</p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Binance（币安）— 推荐佣金：被推荐人交易费的 20%-40%</li>
+        <li>OKX（欧易）— 推荐佣金：被推荐人交易费的 30%-50%</li>
+        <li>Bybit — 推荐佣金：被推荐人交易费的 30%-50%</li>
+        <li>Gate.io — 推荐佣金：被推荐人交易费的 30%-60%</li>
+        <li>TradingView — 推荐佣金：订阅费用的 30%</li>
+        <li>Ledger — 推荐佣金：硬件销量的 10%-15%</li>
+        <li>3Commas — 推荐佣金：订阅费用的 30%</li>
+        <li>Bitsgap — 推荐佣金：订阅费用的 30%</li>
+        <li>Coinrule — 推荐佣金：订阅费用的 25%</li>
+        <li>Cryptohopper — 推荐佣金：订阅费用的 30%</li>
+        <li>Koinly — 推荐佣金：订阅费用的 20%-30%</li>
+      </ul>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">赞助内容声明</h3>
+      <p>本站所有技术分析文章和模拟盘交易记录均为原创，不受任何平台、项目方或广告商影响。如存在赞助内容，会在文章开头明确标注。所有观点仅代表个人，不构成投资建议。</p>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">链接失效？</h3>
+      <p>推荐链接有时会因为平台调整而失效。如果发现某个链接打不开，可以通过<a href="/zh/about/" class="text-primary underline">关于页面</a>的联系方式告诉我，我会尽快更新。</p>
+    </div>
   </div>
 </div>
 

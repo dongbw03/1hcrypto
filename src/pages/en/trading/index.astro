@@ -1,20 +1,395 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+const tradesPath = path.resolve('src/data/trades.json');
+let trades = [];
+try {
+  trades = JSON.parse(fs.readFileSync(tradesPath, 'utf-8'));
+} catch (e) {
+  trades = [];
+}
+
+const openTrades = trades.filter(t => t.status === 'open');
+const closedTrades = trades.filter(t => t.status === 'closed');
+const totalPnl = closedTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+const winCount = closedTrades.filter(t => (t.pnl || 0) > 0).length;
+const winRate = closedTrades.length > 0 ? (winCount / closedTrades.length * 100).toFixed(1) : null;
 ---
 
-<BaseLayout title="Paper Trading Tracker - $1M Virtual" lang="en">
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Paper Trading - 1H Crypto",
+  "description": "1H Crypto paper trading journal. Manual entry, linked to daily analysis.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/trading/"
+  }
+}`}></script>
+<BaseLayout title="Paper Trading - 1H Crypto" description="1H Crypto paper trading journal. Manual entry, linked to daily analysis." lang="en" activeNav="trading">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-  <h1 class="text-3xl font-bold text-white mb-2">Paper Trading Tracker</h1>
-  <p class="text-[var(--text-muted)] mb-8">Starting capital: $1,000,000 USDT (virtual). Assets: BTC & ETH. Timeframe: 1H candles. Strategy: Al Brooks Price Action.</p>
-  <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-    <div class="card p-4 text-center"><div class="text-xs text-[var(--text-muted)] mb-1">Starting Capital</div><div class="text-lg font-bold text-white font-mono">1,000,000</div></div>
-    <div class="card p-4 text-center"><div class="text-xs text-[var(--text-muted)] mb-1">Current NAV</div><div class="text-lg font-bold text-white font-mono">--</div></div>
-    <div class="card p-4 text-center"><div class="text-xs text-[var(--text-muted)] mb-1">Win Rate</div><div class="text-lg font-bold text-green-400 font-mono">--</div></div>
-    <div class="card p-4 text-center"><div class="text-xs text-[var(--text-muted)] mb-1">Max Drawdown</div><div class="text-lg font-bold text-red-400 font-mono">--</div></div>
-    <div class="card p-4 text-center"><div class="text-xs text-[var(--text-muted)] mb-1">Profit Factor</div><div class="text-lg font-bold text-amber-400 font-mono">--</div></div>
+    <!-- Page Title -->
+    <div class="mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl font-bold text-white mb-2">Paper Trading Journal</h1>
+      <p class="text-[var(--text-muted)] text-sm">Manual entry · Linked to analysis · 1,000,000 USDT initial capital</p>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-in-on-scroll">
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Initial Capital</div>
+        <div class="text-xl font-bold text-white font-mono">1,000,000</div>
+        <div class="text-xs text-[var(--text-muted)]">USDT</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Open Positions</div>
+        <div class="text-xl font-bold text-yellow-400 font-mono">{openTrades.length}</div>
+        <div class="text-xs text-[var(--text-muted)]">trades</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Total P&L</div>
+        <div class={`text-xl font-bold font-mono ${(totalPnl || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          {(totalPnl || 0) >= 0 ? '+' : ''}{(totalPnl || 0).toLocaleString()}
+        </div>
+        <div class="text-xs text-[var(--text-muted)]">USDT</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Win Rate</div>
+        <div class="text-xl font-bold text-primary font-mono">{winRate !== null ? winRate + '%' : '--'}</div>
+        <div class="text-xs text-[var(--text-muted)]">{closedTrades.length} closed</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mb-6 fade-in-on-scroll">
+      <button id="btn-new-trade" class="px-5 py-2.5 bg-primary hover:bg-primary/90 text-white text-sm font-medium rounded-lg transition-colors">
+        + New Trade
+      </button>
+      <button id="btn-export" class="ml-3 px-5 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] hover:border-primary/50 text-[var(--text-secondary)] text-sm rounded-lg transition-colors">
+        ⬇ Export JSON
+      </button>
+      <a href="/en/daily/" class="ml-3 px-5 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] hover:border-accent/50 text-[var(--text-secondary)] text-sm rounded-lg transition-colors no-underline inline-block">
+        📊 Today's Analysis
+      </a>
+    </div>
+
+    <!-- Entry Form (hidden by default) -->
+    <div id="trade-form-panel" class="card p-6 mb-8 hidden fade-in-on-scroll">
+      <h3 class="text-white font-semibold mb-4">📝 New Trade Entry</h3>
+      <form id="trade-form" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Pair</label>
+            <select id="f-pair" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50" required>
+              <option value="BTC/USDT">BTC/USDT</option>
+              <option value="ETH/USDT">ETH/USDT</option>
+              <option value="SOL/USDT">SOL/USDT</option>
+              <option value="BNB/USDT">BNB/USDT</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Direction</label>
+            <select id="f-direction" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50" required>
+              <option value="long">Long</option>
+              <option value="short">Short</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Session</label>
+            <select id="f-session" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50" required>
+              <option value="Asia">Asia</option>
+              <option value="London">London</option>
+              <option value="New York">New York</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Entry Price</label>
+            <input id="f-entry" type="number" step="any" placeholder="e.g. 73250" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-primary/50" required />
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Stop Loss</label>
+            <input id="f-sl" type="number" step="any" placeholder="e.g. 72500" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-primary/50" required />
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Take Profit</label>
+            <input id="f-tp" type="number" step="any" placeholder="e.g. 74800" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-primary/50" required />
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Risk:Reward</label>
+            <input id="f-rr" type="text" placeholder="e.g. 1:2.2" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-primary/50" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-[var(--text-muted)] mb-1">Entry Reason (Price Action + Structure)</label>
+          <textarea id="f-reason" rows="3" placeholder="e.g. Bullish Pin Bar at channel low, close > EMA20, volume spike, support 72800 held." class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 resize-y"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs text-[var(--text-muted)] mb-1">Linked Analysis Article URL</label>
+          <input id="f-linked" type="text" placeholder="e.g. /en/daily/ or /en/analysis/" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-primary/50" />
+          <p class="text-xs text-[var(--text-muted)] mt-1">Enter the relative path of the analysis article on this site. A clickable link will appear on the trade card.</p>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button type="submit" class="px-5 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-medium rounded-lg transition-colors">Save Trade</button>
+          <button type="button" id="btn-cancel" class="px-5 py-2 bg-transparent border border-[var(--border)] text-[var(--text-muted)] text-sm rounded-lg hover:border-[var(--text-secondary)] transition-colors">Cancel</button>
+        </div>
+      </form>
+      <!-- Close Form (hidden) -->
+      <div id="close-form-panel" class="hidden mt-6 pt-6 border-t border-[var(--border)]">
+        <h4 class="text-white font-semibold mb-3">🔒 Close This Trade</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Close Price</label>
+            <input id="f-close-price" type="number" step="any" placeholder="e.g. 74500" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white font-mono" required />
+          </div>
+          <div>
+            <label class="block text-xs text-[var(--text-muted)] mb-1">Close Reason</label>
+            <input id="f-close-reason" type="text" placeholder="e.g. TP reached, 1H reversal signal" class="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-white" />
+          </div>
+          <div class="flex items-end">
+            <button id="btn-confirm-close" class="px-5 py-2 bg-red-500/20 text-red-400 border border-red-500/30 text-sm rounded-lg hover:bg-red-500/30 transition-colors">Confirm Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open Trades -->
+    {openTrades.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+          Open Positions · {openTrades.length}
+        </h2>
+        <div class="space-y-4">
+          {openTrades.map((t, i) => (
+            <div class="card p-5 border-l-2 border-yellow-400 fade-in-on-scroll" style={`animation-delay: ${i * 0.05}s`}>
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <span class={`badge ${t.direction === 'long' ? 'badge-green' : 'badge-red'}`}>{t.direction === 'long' ? 'LONG' : 'SHORT'}</span>
+                  <span class="text-white font-bold font-mono">{t.pair}</span>
+                  <span class="text-xs text-[var(--text-muted)]">{t.session}</span>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn-close-trade px-3 py-1 text-xs rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30 transition-colors" data-id={t.id}>Close</button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 text-sm">
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">Entry</span><div class="font-mono text-white">{t.entryPrice?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">SL</span><div class="font-mono text-red-400">{t.stopLoss?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">TP</span><div class="font-mono text-green-400">{t.takeProfit?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">R:R</span><div class="font-mono text-white">{t.riskReward || '--'}</div></div>
+              </div>
+              {t.reason && <p class="text-xs text-[var(--text-secondary)] mt-3">{t.reason}</p>}
+              {t.linkedAnalysis && (
+                <a href={t.linkedAnalysis} class="inline-block mt-2 text-xs text-primary hover:text-primary/80 no-underline">📊 View Linked Analysis →</a>
+              )}
+              <p class="text-xs text-[var(--text-muted)] mt-2">Opened: {t.date}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Closed Trades -->
+    {closedTrades.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">Closed · {closedTrades.length}</h2>
+        <div class="space-y-3">
+          {closedTrades.map((t, i) => (
+            <div class="card p-4 fade-in-on-scroll" style={`animation-delay: ${i * 0.03}s`}>
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <span class={`badge ${t.direction === 'long' ? 'badge-green' : 'badge-red'}`}>{t.direction === 'long' ? 'LONG' : 'SHORT'}</span>
+                  <span class="text-white font-bold font-mono">{t.pair}</span>
+                  <span class="text-xs text-[var(--text-muted)]">{t.session}</span>
+                </div>
+                <div class="flex items-center gap-4 text-sm">
+                  <span class={t.pnl >= 0 ? 'text-green-400 font-mono font-bold' : 'text-red-400 font-mono font-bold'}>
+                    {t.pnl >= 0 ? '+' : ''}{t.pnl?.toLocaleString()} USDT
+                  </span>
+                  <span class={t.pnlPct >= 0 ? 'text-green-400 font-mono' : 'text-red-400 font-mono'}>
+                    ({t.pnlPct >= 0 ? '+' : ''}{t.pnlPct?.toFixed(2)}%)
+                  </span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-xs">
+                <div>Entry: <span class="font-mono text-[var(--text-secondary)]">{t.entryPrice?.toLocaleString()}</span></div>
+                <div>Exit: <span class="font-mono text-[var(--text-secondary)]">{t.closePrice?.toLocaleString()}</span></div>
+                <div>SL: <span class="font-mono text-red-400">{t.stopLoss?.toLocaleString()}</span></div>
+                <div>TP: <span class="font-mono text-green-400">{t.takeProfit?.toLocaleString()}</span></div>
+              </div>
+              {t.linkedAnalysis && (
+                <a href={t.linkedAnalysis} class="inline-block mt-1 text-xs text-primary hover:text-primary/80 no-underline">📊 Linked Analysis</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {trades.length === 0 && (
+      <div class="card p-8 text-center fade-in-on-scroll">
+        <p class="text-[var(--text-muted)] mb-3">No trades recorded yet.</p>
+        <p class="text-xs text-[var(--text-muted)]">Click "New Trade" to record your first paper trade.</p>
+      </div>
+    )}
+
+    <!-- Instructions -->
+    <div class="card p-5 bg-[var(--bg-secondary)]/50 mt-8 fade-in-on-scroll">
+      <h3 class="text-white font-semibold mb-3">📋 How to Use</h3>
+      <ul class="text-sm text-[var(--text-secondary)] space-y-1.5 list-disc pl-5">
+        <li>Click "New Trade" to enter trade details. Records are saved locally in your browser.</li>
+        <li>Use the "Close" button to record exit price and reason. P&L is auto-calculated.</li>
+        <li>Click "Export JSON" to download <code class="text-primary">trades.json</code>, then replace <code class="text-primary">src/data/trades.json</code> and rebuild to make it permanent.</li>
+        <li>Fill in the "Linked Analysis" field with the article path (e.g. <code class="text-primary">/en/daily/</code>) to show a clickable link on the trade card.</li>
+        <li>Data is also saved in browser local storage. Clearing browser data will lose unsaved records.</li>
+      </ul>
+    </div>
+
   </div>
-  <div class="card p-8 text-center"><p class="text-sm text-[var(--text-muted)] max-w-md mx-auto">Daily trade records will be published alongside the daily analysis.</p></div>
-</div>
+
+  <script>
+    const STORAGE_KEY = 'lhcrypto_paper_trades';
+    function loadTrades() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+    }
+    function saveTrades(list) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    const btnNew    = document.getElementById('btn-new-trade');
+    const btnExport = document.getElementById('btn-export');
+    const btnCancel = document.getElementById('btn-cancel');
+    const formPanel = document.getElementById('trade-form-panel');
+    const form      = document.getElementById('trade-form');
+    const closePanel = document.getElementById('close-form-panel');
+
+    btnNew.addEventListener('click', () => formPanel.classList.remove('hidden'));
+    btnCancel.addEventListener('click', () => {
+      formPanel.classList.add('hidden');
+      closePanel.classList.add('hidden');
+      form.reset();
+    });
+
+    function nextId(trades) {
+      const max = trades.map(t => parseInt(t.id.replace('trade-','')) || 0).reduce((a,b)=>Math.max(a,b),0);
+      return 'trade-' + String(max+1).padStart(3,'0');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entry = parseFloat(document.getElementById('f-entry').value);
+      const sl    = parseFloat(document.getElementById('f-sl').value);
+      const tp    = parseFloat(document.getElementById('f-tp').value);
+
+      const trade = {
+        id: nextId(loadTrades()),
+        date: new Date().toISOString().slice(0,10),
+        session: document.getElementById('f-session').value,
+        pair: document.getElementById('f-pair').value,
+        direction: document.getElementById('f-direction').value,
+        entryPrice: entry,
+        stopLoss: sl,
+        takeProfit: tp,
+        riskReward: document.getElementById('f-rr').value || null,
+        status: 'open',
+        closePrice: null,
+        pnl: null,
+        pnlPct: null,
+        linkedAnalysis: document.getElementById('f-linked').value || null,
+        reason: document.getElementById('f-reason').value || null,
+        screenshot: null,
+      };
+
+      const trades = loadTrades();
+      trades.push(trade);
+      saveTrades(trades);
+      alert('✅ Trade saved (local)! Page will reload.');
+      location.reload();
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-close-trade');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      closePanel.classList.remove('hidden');
+      formPanel.classList.remove('hidden');
+
+      document.getElementById('btn-confirm-close').onclick = () => {
+        const closePrice = parseFloat(document.getElementById('f-close-price').value);
+        if (!closePrice) { alert('Please enter close price'); return; }
+
+        const trades = loadTrades();
+        const t = trades.find(x => x.id === id);
+        if (!t) return;
+
+        const pnl = t.direction === 'long'
+          ? (closePrice - t.entryPrice) * (1000000 / t.entryPrice)
+          : (t.entryPrice - closePrice) * (1000000 / t.entryPrice);
+        const pnlPct = t.direction === 'long'
+          ? (closePrice - t.entryPrice) / t.entryPrice * 100
+          : (t.entryPrice - closePrice) / t.entryPrice * 100;
+
+        t.status = 'closed';
+        t.closePrice = closePrice;
+        t.pnl = Math.round(pnl * 100) / 100;
+        t.pnlPct = Math.round(pnlPct * 100) / 100;
+        t.closeReason = document.getElementById('f-close-reason').value || null;
+
+        saveTrades(trades);
+        alert('✅ Trade closed! Page will reload.');
+        location.reload();
+      };
+    });
+
+    btnExport.addEventListener('click', () => {
+      const buildTrades = window.__BUILD_TRADES__ || [];
+      const localTrades = loadTrades();
+      const merged = [...buildTrades];
+      localTrades.forEach(lt => {
+        const idx = merged.findIndex(t => t.id === lt.id);
+        if (idx >= 0) merged[idx] = lt;
+        else merged.push(lt);
+      });
+      const blob = new Blob([JSON.stringify(merged, null, 2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'trades.json';
+      a.click();
+      alert('📥 trades.json downloaded.\n\nReplace src/data/trades.json and rebuild to publish.');
+    });
+  </script>
+
+  <script define:vars={{ __TRADES__: trades }}>
+    window.__BUILD_TRADES__ = __TRADES__;
+  </script>
 
 </BaseLayout>

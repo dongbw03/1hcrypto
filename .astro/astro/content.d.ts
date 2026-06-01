@@ -141,6 +141,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"en": {
+"daily/2026-06-01-btc-eth-analysis.md": {
+	id: "daily/2026-06-01-btc-eth-analysis.md";
+  slug: "daily/2026-06-01-btc-eth-analysis";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
 "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md": {
 	id: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md";
   slug: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as";
@@ -162,6 +169,13 @@ declare module 'astro:content' {
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
+"news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md": {
+	id: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md";
+  slug: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
 "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md": {
 	id: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md";
   slug: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is";
@@ -179,6 +193,13 @@ declare module 'astro:content' {
 "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md": {
 	id: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md";
   slug: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md": {
+	id: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md";
+  slug: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf";
   body: string;
   collection: "en";
   data: any
@@ -213,58 +234,37 @@ declare module 'astro:content' {
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md": {
-	id: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md";
-  slug: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as";
+"analysis/2026-05-30-11-52-📉-BTC-区间震荡中的关键信号：看跌吞没与内包线突破的博弈.md": {
+	id: "analysis/2026-05-30-11-52-📉-BTC-区间震荡中的关键信号：看跌吞没与内包线突破的博弈.md";
+  slug: "analysis/2026-05-30-11-52--btc-区间震荡中的关键信号看跌吞没与内包线突破的博弈";
   body: string;
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md": {
-	id: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md";
-  slug: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy";
+"analysis/2026-05-30-12-11-📉-震荡区间中的价格行为学博弈：BTC-ETH-关键信号与模拟盘持仓深度解析.md": {
+	id: "analysis/2026-05-30-12-11-📉-震荡区间中的价格行为学博弈：BTC-ETH-关键信号与模拟盘持仓深度解析.md";
+  slug: "analysis/2026-05-30-12-11--震荡区间中的价格行为学博弈btc-eth-关键信号与模拟盘持仓深度解析";
   body: string;
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md": {
-	id: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md";
-  slug: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s";
+"analysis/2026-05-30-12-16-📉-区间震荡中的突破信号：Al-Brooks-价格行为学下的-BTC-ETH-交易复盘与策略.md": {
+	id: "analysis/2026-05-30-12-16-📉-区间震荡中的突破信号：Al-Brooks-价格行为学下的-BTC-ETH-交易复盘与策略.md";
+  slug: "analysis/2026-05-30-12-16--区间震荡中的突破信号al-brooks-价格行为学下的-btc-eth-交易复盘与策略";
   body: string;
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md": {
-	id: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md";
-  slug: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is";
+"analysis/2026-05-30-13-01-【Al-Brooks价格行为学】BTC与ETH陷入区间震荡：突破信号密集涌现，多空博弈一触即发.md": {
+	id: "analysis/2026-05-30-13-01-【Al-Brooks价格行为学】BTC与ETH陷入区间震荡：突破信号密集涌现，多空博弈一触即发.md";
+  slug: "analysis/2026-05-30-13-01-al-brooks价格行为学btc与eth陷入区间震荡突破信号密集涌现多空博弈一触即发";
   body: string;
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-coinbase-brings-global-crypto-derivative.md": {
-	id: "news/2026-05-30-coinbase-brings-global-crypto-derivative.md";
-  slug: "news/2026-05-30-coinbase-brings-global-crypto-derivative";
-  body: string;
-  collection: "zh";
-  data: any
-} & { render(): Render[".md"] };
-"news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md": {
-	id: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md";
-  slug: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve";
-  body: string;
-  collection: "zh";
-  data: any
-} & { render(): Render[".md"] };
-"news/2026-05-30-sui-network-temporarily-stalls-again-aft.md": {
-	id: "news/2026-05-30-sui-network-temporarily-stalls-again-aft.md";
-  slug: "news/2026-05-30-sui-network-temporarily-stalls-again-aft";
-  body: string;
-  collection: "zh";
-  data: any
-} & { render(): Render[".md"] };
-"news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md": {
-	id: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md";
-  slug: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania";
+"daily/2026-06-01-btc-eth-analysis.md": {
+	id: "daily/2026-06-01-btc-eth-analysis.md";
+  slug: "daily/2026-06-01-btc-eth-analysis";
   body: string;
   collection: "zh";
   data: any
@@ -281,12 +281,7 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		"news": Record<string, {
-  id: string;
-  collection: "news";
-  data: any;
-}>;
-
+		
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;

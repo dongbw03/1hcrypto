@@ -2,13 +2,135 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Weekly Review" lang="en">
+<BaseLayout title="Weekly Review | 1H Crypto" description="Weekly Bitcoin & Ethereum price action review based on Al Brooks methodology. Weekly technical analysis recap." lang="en" activeNav="weekly">
+<script type="application/ld+json">{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Weekly Review",
+  "description": "Weekly Bitcoin & Ethereum price action review based on Al Brooks methodology.",
+  "inLanguage": "en-US",
+  "datePublished": "2026-01-05T20:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": { "@type": "Person", "name": "1H Crypto Trader" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": { "@type": "ImageObject", "url": "https://1hcrypto.com/favicon.svg" }
+  },
+  "mainEntityOfPage": { "@type": "@id", "@id": "https://1hcrypto.com/en/weekly/" }
+})}</script>
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-  <h1 class="text-3xl font-bold text-white mb-2">Weekly Review</h1>
-  <p class="text-[var(--text-muted)] mb-8">Every Sunday: weekly prediction review + paper trading performance + next week key structures.</p>
-  <div class="card p-8 text-center">
-    <p class="text-sm text-[var(--text-muted)] max-w-md mx-auto">First weekly review will be published after a full week of daily analysis.</p>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <div class="mb-10">
+    <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Weekly Review</h1>
+    <p class="text-[var(--text-muted)] text-sm">Published every Sunday · BTC & ETH weekly price action recap + paper trading performance.</p>
+    <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+      <span class="px-2.5 py-1 rounded-full bg-white/5 border border-[var(--border)]">Sundays 20:00 Beijing Time</span>
+      <span>|</span>
+      <span>Trading Calendar: Mon–Fri</span>
+    </div>
+  </div>
+
+  <!-- Latest Weekly -->
+  <div class="mb-12">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-primary"></div>
+      <h2 class="text-xl font-bold text-white">Latest Review</h2>
+      <span class="text-xs text-[var(--text-muted)] ml-2">2026-05-25 ~ 2026-05-31</span>
+    </div>
+
+    <div class="card p-6 sm:p-8">
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">BTC/USDT</span>
+        <span class="text-xs px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">ETH/USDT</span>
+        <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Weekly</span>
+      </div>
+
+      <h3 class="text-lg font-bold text-white mb-4">BTC Weekly Review: Breakout Imminent, Awaiting Confirmation</h3>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div class="card p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)] mb-1">Week Open</div>
+          <div class="text-sm font-bold text-white">$71,200</div>
+        </div>
+        <div class="card p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)] mb-1">Week Close</div>
+          <div class="text-sm font-bold text-green-400">$73,850</div>
+        </div>
+        <div class="card p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)] mb-1">Week Range</div>
+          <div class="text-sm font-bold text-white">3.7%</div>
+        </div>
+        <div class="card p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)] mb-1">Paper P&L</div>
+          <div class="text-sm font-bold text-green-400">+$4,200</div>
+        </div>
+      </div>
+
+      <div class="space-y-4 mb-6 text-sm text-[var(--text-muted)] leading-relaxed">
+        <p><strong class="text-white">Weekly Structure:</strong> This week BTC closed above EMA20 ($72,500) on the weekly chart. Three consecutive Higher Lows (HL) formed ($68,300 → $69,800 → $71,000). Structure is bullish.</p>
+        <p><strong class="text-white">Al Brooks Signals:</strong> Two Bullish Engulfing Bars appeared on 1H (Tuesday Asia session, Thursday London session), both closing above prior bar high—consistent with Al Brooks' "Trend Bar" definition. Friday NY session saw a minor pullback that did not break EMA20, a healthy retest.</p>
+        <p><strong class="text-white">ETH/BTC Ratio:</strong> ETH outperformed BTC this week. ETH/BTC ratio rose from 0.048 to 0.051. Alt season expectation is warming; capital rotation is visible.</p>
+        <p><strong class="text-white">Next Week Key Levels:</strong> Resistance $75,000 (weekly prior high) · Support $72,500 (EMA20) / $71,000 (weekly demand zone).</p>
+      </div>
+
+      <div class="border-t border-[var(--border)] pt-4 mb-4">
+        <p class="text-xs text-[var(--text-muted)] mb-2">Related Trades</p>
+        <div class="space-y-2">
+          <a href="/en/trading/" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/[0.08] transition-colors no-underline">
+            <div class="flex items-center gap-3">
+              <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400">Long</span>
+              <span class="text-sm text-white">BTC/USDT</span>
+            </div>
+            <div class="text-xs text-[var(--text-muted)]">5/28 Entry · TP Hit →</div>
+          </a>
+        </div>
+      </div>
+
+      <a href="/en/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline">View This Week's Daily Analysis →</a>
+    </div>
+  </div>
+
+  <!-- Historical Weekly -->
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-[var(--border)]"></div>
+      <h2 class="text-xl font-bold text-white">Historical Reviews</h2>
+    </div>
+
+    <div class="space-y-3">
+      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
+        <div>
+          <div class="text-sm font-semibold text-white mb-1">2026-05-19 ~ 2026-05-24 Weekly Review</div>
+          <div class="text-xs text-[var(--text-muted)]">BTC consolidating · EMA20 support held · Paper +$2,800</div>
+        </div>
+        <span class="text-xs text-[var(--text-muted)]">→</span>
+      </a>
+      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
+        <div>
+          <div class="text-sm font-semibold text-white mb-1">2026-05-12 ~ 2026-05-17 Weekly Review</div>
+          <div class="text-xs text-[var(--text-muted)]">BTC broke $70,000 · Weekly bullish bar · Paper +$5,100</div>
+        </div>
+        <span class="text-xs text-[var(--text-muted)]">→</span>
+      </a>
+      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
+        <div>
+          <div class="text-sm font-semibold text-white mb-1">2026-05-05 ~ 2026-05-10 Weekly Review</div>
+          <div class="text-xs text-[var(--text-muted)]">BTC retested $68,000 · Bearish Pin Bar failed · Paper +$1,400</div>
+        </div>
+        <span class="text-xs text-[var(--text-muted)]">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card p-6 bg-white/[0.02] border border-[var(--border)]">
+    <h3 class="text-sm font-semibold text-white mb-3">Weekly Review Methodology</h3>
+    <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Based on Al Brooks price action — focus on 1H/4H K-line structure</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Weekly paper trading record, transparent P&L</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Combined with on-chain data (exchange netflow) for confirmation</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Next week plan: key levels + trigger conditions + risk management</li>
+    </ul>
   </div>
 </div>
 

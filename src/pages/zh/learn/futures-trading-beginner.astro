@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "合约交易入门——杠杆、强平、爆仓到底是什么意思？ - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/futures-trading-beginner/"
+  }
+}`}></script>
+<BaseLayout title="合约交易入门——杠杆、强平、爆仓到底是什么意思？ - 1H币研" lang="zh" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">合约交易入门——杠杆、强平、爆仓到底是什么意思？</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">更新：2026年5月</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>你可能听过"某某用100块开了10倍杠杆，比特币涨了5%，他赚了500块"——这就是合约交易。</p>
+    <p>简单说：<strong>你不需要真的持有比特币，只需要押注它涨还是跌，用少量保证金撬动大额仓位</strong>。</p>
+
+    <h3>几个必须懂的概念</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>杠杆（Leverage）</strong>：10倍杠杆 = 用100美元做1000美元的交易。涨5%你赚50美元（本金的50%），但跌5%你本金全没了。</li>
+      <li><strong>强平价格（Liquidation Price）</strong>：当市场价格触及这个价格，交易所会强制平掉你的仓位，你的保证金全部归零。</li>
+      <li><strong>维持保证金率</strong>：你的仓位里必须保留的最低保证金比例，低于这个比例就会被强平。</li>
+      <li><strong>标记价格（Mark Price）</strong>：强平不是看你"最后一次成交价"，而是看一个"公允价格"（通常取多个交易所的平均价），防止有人用瞬间砸盘来恶意爆你的仓。</li>
+    </ul>
+
+    <h3>一个真实例子</h3>
+    <p>假设你用1000美元开10倍杠杆做多BTC，你的仓位是价值10000美元的BTC。</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>BTC现价50000，你押它会涨</li>
+      <li>如果BTC涨到52500（+5%），你赚500美元（本金的50%）</li>
+      <li>如果BTC跌到47500（-5%），你的1000美元本金全没了——<strong>爆仓</strong></li>
+    </ul>
+    <p class="bg-red-600/10 p-3 rounded">真实市场里，因为"标记价格"的波动，你可能BTC只跌了3%就被强平了。杠杆越高，强平价格离你开仓价格越近。</p>
+
+    <h3>为什么新人死在合约上？</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>杠杆开太大</strong>：10倍、20倍杠杆，价格稍微波动就被强平。老手通常用3-5倍。</li>
+      <li><strong>不止损</strong>：做现货亏了可以拿着等回本，做合约亏了不止损，几个小时就爆仓。</li>
+      <li><strong>追涨杀跌</strong>：看BTC涨了就做多，结果一进场就回调——这是"被收割"的经典姿势。</li>
+      <li><strong>全仓模式</strong>：把所有保证金放在一个仓位里，一个币爆仓，全部本金没了。</li>
+    </ul>
+
+    <h3>给新人的建议</h3>
+    <ol class="list-decimal pl-5 space-y-2">
+      <li>先玩现货，至少半年，感受一下"拿得住"是什么体验。</li>
+      <li>如果一定要试合约，用<strong>最低杠杆（2-3倍）</strong>，而且只用你能完全亏掉的金额。</li>
+      <li>开仓同时设止损（Stop-Loss），不要心存侥幸。</li>
+      <li>用<strong>逐仓模式</strong>（每个仓位独立保证金），不要用全仓模式。</li>
+    </ol>
+    <p class="mt-4"><strong>记住一句话：合约是"专业技能"，不是"快速致富工具"。</strong>90%的合约交易者最终是亏钱的。</p>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 如果你想试试合约，<a href="/zh/tools/" class="text-primary underline">Bybit和Bitget</a>的合约界面做得最友好，适合新手熟悉操作（用测试网，不要真金白银上）。</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+  </div>
+</div>
+
+</BaseLayout>

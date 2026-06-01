@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 // Dynamically read English news Markdown files
-const newsFiles = await import.meta.glob("../content/en/news/*.md", { eager: true });
+const newsFiles = await import.meta.glob("../../content/en/news/*.md", { eager: true });
 
 // Parse all news articles
 const articles = Object.entries(newsFiles).map(([filePath, module]) => {
@@ -38,6 +38,37 @@ const importanceColor = {
 };
 ---
 
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Crypto News | Daily Market Headlines | 1H Crypto",
+  "description": "Daily crypto market news: BTC ETF flows, regulatory updates, macro data.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/news/"
+  }
+}`}></script>
 <BaseLayout 
   title="Crypto News | Daily Market Headlines | 1H Crypto" 
   description="Daily crypto market news: BTC ETF flows, regulatory updates, macro data." 
@@ -105,16 +136,6 @@ const importanceColor = {
       </div>
     )}
 
-    <!-- Archive info -->
-    <div class="card p-6 mt-8 fade-in-on-scroll" style="animation-delay: 0.1s">
-      <h3 class="text-white font-semibold mb-3">📋 Archive</h3>
-      <p class="text-sm text-[var(--text-muted)] mb-4">All historical news auto-archived. Click article titles above to view full content.</p>
-      <div class="text-xs text-[var(--text-muted)]">
-        <p>✅ Auto-fetch: CoinDesk, CoinTelegraph, Jinse, Bishijie</p>
-        <p>✅ AI Analysis: DeepSeek API auto-generates summaries & sentiment</p>
-        <p>✅ Auto-publish: GitHub Actions auto-deploy</p>
-      </div>
-    </div>
   </div>
 
   <!-- Disclaimer -->
@@ -123,4 +144,7 @@ const importanceColor = {
       <strong>⚠️ Disclaimer:</strong> News compiled from public sources for informational purposes only. Not investment advice.
     </div>
   </div>
+
+    <!-- ====== 推荐注册（随机，不影响阅读） ====== -->
+    <div class="mt-8 max-w-4xl mx-auto px-4 sm:px-6"><div class="px-5 py-3 bg-[var(--bg-card)]/30 border border-[var(--border)] rounded-lg text-xs text-[var(--text-muted)] text-center"><span class="text-[var(--text-secondary)] font-medium">🛠 Support us:</span> Sign up via <a href="https://bingx.com/invite/1hcrypto" target="_blank" rel="sponsored" class="text-primary hover:underline">BingX (code: 1hcrypto)</a> or <a href="https://www.gate.io/signup/1hcrypto" target="_blank" rel="sponsored" class="text-accent hover:underline">Gate.io (code: 1hcrypto)</a> — no extra cost, we earn commission.</div></div>
 </BaseLayout>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>1H币研 · 模拟盘交易明细</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#020617; color:#cbd5e1; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif; padding:24px; max-width:1100px; margin:0 auto; }
+  h1 { color:#fff; font-size:1.5rem; margin-bottom:4px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .subtitle { color:#64748b; font-size:0.8rem; margin-bottom:20px; }
+  .toolbar { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+  .btn { padding:8px 16px; border-radius:8px; font-size:0.82rem; cursor:pointer; border:none; font-weight:500; }
+  .btn-primary { background:#0ea5e9; color:#fff; }
+  .btn-primary:hover { background:#0284c7; }
+  .btn-outline { background:transparent; border:1px solid #334155; color:#94a3b8; }
+  .btn-outline:hover { border-color:#0ea5e9; color:#0ea5e9; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+  .stat-card { background:#0f172a; border:1px solid #1e293b; border-radius:10px; padding:14px 16px; text-align:center; }
+  .stat-label { font-size:0.7rem; color:#64748b; margin-bottom:4px; }
+  .stat-value { font-size:1.2rem; font-weight:700; font-family:"SF Mono",Consolas,monospace; }
+  .section-title { color:#fff; font-size:1.1rem; font-weight:600; margin:28px 0 12px; display:flex; align-items:center; gap:8px; }
+  .dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+  table { width:100%; border-collapse:collapse; background:#0f172a; border:1px solid #1e293b; border-radius:10px; overflow:hidden; font-size:0.82rem; }
+  thead { background:#1e293b; }
+  th { padding:10px 12px; text-align:left; color:#94a3b8; font-weight:500; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.03em; }
+  td { padding:10px 12px; border-top:1px solid #1e293b; color:#cbd5e1; }
+  tr:hover { background:rgba(14,165,233,0.06); }
+  .badge { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.72rem; font-weight:600; }
+  .badge-long  { background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.3); }
+  .badge-short { background:rgba(248,113,113,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
+  .pnl-pos { color:#4ade80; font-weight:600; font-family:monospace; }
+  .pnl-neg { color:#f87171; font-weight:600; font-family:monospace; }
+  .reason { color:#94a3b8; font-size:0.78rem; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .no-data { text-align:center; padding:32px; color:#475569; font-size:0.85rem; }
+  .toast { position:fixed; top:20px; right:20px; background:#0f172a; border:1px solid #1e293b; color:#fff; padding:12px 20px; border-radius:10px; font-size:0.85rem; z-index:999; opacity:0; transition:opacity 0.3s; }
+  .toast.show { opacity:1; }
+  @media print {
+    .toolbar { display:none; }
+    body { background:#fff; color:#1e293b; }
+    .stat-card { background:#f8fafc; border-color:#e2e8f0; }
+    table { background:#fff; border-color:#e2e8f0; }
+    thead { background:#f1f5f9; }
+    th { color:#475569; }
+    td { border-color:#e2e8f0; color:#1e293b; }
+    .pnl-pos { color:#16a34a; }
+    .pnl-neg { color:#dc2626; }
+    .badge-long  { background:#dcfce7; color:#166534; border-color:#86efac; }
+    .badge-short { background:#fee2e2; color:#991b1b; border-color:#fca5a5; }
+  }
+</style>
+</head>
+<body>
+
+  <h1>
+    📊 1H币研 · 模拟盘交易明细
+    <span style="font-size:0.75rem;color:#64748b;font-weight:400">支持导入 JSON 自动更新</span>
+  </h1>
+  <p class="subtitle" id="subtitle">请点击「导入交易数据」加载数据</p>
+
+  <div class="toolbar">
+    <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">📂 导入交易数据（JSON）</button>
+    <button class="btn btn-outline" onclick="window.print()">🖨️ 打印 / 导出 PDF</button>
+    <button class="btn btn-outline" onclick="exportJson()">📥 导出当前数据为 JSON</button>
+    <input type="file" id="file-input" accept=".json" style="display:none" onchange="importJson(event)">
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div id="open-section"></div>
+  <div id="closed-section"></div>
+  <div id="no-data" class="no-data">暂无交易记录。<br><span style="font-size:0.78rem;color:#64748b">点击「导入交易数据」加载交易记录</span></div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  // ===== 数据 =====
+  let TRADES_DATA = [];
+
+  // ===== Toast =====
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 2500);
+  }
+
+  // ===== 渲染 =====
+  function render() {
+    var trades = TRADES_DATA;
+    var openTrades  = trades.filter(function(t) { return t.status === 'open'; });
+    var closedTrades = trades.filter(function(t) { return t.status === 'closed'; });
+    var totalPnl = closedTrades.reduce(function(s, t) { return s + (t.pnl || 0); }, 0);
+    var winCount = closedTrades.filter(function(t) { return (t.pnl || 0) > 0; }).length;
+    var winRate  = closedTrades.length > 0 ? (winCount / closedTrades.length * 100).toFixed(1) : '--';
+    var now = new Date().toLocaleString('zh-CN');
+
+    document.getElementById('subtitle').innerHTML =
+      '最近更新：' + now + ' &nbsp;|&nbsp; 初始资金：1,000,000 USDT &nbsp;|&nbsp; 数据条数：' + trades.length;
+
+    // 统计面板
+    document.getElementById('stats').innerHTML =
+      '<div class="stat-card"><div class="stat-label">未平仓</div><div class="stat-value" style="color:#facc15">' + openTrades.length + '</div><div class="stat-label">笔</div></div>' +
+      '<div class="stat-card"><div class="stat-label">累计盈亏</div><div class="stat-value" style="color:' + (totalPnl >= 0 ? '#4ade80' : '#f87171') + '">' + (totalPnl >= 0 ? '+' : '') + totalPnl.toLocaleString() + '</div><div class="stat-label">USDT</div></div>' +
+      '<div class="stat-card"><div class="stat-label">胜率</div><div class="stat-value" style="color:#38bdf8">' + winRate + '%</div><div class="stat-label">' + closedTrades.length + ' 笔平仓</div></div>' +
+      '<div class="stat-card"><div class="stat-label">总交易数</div><div class="stat-value" style="color:#fff">' + trades.length + '</div><div class="stat-label">笔</div></div>';
+
+    if (trades.length === 0) {
+      document.getElementById('open-section').innerHTML = '';
+      document.getElementById('closed-section').innerHTML = '';
+      document.getElementById('no-data').style.display = 'block';
+      return;
+    }
+    document.getElementById('no-data').style.display = 'none';
+
+    // 未平仓
+    var html = '';
+    if (openTrades.length > 0) {
+      html += '<div class="section-title"><span class="dot" style="background:#facc15"></span>未平仓 · ' + openTrades.length + ' 笔</div>';
+      html += '<table><thead><tr><th>方向</th><th>交易对</th><th>时段</th><th>开仓价</th><th>止损</th><th>止盈</th><th>风险回报</th><th>开仓日期</th></tr></thead><tbody>';
+      openTrades.forEach(function(t) {
+        var cls = t.direction === 'long' ? 'badge-long' : 'badge-short';
+        var dir = t.direction === 'long' ? '多' : '空';
+        html += '<tr>' +
+          '<td><span class="badge ' + cls + '">' + dir + '</span></td>' +
+          '<td style="color:#fff;font-weight:600;font-family:monospace">' + (t.pair || '--') + '</td>' +
+          '<td>' + (t.session || '--') + '</td>' +
+          '<td style="font-family:monospace">' + (t.entryPrice != null ? t.entryPrice.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace;color:#f87171">' + (t.stopLoss != null ? t.stopLoss.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace;color:#4ade80">' + (t.takeProfit != null ? t.takeProfit.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace">' + (t.riskReward || '--') + '</td>' +
+          '<td>' + (t.date || '--') + '</td>' +
+          '</tr>';
+        if (t.reason) {
+          html += '<tr><td colspan="8" style="font-size:0.78rem;color:#64748b;padding:4px 12px">📝 ' + t.reason + '</td></tr>';
+        }
+      });
+      html += '</tbody></table>';
+      document.getElementById('open-section').innerHTML = html;
+    } else {
+      document.getElementById('open-section').innerHTML = '';
+    }
+
+    // 已平仓
+    if (closedTrades.length > 0) {
+      html = '<div class="section-title"><span class="dot" style="background:#4ade80"></span>已平仓 · ' + closedTrades.length + ' 笔</div>';
+      html += '<table><thead><tr><th>方向</th><th>交易对</th><th>开仓价</th><th>平仓价</th><th>止损</th><th>止盈</th><th>盈亏</th><th>盈亏%</th><th>平仓原因</th></tr></thead><tbody>';
+      closedTrades.forEach(function(t) {
+        var cls    = t.direction === 'long' ? 'badge-long' : 'badge-short';
+        var dir    = t.direction === 'long' ? '多' : '空';
+        var pnl    = t.pnl || 0;
+        var pnlClass = pnl >= 0 ? 'pnl-pos' : 'pnl-neg';
+        var pnlSign  = pnl >= 0 ? '+' : '';
+        html += '<tr>' +
+          '<td><span class="badge ' + cls + '">' + dir + '</span></td>' +
+          '<td style="color:#fff;font-weight:600;font-family:monospace">' + (t.pair || '--') + '</td>' +
+          '<td style="font-family:monospace">' + (t.entryPrice != null ? t.entryPrice.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace">' + (t.closePrice != null ? t.closePrice.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace;color:#f87171">' + (t.stopLoss != null ? t.stopLoss.toLocaleString() : '--') + '</td>' +
+          '<td style="font-family:monospace;color:#4ade80">' + (t.takeProfit != null ? t.takeProfit.toLocaleString() : '--') + '</td>' +
+          '<td class="' + pnlClass + '">' + pnlSign + pnl.toLocaleString() + '</td>' +
+          '<td class="' + pnlClass + '">' + pnlSign + (t.pnlPct || 0).toFixed(2) + '%</td>' +
+          '<td style="font-size:0.78rem;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (t.closeReason || '--') + '</td>' +
+          '</tr>';
+        if (t.reason) {
+          html += '<tr><td colspan="9" style="font-size:0.78rem;color:#64748b;padding:4px 12px">📝 ' + t.reason + '</td></tr>';
+        }
+      });
+      html += '</tbody></table>';
+      document.getElementById('closed-section').innerHTML = html;
+    } else {
+      document.getElementById('closed-section').innerHTML = '';
+    }
+  }
+
+  // ===== 导入 JSON =====
+  function importJson(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var data = JSON.parse(e.target.result);
+        if (!Array.isArray(data)) throw new Error('数据格式错误：必须为数组');
+        TRADES_DATA = data;
+        render();
+        showToast('✅ 数据已更新，共 ' + data.length + ' 条记录');
+      } catch(err) {
+        showToast('❌ 导入失败：' + err.message);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  // ===== 导出 JSON =====
+  function exportJson() {
+    var blob = new Blob([JSON.stringify(TRADES_DATA, null, 2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'trades-data-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    showToast('📥 JSON 数据已导出');
+  }
+<\/script>
+</body>
+</html>

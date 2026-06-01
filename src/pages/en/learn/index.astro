@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Learning Center - 1H Crypto",
+  "description": "Learn crypto from scratch — 20+ original tutorials covering buying, trading, security, DeFi, and more.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T17:30:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/"
+  }
+}`}></script>
+<BaseLayout title="Learning Center - 1H Crypto" lang="en" description="Learn crypto from scratch — 20+ original tutorials covering buying, trading, security, DeFi, and more." activeNav="learn">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/" class="text-primary hover:underline">← Back to Home</a>
+  </p>
+
+  <h1 class="text-3xl font-bold text-[var(--text-primary)] mb-2">Learning Center</h1>
+  <p class="text-[var(--text-secondary)] mb-10">Start from zero. Systematic crypto education. All articles original and regularly updated.</p>
+
+  <!-- Basics -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-primary rounded-full inline-block"></span>
+      Basics
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/learn/what-is-bitcoin" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">What is Bitcoin?</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">A no-nonsense explanation for beginners</p>
+      </a>
+      <a href="/en/learn/what-is-blockchain" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">What is Blockchain?</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">No buzzwords version</p>
+      </a>
+      <a href="/en/learn/what-is-ethereum" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">What is Ethereum?</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">More than just "Bitcoin 2.0"</p>
+      </a>
+      <a href="/en/learn/what-is-nft" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">What is an NFT?</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Not just JPEGs</p>
+      </a>
+      <a href="/en/learn/stablecoins-guide" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Stablecoins Guide</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">USDT, USDC, and DAI compared</p>
+      </a>
+      <a href="/en/learn/smart-contracts" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Smart Contracts</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Code that runs exactly as written</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Security (Must Read) -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-red-500 rounded-full inline-block"></span>
+      Security (Must Read)
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/learn/private-key-security" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Private Keys & Seed Phrases</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">If you don't understand this, don't put real money in</p>
+      </a>
+      <a href="/en/learn/common-scams" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Common Crypto Scams</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Protect yourself. A practical guide.</p>
+      </a>
+      <a href="/en/learn/wallet-guide" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Crypto Wallets Guide</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Hot vs. cold wallets</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Buying & Trading -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-green-500 rounded-full inline-block"></span>
+      Buying & Trading
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/learn/how-to-register-exchange" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">How to Register on an Exchange</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Step-by-step walkthrough</p>
+      </a>
+      <a href="/en/learn/how-to-read-candles" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">How to Read Candlestick Charts</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">No experience needed</p>
+      </a>
+      <a href="/en/learn/binance-review" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Binance Review (2026)</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Still the king of crypto exchanges?</p>
+      </a>
+      <a href="/en/learn/okx-review" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">OKX Review (2026)</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">The trader's choice</p>
+      </a>
+      <a href="/en/learn/tradingview-guide" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">TradingView Guide</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">The charting tool every trader uses</p>
+      </a>
+      <a href="/en/learn/risk-management" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Risk Management Basics</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Position sizing, stop-loss, and survival math.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Advanced -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-purple-500 rounded-full inline-block"></span>
+      Advanced
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/learn/defi-intro" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">DeFi 101</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">What it is and why it matters</p>
+      </a>
+      <a href="/en/learn/dca-strategy-en" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">DCA Strategy</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">The most reliable way to build a position.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Evergreen (Timeless) -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-amber-500 rounded-full inline-block"></span>
+      Evergreen (Timeless)
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/learn/crypto-tax-guide" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Crypto Tax Guide 2026</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">What every trader needs to know about taxable events.</p>
+      </a>
+      <a href="/en/learn/cross-exchange-hedge" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Cross-Exchange Hedge Strategy</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">Arbitrage mechanics, costs, and why most traders fail at it.</p>
+      </a>
+      <a href="/en/learn/bear-market-survival" class="block p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-primary/50 transition-colors group">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors">Bear Market Survival Guide</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">How to outlast the crypto winter with capital intact.</p>
+      </a>
+    </div>
+  </section>
+
+  <div class="mt-12 p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-center">
+    <p class="text-[var(--text-secondary)] text-sm">📚 More articles coming soon. <a href="/en/about/" class="text-primary hover:underline">Contact me</a> to suggest a topic.</p>
+  </div>
+</div>
+
+
+    <!-- ====== 推荐注册 ====== -->
+    <div class="mt-12 max-w-4xl mx-auto px-4 sm:px-6"><div class="p-5 bg-[var(--bg-card)]/40 border border-[var(--border)] rounded-xl"><div class="text-sm text-white font-semibold mb-2">🔑 Ready to start trading?</div><p class="text-xs text-[var(--text-muted)] mb-3 leading-relaxed">Sign up via the links below — no extra cost to you, we earn a small commission.</p><div class="flex flex-wrap gap-2"><a href="https://www.bitmart.com/invite/1hcrypto/en" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">BitMart (code: 1hcrypto)</a> <a href="https://www.okx.com/join/1HCRYPTO" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">OKX (code: 1HCRYPTO)</a> <a href="https://www.mexc.com/register?inviteCode=1hcrypto" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">MEXC (code: 1hcrypto)</a></div></div></div>
+<div class="mt-12 max-w-4xl mx-auto px-4 sm:px-6"><div class="p-5 bg-[var(--bg-card)]/40 border border-[var(--border)] rounded-xl"><div class="text-sm text-white font-semibold mb-2">🔑 Ready to start trading?</div><p class="text-xs text-[var(--text-muted)] mb-3">Sign up via links below — no extra cost, we earn a small commission.</p><div class="flex flex-wrap gap-2"><a href="https://accounts.binance.com/register?ref=CPA_00ZIV33RO4" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">Binance (code: CPA_00ZIV33RO4)</a> <a href="https://www.bitget.com/expressly?shareCode=1hcrypto" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">Bitget (code: 1hcrypto)</a> <a href="https://www.coinw.com/front/register?r=1hcrypto" target="_blank" rel="sponsored" class="px-3 py-1.5 text-xs rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors font-medium no-underline">CoinW (code: 1hcrypto)</a></div></div></div>
+</BaseLayout>

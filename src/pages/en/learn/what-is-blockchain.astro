@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What is Blockchain? The Only Guide You",
+  "description": "Blockchain explained without the buzzwords. By someone who actually uses it.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/what-is-blockchain/"
+  }
+}`}></script>
+<BaseLayout title="What is Blockchain? The Only Guide You'll Actually Understand - 1H Crypto" lang="en" description="Blockchain explained without the buzzwords. By someone who actually uses it." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">What is Blockchain? (No Buzzwords Version)</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">January 2026 · 9 min read</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">Every crypto article starts with "blockchain is a distributed ledger." That tells you nothing. Here's what it actually is.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Core Idea in One Sentence</h2>
+    <p>A blockchain is a <strong>list of records (blocks) that are linked together using cryptography</strong>, where each block contains a cryptographic hash of the previous block, making it practically impossible to alter historical data without redoing all subsequent work.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">A Real-World Analogy</h2>
+    <p>Imagine a Google Sheet that:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Everyone in the world has a copy of</li>
+      <li>New rows can only be added if &gt;50% of people agree they're valid</li>
+      <li>Once a row is added, it can never be deleted or modified</li>
+      <li>No one person controls the sheet</li>
+    </ul>
+    <p class="mt-3">That's basically a blockchain.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Key Components (Explained Simply)</h2>
+
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Block</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A "page" in the ledger. Contains: transactions, a timestamp, and the hash of the previous block.</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Hash</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A digital fingerprint. Change one character in a block, and the hash changes completely. This is what makes blockchains tamper-evident.</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Consensus Mechanism</h3>
+        <p class="text-[var(--text-secondary)] text-sm">The rules for how the network agrees on which block is "correct." Bitcoin uses Proof-of-Work; Ethereum uses Proof-of-Stake.</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Node</h3>
+        <p class="text-[var(--text-secondary)] text-sm">A computer that runs the blockchain software and keeps a copy of the ledger. Anyone can run a node.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Why Can't Anyone Just "Hack" the Blockchain?</h2>
+    <p>To successfully alter a transaction on Bitcoin, an attacker would need to:</p>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li>Redo the Proof-of-Work for the target block</li>
+      <li>Also redo ALL subsequent blocks (because each block's hash changes)</li>
+      <li>Do all of this faster than the rest of the network combined</li>
+    </ol>
+    <p class="mt-3">The total electricity cost to do this (a "51% attack") would be in the billions of dollars. It's theoretically possible but economically irrational.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Public vs Private Blockchains</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Type</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Who can join?</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Public (Permissionless)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Anyone</td>
+            <td class="py-3 text-[var(--text-secondary)]">Bitcoin, Ethereum</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Private (Permissioned)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Invitation only</td>
+            <td class="py-3 text-[var(--text-secondary)]">Hyperledger (enterprise use)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">Most "crypto" refers to public blockchains. Private blockchains are basically just... distributed databases with extra steps.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">What Blockchain Cannot Do</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>It cannot "solve world hunger" — it's a data structure, not a charity.</li>
+      <li>It cannot "replace the internet" — it's a supplement, not a replacement.</li>
+      <li>It cannot force off-chain data to be true — this is the "oracle Problem."</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Bottom Line</h2>
+    <p>Blockchain is a clever way to maintain a shared record without needing a trusted third party. It's not magic, and it's not useful for everything — but for money (Bitcoin) and decentralized applications (Ethereum), it's the right tool for the job.</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 Part of <a href="/en/learn/" class="text-primary hover:underline">Learning Center</a>.</p>
+  </div>
+</div>
+</BaseLayout>

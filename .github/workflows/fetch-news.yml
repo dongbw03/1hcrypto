@@ -1,13 +1,13 @@
-name: Fetch Crypto News & Price Analysis
+name: Fetch Crypto News & Derivatives Data
 
 on:
   schedule:
-    # 每天 8:00 和 20:00 (北京时间) 运行
-    - cron: '0 0,12 * * *'  # UTC 0:00 和 12:00 = 北京 8:00 和 20:00
+    # 北京时间 07:00 和 20:00 运行（留给处理留 30 分钟，07:30/20:30 发布）
+    - cron: '0 23,12 * * *'   # UTC 23:00 = 北京 07:00；UTC 12:00 = 北京 20:00
   workflow_dispatch:  # 允许手动触发
 
 jobs:
-  fetch-news-and-analysis:
+  fetch-and-publish:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 获取完整历史
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,32 +26,26 @@ jobs:
       - name: Install dependencies
         run: pip install requests feedparser pyyaml
       
-      - name: Run fetch_news.py (资讯抓取)
+      - name: Run fetch_derivatives.py（衍生品数据）
+        run: python scripts/fetch_derivatives.py
+      
+      - name: Run fetch_news.py（资讯抓取）
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_news.py
       
-      - name: Run translate_news.py (中文翻译)
+      - name: Run translate_news.py（中文翻译）
         run: python scripts/translate_news.py
-      
-      - name: Run price_analysis.py (价格分析)
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-        run: python scripts/price_analysis.py
-      
-      - name: Run fetch_derivatives.py (衍生品数据)
-        run: python scripts/fetch_derivatives.py
       
       - name: Commit and push new content
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add src/content/zh/news/ src/content/en/news/ || true
-          git add src/content/zh/analysis/ src/content/en/analysis/ || true
           git add src/data/derivatives.json || true
           if git diff --cached --quiet; then
             echo "No new content to commit"
           else
-            git commit -m "auto: fetch news & price analysis $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "auto: fetch news & derivatives $(date +'%Y-%m-%d %H:%M')"
             git push
           fi

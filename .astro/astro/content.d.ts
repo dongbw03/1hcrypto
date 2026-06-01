@@ -148,79 +148,142 @@ declare module 'astro:content' {
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md": {
-	id: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md";
-  slug: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as";
+"news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k.md": {
+	id: "news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k.md";
+  slug: "news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md": {
-	id: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md";
-  slug: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy";
+"news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move.md": {
+	id: "news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move.md";
+  slug: "news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md": {
-	id: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md";
-  slug: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s";
+"news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot.md": {
+	id: "news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot.md";
+  slug: "news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md": {
-	id: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md";
-  slug: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh";
+"news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil.md": {
+	id: "news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil.md";
+  slug: "news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md": {
-	id: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md";
-  slug: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is";
+"news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se.md": {
+	id: "news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se.md";
+  slug: "news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-coinbase-brings-global-crypto-derivative.md": {
-	id: "news/2026-05-30-coinbase-brings-global-crypto-derivative.md";
-  slug: "news/2026-05-30-coinbase-brings-global-crypto-derivative";
+"news/debate-on-clarity-act-continues-this-week-as-us-senate-returns.md": {
+	id: "news/debate-on-clarity-act-continues-this-week-as-us-senate-returns.md";
+  slug: "news/debate-on-clarity-act-continues-this-week-as-us-senate-returns";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md": {
-	id: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md";
-  slug: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve";
+"news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption.md": {
+	id: "news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption.md";
+  slug: "news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md": {
-	id: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md";
-  slug: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf";
+"news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai.md": {
+	id: "news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai.md";
+  slug: "news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-sui-network-temporarily-stalls-again-aft.md": {
-	id: "news/2026-05-30-sui-network-temporarily-stalls-again-aft.md";
-  slug: "news/2026-05-30-sui-network-temporarily-stalls-again-aft";
+"news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu.md": {
+	id: "news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu.md";
+  slug: "news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md": {
-	id: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md";
-  slug: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania";
+"news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares.md": {
+	id: "news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares.md";
+  slug: "news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares";
   body: string;
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-06-01-btc-etf-inflow.md": {
-	id: "news/2026-06-01-btc-etf-inflow.md";
-  slug: "news/2026-06-01-btc-etf-inflow";
+"news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins.md": {
+	id: "news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins.md";
+  slug: "news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china.md": {
+	id: "news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china.md";
+  slug: "news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool.md": {
+	id: "news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool.md";
+  slug: "news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/strategy-sold-32-bitcoin-and-thats-a-good-thing.md": {
+	id: "news/strategy-sold-32-bitcoin-and-thats-a-good-thing.md";
+  slug: "news/strategy-sold-32-bitcoin-and-thats-a-good-thing";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation.md": {
+	id: "news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation.md";
+  slug: "news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/the-business-owners-guide-to-vertical-integration-with-bitcoin.md": {
+	id: "news/the-business-owners-guide-to-vertical-integration-with-bitcoin.md";
+  slug: "news/the-business-owners-guide-to-vertical-integration-with-bitcoin";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram.md": {
+	id: "news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram.md";
+  slug: "news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-.md": {
+	id: "news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-.md";
+  slug: "news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-.md": {
+	id: "news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-.md";
+  slug: "news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down.md": {
+	id: "news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down.md";
+  slug: "news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down";
   body: string;
   collection: "en";
   data: any
@@ -272,6 +335,146 @@ declare module 'astro:content' {
 "news/2026-06-01-btc-etf-inflow.md": {
 	id: "news/2026-06-01-btc-etf-inflow.md";
   slug: "news/2026-06-01-btc-etf-inflow";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k.md": {
+	id: "news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k.md";
+  slug: "news/bitcoin-bulls-eye-fresh-positions-after-btc-price-drops-under-71k";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move.md": {
+	id: "news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move.md";
+  slug: "news/bitcoin-volatility-is-down-56-but-analysts-still-expect-up-to-20-btc-price-move";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot.md": {
+	id: "news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot.md";
+  slug: "news/bitmine-acquires-26497-eth-as-it-targets-a-slower-approach-to-5-of-ethereums-tot";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil.md": {
+	id: "news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil.md";
+  slug: "news/cme-group-goes-live-with-247-crypto-futures-and-options-launches-bitcoin-volatil";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se.md": {
+	id: "news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se.md";
+  slug: "news/coinbase-exec-sees-path-to-cryptos-dodd-frank-moment-as-clarity-act-heads-for-se";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/debate-on-clarity-act-continues-this-week-as-us-senate-returns.md": {
+	id: "news/debate-on-clarity-act-continues-this-week-as-us-senate-returns.md";
+  slug: "news/debate-on-clarity-act-continues-this-week-as-us-senate-returns";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption.md": {
+	id: "news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption.md";
+  slug: "news/dogecoin-gains-paxos-support-in-push-for-broader-institutional-adoption";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai.md": {
+	id: "news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai.md";
+  slug: "news/duckduckgo-launched-duck-ai-now-their-hit-product-is-no-ai";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu.md": {
+	id: "news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu.md";
+  slug: "news/elon-musks-spacex-warns-175-billion-ipo-investors-of-potential-future-share-dilu";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares.md": {
+	id: "news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares.md";
+  slug: "news/grayscale-sets-029-fee-for-its-hyperliquid-etf-undercutting-bitwise-and-21shares";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins.md": {
+	id: "news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins.md";
+  slug: "news/japans-ruling-party-pushes-crypto-etfs-yen-denominated-stablecoins";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china.md": {
+	id: "news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china.md";
+  slug: "news/nvidia-releases-its-best-open-ai-model-yetbut-still-lags-behind-china";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool.md": {
+	id: "news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool.md";
+  slug: "news/strategy-bitcoin-sale-timing-throws-wrench-into-20-million-polymarket-pool";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/strategy-sold-32-bitcoin-and-thats-a-good-thing.md": {
+	id: "news/strategy-sold-32-bitcoin-and-thats-a-good-thing.md";
+  slug: "news/strategy-sold-32-bitcoin-and-thats-a-good-thing";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation.md": {
+	id: "news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation.md";
+  slug: "news/strive-asst-eyes-42b-war-chest-to-ramp-up-bitcoin-accumulation";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/the-business-owners-guide-to-vertical-integration-with-bitcoin.md": {
+	id: "news/the-business-owners-guide-to-vertical-integration-with-bitcoin.md";
+  slug: "news/the-business-owners-guide-to-vertical-integration-with-bitcoin";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram.md": {
+	id: "news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram.md";
+  slug: "news/ton-price-pumps-after-telegram-ceo-says-token-will-be-rebranded-to-gram";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-.md": {
+	id: "news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-.md";
+  slug: "news/ton-revives-gram-token-brand-as-telegram-ceo-durov-says-network-is-returning-to-";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-.md": {
+	id: "news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-.md";
+  slug: "news/trumps-business-partner-teases-future-meme-coin-plans-were-the-biggest-brand-on-";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down.md": {
+	id: "news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down.md";
+  slug: "news/unable-to-recover-from-roughly-50-million-hack-radiant-capital-is-winding-down";
   body: string;
   collection: "zh";
   data: any

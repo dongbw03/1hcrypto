@@ -24,12 +24,15 @@ jobs:
           python-version: '3.13'
       
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests feedparser pyyaml
       
       - name: Run fetch_news.py (资讯抓取)
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_news.py
+      
+      - name: Run translate_news.py (中文翻译)
+        run: python scripts/translate_news.py
       
       - name: Run price_analysis.py (价格分析)
         env:

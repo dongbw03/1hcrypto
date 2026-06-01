@@ -46,61 +46,19 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
     <div class="flex items-center gap-2 mb-6">
       <div class="w-1 h-5 rounded-full bg-primary"></div>
       <h2 class="text-xl font-bold text-white">最新复盘</h2>
-      <span class="text-xs text-[var(--text-muted)] ml-2">2026-05-25 ~ 2026-05-31</span>
+      <span class="text-xs text-[var(--text-muted)] ml-2">2026-06-02 起开始计算</span>
     </div>
 
-    <div class="card p-6 sm:p-8">
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">BTC/USDT</span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">ETH/USDT</span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">周度</span>
+    <div class="card p-8 text-center">
+      <div class="text-4xl mb-4">📊</div>
+      <h3 class="text-lg font-bold text-white mb-2">周度复盘准备中</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">模拟盘将于 2026-06-02 正式启动，首个周度复盘将于 2026-06-07（周日）发布。</p>
+      <div class="flex flex-wrap justify-center gap-3 text-xs text-[var(--text-muted)]">
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">每周日 20:00 更新</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">基于 Al Brooks 价格行为学</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">模拟盘 P&L 透明展示</span>
       </div>
-
-      <h3 class="text-lg font-bold text-white mb-4">BTC 周度复盘：突破在即，等待确认</h3>
-
-      <!-- 本周关键数据 -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">本周开盘</div>
-          <div class="text-sm font-bold text-white">$71,200</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">本周收盘</div>
-          <div class="text-sm font-bold text-green-400">$73,850</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">周度振幅</div>
-          <div class="text-sm font-bold text-white">3.7%</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">模拟盘 P&L</div>
-          <div class="text-sm font-bold text-green-400">+$4,200</div>
-        </div>
-      </div>
-
-      <!-- 周度分析 -->
-      <div class="space-y-4 mb-6 text-sm text-[var(--text-muted)] leading-relaxed">
-        <p><strong class="text-white">周线结构：</strong>本周 BTC 周线收阳，收盘价站上 EMA20（$72,500）。连续三周低点抬高（Higher Low），结构偏多。周线级别需求区 $70,000–$71,000 守住，为多头提供支撑。</p>
-        <p><strong class="text-white">Al Brooks 信号：</strong>本周 1H 图出现两次看涨 Engulfing Bar（周二亚洲盘、周四伦敦盘），且收盘均突破前一根 K 线高点，符合 Al Brooks 的「趋势 bar」定义。周五纽约盘出现小幅回调，但未跌破 EMA20，属于健康的回踩确认。</p>
-        <p><strong class="text-white">ETH/BTC 比率：</strong>本周 ETH 表现强于 BTC，ETH/BTC 比率从 0.048 升至 0.051。山寨季预期升温，资金有轮动迹象。</p>
-        <p><strong class="text-white">下周关键位：</strong>阻力 $75,000（周线前高）· 支撑 $72,500（EMA20）/ $71,000（周度需求区）。</p>
-      </div>
-
-      <!-- 关联交易记录 -->
-      <div class="border-t border-[var(--border)] pt-4 mb-4">
-        <p class="text-xs text-[var(--text-muted)] mb-2">关联交易记录</p>
-        <div class="space-y-2">
-          <a href="/zh/trading/" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/[0.08] transition-colors no-underline">
-            <div class="flex items-center gap-3">
-              <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400">多单</span>
-              <span class="text-sm text-white">BTC/USDT</span>
-            </div>
-            <div class="text-xs text-[var(--text-muted)]">5/28 入场 · 已止盈 →</div>
-          </a>
-        </div>
-      </div>
-
-      <a href="/zh/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline">查看本周每日研判 →</a>
+      <a href="/zh/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline mt-6">查看每日研判 →</a>
     </div>
   </div>
 
@@ -111,30 +69,8 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
       <h2 class="text-xl font-bold text-white">历史复盘</h2>
     </div>
 
-    <div class="space-y-3">
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-19 ~ 2026-05-24 周度复盘</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC 震荡蓄力 · EMA20 支撑有效 · 模拟盘 +$2,800</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
-
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-12 ~ 2026-05-17 周度复盘</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC 突破 $70,000 · 周线阳线确认 · 模拟盘 +$5,100</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
-
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-05 ~ 2026-05-10 周度复盘</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC 回踩 $68,000 支撑 · 看跌 Pin Bar 失效 · 模拟盘 +$1,400</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
+    <div class="card p-6 text-center">
+      <p class="text-sm text-[var(--text-muted)]">暂无历史复盘记录。首个周度复盘将于 2026-06-07 发布。</p>
     </div>
   </div>
 

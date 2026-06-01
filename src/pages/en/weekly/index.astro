@@ -36,58 +36,19 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
     <div class="flex items-center gap-2 mb-6">
       <div class="w-1 h-5 rounded-full bg-primary"></div>
       <h2 class="text-xl font-bold text-white">Latest Review</h2>
-      <span class="text-xs text-[var(--text-muted)] ml-2">2026-05-25 ~ 2026-05-31</span>
+      <span class="text-xs text-[var(--text-muted)] ml-2">Starting 2026-06-02</span>
     </div>
 
-    <div class="card p-6 sm:p-8">
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">BTC/USDT</span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">ETH/USDT</span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Weekly</span>
+    <div class="card p-8 text-center">
+      <div class="text-4xl mb-4">📊</div>
+      <h3 class="text-lg font-bold text-white mb-2">Weekly Review Preparing</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">Paper trading will officially launch on 2026-06-02. The first weekly review will be published on 2026-06-07 (Sunday).</p>
+      <div class="flex flex-wrap justify-center gap-3 text-xs text-[var(--text-muted)]">
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Every Sunday 20:00 UTC+8</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Based on Al Brooks Price Action</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Paper Trading P&L Transparent</span>
       </div>
-
-      <h3 class="text-lg font-bold text-white mb-4">BTC Weekly Review: Breakout Imminent, Awaiting Confirmation</h3>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">Week Open</div>
-          <div class="text-sm font-bold text-white">$71,200</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">Week Close</div>
-          <div class="text-sm font-bold text-green-400">$73,850</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">Week Range</div>
-          <div class="text-sm font-bold text-white">3.7%</div>
-        </div>
-        <div class="card p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)] mb-1">Paper P&L</div>
-          <div class="text-sm font-bold text-green-400">+$4,200</div>
-        </div>
-      </div>
-
-      <div class="space-y-4 mb-6 text-sm text-[var(--text-muted)] leading-relaxed">
-        <p><strong class="text-white">Weekly Structure:</strong> This week BTC closed above EMA20 ($72,500) on the weekly chart. Three consecutive Higher Lows (HL) formed ($68,300 → $69,800 → $71,000). Structure is bullish.</p>
-        <p><strong class="text-white">Al Brooks Signals:</strong> Two Bullish Engulfing Bars appeared on 1H (Tuesday Asia session, Thursday London session), both closing above prior bar high—consistent with Al Brooks' "Trend Bar" definition. Friday NY session saw a minor pullback that did not break EMA20, a healthy retest.</p>
-        <p><strong class="text-white">ETH/BTC Ratio:</strong> ETH outperformed BTC this week. ETH/BTC ratio rose from 0.048 to 0.051. Alt season expectation is warming; capital rotation is visible.</p>
-        <p><strong class="text-white">Next Week Key Levels:</strong> Resistance $75,000 (weekly prior high) · Support $72,500 (EMA20) / $71,000 (weekly demand zone).</p>
-      </div>
-
-      <div class="border-t border-[var(--border)] pt-4 mb-4">
-        <p class="text-xs text-[var(--text-muted)] mb-2">Related Trades</p>
-        <div class="space-y-2">
-          <a href="/en/trading/" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/[0.08] transition-colors no-underline">
-            <div class="flex items-center gap-3">
-              <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400">Long</span>
-              <span class="text-sm text-white">BTC/USDT</span>
-            </div>
-            <div class="text-xs text-[var(--text-muted)]">5/28 Entry · TP Hit →</div>
-          </a>
-        </div>
-      </div>
-
-      <a href="/en/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline">View This Week's Daily Analysis →</a>
+      <a href="/en/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline mt-6">View Daily Analysis →</a>
     </div>
   </div>
 
@@ -98,28 +59,8 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
       <h2 class="text-xl font-bold text-white">Historical Reviews</h2>
     </div>
 
-    <div class="space-y-3">
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-19 ~ 2026-05-24 Weekly Review</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC consolidating · EMA20 support held · Paper +$2,800</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-12 ~ 2026-05-17 Weekly Review</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC broke $70,000 · Weekly bullish bar · Paper +$5,100</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
-      <a href="#" class="card p-4 flex items-center justify-between hover:border-primary/30 transition-colors no-underline">
-        <div>
-          <div class="text-sm font-semibold text-white mb-1">2026-05-05 ~ 2026-05-10 Weekly Review</div>
-          <div class="text-xs text-[var(--text-muted)]">BTC retested $68,000 · Bearish Pin Bar failed · Paper +$1,400</div>
-        </div>
-        <span class="text-xs text-[var(--text-muted)]">→</span>
-      </a>
+    <div class="card p-6 text-center">
+      <p class="text-sm text-[var(--text-muted)]">No historical reviews yet. First weekly review will be published on 2026-06-07.</p>
     </div>
   </div>
 

@@ -1,13 +1,69 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import fs from 'fs';
+import path from 'path';
+
+// 读取模拟盘数据，计算当前资金
+const tradesPath = path.resolve('src/data/trades.json');
+let trades = [];
+try {
+  trades = JSON.parse(fs.readFileSync(tradesPath, 'utf-8'));
+} catch (e) {
+  trades = [];
+}
+const totalPnl = trades.filter(t => t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
+const currentBalance = (1000000 + totalPnl).toLocaleString();
+
+// 服务端获取市场数据（构建时预填）
+let btcPrice = null, btcChange = null, ethPrice = null, ethChange = null, fearValue = null, fearLabel = '';
+try {
+  const priceRes = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(5000) });
+  if (priceRes.ok) {
+    const priceData = await priceRes.json();
+    const btc = priceData.find(d => d.symbol === 'BTCUSDT');
+    const eth = priceData.find(d => d.symbol === 'ETHUSDT');
+    btcPrice = btc?.lastPrice ? Number(btc.lastPrice) : null;
+    btcChange = btc?.priceChangePercent ? Number(btc.priceChangePercent) : null;
+    ethPrice = eth?.lastPrice ? Number(eth.lastPrice) : null;
+    ethChange = eth?.priceChangePercent ? Number(eth.priceChangePercent) : null;
+  }
+} catch {}
+try {
+  const fearRes = await fetch('https://api.alternative.me/fng/?limit=1', { signal: AbortSignal.timeout(5000) });
+  if (fearRes.ok) {
+    const fearData = await fearRes.json();
+    const item = fearData?.data?.[0];
+    if (item) {
+      fearValue = parseInt(item.value);
+      fearLabel = item.value_classification || '';
+    }
+  }
+} catch {}
+
+function fmtPrice(n) {
+  if (n == null) return '--';
+  return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function fmtChange(v) {
+  if (v == null) return '--';
+  const num = Number(v);
+  const cls = num >= 0 ? 'text-green-400' : 'text-red-400';
+  return `<span class="${cls}">${num >= 0 ? '+' : ''}${num.toFixed(2)}%</span>`;
+}
+function fearColor(v) {
+  if (v == null) return 'text-purple-400';
+  if (v <= 25) return 'text-red-400';
+  if (v <= 45) return 'text-orange-400';
+  if (v <= 55) return 'text-amber-400';
+  if (v <= 75) return 'text-green-400';
+  return 'text-emerald-400';
+}
 ---
-
-
-  <script type="application/ld+json" set:html={`{
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "BTC & ETH Price Action Analysis | 1H Crypto",
-  "description": "Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain +",
+  "description": "Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain + derivatives + paper trading.",
   "image": {
     "@type": "ImageObject",
     "url": "https://1hcrypto.com/og-default.png",
@@ -15,7 +71,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     "height": 630
   },
   "datePublished": "2026-05-31T16:20:03+08:00",
-  "dateModified": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-06-01T20:00:00+08:00",
   "author": {
     "@type": "Person",
     "name": "1H Crypto Trader"
@@ -87,28 +143,28 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
         <!-- BTC Price -->
-        <div class="card p-4! cursor-default">
+        <div class="card p-4! hover:border-primary/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">BTC/USDT</div>
-          <div class="metric-value gradient-text text-lg md:text-xl">--,---</div>
-          <div class="text-green-400 text-xs mt-0.5">+0.00%</div>
+          <div class="metric-value gradient-text text-lg md:text-xl" id="price-btc">{fmtPrice(btcPrice)}</div>
+          <div class="text-xs mt-0.5" id="change-btc"><Fragment set:html={fmtChange(btcChange)} /></div>
         </div>
         <!-- ETH Price -->
-        <div class="card p-4! cursor-default">
+        <div class="card p-4! hover:border-accent/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">ETH/USDT</div>
-          <div class="metric-value text-accent text-lg md:text-xl">-,---</div>
-          <div class="text-green-400 text-xs mt-0.5">+0.00%</div>
+          <div class="metric-value text-accent text-lg md:text-xl" id="price-eth">{fmtPrice(ethPrice)}</div>
+          <div class="text-xs mt-0.5" id="change-eth"><Fragment set:html={fmtChange(ethChange)} /></div>
         </div>
         <!-- Fear & Greed -->
-        <div class="card p-4! cursor-default">
+        <div class="card p-4! hover:border-purple-500/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">Fear & Greed</div>
-          <div class="metric-value text-purple-400 text-lg md:text-xl">--</div>
-          <div class="text-[var(--text-muted)] text-xs mt-0.5">Neutral</div>
+          <div class={`metric-value text-lg md:text-xl ${fearColor(fearValue)}`} id="price-fear">{fearValue ?? '--'}</div>
+          <div class="text-[var(--text-muted)] text-xs mt-0.5" id="fear-label">{fearLabel || '--'}</div>
         </div>
-        <!-- Next Update -->
-        <div class="card p-4! cursor-default">
-          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">Next Update</div>
-          <div class="metric-value text-green-400 text-lg md:text-xl">07:52</div>
-          <div class="text-[var(--text-muted)] text-xs mt-0.5">Beijing Time</div>
+        <!-- Portfolio NAV -->
+        <div class="card p-4! hover:border-green-500/30 transition-colors cursor-default">
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">Paper Trading Balance</div>
+          <div class="metric-value text-green-400 text-lg md:text-xl">{currentBalance}</div>
+          <div class="text-[var(--text-muted)] text-xs mt-0.5">USDT</div>
         </div>
       </div>
     </div>
@@ -169,6 +225,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <div class="mt-auto pt-4 text-xs text-amber-400 font-medium">Live tracking →</div>
         </div>
       </div>
+    </div>
   </section>
 
   <!-- Today's Analysis Preview -->
@@ -185,7 +242,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <span class="badge badge-blue">Price Action</span>
           <span class="text-xs text-[var(--text-muted)]">2026-05-30</span>
         </div>
-        <h3 class="text-white font-semibold mb-2">BTC/USDT 1H — Tight Range, Watch 67K Support</h3>
+        <h3 class="text-white font-semibold mb-2 group-hover:text-primary transition-colors">BTC/USDT 1H — Tight Range, Watch 67K Support</h3>
         <p class="text-sm text-[var(--text-muted)] line-clamp-2">1H EMA20/60 converging, price testing prior low at bar 5. Al Brooks signal: wait for breakout confirmation or failed breakout reversal.</p>
         <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
           <span>⏱ 5 min read</span>
@@ -199,7 +256,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <span class="badge badge-amber">Price Action</span>
           <span class="text-xs text-[var(--text-muted)]">2026-05-30</span>
         </div>
-        <h3 class="text-white font-semibold mb-2">ETH/USDT 1H — Double Bottom Forming, Watch Neckline Breakout</h3>
+        <h3 class="text-white font-semibold mb-2 group-hover:text-accent transition-colors">ETH/USDT 1H — Double Bottom Forming, Watch Neckline Breakout</h3>
         <p class="text-sm text-[var(--text-muted)] line-clamp-2">Potential double bottom near 2,620 with neckline at 2,780. Confirmation requires breakout above neckline with volume.</p>
         <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
           <span>⏱ 5 min read</span>
@@ -242,7 +299,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       let w, h, points = [];
       function resize() {
         const section = canvas.closest("section");
-        w = canvas.width  = section.offsetWidth;
+        w = canvas.width = section.offsetWidth;
         h = canvas.height = section.offsetHeight;
         initPoints();
       }
@@ -293,5 +350,83 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       resize();
       draw();
     })();
+  </script>
+
+  <!-- Real-time Price Fetcher -->
+  <script>
+    async function fetchPrice() {
+      try {
+        const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', {
+          headers: { 'Accept': 'application/json' },
+          signal: AbortSignal.timeout(8000)
+        });
+        if (!res.ok) throw new Error('Binance API error: ' + res.status);
+        const data = await res.json();
+        const btc = data.find(d => d.symbol === 'BTCUSDT');
+        const eth = data.find(d => d.symbol === 'ETHUSDT');
+        updatePriceUI({ btc, eth });
+      } catch (e) {
+        console.warn('[Price] fetch error, retrying in 15s:', e.message);
+        setTimeout(fetchPrice, 15000);
+      }
+    }
+
+    function fmt(n) {
+      if (n == null) return '--';
+      const num = Number(n);
+      return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function fmtChange(v) {
+      if (v == null) return '--';
+      const num = Number(v);
+      const cls = num >= 0 ? 'text-green-400' : 'text-red-400';
+      return '<span class="' + cls + '">' + (num >= 0 ? '+' : '') + num.toFixed(2) + '%</span>';
+    }
+    function fearColor(v) {
+      if (v == null) return 'text-purple-400';
+      if (v <= 25) return 'text-red-400';
+      if (v <= 45) return 'text-orange-400';
+      if (v <= 55) return 'text-amber-400';
+      if (v <= 75) return 'text-green-400';
+      return 'text-emerald-400';
+    }
+
+    function updatePriceUI({ btc, eth }) {
+      const btcEl = document.getElementById('price-btc');
+      const btcChg = document.getElementById('change-btc');
+      if (btcEl && btc?.lastPrice != null) btcEl.textContent = fmt(btc.lastPrice);
+      if (btcChg) btcChg.innerHTML = fmtChange(btc?.priceChangePercent);
+
+      const ethEl = document.getElementById('price-eth');
+      const ethChg = document.getElementById('change-eth');
+      if (ethEl && eth?.lastPrice != null) ethEl.textContent = fmt(eth.lastPrice);
+      if (ethChg) ethChg.innerHTML = fmtChange(eth?.priceChangePercent);
+    }
+
+    async function fetchFearGreed() {
+      try {
+        const res = await fetch('https://api.alternative.me/fng/?limit=1', {
+          headers: { 'Accept': 'application/json' },
+          signal: AbortSignal.timeout(8000)
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        const item = data?.data?.[0];
+        if (!item) return;
+        const fgEl = document.getElementById('price-fear');
+        const fgLabel = document.getElementById('fear-label');
+        if (fgEl) {
+          const v = parseInt(item.value);
+          fgEl.className = 'metric-value text-lg md:text-xl ' + fearColor(v);
+          fgEl.textContent = v;
+        }
+        if (fgLabel) fgLabel.textContent = item.value_classification || '';
+      } catch {}
+    }
+
+    fetchPrice();
+    fetchFearGreed();
+    setInterval(fetchPrice, 60000);
+    setInterval(fetchFearGreed, 300000);
   </script>
 </BaseLayout>

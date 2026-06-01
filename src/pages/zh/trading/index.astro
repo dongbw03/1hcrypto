@@ -21,13 +21,11 @@ const initialCapital = 1000000;
 const currentBalance = initialCapital + totalPnl;
 
 // ========== 运行天数 ==========
-const tradeDates = trades.map(t => t.date).filter(Boolean);
-const launchDate = tradeDates.length > 0
-  ? tradeDates.sort()[0]
-  : new Date().toISOString().slice(0, 10);
+const launchDate = '2026-06-02';
 const launch = new Date(launchDate + 'T00:00:00');
 const now = new Date();
-const runningDays = Math.max(1, Math.floor((now.getTime() - launch.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+const rawDays = Math.floor((now.getTime() - launch.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+const runningDays = rawDays > 0 ? rawDays : 0;
 
 // ========== 净值序列（按日期排序） ==========
 const sortedClosed = [...closedTrades].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -87,7 +85,7 @@ const minVal = Math.min(...allValues);
 const maxVal = Math.max(...allValues);
 const valRange = maxVal - minVal || 1;
 
-function toX(i) { return pad.left + (i / (navSeries.length - 1)) * chartW; }
+function toX(i) { return navSeries.length > 1 ? pad.left + (i / (navSeries.length - 1)) * chartW : pad.left + chartW / 2; }
 function toY(v) { return pad.top + chartH - ((v - minVal) / valRange) * chartH; }
 
 const points = navSeries.map((p, i) => `${toX(i)},${toY(p.value)}`);
@@ -158,8 +156,8 @@ function fmtDate(d) {
       </div>
       <div class="card p-4 text-center">
         <div class="text-xs text-[var(--text-muted)] mb-1">稳定运行</div>
-        <div class="text-xl font-bold text-primary font-mono">{runningDays}</div>
-        <div class="text-xs text-[var(--text-muted)]">天</div>
+        <div class="text-xl font-bold text-primary font-mono">{runningDays > 0 ? runningDays : '准备中'}</div>
+        <div class="text-xs text-[var(--text-muted)]">{runningDays > 0 ? '天' : '2026-06-02 启动'}</div>
       </div>
       <div class="card p-4 text-center">
         <div class="text-xs text-[var(--text-muted)] mb-1">累计盈亏</div>

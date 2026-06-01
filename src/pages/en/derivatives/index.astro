@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Derivatives Trading Basics - 1H Crypto",
+  "description": "Introduction to crypto derivatives trading: futures contracts, perpetual swaps, leverage trading core concepts and risk management",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T20:00:00+08:00",
+  "dateModified": "2026-05-31T20:00:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/derivatives/"
+  }
+}`}></script>
+<BaseLayout title="Derivatives Trading Basics - 1H Crypto" lang="en" activeNav="derivatives" description="Introduction to crypto derivatives trading: futures contracts, perpetual swaps, leverage trading core concepts and risk management">
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/" class="text-primary hover:underline">← Back to Home</a>
+  </p>
+
+  <h1 class="text-3xl font-bold text-white mb-2">Derivatives Trading Basics</h1>
+  <p class="text-[var(--text-muted)] mb-10 leading-relaxed">Core concepts, trading mechanisms, and risk management for crypto derivatives. Must-read for beginners.</p>
+
+  <!-- What are derivatives -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-primary rounded-full inline-block"></span>
+      What Are Derivatives?
+    </h2>
+    <div class="card p-6 space-y-4 text-sm text-[var(--text-muted)] leading-relaxed">
+      <p><strong class="text-white">Derivatives Trading</strong> is a type of financial derivative trading where you don't need to actually hold cryptocurrency. Instead, you <strong class="text-white">profit from predicting price movements</strong>.</p>
+      <p>Unlike spot trading (buy coin → hold coin → sell coin), derivatives trading allows you to:</p>
+      <ul class="space-y-2 pl-4">
+        <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span><strong class="text-white">Go Long:</strong> Bullish view, buy contract, profit when price rises</li>
+        <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span><strong class="text-white">Go Short:</strong> Bearish view, sell contract, profit when price falls</li>
+        <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span><strong class="text-white">Use Leverage:</strong> Control a large position with a small margin, amplifying both gains and risks</li>
+      </ul>
+      <p class="text-amber-300/90">⚠️ Derivatives trading is high-risk behavior and may result in total loss of capital. Beginners should fully understand the concepts and start with low leverage and small positions.</p>
+    </div>
+  </section>
+
+  <!-- Key Concepts -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-blue-500 rounded-full inline-block"></span>
+      Key Concepts
+    </h2>
+    <div class="space-y-4">
+      <!-- Leverage & Margin -->
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Leverage & Margin</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+          <p><strong class="text-white">Leverage:</strong> Borrowing funds to amplify position size. 10x leverage means you can control a $10,000 position with $1,000 of margin.</p>
+          <p><strong class="text-white">Initial Margin:</strong> Minimum funds required to open a position. For a $10,000 BTC long with 10x leverage, you need $1,000 initial margin.</p>
+          <p><strong class="text-white">Maintenance Margin:</strong> Minimum funds to keep a position from being liquidated. If margin balance falls below this level, the position will be force-closed (Liquidation).</p>
+        </div>
+      </div>
+
+      <!-- Liquidation Price -->
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Liquidation Price</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+          <p>When market price touches the <strong class="text-red-400">liquidation price</strong>, the exchange will force-close your position, and your margin will be lost entirely.</p>
+          <p><strong class="text-white">Simplified formula (Long):</strong> <code class="bg-white/10 px-1.5 py-0.5 rounded text-xs">Liquidation Price ≈ Entry Price × (1 - 1/Leverage)</code></p>
+          <p>Example: Long at $70,000, 10x leverage, liquidation price ≈ $70,000 × (1 - 0.1) = <strong class="text-red-400">$63,000</strong>.</p>
+          <p class="text-amber-300/90">The actual liquidation price will be slightly higher because some funds are reserved for fees. Always confirm the exact liquidation price on the exchange interface before opening a position.</p>
+        </div>
+      </div>
+
+      <!-- Funding Rate -->
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Funding Rate</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+          <p><strong class="text-white">Perpetual Swaps</strong> have no expiration date and use the <strong class="text-white">funding rate</strong> mechanism to anchor spot price.</p>
+          <p><strong class="text-white">Funding Rate > 0:</strong> Longs pay Shorts (bullish sentiment strong)</p>
+          <p><strong class="text-white">Funding Rate < 0:</strong> Shorts pay Longs (bearish sentiment strong)</p>
+          <p>Funding rate typically settles every 8 hours (UTC 0:00, 8:00, 16:00). If you hold a position through funding time, you pay or receive funding fees.</p>
+        </div>
+      </div>
+
+      <!-- Mark Price -->
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Mark Price</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+          <p>Liquidation is NOT calculated based on <strong class="text-white">Last Price</strong> (latest trade), but on <strong class="text-white">Mark Price</strong>.</p>
+          <p>Mark Price is typically a weighted average of spot prices from multiple exchanges, designed to prevent irrational liquidations caused by <strong class="text-white">wicks</strong> (price spikes).</p>
+          <p class="text-amber-300/90">⚠️ Even if your position is currently profitable, if Mark Price touches your liquidation price, your position will still be liquidated. Always monitor Mark Price, not just Last Price.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types of Contracts -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-purple-500 rounded-full inline-block"></span>
+      Types of Contracts
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Futures (Delivery)</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-1">
+          <p>Fixed expiration date (e.g., last Friday of each month).</p>
+          <p>Settles at <strong class="text-white">delivery price</strong> on expiration, contract delisted.</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Suitable for: Strategies with clear timeframe expectations.</p>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Perpetual Swap</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-1">
+          <p>No expiration date, can hold indefinitely.</p>
+          <p>Anchors to spot price via <strong class="text-white">funding rate</strong> mechanism.</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Suitable for: Long-term positions, arbitrage strategies.</p>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Options</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-1">
+          <p>Buy the <strong class="text-white">right</strong> (not obligation) to buy/sell at agreed price before expiration.</p>
+          <p>Buyer's risk is limited (premium only), seller's risk is higher.</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Suitable for: Complex strategies, hedging, yield enhancement.</p>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-white font-semibold mb-2">Derivatives vs. Spot</h3>
+        <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-1">
+          <p><strong class="text-white">Spot:</strong> Buy coin → hold coin → sell coin, risk relatively controllable.</p>
+          <p><strong class="text-white">Derivatives:</strong> Predict up/down, can use leverage, extremely high risk.</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Recommendation: Beginners should start with spot, understand the market before considering derivatives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Management -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-red-500 rounded-full inline-block"></span>
+      Risk Management (Must Read)
+    </h2>
+    <div class="card p-6 bg-red-500/5 border border-red-500/20">
+      <div class="space-y-3 text-sm text-[var(--text-muted)] leading-relaxed">
+        <p><strong class="text-red-400">1. Higher Leverage ≠ Better</strong><br/>High leverage means liquidation price is closer to entry price. Beginners should start with 2x-5x, consider higher leverage only after gaining experience.</p>
+        <p><strong class="text-red-400">2. Must Set Stop-Loss</strong><br/>Don't rely on luck. Stop-loss is the last line of defense to protect your capital. Recommended stop-loss amount: no more than 1-2% of total capital.</p>
+        <p><strong class="text-red-400">3. Don't Go All-In</strong><br/>Even if you're very bullish, don't use all funds as margin. Keep reserves to handle market volatility.</p>
+        <p><strong class="text-red-400">4. Watch Out for "Wicks"</strong><br/>Crypto market liquidity is lower than traditional finance, prices can swing violently in short time (wicks). When setting stop-loss, leave enough buffer space.</p>
+        <p><strong class="text-red-400">5. Understand Funding Rates</strong><br/>If you hold through funding settlement time, you pay funding fees. If funding rate is positive and large, long-term holding costs can be high.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Exchanges -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-green-500 rounded-full inline-block"></span>
+      Recommended Derivatives Platforms
+    </h2>
+    <p class="text-sm text-[var(--text-muted)] mb-6">The following platforms all support derivatives trading. Click to view detailed reviews:</p>
+    <div class="grid md:grid-cols-3 gap-4">
+      <a href="/en/tools/" class="card p-5 hover:border-primary/30 transition-colors block">
+        <h3 class="text-white font-semibold mb-1">Bybit</h3>
+        <p class="text-xs text-[var(--text-muted)]">Most intuitive derivatives UI, great for beginners</p>
+      </a>
+      <a href="/en/tools/" class="card p-5 hover:border-primary/30 transition-colors block">
+        <h3 class="text-white font-semibold mb-1">Binance</h3>
+        <p class="text-xs text-[var(--text-muted)]">Deepest liquidity, mainstream exchange</p>
+      </a>
+      <a href="/en/tools/" class="card p-5 hover:border-primary/30 transition-colors block">
+        <h3 class="text-white font-semibold mb-1">OKX</h3>
+        <p class="text-xs text-[var(--text-muted)]">Unified account, high capital efficiency</p>
+      </a>
+    </div>
+  </section>
+
+  <div class="mt-8 p-5 bg-amber-600/10 border border-amber-600/20 rounded-lg">
+    <h3 class="text-amber-300 font-semibold mb-2">⚠️ Final Reminder</h3>
+    <p class="text-sm text-amber-200/80 leading-relaxed">
+      Derivatives trading is not a "get rich quick" tool. Even experienced traders in the market manage risk cautiously — beginners should do the same.
+      Don't open a position lightly before fully understanding the risks, making a trading plan, and setting stop-loss.
+    </p>
+  </div>
+</div>
+
+</BaseLayout>

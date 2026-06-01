@@ -11,11 +11,112 @@ try {
   trades = [];
 }
 
+const initialCapital = 1000000;
 const openTrades = trades.filter(t => t.status === 'open');
 const closedTrades = trades.filter(t => t.status === 'closed');
 const totalPnl = closedTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+const currentBalance = initialCapital + totalPnl;
 const winCount = closedTrades.filter(t => (t.pnl || 0) > 0).length;
 const winRate = closedTrades.length > 0 ? (winCount / closedTrades.length * 100).toFixed(1) : null;
+
+// ========== 运行天数 ==========
+const launchDate = '2026-06-02';
+const launch = new Date(launchDate + 'T00:00:00');
+const now = new Date();
+const rawDays = Math.floor((now.getTime() - launch.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+const runningDays = rawDays > 0 ? rawDays : 0;
+
+// ========== 净值序列 ==========
+const sortedTrades = [...trades].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+const navSeries: { date: string; value: number }[] = [];
+let currentNav = initialCapital;
+const dateSet = new Set<string>();
+sortedTrades.forEach(t => {
+  if (t.status === 'closed' && t.pnl != null) {
+    currentNav += t.pnl;
+    if (t.date) dateSet.add(t.date);
+  }
+});
+if (dateSet.size === 0) {
+  navSeries.push({ date: launchDate, value: initialCapital });
+} else {
+  const dates = Array.from(dateSet).sort();
+  let nav = initialCapital;
+  dates.forEach(d => {
+    const dayPnL = sortedTrades.filter(t => t.date === d && t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
+    nav += dayPnL;
+    navSeries.push({ date: d, value: Math.round(nav) });
+  });
+}
+
+// ========== 最大回撤 ==========
+function calcMaxDrawdown(tradesList: any[]) {
+  const sorted = [...tradesList].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  let nav = initialCapital;
+  let peak = nav;
+  let maxDd = 0;
+  const dateSet2 = new Set<string>();
+  sorted.forEach(t => { if (t.status === 'closed' && t.date) dateSet2.add(t.date); });
+  if (dateSet2.size === 0) return { maxDrawdown: 0, maxDrawdownPct: 0 };
+  const dates2 = Array.from(dateSet2).sort();
+  dates2.forEach(d => {
+    const dayPnL = sorted.filter(t => t.date === d && t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
+    nav += dayPnL;
+    if (nav > peak) peak = nav;
+    const dd = peak - nav;
+    if (dd > maxDd) maxDd = dd;
+  });
+  const maxDrawdownPct = peak > 0 ? (maxDd / peak * 100) : 0;
+  return { maxDrawdown: maxDd, maxDrawdownPct };
+}
+const { maxDrawdown, maxDrawdownPct } = calcMaxDrawdown(trades);
+
+// ========== 夏普比率 ==========
+let sharpe = null;
+if (closedTrades.length >= 2) {
+  const returns = closedTrades.map(t => (t.pnlPct || 0));
+  const avgReturn = returns.reduce((s, r) => s + r, 0) / returns.length;
+  const variance = returns.reduce((s, r) => s + Math.pow(r - avgReturn, 2), 0) / returns.length;
+  const stdDev = Math.sqrt(variance);
+  sharpe = stdDev > 0 ? (avgReturn / stdDev) : null;
+}
+
+// ========== 最大单笔 ==========
+const winningTrades = closedTrades.filter(t => (t.pnl || 0) > 0);
+const losingTrades = closedTrades.filter(t => (t.pnl || 0) < 0);
+const maxSingleWin = winningTrades.length > 0 ? Math.max(...winningTrades.map(t => t.pnl || 0)) : 0;
+const maxSingleLoss = losingTrades.length > 0 ? Math.min(...losingTrades.map(t => t.pnl || 0)) : 0;
+
+// ========== SVG 净值曲线 ==========
+const svgW = 900;
+const svgH = 280;
+const pad = { top: 30, right: 40, bottom: 40, left: 95 };
+const chartW = svgW - pad.left - pad.right;
+const chartH = svgH - pad.top - pad.bottom;
+const allValues = navSeries.map(p => p.value);
+const minVal = Math.min(...allValues);
+const maxVal = Math.max(...allValues);
+const valRange = maxVal - minVal || 1;
+
+function toX(i) { return navSeries.length > 1 ? pad.left + (i / (navSeries.length - 1)) * chartW : pad.left + chartW / 2; }
+function toY(v) { return pad.top + chartH - ((v - minVal) / valRange) * chartH; }
+
+const points = navSeries.map((p, i) => `${toX(i)},${toY(p.value)}`);
+const linePath = `M ${points.join(' L ')}`;
+const fillPath = `${linePath} L ${toX(navSeries.length - 1)},${toY(minVal)} L ${toX(0)},${toY(minVal)} Z`;
+
+const tickCount = 4;
+const yTicks = [];
+for (let i = 0; i <= tickCount; i++) {
+  const v = minVal + (valRange * i / tickCount);
+  yTicks.push({ value: Math.round(v), y: toY(v) });
+}
+
+function fmtDate(d) {
+  const m = d.slice(5, 7);
+  const day = d.slice(8, 10);
+  return `${m}/${day}`;
+}
 ---
 
   <script type="application/ld+json" set:html={`{
@@ -58,16 +159,16 @@ const winRate = closedTrades.length > 0 ? (winCount / closedTrades.length * 100)
     </div>
 
     <!-- Stats Panel -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-in-on-scroll">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 fade-in-on-scroll">
       <div class="card p-4 text-center">
-        <div class="text-xs text-[var(--text-muted)] mb-1">Initial Capital</div>
-        <div class="text-xl font-bold text-white font-mono">1,000,000</div>
+        <div class="text-xs text-[var(--text-muted)] mb-1">Current Balance</div>
+        <div class="text-xl font-bold text-white font-mono">{currentBalance.toLocaleString()}</div>
         <div class="text-xs text-[var(--text-muted)]">USDT</div>
       </div>
       <div class="card p-4 text-center">
-        <div class="text-xs text-[var(--text-muted)] mb-1">Open Positions</div>
-        <div class="text-xl font-bold text-yellow-400 font-mono">{openTrades.length}</div>
-        <div class="text-xs text-[var(--text-muted)]">trades</div>
+        <div class="text-xs text-[var(--text-muted)] mb-1">Running</div>
+        <div class="text-xl font-bold text-primary font-mono">{runningDays > 0 ? runningDays : 'Preparing'}</div>
+        <div class="text-xs text-[var(--text-muted)]">{runningDays > 0 ? 'days' : 'Launch 2026-06-02'}</div>
       </div>
       <div class="card p-4 text-center">
         <div class="text-xs text-[var(--text-muted)] mb-1">Total P&L</div>
@@ -81,7 +182,66 @@ const winRate = closedTrades.length > 0 ? (winCount / closedTrades.length * 100)
         <div class="text-xl font-bold text-primary font-mono">{winRate !== null ? winRate + '%' : '--'}</div>
         <div class="text-xs text-[var(--text-muted)]">{closedTrades.length} closed</div>
       </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Max Drawdown</div>
+        <div class={`text-xl font-bold font-mono ${maxDrawdownPct <= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          {maxDrawdownPct > 0 ? '-' + maxDrawdownPct.toFixed(2) + '%' : '0.00%'}
+        </div>
+        <div class="text-xs text-[var(--text-muted)]">{maxDrawdown > 0 ? '-' + Math.round(maxDrawdown).toLocaleString() : '0'} USDT</div>
+      </div>
     </div>
+
+    <!-- NAV Chart -->
+    {navSeries.length >= 1 && (
+      <div class="card p-5 md:p-6 mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-lg font-bold text-white">NAV Curve</h2>
+          <span class="text-xs text-[var(--text-muted)]">{fmtDate(navSeries[0].date)} — {fmtDate(navSeries[navSeries.length - 1].date)} · {runningDays > 0 ? runningDays : 0} days</span>
+        </div>
+        <div class="mb-5">
+          <svg viewBox={`0 0 ${svgW} ${svgH}`} class="w-full h-auto" style="max-height: 300px;">
+            <defs>
+              <linearGradient id="navGradEn" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.02" />
+              </linearGradient>
+              <filter id="glowEn">
+                <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            {yTicks.map(tick => (
+              <line x1={pad.left} y1={tick.y} x2={svgW - pad.right} y2={tick.y} stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3" />
+            ))}
+            {yTicks.map(tick => (
+              <text x={pad.left - 10} y={tick.y + 4} text-anchor="end" fill="var(--text-muted)" font-size="11" font-family="monospace">{tick.value.toLocaleString()}</text>
+            ))}
+            <path d={fillPath} fill="url(#navGradEn)" />
+            <path d={linePath} fill="none" stroke="var(--primary)" stroke-width="2" filter="url(#glowEn)" />
+            {navSeries.map((p, i) => (
+              <circle cx={toX(i)} cy={toY(p.value)} r="3.5" fill="var(--primary)" stroke="var(--bg)" stroke-width="2" />
+            ))}
+            {navSeries.length >= 2 && (
+              <>
+                <text x={toX(0)} y={svgH - 10} text-anchor="middle" fill="var(--text-muted)" font-size="10">{fmtDate(navSeries[0].date)}</text>
+                <text x={toX(navSeries.length - 1)} y={svgH - 10} text-anchor="middle" fill="var(--text-muted)" font-size="10">{fmtDate(navSeries[navSeries.length - 1].date)}</text>
+              </>
+            )}
+          </svg>
+        </div>
+        <div class="flex flex-wrap gap-4 text-xs text-[var(--text-muted)]">
+          <span>Initial: <span class="text-white font-mono">{initialCapital.toLocaleString()}</span> USDT</span>
+          <span>Current: <span class={`font-mono ${currentBalance >= initialCapital ? 'text-green-400' : 'text-red-400'}`}>{currentBalance.toLocaleString()}</span> USDT</span>
+          <span>Return: <span class={`font-mono ${totalPnl >= 0 ? 'text-green-400' : 'text-red-400'}`}>{totalPnl >= 0 ? '+' : ''}{totalPnl.toLocaleString()} ({((totalPnl / initialCapital) * 100).toFixed(2)}%)</span></span>
+          {sharpe !== null && <span>Sharpe: <span class="text-white font-mono">{sharpe.toFixed(2)}</span></span>}
+          <span>Max Single Win: <span class="text-green-400 font-mono">+{maxSingleWin.toLocaleString()}</span> USDT</span>
+          <span>Max Single Loss: <span class="text-red-400 font-mono">{maxSingleLoss.toLocaleString()}</span> USDT</span>
+        </div>
+      </div>
+    )}
 
     <!-- Action Buttons -->
     <div class="mb-6 fade-in-on-scroll">

@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Choose a Crypto Wallet? Hot Wallets vs Cold Wallets - 1H Crypto",
+  "description": "A comprehensive guide to choosing crypto wallets. Understand the difference between hot wallets and cold wallets, and which one suits your needs.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/how-to-choose-wallet/"
+  }
+}`}></script>
+<BaseLayout title="How to Choose a Crypto Wallet? Hot Wallets vs Cold Wallets - 1H Crypto" lang="en" description="A comprehensive guide to choosing crypto wallets. Understand the difference between hot wallets and cold wallets, and which one suits your needs." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">How to Choose a Crypto Wallet?</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">Updated: May 2026</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>For many beginners buying crypto for the first time, the most confusing thing is "wallets." Doesn't the exchange already have a wallet? Why do I need a separate one? This article explains wallets clearly.</p>
+
+    <h3>First, Understand: Exchange Wallet ≠ Your Wallet</h3>
+    <p>The coins you have on Binance or OKX are actually <strong>just an entry in the exchange's internal ledger</strong>. The private keys belong to the exchange; you only have "withdrawal permissions."</p>
+    <p>This is like: you store gold in a bank's safe deposit box, and the bank gives you a receipt. If the bank collapses, your gold is gone.</p>
+    <p>When FTX collapsed, hundreds of thousands of people learned this lesson the hard way. <strong>So the rule is: for large amounts, always withdraw to your own wallet.</strong></p>
+
+    <h3>Two Major Categories of Wallets</h3>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm my-4">
+      <thead><tr class="border-b border-[var(--border)]"><th class="text-left py-2">Comparison</th><th class="text-left py-2">Hot Wallet (Software)</th><th class="text-left py-2">Cold Wallet (Hardware)</th></tr></thead>
+      <tbody>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">Internet Connection</td><td>Always online</td><td>Usually offline, only connects when signing</td></tr>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">Convenience</td><td>Very convenient, trade anytime</td><td>Needs USB or Bluetooth, slightly cumbersome</td></tr>
+        <tr class="border-b border-[var(--border)]"><td class="py-2">Security</td><td>Lower — malware on phone/PC can lead to theft</td><td>Very high — private keys never touch the internet</td></tr>
+        <tr><td class="py-2">Suitable Amount</td><td>Small amounts (under $1,000)</td><td>Large amounts (over $1,000)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Recommended Hot Wallets (Use These for Small Amounts)</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>MetaMask</strong>: The most commonly used browser extension wallet in the Ethereum ecosystem. Essential for DeFi. But <strong>only supports EVM-compatible chains</strong> (Ethereum, BSC, Polygon, etc.), does not support Bitcoin.</li>
+      <li><strong>Trust Wallet</strong>: Owned by Binance, supports the widest range of coins, good mobile app experience. Suitable for beginners.</li>
+      <li><strong>imToken</strong>: A domestic wallet with the best Chinese language support and a clean interface. Note: <strong>only download from the official website</strong> — phishing sites are extremely numerous.</li>
+    </ul>
+
+    <h3>Recommended Cold Wallets (Must-Use for Large Amounts)</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Ledger Nano S Plus</strong>: Best value for money, supports 5000+ coins, small screen but sufficient. Suitable for most users.</li>
+      <li><strong>Ledger Nano X</strong>: Has Bluetooth, can connect via mobile. More expensive, but more convenient for mobile operations.</li>
+      <li><strong>Trezor Model One</strong>: Open-source hardware wallet, code is completely public. But does not support some newer coins.</li>
+      <li><strong>SafePal</strong>: Invested by Binance, has a camera for scanning QR codes. Good value for money.</li>
+    </ul>
+
+    <h3>My Personal Setup (For Reference)</h3>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>Large amounts (> $5,000): Ledger Nano S Plus, mnemonic phrase handwritten on paper, stored in safes at two different locations</li>
+      <li>Medium amounts ($1,000-$5,000): Trust Wallet, only installed on phone, phone not jailbroken/not rooted</li>
+      <li>Small amounts (< $1,000): Kept on exchange, convenient for trading anytime</li>
+    </ul>
+
+    <h3>Important Reminder: Never Screenshot Your Mnemonic Phrase!</h3>
+    <p>Many people, for convenience, take a screenshot of their 12-word mnemonic phrase and save it on their phone — <strong>this is the most dangerous practice</strong>. If your phone gets malware, or if iCloud backup is leaked, your mnemonic phrase is exposed.</p>
+    <p><strong>Correct Practice</strong>: Handwrite it on paper (best to make two copies, store in two places), or engrave on a metal plate (fireproof and waterproof). Never store mnemonic phrases in electronic form.</p>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 If you're preparing to buy a hardware wallet, <a href="/en/tools/" class="text-primary underline">the Ledger link on the recommended tools page</a> is one I've tested myself. Purchasing through the link won't affect your price; I'll get a small commission to support this site.</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. If you register, subscribe, or purchase through these links, I may earn a small commission. You also get exclusive discounts, cashback, or lower trading fees. All earnings go toward site maintenance, content updates, and server costs — no extra cost to you, and your rights remain unchanged. Thank you for your support and understanding.</p>
+  </div>
+</div>
+
+</BaseLayout>

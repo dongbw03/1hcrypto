@@ -463,11 +463,10 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
       }
       initCursorGlow();
 
-      // 3. 滚动视口触发 fadeIn
+      // 3. 滚动视口触发 fadeIn（立即检测 + 兜底）
       function initFadeIn() {
         const items = document.querySelectorAll(".fade-in-on-scroll");
         if (!items.length) return;
-        // 清除已有的 visible 类，防止页面切换后元素已经带 visible 但 opacity 没生效
         items.forEach(el => el.classList.remove("visible"));
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((e, i) => {
@@ -476,8 +475,15 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
               observer.unobserve(e.target);
             }
           });
-        }, { threshold: 0.15 });
-        items.forEach(el => observer.observe(el));
+        }, { threshold: 0.05 });
+        items.forEach(el => {
+          // 立即检测：如果元素已经在视口内，直接显示
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            el.classList.add("visible");
+          }
+          observer.observe(el);
+        });
       }
       initFadeIn();
 
@@ -563,19 +569,26 @@ const enPath = Astro.url.pathname.replace(/^\/zh\//, "/en/");
       initTypingEffect();
 
       // Astro View Transitions 页面切换后重新初始化所有效果
-      document.addEventListener('astro:page-load', () => {
+      // 同时监听 DOMContentLoaded（首屏直接触发）和 astro:page-load（SPA 跳转触发）
+      function reinitAll() {
         initFadeIn();
         initCard3D();
         initMetricCount();
         initTypingEffect();
-      });
-
-      // 兜底：3秒后强制显示所有 fade-in-on-scroll 元素（防止 IntersectionObserver 失效）
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in-on-scroll:not(.visible)').forEach(el => {
-          el.classList.add('visible');
-        });
-      }, 3000);
+        // 每次页面切换后都重新设置兜底（防止 Observer 失效）
+        clearTimeout(window.__fadeFallback);
+        window.__fadeFallback = setTimeout(() => {
+          document.querySelectorAll('.fade-in-on-scroll:not(.visible)').forEach(el => {
+            el.classList.add('visible');
+          });
+        }, 1500);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', reinitAll);
+      } else {
+        reinitAll();
+      }
+      document.addEventListener('astro:page-load', reinitAll);
     </script>
   </body>
 </html>

@@ -20,10 +20,12 @@ try {
 // Process data for display
 let btcData = null;
 let ethData = null;
+let hasRealData = false;
 
 if (derivativesData && derivativesData.symbols) {
   btcData = derivativesData.symbols['BTCUSDT'];
   ethData = derivativesData.symbols['ETHUSDT'];
+  hasRealData = btcData && (btcData.funding_rate || btcData.open_interest);
 }
 
 // Sentiment color mapping
@@ -36,13 +38,6 @@ const sentimentColors = {
 };
 
 const sentimentLabels = {
-  'zh': {
-    'bullish': '看涨',
-    'bearish': '看跌',
-    'contrarian_bullish': '逆向看涨',
-    'contrarian_bearish': '逆向看跌',
-    'neutral': '中性'
-  },
   'en': {
     'bullish': 'Bullish',
     'bearish': 'Bearish',
@@ -51,6 +46,18 @@ const sentimentLabels = {
     'neutral': 'Neutral'
   }
 };
+
+const fundingRateColor = (rate) => {
+  if (rate > 0.01) return 'text-green-500';
+  if (rate < -0.01) return 'text-red-500';
+  return 'text-yellow-500';
+};
+
+const fundingRateLabel = (rate) => {
+  if (rate > 0.01) return 'Longs overheated, watch for pullback';
+  if (rate < -0.01) return 'Shorts overcrowded, rebound possible';
+  return 'Neutral sentiment';
+};
 ---
 
 
@@ -58,15 +65,15 @@ const sentimentLabels = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Derivatives Market Sentiment - 1H Crypto",
-  "description": "Crypto price action analysis",
+  "description": "Real-time Binance Futures derivatives market sentiment analysis: funding rate, open interest, long/short ratio, top trader positions, taker buy/sell ratio",
   "image": {
     "@type": "ImageObject",
     "url": "https://1hcrypto.com/og-default.png",
     "width": 1200,
     "height": 630
   },
-  "datePublished": "2026-05-31T16:20:03+08:00",
-  "dateModified": "2026-05-31T16:20:03+08:00",
+  "datePublished": "2026-06-01T16:20:03+08:00",
+  "dateModified": "2026-06-01T16:20:03+08:00",
   "author": {
     "@type": "Person",
     "name": "1H Crypto Trader"
@@ -87,6 +94,7 @@ const sentimentLabels = {
 <BaseLayout title="Derivatives Market Sentiment - 1H Crypto" lang="en" activeNav="derivatives">
   <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
     <section class="py-12 px-4 max-w-6xl mx-auto">
+      <!-- Page Header -->
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           Derivatives Market Sentiment
@@ -108,6 +116,41 @@ const sentimentLabels = {
         </div>
       )}
 
+      <!-- Market Overview -->
+      {hasRealData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+          <h2 class="text-xl font-bold mb-4">📊 Market Overview</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {btcData && btcData.funding_rate && btcData.funding_rate.length > 0 && (
+              <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                <p class="text-sm text-[var(--text-muted)] mb-1">BTC Funding Rate</p>
+                <p class={`text-2xl font-bold ${fundingRateColor(btcData.funding_rate[btcData.funding_rate.length - 1].rate)}`}>
+                  {btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                  {btcData.funding_rate[btcData.funding_rate.length - 1].rate.toFixed(4)}%
+                </p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{fundingRateLabel(btcData.funding_rate[btcData.funding_rate.length - 1].rate)}</p>
+              </div>
+            )}
+            {ethData && ethData.funding_rate && ethData.funding_rate.length > 0 && (
+              <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                <p class="text-sm text-[var(--text-muted)] mb-1">ETH Funding Rate</p>
+                <p class={`text-2xl font-bold ${fundingRateColor(ethData.funding_rate[ethData.funding_rate.length - 1].rate)}`}>
+                  {ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                  {ethData.funding_rate[ethData.funding_rate.length - 1].rate.toFixed(4)}%
+                </p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{fundingRateLabel(ethData.funding_rate[ethData.funding_rate.length - 1].rate)}</p>
+              </div>
+            )}
+            <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+              <p class="text-sm text-[var(--text-muted)] mb-1">Funding Settlement</p>
+              <p class="text-lg font-bold text-white">Every 8 hours</p>
+              <p class="text-xs text-[var(--text-muted)] mt-1">UTC 00:00 / 08:00 / 16:00</p>
+              <p class="text-xs text-[var(--text-muted)]">Beijing 08:00 / 16:00 / 00:00</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <!-- BTC and ETH Data Cards -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         <!-- BTC Data -->
@@ -115,7 +158,7 @@ const sentimentLabels = {
           <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 text-yellow-500 text-2xl font-bold">₿</div>
+                <div class="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-500 text-xl font-bold">₿</div>
                 <div>
                   <h2 class="text-2xl font-bold">BTC</h2>
                   <p class="text-sm text-[var(--text-muted)]">BTC/USDT Perpetual</p>
@@ -146,7 +189,7 @@ const sentimentLabels = {
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <p class="text-sm text-[var(--text-muted)] mb-1">Open Interest</p>
                   <p class="text-2xl font-bold">
-                    {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(btcData.open_interest.open_interest)}
+                    {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0, notation: 'compact' }).format(btcData.open_interest.open_interest)}
                   </p>
                   <p class="text-xs text-[var(--text-muted)] mt-1">BTC</p>
                 </div>
@@ -166,7 +209,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-green-500 h-3 rounded-full" 
+                      class="bg-green-500 h-3 rounded-full transition-all" 
                       style={`width: ${btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -177,9 +220,6 @@ const sentimentLabels = {
                     </span>
                   </div>
                 </div>
-                <p class="text-xs text-[var(--text-muted)] mt-2">
-                  Extreme values (&gt;60% or &lt;40%) may signal reversal.
-                </p>
               </div>
             )}
 
@@ -196,7 +236,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-blue-500 h-3 rounded-full" 
+                      class="bg-blue-500 h-3 rounded-full transition-all" 
                       style={`width: ${btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -208,14 +248,14 @@ const sentimentLabels = {
                   </div>
                 </div>
                 <p class="text-xs text-[var(--text-muted)] mt-2">
-                  Often considered the "smart money" direction.
+                  Top trader positioning is often viewed as "smart money" guidance. Divergence from retail sentiment may signal reversal opportunities.
                 </p>
               </div>
             )}
 
             <!-- Taker Buy/Sell Ratio -->
             {btcData.taker_longshort_ratio && btcData.taker_longshort_ratio.length > 0 && (
-              <div>
+              <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">Taker Buy/Sell Ratio</h3>
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between">
@@ -230,6 +270,24 @@ const sentimentLabels = {
                       : 'More selling pressure from takers'}
                   </p>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Ratio &gt; 1.2 indicates aggressive buying; &lt; 0.8 suggests selling dominance.
+                </p>
+              </div>
+            )}
+
+            <!-- Sentiment Signals -->
+            {btcData.sentiment_analysis && btcData.sentiment_analysis.signals && btcData.sentiment_analysis.signals.length > 0 && (
+              <div>
+                <h3 class="text-lg font-semibold mb-3">Sentiment Signals</h3>
+                <div class="space-y-2">
+                  {btcData.sentiment_analysis.signals.map((signal) => (
+                    <div class="flex items-start gap-2 text-sm bg-[var(--bg-primary)]/50 rounded-lg p-3">
+                      <span class="text-yellow-500 mt-0.5 flex-shrink-0">●</span>
+                      <span class="text-[var(--text-secondary)]">{signal}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -240,7 +298,7 @@ const sentimentLabels = {
           <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 text-blue-500 text-2xl font-bold">Ξ</div>
+                <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500 text-xl font-bold">Ξ</div>
                 <div>
                   <h2 class="text-2xl font-bold">ETH</h2>
                   <p class="text-sm text-[var(--text-muted)]">ETH/USDT Perpetual</p>
@@ -271,7 +329,7 @@ const sentimentLabels = {
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <p class="text-sm text-[var(--text-muted)] mb-1">Open Interest</p>
                   <p class="text-2xl font-bold">
-                    {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ethData.open_interest.open_interest)}
+                    {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0, notation: 'compact' }).format(ethData.open_interest.open_interest)}
                   </p>
                   <p class="text-xs text-[var(--text-muted)] mt-1">ETH</p>
                 </div>
@@ -291,7 +349,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-green-500 h-3 rounded-full" 
+                      class="bg-green-500 h-3 rounded-full transition-all" 
                       style={`width: ${ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -302,9 +360,6 @@ const sentimentLabels = {
                     </span>
                   </div>
                 </div>
-                <p class="text-xs text-[var(--text-muted)] mt-2">
-                  Extreme values (&gt;60% or &lt;40%) may signal reversal.
-                </p>
               </div>
             )}
 
@@ -321,7 +376,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-blue-500 h-3 rounded-full" 
+                      class="bg-blue-500 h-3 rounded-full transition-all" 
                       style={`width: ${ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -333,14 +388,14 @@ const sentimentLabels = {
                   </div>
                 </div>
                 <p class="text-xs text-[var(--text-muted)] mt-2">
-                  Often considered the "smart money" direction.
+                  Top trader positioning is often viewed as "smart money" guidance. Divergence from retail sentiment may signal reversal opportunities.
                 </p>
               </div>
             )}
 
             <!-- Taker Buy/Sell Ratio -->
             {ethData.taker_longshort_ratio && ethData.taker_longshort_ratio.length > 0 && (
-              <div>
+              <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">Taker Buy/Sell Ratio</h3>
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between">
@@ -355,43 +410,110 @@ const sentimentLabels = {
                       : 'More selling pressure from takers'}
                   </p>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Ratio &gt; 1.2 indicates aggressive buying; &lt; 0.8 suggests selling dominance.
+                </p>
+              </div>
+            )}
+
+            <!-- Sentiment Signals -->
+            {ethData.sentiment_analysis && ethData.sentiment_analysis.signals && ethData.sentiment_analysis.signals.length > 0 && (
+              <div>
+                <h3 class="text-lg font-semibold mb-3">Sentiment Signals</h3>
+                <div class="space-y-2">
+                  {ethData.sentiment_analysis.signals.map((signal) => (
+                    <div class="flex items-start gap-2 text-sm bg-[var(--bg-primary)]/50 rounded-lg p-3">
+                      <span class="text-yellow-500 mt-0.5 flex-shrink-0">●</span>
+                      <span class="text-[var(--text-secondary)]">{signal}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
         )}
       </div>
 
-      <!-- How to Read This Page -->
-      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
-        <h2 class="text-2xl font-bold mb-6">How to Read This Page</h2>
+      <!-- No Data Prompt -->
+      {!hasRealData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-8 rounded-2xl mb-12 text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h2 class="text-xl font-bold mb-2">Data Preparation in Progress</h2>
+          <p class="text-[var(--text-muted)] mb-4 max-w-lg mx-auto">
+            Derivatives data is fetched regularly from the Binance Futures API. No real-time data is currently available. Please run the data fetch script locally.
+          </p>
+          <div class="bg-[var(--bg-primary)]/50 rounded-lg p-4 inline-block text-left">
+            <p class="text-sm text-[var(--text-secondary)] mb-2 font-mono">python scripts/fetch_derivatives.py</p>
+            <p class="text-xs text-[var(--text-muted)]">This will automatically fetch funding rates, open interest, long/short ratios, and more.</p>
+          </div>
+        </div>
+      )}
+
+      <!-- Data Guide -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+        <h2 class="text-2xl font-bold mb-6">📖 Data Guide & Trading Reference</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 class="text-lg font-semibold mb-3">Funding Rate</h3>
             <p class="text-[var(--text-secondary)] mb-2">
-              Fee paid between longs and shorts. Positive = longs pay shorts (bullish); negative = shorts pay longs (bearish).
+              Fee exchanged between longs and shorts every 8 hours. Positive = longs pay shorts (bullish); negative = shorts pay longs (bearish).
             </p>
-            <p class="text-sm text-yellow-500">Updated every 8 hours on Binance.</p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Rate &gt; 0.01%: Strong bullish sentiment, watch for pullback risk</li>
+              <li>• Rate &lt; -0.01%: Strong bearish sentiment, rebound opportunity possible</li>
+              <li>• Rate near 0: Neutral sentiment, wait for clearer signals</li>
+            </ul>
           </div>
-
           <div>
             <h3 class="text-lg font-semibold mb-3">Open Interest</h3>
             <p class="text-[var(--text-secondary)] mb-2">
-              Total value of all open positions. Increasing = money flowing in; decreasing = money flowing out.
+              Total value of all open positions. Increasing = capital flowing in; decreasing = capital flowing out.
             </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Price rising + OI increasing: Trend confirmed, longs adding</li>
+              <li>• Price falling + OI increasing: Shorts dominating, likely to continue</li>
+              <li>• Price changing + OI decreasing: Trend may be exhausted</li>
+            </ul>
           </div>
-
           <div>
             <h3 class="text-lg font-semibold mb-3">Long/Short Account Ratio</h3>
             <p class="text-[var(--text-secondary)] mb-2">
               Long accounts / total accounts. Extreme values (&gt;60% or &lt;40%) may signal reversal.
             </p>
+            <p class="text-sm text-[var(--text-muted)]">
+              Combined with Al Brooks price action: extreme sentiment is often a sign of trend exhaustion. When retail is overwhelmingly bullish, smart money may be distributing.
+            </p>
           </div>
-
           <div>
             <h3 class="text-lg font-semibold mb-3">Top Trader Ratio</h3>
             <p class="text-[var(--text-secondary)] mb-2">
               Long/short ratio of top traders. Often considered the "smart money" direction.
             </p>
+            <p class="text-sm text-[var(--text-muted)]">
+              When top trader positioning diverges from retail positioning, it often hints at key turning points. Watch for top traders building positions against retail panic.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Taker Buy/Sell Ratio</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Reflects the ratio of active buy volume to active sell volume, measuring market momentum.
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Ratio &gt; 1.2: Aggressive buying, short-term bullish</li>
+              <li>• Ratio &lt; 0.8: Selling dominance, short-term bearish</li>
+              <li>• Ratio 0.8-1.2: Balanced, direction unclear</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">How to Combine with Price Action</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Derivatives data is a "validator" of price action, not a "predictor."
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Reversal bar at key level + extreme funding rate = high-probability signal</li>
+              <li>• Breakout + surging OI = valid breakout, consider holding</li>
+              <li>• New price high but declining OI = momentum exhaustion, watch for fakeout</li>
+            </ul>
           </div>
         </div>
       </div>

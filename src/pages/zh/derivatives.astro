@@ -20,10 +20,13 @@ try {
 // 处理数据用于展示
 let btcData = null;
 let ethData = null;
+let hasRealData = false;
 
 if (derivativesData && derivativesData.symbols) {
   btcData = derivativesData.symbols['BTCUSDT'];
   ethData = derivativesData.symbols['ETHUSDT'];
+  // 检查是否有真实数据（不仅仅是 sentiment_analysis）
+  hasRealData = btcData && (btcData.funding_rate || btcData.open_interest);
 }
 
 // 情绪颜色映射
@@ -42,14 +45,21 @@ const sentimentLabels = {
     'contrarian_bullish': '逆向看涨',
     'contrarian_bearish': '逆向看跌',
     'neutral': '中性'
-  },
-  'en': {
-    'bullish': 'Bullish',
-    'bearish': 'Bearish',
-    'contrarian_bullish': 'Contrarian Bullish',
-    'contrarian_bearish': 'Contrarian Bearish',
-    'neutral': 'Neutral'
   }
+};
+
+// 资金费率颜色
+const fundingRateColor = (rate) => {
+  if (rate > 0.01) return 'text-green-500';
+  if (rate < -0.01) return 'text-red-500';
+  return 'text-yellow-500';
+};
+
+// 资金费率解读
+const fundingRateLabel = (rate) => {
+  if (rate > 0.01) return '多头过热，警惕回调';
+  if (rate < -0.01) return '空头过热，关注反弹';
+  return '情绪中性';
 };
 ---
 
@@ -58,15 +68,15 @@ const sentimentLabels = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "衍生品市场情绪 - 1H币研",
-  "description": "Crypto price action analysis",
+  "description": "基于 Binance Futures 实时数据的衍生品市场情绪分析，追踪资金费率、未平仓合约、多空比、大户持仓、主动买卖量",
   "image": {
     "@type": "ImageObject",
     "url": "https://1hcrypto.com/og-default.png",
     "width": 1200,
     "height": 630
   },
-  "datePublished": "2026-05-31T16:20:03+08:00",
-  "dateModified": "2026-05-31T16:20:03+08:00",
+  "datePublished": "2026-06-01T16:20:03+08:00",
+  "dateModified": "2026-06-01T16:20:03+08:00",
   "author": {
     "@type": "Person",
     "name": "1H Crypto Trader"
@@ -87,6 +97,7 @@ const sentimentLabels = {
 <BaseLayout title="衍生品市场情绪 - 1H币研" lang="zh" activeNav="derivatives">
   <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
     <section class="py-12 px-4 max-w-6xl mx-auto">
+      <!-- 页面标题 -->
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           衍生品市场情绪
@@ -96,7 +107,7 @@ const sentimentLabels = {
         </p>
         {derivativesData && (
           <p class="text-sm text-[var(--text-muted)] mt-4">
-            更新时间: {new Date(derivativesData.timestamp).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
+            数据更新时间: {new Date(derivativesData.timestamp).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
           </p>
         )}
       </div>
@@ -108,6 +119,41 @@ const sentimentLabels = {
         </div>
       )}
 
+      <!-- 市场总览 -->
+      {hasRealData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+          <h2 class="text-xl font-bold mb-4">📊 市场总览</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {btcData && btcData.funding_rate && btcData.funding_rate.length > 0 && (
+              <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                <p class="text-sm text-[var(--text-muted)] mb-1">BTC 资金费率</p>
+                <p class={`text-2xl font-bold ${fundingRateColor(btcData.funding_rate[btcData.funding_rate.length - 1].rate)}`}>
+                  {btcData.funding_rate[btcData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                  {btcData.funding_rate[btcData.funding_rate.length - 1].rate.toFixed(4)}%
+                </p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{fundingRateLabel(btcData.funding_rate[btcData.funding_rate.length - 1].rate)}</p>
+              </div>
+            )}
+            {ethData && ethData.funding_rate && ethData.funding_rate.length > 0 && (
+              <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+                <p class="text-sm text-[var(--text-muted)] mb-1">ETH 资金费率</p>
+                <p class={`text-2xl font-bold ${fundingRateColor(ethData.funding_rate[ethData.funding_rate.length - 1].rate)}`}>
+                  {ethData.funding_rate[ethData.funding_rate.length - 1].rate > 0 ? '+' : ''}
+                  {ethData.funding_rate[ethData.funding_rate.length - 1].rate.toFixed(4)}%
+                </p>
+                <p class="text-xs text-[var(--text-muted)] mt-1">{fundingRateLabel(ethData.funding_rate[ethData.funding_rate.length - 1].rate)}</p>
+              </div>
+            )}
+            <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
+              <p class="text-sm text-[var(--text-muted)] mb-1">资金费率结算</p>
+              <p class="text-lg font-bold text-white">每 8 小时</p>
+              <p class="text-xs text-[var(--text-muted)] mt-1">UTC 00:00 / 08:00 / 16:00</p>
+              <p class="text-xs text-[var(--text-muted)]">北京时间 08:00 / 16:00 / 00:00</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <!-- BTC 和 ETH 数据卡片 -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         <!-- BTC 数据 -->
@@ -115,7 +161,7 @@ const sentimentLabels = {
           <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 text-yellow-500 text-2xl font-bold">₿</div>
+                <div class="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-500 text-xl font-bold">₿</div>
                 <div>
                   <h2 class="text-2xl font-bold">BTC</h2>
                   <p class="text-sm text-[var(--text-muted)]">BTC/USDT 永续合约</p>
@@ -146,7 +192,7 @@ const sentimentLabels = {
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <p class="text-sm text-[var(--text-muted)] mb-1">未平仓合约</p>
                   <p class="text-2xl font-bold">
-                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0 }).format(btcData.open_interest.open_interest)}
+                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0, notation: 'compact' }).format(btcData.open_interest.open_interest)}
                   </p>
                   <p class="text-xs text-[var(--text-muted)] mt-1">BTC</p>
                 </div>
@@ -166,7 +212,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-green-500 h-3 rounded-full" 
+                      class="bg-green-500 h-3 rounded-full transition-all" 
                       style={`width: ${btcData.long_short_ratio[btcData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -193,7 +239,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-blue-500 h-3 rounded-full" 
+                      class="bg-blue-500 h-3 rounded-full transition-all" 
                       style={`width: ${btcData.top_trader_ls_ratio[btcData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -204,6 +250,9 @@ const sentimentLabels = {
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  大户持仓方向通常被视为"聪明钱"的指引。若大户多空比与散户相反，往往预示反转机会。
+                </p>
               </div>
             )}
 
@@ -224,11 +273,14 @@ const sentimentLabels = {
                       : '主动卖出强势，市场看跌'}
                   </p>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  主动买卖量比反映市场即时动能。比值 > 1.2 表示买方积极，{'< 0.8'} 表示卖方主导。
+                </p>
               </div>
             )}
 
             <!-- 情绪信号 -->
-            {btcData.sentiment_analysis && btcData.sentiment_analysis.signals && (
+            {btcData.sentiment_analysis && btcData.sentiment_analysis.signals && btcData.sentiment_analysis.signals.length > 0 && (
               <div>
                 <h3 class="text-lg font-semibold mb-3">情绪信号</h3>
                 <div class="space-y-2">
@@ -249,7 +301,7 @@ const sentimentLabels = {
           <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 text-blue-500 text-2xl font-bold">Ξ</div>
+                <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500 text-xl font-bold">Ξ</div>
                 <div>
                   <h2 class="text-2xl font-bold">ETH</h2>
                   <p class="text-sm text-[var(--text-muted)]">ETH/USDT 永续合约</p>
@@ -280,7 +332,7 @@ const sentimentLabels = {
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <p class="text-sm text-[var(--text-muted)] mb-1">未平仓合约</p>
                   <p class="text-2xl font-bold">
-                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0 }).format(ethData.open_interest.open_interest)}
+                    {new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 0, notation: 'compact' }).format(ethData.open_interest.open_interest)}
                   </p>
                   <p class="text-xs text-[var(--text-muted)] mt-1">ETH</p>
                 </div>
@@ -300,7 +352,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-green-500 h-3 rounded-full" 
+                      class="bg-green-500 h-3 rounded-full transition-all" 
                       style={`width: ${ethData.long_short_ratio[ethData.long_short_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -327,7 +379,7 @@ const sentimentLabels = {
                   </div>
                   <div class="w-full bg-[var(--bg-primary)]/30 rounded-full h-3 mb-2">
                     <div 
-                      class="bg-blue-500 h-3 rounded-full" 
+                      class="bg-blue-500 h-3 rounded-full transition-all" 
                       style={`width: ${ethData.top_trader_ls_ratio[ethData.top_trader_ls_ratio.length - 1].long_ratio * 100}%`}
                     ></div>
                   </div>
@@ -338,12 +390,15 @@ const sentimentLabels = {
                     </span>
                   </div>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  大户持仓方向通常被视为"聪明钱"的指引。若大户多空比与散户相反，往往预示反转机会。
+                </p>
               </div>
             )}
 
             <!-- 主动买卖量比 -->
             {ethData.taker_longshort_ratio && ethData.taker_longshort_ratio.length > 0 && (
-              <div>
+              <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">主动买卖量比</h3>
                 <div class="bg-[var(--bg-primary)]/50 rounded-xl p-4">
                   <div class="flex items-center justify-between">
@@ -358,25 +413,58 @@ const sentimentLabels = {
                       : '主动卖出强势，市场看跌'}
                   </p>
                 </div>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  主动买卖量比反映市场即时动能。比值 > 1.2 表示买方积极，{'< 0.8'} 表示卖方主导。
+                </p>
+              </div>
+            )}
+
+            <!-- 情绪信号 -->
+            {ethData.sentiment_analysis && ethData.sentiment_analysis.signals && ethData.sentiment_analysis.signals.length > 0 && (
+              <div>
+                <h3 class="text-lg font-semibold mb-3">情绪信号</h3>
+                <div class="space-y-2">
+                  {ethData.sentiment_analysis.signals.map((signal) => (
+                    <div class="flex items-start gap-2 text-sm bg-[var(--bg-primary)]/50 rounded-lg p-3">
+                      <span class="text-yellow-500 mt-0.5 flex-shrink-0">●</span>
+                      <span class="text-[var(--text-secondary)]">{signal}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
         )}
       </div>
 
-      <!-- 使用说明 -->
-      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl">
-        <h2 class="text-2xl font-bold mb-6">数据说明</h2>
+      <!-- 无数据时的提示 -->
+      {!hasRealData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-8 rounded-2xl mb-12 text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h2 class="text-xl font-bold mb-2">数据准备中</h2>
+          <p class="text-[var(--text-muted)] mb-4 max-w-lg mx-auto">
+            衍生品数据需要定期从 Binance Futures API 获取。当前暂无实时数据，请在本地运行数据抓取脚本。
+          </p>
+          <div class="bg-[var(--bg-primary)]/50 rounded-lg p-4 inline-block text-left">
+            <p class="text-sm text-[var(--text-secondary)] mb-2 font-mono">python scripts/fetch_derivatives.py</p>
+            <p class="text-xs text-[var(--text-muted)]">运行后会自动获取资金费率、未平仓合约、多空比等数据</p>
+          </div>
+        </div>
+      )}
+
+      <!-- 数据说明 -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+        <h2 class="text-2xl font-bold mb-6">📖 数据说明与交易参考</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 class="text-lg font-semibold mb-3">资金费率 (Funding Rate)</h3>
             <p class="text-[var(--text-secondary)] mb-2">
-              永续合约每8小时收取一次。正费率表示多头支付给空头，负费率表示空头支付给多头。
+              永续合约每 8 小时收取一次。正费率表示多头支付给空头，负费率表示空头支付给多头。
             </p>
             <ul class="text-sm text-[var(--text-muted)] space-y-1">
-              <li>• 费率 &gt; 0.01%：市场看涨情绪强烈</li>
-              <li>• 费率 &lt; -0.01%：市场看跌情绪较强</li>
-              <li>• 费率接近 0：市场情绪中性</li>
+              <li>• 费率 &gt; 0.01%：市场看涨情绪强烈，注意回调风险</li>
+              <li>• 费率 &lt; -0.01%：市场看跌情绪较强，关注反弹机会</li>
+              <li>• 费率接近 0：市场情绪中性，适合观望</li>
             </ul>
           </div>
           <div>
@@ -384,11 +472,19 @@ const sentimentLabels = {
             <p class="text-[var(--text-secondary)] mb-2">
               市场所有未平仓合约的总价值。增加表示资金流入，减少表示资金流出。
             </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 价格上涨 + OI 增加：趋势确认，多头加仓</li>
+              <li>• 价格下跌 + OI 增加：空头主导，可能延续</li>
+              <li>• 价格变动 + OI 减少：趋势可能衰竭</li>
+            </ul>
           </div>
           <div>
             <h3 class="text-lg font-semibold mb-3">多空账户比</h3>
             <p class="text-[var(--text-secondary)] mb-2">
               多头账户数 / 总账户数。极端值（&gt;60% 或 &lt;40%）可能预示反转。
+            </p>
+            <p class="text-sm text-[var(--text-muted)]">
+              与 Al Brooks 价格行为学结合：极端情绪往往是趋势衰竭的信号。当散户一边倒看多时，大户可能正在出货。
             </p>
           </div>
           <div>
@@ -396,6 +492,31 @@ const sentimentLabels = {
             <p class="text-[var(--text-secondary)] mb-2">
               头部交易员的多空持仓比。通常被视为"聪明钱"的方向。
             </p>
+            <p class="text-sm text-[var(--text-muted)]">
+              大户持仓与散户持仓方向背离时，往往暗示关键转折点。重点关注大户是否在散户恐慌时逆势建仓。
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">主动买卖量比</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              反映主动买入与主动卖出成交量的比值，衡量市场即时动能。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 比值 &gt; 1.2：买方积极，短线偏多</li>
+              <li>• 比值 &lt; 0.8：卖方主导，短线偏空</li>
+              <li>• 比值 0.8-1.2：多空均衡，方向不明</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">如何结合价格行为分析</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              衍生品数据是价格行为的"验证器"，而非"预测器"。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 关键位出现反转 K 线 + 资金费率极端 = 高胜率信号</li>
+              <li>• 突破后 OI 大增 = 突破有效，可持仓</li>
+              <li>• 价格新高但 OI 下降 = 动能衰竭，警惕假突破</li>
+            </ul>
           </div>
         </div>
       </div>

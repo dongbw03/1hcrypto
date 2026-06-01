@@ -14,7 +14,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     "height": 630
   },
   "datePublished": "2026-05-31T20:00:00+08:00",
-  "dateModified": "2026-05-31T20:00:00+08:00",
+  "dateModified": "2026-06-01T23:00:00+08:00",
   "author": {
     "@type": "Person",
     "name": "1H Crypto Trader"
@@ -41,6 +41,33 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
   <h1 class="text-3xl font-bold text-white mb-2">Derivatives Trading Basics</h1>
   <p class="text-[var(--text-muted)] mb-10 leading-relaxed">Core concepts, trading mechanisms, and risk management for crypto derivatives. Must-read for beginners.</p>
+
+  <!-- Live Funding Rates -->
+  <section class="mb-12" id="funding-live">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-amber-500 rounded-full inline-block"></span>
+      Live Funding Rates
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4" id="funding-cards">
+      <div class="card p-5 animate-pulse">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-white font-semibold">BTC/USDT</span>
+          <span class="text-xs text-[var(--text-muted)]">Loading...</span>
+        </div>
+        <div class="text-2xl font-bold font-mono text-white" id="funding-btc">--</div>
+        <div class="text-xs text-[var(--text-muted)] mt-1">Next: <span id="funding-time-btc">--</span></div>
+      </div>
+      <div class="card p-5 animate-pulse">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-white font-semibold">ETH/USDT</span>
+          <span class="text-xs text-[var(--text-muted)]">Loading...</span>
+        </div>
+        <div class="text-2xl font-bold font-mono text-white" id="funding-eth">--</div>
+        <div class="text-xs text-[var(--text-muted)] mt-1">Next: <span id="funding-time-eth">--</span></div>
+      </div>
+    </div>
+    <p class="text-xs text-[var(--text-muted)] mt-3">Data source: Binance Futures API · Updates every 60s</p>
+  </section>
 
   <!-- What are derivatives -->
   <section class="mb-12">
@@ -201,5 +228,32 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     </p>
   </div>
 </div>
+
+<!-- Client-side: fetch live funding rates -->
+<script>
+  async function fetchFunding() {
+    try {
+      const res = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return;
+      const data = await res.json();
+      data.forEach(d => {
+        const rate = parseFloat(d.lastFundingRate) * 100;
+        const el = document.getElementById('funding-' + d.symbol.replace('USDT','').toLowerCase());
+        const timeEl = document.getElementById('funding-time-' + d.symbol.replace('USDT','').toLowerCase());
+        if (el) {
+          const cls = rate >= 0 ? 'text-green-400' : 'text-red-400';
+          el.className = 'text-2xl font-bold font-mono ' + cls;
+          el.textContent = (rate >= 0 ? '+' : '') + rate.toFixed(4) + '%';
+        }
+        if (timeEl) {
+          const next = new Date(d.nextFundingTime);
+          timeEl.textContent = next.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+        }
+      });
+    } catch(e) { /* silent */ }
+  }
+  fetchFunding();
+  setInterval(fetchFunding, 60000);
+</script>
 
 </BaseLayout>

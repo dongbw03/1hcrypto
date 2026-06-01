@@ -42,6 +42,33 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   <h1 class="text-3xl font-bold text-white mb-2">合约交易入门</h1>
   <p class="text-[var(--text-muted)] mb-10 leading-relaxed">加密货币衍生品的核心概念、交易机制与风险管理。新手必读。</p>
 
+  <!-- 实时资金费率 -->
+  <section class="mb-12" id="funding-live">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-6 bg-amber-500 rounded-full inline-block"></span>
+      实时资金费率
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4" id="funding-cards">
+      <div class="card p-5 animate-pulse">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-white font-semibold">BTC/USDT</span>
+          <span class="text-xs text-[var(--text-muted)]">加载中...</span>
+        </div>
+        <div class="text-2xl font-bold font-mono text-white" id="funding-btc">--</div>
+        <div class="text-xs text-[var(--text-muted)] mt-1">下次结算：<span id="funding-time-btc">--</span></div>
+      </div>
+      <div class="card p-5 animate-pulse">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-white font-semibold">ETH/USDT</span>
+          <span class="text-xs text-[var(--text-muted)]">加载中...</span>
+        </div>
+        <div class="text-2xl font-bold font-mono text-white" id="funding-eth">--</div>
+        <div class="text-xs text-[var(--text-muted)] mt-1">下次结算：<span id="funding-time-eth">--</span></div>
+      </div>
+    </div>
+    <p class="text-xs text-[var(--text-muted)] mt-3">数据来源：Binance Futures API · 每60秒更新</p>
+  </section>
+
   <!-- 什么是合约交易 -->
   <section class="mb-12">
     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -201,5 +228,34 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     </p>
   </div>
 </div>
+
+<!-- 客户端：获取实时资金费率 -->
+<script>
+  async function fetchFunding() {
+    try {
+      const res = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return;
+      const data = await res.json();
+      data.forEach(d => {
+        const rate = parseFloat(d.lastFundingRate) * 100;
+        const el = document.getElementById('funding-' + d.symbol.replace('USDT','').toLowerCase());
+        const timeEl = document.getElementById('funding-time-' + d.symbol.replace('USDT','').toLowerCase());
+        if (el) {
+          const cls = rate >= 0 ? 'text-green-400' : 'text-red-400';
+          el.className = 'text-2xl font-bold font-mono ' + cls;
+          el.textContent = (rate >= 0 ? '+' : '') + rate.toFixed(4) + '%';
+        }
+        if (timeEl) {
+          const next = new Date(d.nextFundingTime);
+          timeEl.textContent = next.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+        }
+      });
+      // 去掉动画脉冲
+      document.querySelectorAll('#funding-cards .animate-pulse').forEach(el => el.classList.remove('animate-pulse'));
+    } catch(e) { /* silent */ }
+  }
+  fetchFunding();
+  setInterval(fetchFunding, 60000);
+</script>
 
 </BaseLayout>

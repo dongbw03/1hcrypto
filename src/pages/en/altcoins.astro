@@ -32,9 +32,9 @@ const formatPrice = (p) => {
 };
 
 const formatMcap = (m) => {
-  if (m >= 1e9) return '$' + (m / 1e9).toFixed(1) + 'B';
-  if (m >= 1e6) return '$' + (m / 1e6).toFixed(1) + 'M';
-  return '$' + m.toFixed(0);
+  if (m >= 1e9) return (m / 1e9).toFixed(1) + 'B';
+  if (m >= 1e6) return (m / 1e6).toFixed(1) + 'M';
+  return m.toFixed(0);
 };
 
 const changeColor = (c) => {
@@ -116,7 +116,8 @@ const changeSign = (c) => {
                      coin.symbol === 'DOT' ? '●' :
                      coin.symbol === 'AVAX' ? '▲' :
                      coin.symbol === 'LINK' ? '🔗' :
-                     coin.symbol === 'MATIC' ? '⬡' : '●'}
+                     coin.symbol === 'MATIC' ? '⬡' :
+                     coin.symbol === 'UNI' ? '🦄' : '●'}
                   </div>
                   <div>
                     <div class="font-bold text-white">{coin.name}</div>
@@ -144,14 +145,12 @@ const changeSign = (c) => {
                   <div class="text-sm font-mono text-white">${formatMcap(coin.volume24h)}</div>
                 </div>
 
-                <!-- Trade Link -->
+                <!-- Recommended Registration -->
                 <a
-                  href={`https://www.binance.com/en/trade/${coin.symbol}_USDT`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/en/tools/"
                   class="text-xs text-[var(--primary)] hover:underline no-underline ml-4"
                 >
-                  Trade →
+                  Recommended
                 </a>
               </div>
             </div>

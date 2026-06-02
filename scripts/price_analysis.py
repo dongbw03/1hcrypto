@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 import time
 
 # ========== 配置 ==========
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "sk-ae8905a8936b4c8fad4c1bafc4e9cf03")
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 SYMBOLS = ["BTCUSDT", "ETHUSDT"]

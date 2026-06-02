@@ -1,9 +1,9 @@
-name: Fetch Crypto News & Derivatives Data
+name: Fetch Crypto News & Derivatives Data & Daily Analysis
 
 on:
   schedule:
-    # 北京时间 07:00 和 20:00 运行（留给处理留 30 分钟）
-    - cron: '0 23,12 * * *'   # UTC 23:00 = 北京 07:00；UTC 12:00 = 北京 20:00
+    # 北京时间 07:00 / 12:00 / 17:00 / 21:00 每日4次
+    - cron: '0 23,4,9,13 * * *'   # UTC 23:00=北京07:00, 04:00=12:00, 09:00=17:00, 13:00=21:00
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -34,15 +34,27 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_news.py
       
+      - name: Run generate_daily.py（每日研判中英文页面）
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/generate_daily.py
+      
+      - name: Run price_analysis.py（每日价格行为分析）
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/price_analysis.py
+      
       - name: Commit and push new content
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add src/content/zh/news/ src/content/en/news/ || true
           git add src/data/derivatives.json || true
+          git add src/pages/zh/daily/ src/pages/en/daily/ || true
+          git add src/content/zh/analysis/ src/content/en/analysis/ || true
           if git diff --cached --quiet; then
             echo "No new content to commit"
           else
-            git commit -m "auto: fetch news & derivatives $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "auto: fetch news & derivatives & daily analysis $(date +'%Y-%m-%d %H:%M')"
             git push
           fi

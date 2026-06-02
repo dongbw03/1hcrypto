@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# 1hcrypto 自动资讯脚本 v4
-# 聚合多篇新闻为综合快讯，每天 1-2 篇
-# AI 精写改写，不链原文，直接多空判断
+# 1hcrypto 自动资讯脚本 v5
+# 聚合多篇新闻为综合快讯，每天最多 4 篇（4次抓取 × 1篇/次）
+# AI 精写改写，正文不出现来源链接，文末 References 小节统一列出
 # 中文文章全部中文，英文文章全部英文，不混淆
 
 import json, os, re, time
@@ -13,10 +13,10 @@ import xml.etree.ElementTree as ET
 # ── 配置 ──────────────────────────────────
 API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 API_URL = "https://api.deepseek.com/v1/chat/completions"
-ZH_DIR  = Path(__file__).parent.parent / "src" / "content" / "zh" / "news"
-EN_DIR  = Path(__file__).parent.parent / "src" / "content" / "en" / "news"
+ZH_DIR  = Path(__file__).parent.parent / "src" / "zh" / "news"
+EN_DIR  = Path(__file__).parent.parent / "src" / "en" / "news"
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; 1hcrypto-bot/4.0)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; 1hcrypto-bot/5.0)"}
 
 RSS_SOURCES = [
     ("CoinTelegraph", "https://cointelegraph.com/rss"),
@@ -26,10 +26,10 @@ RSS_SOURCES = [
     ("BitcoinMag",    "https://bitcoinmagazine.com/.rss/full/"),
 ]
 
-MAX_PER_RUN  = 2       # 每天最多生成 2 篇聚合快讯
-MAX_AGE_HOURS = 36      # 只取 36 小时内的新闻
-NEWS_PER_ARTICLE = 3    # 每篇快讯聚合 3 条新闻
-DAYS_BACK = 2
+MAX_PER_RUN  = 1        # 每次运行最多生成 1 篇聚合快讯
+MAX_PER_DAY  = 4        # 每天最多 4 篇
+MAX_AGE_HOURS = 36       # 只取 36 小时内的新闻
+NEWS_PER_ARTICLE = 3     # 每篇快讯聚合 3 条新闻
 
 # ── 工具函数 ──────────────────────────────────
 
@@ -38,17 +38,14 @@ def slugify(text: str) -> str:
     s = re.sub(r'[-\s]+', '-', s)
     return s[:50]
 
-def get_recent_slugs(directory: Path, days: int = DAYS_BACK) -> set:
-    if not directory.exists():
-        return set()
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+def get_today_slugs(directory: Path) -> set:
+    """只返回今天生成的文章 slug（基于文件名日期前缀 YYYY-MM-DD）"""
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     slugs = set()
-    for f in directory.glob("*.md"):
-        try:
-            if f.stat().st_mtime >= cutoff.timestamp():
-                slugs.add(f.stem)
-        except Exception:
-            continue
+    if not directory.exists():
+        return slugs
+    for f in directory.glob(f"{today}-*.md"):
+        slugs.add(f.stem)
     return slugs
 
 def fetch_rss(source_name: str, url: str) -> list:
@@ -120,7 +117,7 @@ def generate_digest(entries: list) -> dict:
     """聚合多条新闻生成一篇综合快讯（中英文分别撰写，不是翻译）"""
     news_block = ""
     for i, e in enumerate(entries, 1):
-        news_block += f"\n新闻 {i}：\n标题：{e['title']}\n来源：{e['source']}\n摘要：{e['description']}\n"
+        news_block += f"\n新闻 {i}：\n标题：{e['title']}\n来源：{e['source']}\n摘要：{e['description']}\n链接：{e['url']}\n"
 
     prompt = f"""你是一位专业的加密货币市场分析师。请根据以下 {len(entries)} 条新闻，分别用中文和英文各撰写一篇综合快讯（不是翻译，是分别撰写）。
 
@@ -152,6 +149,11 @@ def generate_digest(entries: list) -> dict:
 8. Body length: 300-600 words
 9. Keep SEO keywords: coin names, institution names, data figures
 
+【References 要求】
+- 输出一个 "references" 数组，包含本条快讯聚合的所有原始新闻标题和链接
+- 每个元素格式：{"title": "新闻原始标题", "url": "原始链接"}
+- 中英文版共用同一批 references（链接相同）
+
 Output ONLY valid JSON in this exact format (no markdown fences, no code blocks):
 {{
   "zh": {{
@@ -165,11 +167,16 @@ Output ONLY valid JSON in this exact format (no markdown fences, no code blocks)
     "content": "English body, use Markdown format",
     "sentiment": "Bullish|Bearish|Neutral",
     "market_impact": "Comprehensive market impact analysis (English)"
-  }}
+  }},
+  "references": [
+    {{"title": "原始新闻标题1", "url": "https://source1.url"}},
+    {{"title": "原始新闻标题2", "url": "https://source2.url"}},
+    {{"title": "原始新闻标题3", "url": "https://source3.url"}}
+  ]
 }}"""
     return call_deepseek(prompt)
 
-def save_article(directory: Path, slug: str, date_str: str, article: dict, lang: str):
+def save_article(directory: Path, slug: str, date_str: str, article: dict, lang: str, references: list = None):
     directory.mkdir(parents=True, exist_ok=True)
     filename = f"{date_str}-{slug}.md"
     filepath = directory / filename
@@ -201,6 +208,16 @@ def save_article(directory: Path, slug: str, date_str: str, article: dict, lang:
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+08:00")
 
+    # References 小节 Markdown
+    refs_md = ""
+    if references:
+        refs_md = "\n\n## References\n"
+        for ref in references:
+            r_title = ref.get("title", "Source")
+            r_url   = ref.get("url", "")
+            if r_url:
+                refs_md += f"\n- [{r_title}]({r_url})"
+
     if lang == "zh":
         md = f"""---
 title: "{title}"
@@ -212,7 +229,7 @@ tags: {json.dumps(coins, ensure_ascii=False)}
 draft: false
 ---
 
-{content}
+{content}{refs_md}
 
 ## 多空判断
 
@@ -234,7 +251,7 @@ tags: {json.dumps(coins)}
 draft: false
 ---
 
-{content}
+{content}{refs_md}
 
 ## Market Outlook
 
@@ -245,7 +262,6 @@ draft: false
 ---
 *Analysis based on public information for reference only. Not investment advice.*
 """
-
     filepath.write_text(md, encoding="utf-8")
     print(f"[Saved] {filepath}")
     return True
@@ -261,9 +277,14 @@ def main():
         print("[Error] DEEPSEEK_API_KEY not set. Exiting.")
         return
 
-    zh_slugs = get_recent_slugs(ZH_DIR)
-    en_slugs = get_recent_slugs(EN_DIR)
-    print(f"[Dedup] Recent ZH: {len(zh_slugs)}, EN: {len(en_slugs)}")
+    zh_slugs = get_today_slugs(ZH_DIR)
+    en_slugs = get_today_slugs(EN_DIR)
+    today_count = len(zh_slugs)   # 中英文同时生成，zh 数量 = 快讯数量
+    print(f"[Today] ZH: {len(zh_slugs)}, EN: {len(en_slugs)}, Total digests: {today_count}")
+
+    if today_count >= MAX_PER_DAY:
+        print(f"[Skip] Already generated {today_count} digests today (max {MAX_PER_DAY}).")
+        return
 
     all_entries = []
     for source_name, url in RSS_SOURCES:
@@ -301,6 +322,10 @@ def main():
     for batch in batches:
         if generated >= MAX_PER_RUN:
             break
+        if len(zh_slugs) >= MAX_PER_DAY:
+            print(f"[Skip] Would exceed daily limit ({MAX_PER_DAY}).")
+            break
+
         combined_title = " ".join(e["title"][:20] for e in batch)
         base_slug = slugify(combined_title)
         expected_zh  = f"{today_str}-{base_slug}"
@@ -317,12 +342,14 @@ def main():
             print(f"[AI Error] {e}")
             continue
 
+        refs = result.get("references", [])
+
         zh_article = result.get("zh", {})
         if zh_article and zh_article.get("title") and zh_article.get("content"):
             zh_slug = slugify(zh_article["title"])
             if not zh_slug:
                 zh_slug = base_slug
-            save_article(ZH_DIR, zh_slug, today_str, zh_article, "zh")
+            save_article(ZH_DIR, zh_slug, today_str, zh_article, "zh", refs)
             zh_slugs.add(f"{today_str}-{zh_slug}")
         else:
             print("[Skip] Chinese version missing")
@@ -332,7 +359,7 @@ def main():
             en_slug = slugify(en_article["title"])
             if not en_slug:
                 en_slug = base_slug
-            save_article(EN_DIR, en_slug, today_str, en_article, "en")
+            save_article(EN_DIR, en_slug, today_str, en_article, "en", refs)
             en_slugs.add(f"{today_str}-{en_slug}")
         else:
             print("[Skip] English version missing")

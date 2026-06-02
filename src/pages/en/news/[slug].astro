@@ -67,9 +67,6 @@ const importanceBorder =
         <span class={`text-xs font-bold px-2 py-0.5 rounded ${sentimentColor}`}>{sentiment}</span>
         <span class="text-[var(--text-muted)] text-xs">{fmtDate}</span>
         {importance === "High" && <span class="badge badge-red">Important</span>}
-        {source && (
-          <span class="text-[var(--text-muted)] text-xs">Source: {source}</span>
-        )}
       </div>
       <h1 class="text-2xl font-bold text-white mb-3 leading-tight">{title}</h1>
       {coins && coins.length > 0 && (

@@ -238,7 +238,7 @@ def analyze_symbol_al_brooks(symbol):
 # ========== 获取 K 线数据 ==========
 def fetch_klines(symbol, interval=INTERVAL, limit=LOOKBACK_HOURS):
     """从 Binance 获取 K 线数据"""
-    url = f"https://api.binance.com/api/v3/klines"
+    url = f"https://data-api.binance.vision/api/v3/klines"
     params = {
         "symbol": symbol,
         "interval": interval,

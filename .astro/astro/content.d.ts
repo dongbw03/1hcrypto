@@ -185,6 +185,13 @@ declare module 'astro:content' {
   collection: "zh";
   data: any
 } & { render(): Render[".md"] };
+"analysis/2026-06-02-00-52-BTC与ETH区间震荡：Al-Brooks价格行为学揭示关键突破信号.md": {
+	id: "analysis/2026-06-02-00-52-BTC与ETH区间震荡：Al-Brooks价格行为学揭示关键突破信号.md";
+  slug: "analysis/2026-06-02-00-52-btc与eth区间震荡al-brooks价格行为学揭示关键突破信号";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
 "daily/2026-06-01-btc-eth-analysis.md": {
 	id: "daily/2026-06-01-btc-eth-analysis.md";
   slug: "daily/2026-06-01-btc-eth-analysis";

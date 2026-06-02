@@ -50,11 +50,13 @@ def get_today_slugs(directory: Path) -> set:
 
 def fetch_rss(source_name: str, url: str) -> list:
     try:
+        print(f"[RSS] Fetching {source_name}: {url}")
         resp = requests.get(url, headers=HEADERS, timeout=20)
         resp.raise_for_status()
         root = ET.fromstring(resp.content)
         channel = root.find("channel") or root
         items = channel.findall("item") if channel is not None else []
+        print(f"[RSS] {source_name}: got {len(items)} items")
         entries = []
         for item in items:
             title    = (item.findtext("title") or "").strip()
@@ -79,6 +81,7 @@ def fetch_rss(source_name: str, url: str) -> list:
                 "source": source_name,
                 "description": (desc or "")[:500],
             })
+        print(f"[RSS] {source_name}: parsed {len(entries)} valid entries")
         return entries
     except Exception as e:
         print(f"[RSS Error] {source_name}: {e}")
@@ -298,7 +301,10 @@ def main():
     print(f"[Filter] {len(recent)} entries within {MAX_AGE_HOURS}h")
 
     if len(recent) < 2:
-        print("[Info] Not enough recent news to form a digest. Need at least 2.")
+        print(f"[Info] Not enough recent news to form a digest. Need at least 2, got {len(recent)}.")
+        print("[Debug] Recent entries:")
+        for e in recent[:5]:
+            print(f"  - {e['title'][:50]} ({e['source']})")
         return
 
     seen_titles = set()

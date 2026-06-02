@@ -6,7 +6,7 @@ import path from 'path';
 // 动态读取 analysis 目录下的 MDX 文件列表
 let analysisPosts = [];
 try {
-  const analysisDir = path.join(process.cwd(), 'src/content/analysis');
+  const analysisDir = path.join(process.cwd(), 'src/content/en/analysis');
   if (fs.existsSync(analysisDir)) {
     const files = fs.readdirSync(analysisDir)
       .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))

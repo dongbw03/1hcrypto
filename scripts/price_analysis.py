@@ -600,12 +600,19 @@ def write_analysis_files(analyses, market_analysis, trading_review_zh, trading_r
     os.makedirs(OUTPUT_DIR_ZH, exist_ok=True)
     os.makedirs(OUTPUT_DIR_EN, exist_ok=True)
     
-    # 生成文件名
+    # 生成文件名（安全处理，避免 Windows 非法字符）
+    def sanitize_filename(text: str, max_len: int = 50) -> str:
+        import re
+        # 替换 Windows 非法字符： : / \ ? * " < > |
+        text = re.sub(r'[:/\\?*"<>\|\]]', '-', text)
+        text = re.sub(r'[-\s]+', '-', text).strip('-')
+        return text[:max_len]
+
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H-%M")
-    
+
     # 中文报告
     title_zh = market_analysis.get("title_zh", f"Al Brooks 价格行为学分析 {timestamp}")
-    slug_zh = title_zh.replace(" ", "-").replace("/", "-")[:50]
+    slug_zh = sanitize_filename(title_zh)
     filename_zh = f"{timestamp}-{slug_zh}.md"
     filepath_zh = os.path.join(OUTPUT_DIR_ZH, filename_zh)
     
@@ -629,7 +636,7 @@ importance: "{market_analysis.get("importance", "high")}"
     
     # 英文报告
     title_en = market_analysis.get("title_en", f"Al Brooks Price Action Analysis {timestamp}")
-    slug_en = title_en.replace(" ", "-").replace("/", "-")[:50]
+    slug_en = sanitize_filename(title_en)
     filename_en = f"{timestamp}-{slug_en}.md"
     filepath_en = os.path.join(OUTPUT_DIR_EN, filename_en)
     

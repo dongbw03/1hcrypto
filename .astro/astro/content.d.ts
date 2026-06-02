@@ -148,13 +148,6 @@ declare module 'astro:content' {
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
-"news/2026-06-01-btc-etf-inflow.md": {
-	id: "news/2026-06-01-btc-etf-inflow.md";
-  slug: "news/2026-06-01-btc-etf-inflow";
-  body: string;
-  collection: "en";
-  data: any
-} & { render(): Render[".md"] };
 };
 "zh": {
 "analysis/2026-05-30-10-30-BTC与ETH：缩量震荡下的十字路口，方向选择一触即发.md": {
@@ -195,13 +188,6 @@ declare module 'astro:content' {
 "daily/2026-06-01-btc-eth-analysis.md": {
 	id: "daily/2026-06-01-btc-eth-analysis.md";
   slug: "daily/2026-06-01-btc-eth-analysis";
-  body: string;
-  collection: "zh";
-  data: any
-} & { render(): Render[".md"] };
-"news/2026-06-01-btc-etf-inflow.md": {
-	id: "news/2026-06-01-btc-etf-inflow.md";
-  slug: "news/2026-06-01-btc-etf-inflow";
   body: string;
   collection: "zh";
   data: any

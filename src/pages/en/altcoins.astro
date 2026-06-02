@@ -5,6 +5,7 @@ import path from 'path';
 
 // Read altcoins data at build time
 let altcoinsData = null;
+let altcoinNews = null;
 let error = null;
 
 try {
@@ -12,6 +13,12 @@ try {
   if (fs.existsSync(filePath)) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     altcoinsData = JSON.parse(fileContent);
+  }
+
+  const newsPath = path.join(process.cwd(), 'src/data/altcoin_news.json');
+  if (fs.existsSync(newsPath)) {
+    const newsContent = fs.readFileSync(newsPath, 'utf-8');
+    altcoinNews = JSON.parse(newsContent);
   }
 } catch (err) {
   error = err.message;
@@ -217,6 +224,35 @@ const changeSign = (c) => {
           </div>
         </div>
       </div>
+
+      <!-- Altcoin News -->
+      {altcoinNews && altcoinNews.news && altcoinNews.news.length > 0 && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+          <h2 class="text-2xl font-bold mb-6">📰 Altcoin News</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {altcoinNews.news.map((item, i) => (
+              <div key={i} class="bg-[var(--bg-primary)]/50 border border-[var(--border)] rounded-xl p-4 hover:border-[var(--primary)]/40 transition-colors">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-lg">
+                    {item.coin === 'solana' ? '◎' :
+                     item.coin === 'binancecoin' ? '◈' :
+                     item.coin === 'ripple' ? '✕' :
+                     item.coin === 'cardano' ? '◉' :
+                     item.coin === 'dogecoin' ? '🐕' :
+                     item.coin === 'polkadot' ? '●' :
+                     item.coin === 'avalanche-2' ? '▲' :
+                     item.coin === 'chainlink' ? '🔗' :
+                     item.coin === 'matic-network' ? '⬡' : '●'}
+                  </span>
+                  <span class="text-xs text-[var(--text-muted)] uppercase">{item.coin.replace('-', ' ')}</span>
+                </div>
+                <h3 class="text-base font-semibold text-white mb-2 leading-snug">{item.title_en}</h3>
+                <p class="text-sm text-[var(--text-secondary)] line-clamp-3">{item.summary_en}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <!-- Affiliate Disclosure -->
       <div class="mt-10 pt-6 border-t border-[var(--border)]">

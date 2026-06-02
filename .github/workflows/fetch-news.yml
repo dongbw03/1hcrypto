@@ -29,6 +29,11 @@ jobs:
       - name: Run fetch_altcoins.py（山寨币行情）
         run: python scripts/fetch_altcoins.py
       
+      - name: Run fetch_altcoin_news.py（山寨币新闻）
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/fetch_altcoin_news.py
+      
       - name: Run fetch_news.py（资讯抓取 + 中英文分别撰写）
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -45,6 +50,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add src/content/zh/news/ src/content/en/news/ || true
           git add src/data/altcoins.json || true
+          git add src/data/altcoin_news.json || true
           if git diff --cached --quiet; then
             echo "No new content to commit"
           else

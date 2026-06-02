@@ -444,37 +444,53 @@ def main():
 
     # 1. 拉取市场数据
     analysis = None
-    if not args.skip_api:
-        # 尝试 CoinGecko
+    klines = None
+    
+    # 先尝试 Binance K线（用于价格行为分析）
+    print(f"[INFO] Fetching Binance K-lines for {args.pair}...")
+    klines = fetch_binance_klines_fallback(args.pair.replace("/", ""), "1h", 100)
+    
+    if klines:
+        print(f"[OK] Got {len(klines)} K-lines from Binance")
+        analysis = analyze_price_action(klines)
+        # 用 CoinGecko 补充24h变化
         cg_data = fetch_coingecko_btc()
         if cg_data:
-            # 用 CoinGecko 数据生成分析
-            pair = args.pair
-            # 生成模拟 K 线数据（基于 CoinGecko 价格）
-            price = cg_data.get("bitcoin", {}).get("usd", 0)
-            print(f"[INFO] BTC price from CoinGecko: ${price:,}")
-            # 生成模拟分析（实际应接入真实 K 线）
-            analysis = analyze_price_action([])  # 暂时用空数据触发 fallbak
-            analysis["latestClose"] = price
+            coin_id = "bitcoin" if "BTC" in args.pair.upper() else "ethereum"
+            price = cg_data.get(coin_id, {}).get("usd", analysis["latestClose"])
+            change_24h = cg_data.get(coin_id, {}).get("usd_24h_change", 0)
+            sma20 = sum([float(k[4]) for k in klines[-20:]]) / 20
+            dir_text = "站上" if analysis["latestClose"] > sma20 else "跌破"
             analysis["marketStructure"] = (
-                f"CoinGecko 实时价格：${price:,}。"
-                f"24h 变化：{cg_data['bitcoin'].get('usd_24h_change', 0):.2f}%。"
+                f"CoinGecko 实时价格：${price:,}。24h 变化：{change_24h:.2f}%。"
+                f"近20根1H K线区间：{analysis['support'][0]:,} - {analysis['resistance'][0]:,}。"
+                f"价格{dir_text} SMA20（{round(sma20):,}）。"
             )
             analysis["coreThesis"] = (
                 f"BTC 当前报价 ${price:,}。"
-                f"等待市场数据接入后更新完整分析。"
+                f"关键位 ${analysis['pivot']:,}。"
+                f"{'等待回踩确认后做多。' if analysis['direction'] == 'long' else '等待反弹失效后做空。' if analysis['direction'] == 'short' else '等待区间突破确认方向。'}"
             )
-        else:
-            print("[WARN] CoinGecko failed, trying Binance...")
-            klines = fetch_binance_klines_fallback()
-            if klines:
-                analysis = analyze_price_action(klines)
-            else:
-                print("[WARN] All API failed, using fallback analysis")
-                analysis = _fallback_analysis()
     else:
-        print("[INFO] Skipping API calls (--skip-api)")
-        analysis = _fallback_analysis()
+        print("[WARN] Binance K-lines failed, trying CoinGecko...")
+        cg_data = fetch_coingecko_btc()
+        if cg_data:
+            # Fallback: 用 CoinGecko 价格估算支撑阻力
+            coin_id = "bitcoin" if "BTC" in args.pair.upper() else "ethereum"
+            price = cg_data.get(coin_id, {}).get("usd", 0)
+            change_24h = cg_data.get(coin_id, {}).get("usd_24h_change", 0)
+            analysis = _fallback_analysis()
+            analysis["latestClose"] = price
+            analysis["direction"] = "neutral"
+            # 估算支撑阻力
+            analysis["resistance"] = [round(price * 1.03, 1), round(price * 1.02, 1)]
+            analysis["support"] = [round(price * 0.98, 1), round(price * 0.97, 1)]
+            analysis["pivot"] = round(price, 1)
+            analysis["marketStructure"] = f"CoinGecko 实时价格：${price:,}。24h 变化：{change_24h:.2f}%。(K线数据不可用）"
+            analysis["coreThesis"] = f"BTC 当前报价 ${price:,}。等待市场数据接入后更新完整分析。"
+        else:
+            print("[WARN] All API failed, using fallback analysis")
+            analysis = _fallback_analysis()
 
     if analysis is None:
         analysis = _fallback_analysis()

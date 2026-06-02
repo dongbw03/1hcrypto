@@ -23,6 +23,14 @@ import argparse
 import time
 from datetime import datetime, timezone, timedelta
 
+# 导入链上数据模块
+try:
+    from chain_data import generate_onchain_data
+    CHAIN_DATA_AVAILABLE = True
+except ImportError:
+    CHAIN_DATA_AVAILABLE = False
+    print("[WARN] chain_data module not found, using fallback")
+
 # ============================================================
 # 配置
 # ============================================================
@@ -69,6 +77,182 @@ def call_deepseek_ai(prompt, api_key=None):
     except Exception as e:
         print(f"[WARN] DeepSeek API 失败: {e}", file=sys.stderr)
         return None
+
+
+# ============================================================
+# DeepSeek 分析（基于 K 线数据）
+# ============================================================
+def call_deepseek_for_analysis(klines, pair, api_key=None):
+    """
+    调用 DeepSeek API 基于 K 线数据生成分析结论
+    返回 dict: {
+        "direction": "long" | "short" | "neutral",
+        "entry": float,
+        "stop": float,
+        "tp1": float,
+        "tp2": float,
+        "pivot": float,
+        "support": [float, float],
+        "resistance": [float, float],
+        "coreThesis": str,
+        "marketStructure": str,
+        "latestClose": float,
+    } or None（如果 API 调用失败）
+    """
+    if not api_key:
+        api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    if not api_key:
+        print("[WARN] DEEPSSEEK_API_KEY 未设置，使用 fallback 分析")
+        return None
+    
+    # 格式化 K 线数据（最近 24 小时）
+    recent_klines = klines[-24:] if len(klines) > 24 else klines
+    formatted = []
+    for k in recent_klines:
+        # k: [开盘时间, 开盘价, 最高价, 最低价, 收盘价, 成交量, ...]
+        formatted.append(f"[{datetime.fromtimestamp(k[0]/1000).strftime('%m-%d %H:%M')}] O:{k[1]} H:{k[2]} L:{k[3]} C:{k[4]} V:{k[5]}")
+    
+    kline_text = "\n".join(formatted)
+    current_price = float(klines[-1][4]) if klines else 0
+    
+    prompt = f"""你是专业的加密货币价格行为分析师，精通 Al Brooks 价格行为学。
+
+请分析以下 {pair} 的小时级K线数据，并给出交易建议。
+
+K线数据（最近24小时）：
+{kline_text}
+
+当前价格：${current_price:,}
+
+请按以下 JSON 格式返回分析结果：
+{{
+  "direction": "long" | "short" | "neutral",
+  "entry": {current_price * 0.995:.2f},
+  "stop": {current_price * 0.985:.2f},
+  "tp1": {current_price * 1.01:.2f},
+  "tp2": {current_price * 1.025:.2f},
+  "pivot": {current_price:.2f},
+  "support": [{current_price * 0.99:.2f}, {current_price * 0.98:.2f}],
+  "resistance": [{current_price * 1.01:.2f}, {current_price * 1.02:.2f}],
+  "coreThesis": "核心分析结论（中文，100字以内）",
+  "marketStructure": "市场结构描述（中文，100字以内）"
+}}
+
+要求：
+1. direction 必须是 "long", "short", 或 "neutral" 之一
+2. entry, stop, tp1, tp2, pivot 必须是合理的价格点位（基于 K 线数据）
+3. support 和 resistance 必须是数组，包含2个价格点位
+4. coreThesis 和 marketStructure 必须是中文
+5. 返回纯 JSON，不要包含 markdown 代码块标记
+"""
+    
+    try:
+        import requests
+        url = "https://api.deepseek.com/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "deepseek-chat",
+            "messages": [
+                {"role": "system", "content": "你是专业的加密货币价格行为分析师，精通 Al Brooks 价格行为学。你必须只返回纯 JSON 格式，不要包含任何 markdown 标记或额外文本。"},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.3,
+            "max_tokens": 1000,
+            "response_format": {"type": "json_object"}  # 强制返回 JSON
+        }
+        resp = requests.post(url, headers=headers, json=payload, timeout=30)
+        resp.raise_for_status()
+        content = resp.json()["choices"][0]["message"]["content"]
+        
+        # 解析 JSON
+        result = json.loads(content)
+        
+        # 验证必需字段
+        required_fields = ["direction", "entry", "stop", "tp1", "tp2", "pivot", "support", "resistance", "coreThesis", "marketStructure"]
+        for field in required_fields:
+            if field not in result:
+                print(f"[WARN] DeepSeek 返回缺少字段: {field}")
+                return None
+        
+        result["latestClose"] = current_price
+        print(f"[OK] DeepSeek 分析完成: {result['direction']} @ {result['entry']}")
+        return result
+        
+    except json.JSONDecodeError as e:
+        print(f"[WARN] DeepSeek 返回不是有效 JSON: {e}")
+        return None
+    except Exception as e:
+        print(f"[WARN] DeepSeek API 失败: {e}")
+        return None
+
+# ===========================================================
+# 调用 generate_analysis.py 获取分析（新增）
+# ===========================================================
+def get_analysis_from_script(pair="BTC/USDT"):
+    """
+    调用 generate_analysis.py 脚本获取分析结果
+    返回 analysis dict 或 None
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    import subprocess
+    import tempfile
+    
+    script_path = os.path.join(script_dir, "generate_analysis.py")
+    if not os.path.exists(script_path):
+        print(f"[WARN] {script_path} 不存在，无法调用")
+        return None
+    
+    # 创建临时输出文件
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+        temp_output = f.name
+    
+    try:
+        # 调用脚本
+        cmd = [sys.executable, script_path, "--pair", pair, "--output", temp_output]
+        print(f"[INFO] 调用分析脚本: {' '.join(cmd)}")
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        
+        if result.returncode != 0:
+            print(f"[WARN] 分析脚本失败: {result.stderr}")
+            return None
+        
+        # 读取结果
+        if os.path.exists(temp_output):
+            with open(temp_output, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            analysis = {
+                "direction":      data["btc"]["direction"],
+                "entry":          data["btc"]["entry"],
+                "stop":           data["btc"]["stop"],
+                "tp1":            data["btc"]["tp1"],
+                "tp2":            data["btc"]["tp2"],
+                "pivot":          data["btc"]["pivot"],
+                "support":        data["btc"]["support"],
+                "resistance":    data["btc"]["resistance"],
+                "coreThesis":    data["btc"]["coreThesis"],
+                "marketStructure": data["btc"]["marketStructure"],
+                "latestClose":   data["btc"]["latestClose"],
+                "keyLevel":      "N/A",
+                "pinBar":        False,
+                "volTrend":      "N/A",
+            }
+            print(f"[OK] 从脚本获取分析: {analysis['direction']} @ {analysis['entry']}")
+            return analysis
+        else:
+            print("[WARN] 分析脚本未生成输出文件")
+            return None
+            
+    except Exception as e:
+        print(f"[WARN] 调用分析脚本失败: {e}")
+        return None
+    finally:
+        # 清理临时文件
+        if os.path.exists(temp_output):
+            os.unlink(temp_output)
+
 
 
 def fetch_coingecko_btc():
@@ -200,8 +384,16 @@ def _fallback_analysis():
     }
 
 
-def fetch_onchain_data():
-    """链上数据 Fallback"""
+def fetch_onchain_data(direction="neutral", symbol="BTC"):
+    """链上数据 - 优先真实 API"""
+    if CHAIN_DATA_AVAILABLE:
+        try:
+            return generate_onchain_data(direction, symbol)
+        except Exception as e:
+            print(f"[WARN] chain_data module failed: {e}, using fallback")
+    
+    # Fallback 模拟数据
+    print("[INFO] Using fallback on-chain data")
     return {
         "exchangeBalance": "-3,200",
         "oiChange":       "+2.1%",
@@ -442,36 +634,57 @@ def main():
 
     print(f"[INFO] Generating daily analysis for {args.date}...")
 
+
+    # 1.0 先尝试从脚本获取分析（优先使用 DeepSeek API）
+    analysis = get_analysis_from_script(args.pair)
+
+    # 如果脚本成功返回分析，跳过 API 调用
+    if analysis is not None:
+        print(f"[OK] 使用脚本分析: {analysis['direction']} @ {analysis['entry']}")
+        # 获取链上数据
+        onchain = fetch_onchain_data(analysis["direction"], args.pair.replace("/", ""))
+        # 跳转到页面生成（跳过 API 调用）
+        goto_skip_api = True
+    else:
+        goto_skip_api = False
+        print("[WARN] 脚本分析失败，尝试 API 调用...")
+
     # 1. 拉取市场数据
     analysis = None
+    klines = []
+
     if not args.skip_api:
-        # 尝试 CoinGecko
+        # 1.1 拉取小时级 K 线数据（用于分析）
+        print(f"[INFO] Fetching hour-level K-lines for {args.pair}...")
+        klines = fetch_binance_klines_fallback(
+            symbol=args.pair.replace("/", ""),
+            interval="1h",
+            limit=100
+        )
+        
+        if klines:
+            print(f"[OK] Got {len(klines)} K-lines")
+            
+            # 1.2 调用 DeepSeek API 生成分析
+            print(f"[INFO] Calling DeepSeek API for analysis...")
+            analysis = call_deepseek_for_analysis(klines, args.pair)
+        
+        # 1.3 如果 DeepSeek 失败，使用本地分析
+        if analysis is None:
+            print("[WARN] DeepSeek API failed, using local analysis...")
+            analysis = analyze_price_action(klines)
+        
+        # 1.4 获取 CoinGecko 价格（用于展示）
         cg_data = fetch_coingecko_btc()
         if cg_data:
-            # 用 CoinGecko 数据生成分析
-            pair = args.pair
-            # 生成模拟 K 线数据（基于 CoinGecko 价格）
             price = cg_data.get("bitcoin", {}).get("usd", 0)
             print(f"[INFO] BTC price from CoinGecko: ${price:,}")
-            # 生成模拟分析（实际应接入真实 K 线）
-            analysis = analyze_price_action([])  # 暂时用空数据触发 fallbak
             analysis["latestClose"] = price
-            analysis["marketStructure"] = (
-                f"CoinGecko 实时价格：${price:,}。"
-                f"24h 变化：{cg_data['bitcoin'].get('usd_24h_change', 0):.2f}%。"
-            )
-            analysis["coreThesis"] = (
-                f"BTC 当前报价 ${price:,}。"
-                f"等待市场数据接入后更新完整分析。"
-            )
-        else:
-            print("[WARN] CoinGecko failed, trying Binance...")
-            klines = fetch_binance_klines_fallback()
-            if klines:
-                analysis = analyze_price_action(klines)
-            else:
-                print("[WARN] All API failed, using fallback analysis")
-                analysis = _fallback_analysis()
+            # 更新 marketStructure 和 coreThesis（如果它们是默认的）
+            if "CoinGecko" not in analysis.get("marketStructure", ""):
+                analysis["marketStructure"] += f"\n\nCoinGecko 实时价格：${price:,}。"
+            if "BTC 当前报价" not in analysis.get("coreThesis", ""):
+                analysis["coreThesis"] += f"\n\nBTC 当前报价 ${price:,}。"
     else:
         print("[INFO] Skipping API calls (--skip-api)")
         analysis = _fallback_analysis()
@@ -479,7 +692,7 @@ def main():
     if analysis is None:
         analysis = _fallback_analysis()
 
-    onchain = fetch_onchain_data()
+    onchain = fetch_onchain_data(analysis["direction"], args.pair.replace("/", ""))
 
     # 2. 生成中文页面
     write_page(args.date, args.pair, analysis, onchain, lang="zh", dry_run=args.dry_run)
@@ -491,6 +704,39 @@ def main():
     if not args.dry_run:
         update_trades_linked_analysis(args.date)
 
+    # 5. 输出 latest-analysis.json（供 auto_trade.py 读取）
+    if not args.dry_run:
+        import json
+        latest_analysis = {
+            "date": args.date,
+            "btc": {
+                "direction": analysis["direction"],
+                "entry": analysis["entry"],
+                "stop": analysis["stop"],
+                "tp1": analysis["tp1"],
+                "tp2": analysis["tp2"],
+                "pivot": analysis["pivot"],
+                "support": analysis["support"],
+                "resistance": analysis["resistance"]
+            },
+            "eth": {
+                # TODO: 为 ETH 生成分析
+                "direction": "neutral",
+                "entry": 0,
+                "stop": 0,
+                "tp1": 0,
+                "tp2": 0,
+                "pivot": 0,
+                "support": [0, 0],
+                "resistance": [0, 0]
+            }
+        }
+        latest_file = os.path.join(SRC_ROOT, "data", "latest-analysis.json")
+        os.makedirs(os.path.dirname(latest_file), exist_ok=True)
+        with open(latest_file, "w", encoding="utf-8") as f:
+            json.dump(latest_analysis, f, ensure_ascii=False, indent=2)
+        print(f"[OK] Written: {latest_file}")
+    
     print(f"\n[OK] Daily analysis generated for {args.date}")
     print(f"[INFO] Next steps:")
     print(f"  1. npm run build")

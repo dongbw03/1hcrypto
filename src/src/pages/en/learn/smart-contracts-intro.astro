@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Smart Contracts Intro — Code Executes for You, No Lawyer Needed - 1H Crypto",
+  "description": "Smart contracts explained simply: How code automates trust and execution on blockchain",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/smart-contracts-intro/"
+  }
+}`}></script>
+<BaseLayout title="Smart Contracts Intro — Code Executes for You, No Lawyer Needed - 1H Crypto" lang="en" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learn</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">Smart Contracts Intro — Code Executes for You, No Lawyer Needed</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">Updated: May 2026</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>You bet with a friend: "If Bitcoin hits $100,000 tomorrow, you give me $1,000; otherwise I give you $1,000." Traditionally, you'd need a neutral third party to hold the money, or rely on both parties to be honest.</p>
+    <p>What a smart contract does is: <strong>write that bet into code, deploy it on the blockchain, and when the condition is met, it executes automatically — no one can cheat</strong>.</p>
+
+    <h3>How Do Smart Contracts Work?</h3>
+    <p>Ethereum is the most popular smart contract platform. You write a piece of code that says "if X happens, then execute Y" (using Solidity language), pay a small "gas fee," and deploy that code to the Ethereum blockchain.</p>
+    <p>Once deployed, that code stays on the blockchain forever. No one can tamper with it, and no one can stop it from executing.</p>
+
+    <h3>What Can You Actually Use It For?</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>DeFi (Decentralized Finance)</strong>: You can deposit crypto into a smart contract, and the contract automatically pays you interest — no bank needed.</li>
+      <li><strong>DEX (Decentralized Exchange)</strong>: Uniswap is a smart contract. You swap USDT for ETH, and the entire process has no company, no customer service — only code executing.</li>
+      <li><strong>NFTs</strong>: NFT "ownership" is actually just a record in a smart contract that says "this Token ID belongs to this address."</li>
+      <li><strong>DAO (Decentralized Autonomous Organization)</strong>: Use smart contracts for voting decisions. The more tokens you hold, the more voting weight you have — no board of directors needed.</li>
+    </ul>
+
+    <h3>Risks of Smart Contracts</h3>
+    <p>If there's a vulnerability in the code, the consequences are disastrous. In 2021, Poly Network was hacked for $610 million because an attacker exploited a smart contract vulnerability. <strong>Once code is deployed on-chain, it cannot be modified</strong> (unless an "upgradeable" mechanism was written in advance, but that introduces centralization risks).</p>
+    <p>So, <strong>not all DeFi protocols are safe</strong>. Don't put large amounts of funds into new protocols or ones that haven't been audited.</p>
+
+    <h3>Do Ordinary People Need to Understand Smart Contracts?</h3>
+    <p>You don't need to know how to write code, but you need to understand the basic logic: when you "approve" a smart contract to use your tokens, you're essentially telling a piece of code "you can move these tokens in my wallet." If that contract is malicious, your tokens are gone.</p>
+    <p><strong>Principle: Only interact with audited protocols that have a good security track record.</strong></p>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 Before using DeFi, read our <a href="/en/learn/how-to-avoid-theft/" class="text-primary underline">Anti-Theft Guide</a> to avoid authorizing malicious contracts.</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">Some links on this site are referral links. If you register, subscribe, or purchase through these links, I may earn a small commission at no additional cost to you. These earnings help maintain this site and keep the content updated. Thank you for your support.</p>
+  </div>
+</div>
+
+</BaseLayout>

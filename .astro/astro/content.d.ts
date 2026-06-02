@@ -148,6 +148,104 @@ declare module 'astro:content' {
   collection: "en";
   data: any
 } & { render(): Render[".md"] };
+"daily/2026-06-01.md": {
+	id: "daily/2026-06-01.md";
+  slug: "daily/2026-06-01";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"daily/2026-06-02-btc-eth-analysis.md": {
+	id: "daily/2026-06-02-btc-eth-analysis.md";
+  slug: "daily/2026-06-02-btc-eth-analysis";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"daily/2026-06-02.md": {
+	id: "daily/2026-06-02.md";
+  slug: "daily/2026-06-02";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md": {
+	id: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as.md";
+  slug: "news/2026-05-30-bitcoin-dip-buyers-place-500m-in-bids-as";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md": {
+	id: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy.md";
+  slug: "news/2026-05-30-bitcoin-plums-new-six-week-lows-as-analy";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md": {
+	id: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s.md";
+  slug: "news/2026-05-30-bitcoin-retail-sentiment-still-matters-s";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md": {
+	id: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh.md";
+  slug: "news/2026-05-30-bitcoin-treasury-space-still-has-fair-sh";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md": {
+	id: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is.md";
+  slug: "news/2026-05-30-cftc-backs-crypto-perpetual-contracts-is";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-coinbase-brings-global-crypto-derivative.md": {
+	id: "news/2026-05-30-coinbase-brings-global-crypto-derivative.md";
+  slug: "news/2026-05-30-coinbase-brings-global-crypto-derivative";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md": {
+	id: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve.md";
+  slug: "news/2026-05-30-extraordinarily-unusual-for-cftc-to-reve";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md": {
+	id: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf.md";
+  slug: "news/2026-05-30-spot-bitcoin-etfs-see-record-10-day-outf";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-sui-network-temporarily-stalls-again-aft.md": {
+	id: "news/2026-05-30-sui-network-temporarily-stalls-again-aft.md";
+  slug: "news/2026-05-30-sui-network-temporarily-stalls-again-aft";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md": {
+	id: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania.md";
+  slug: "news/2026-05-30-us-has-seized-nearly-1-billion-in-irania";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-06-01-btc-etf-inflow.md": {
+	id: "news/2026-06-01-btc-etf-inflow.md";
+  slug: "news/2026-06-01-btc-etf-inflow";
+  body: string;
+  collection: "en";
+  data: any
+} & { render(): Render[".md"] };
 };
 "zh": {
 "analysis/2026-05-30-10-30-BTC与ETH：缩量震荡下的十字路口，方向选择一触即发.md": {
@@ -195,6 +293,34 @@ declare module 'astro:content' {
 "daily/2026-06-01-btc-eth-analysis.md": {
 	id: "daily/2026-06-01-btc-eth-analysis.md";
   slug: "daily/2026-06-01-btc-eth-analysis";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"daily/2026-06-01.md": {
+	id: "daily/2026-06-01.md";
+  slug: "daily/2026-06-01";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"daily/2026-06-02-btc-eth-analysis.md": {
+	id: "daily/2026-06-02-btc-eth-analysis.md";
+  slug: "daily/2026-06-02-btc-eth-analysis";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"daily/2026-06-02.md": {
+	id: "daily/2026-06-02.md";
+  slug: "daily/2026-06-02";
+  body: string;
+  collection: "zh";
+  data: any
+} & { render(): Render[".md"] };
+"news/2026-06-01-btc-etf-inflow.md": {
+	id: "news/2026-06-01-btc-etf-inflow.md";
+  slug: "news/2026-06-01-btc-etf-inflow";
   body: string;
   collection: "zh";
   data: any

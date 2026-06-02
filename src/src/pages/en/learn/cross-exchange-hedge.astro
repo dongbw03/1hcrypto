@@ -1,0 +1,170 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+<BaseLayout
+  title="Cross-Exchange Arbitrage & Hedge Strategies | 1H Crypto"
+  description="Learn cross-exchange arbitrage and hedging strategies for crypto. Understand the risks, costs, and practical setup for spotting price inefficiencies."
+  lang="en"
+  activeNav="learn"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <!-- Breadcrumb -->
+    <div class="text-sm text-[var(--text-muted)] mb-6">
+      <a href="/en/learn/" class="hover:text-primary no-underline">Learn</a>
+      <span class="mx-2">/</span>
+      <span>Cross-Exchange Hedge</span>
+    </div>
+
+    <article class="prose prose-invert max-w-none">
+      <header class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Evergreen</span>
+          <span class="text-xs text-[var(--text-muted)]">2026-05-30</span>
+          <span class="text-xs text-[var(--text-muted)]">·</span>
+          <span class="text-xs text-[var(--text-muted)]">13 min read</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">
+          Cross-Exchange Arbitrage & Hedge Strategies: A Practical Guide
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] leading-relaxed">
+          Price differences between exchanges create opportunities — but also hidden costs. This guide explains how cross-exchange strategies work, what risks to manage, and why most retail traders lose money at it.
+        </p>
+      </header>
+
+      <div class="space-y-8 text-[var(--text-primary)] leading-relaxed">
+
+        <div class="card-glass p-6 rounded-2xl border border-amber-500/20 bg-amber-500/5">
+          <h3 class="font-bold text-amber-400 mb-2">⚠️ Risk Warning</h3>
+          <p class="text-sm text-[var(--text-muted)]">
+            Cross-exchange trading involves significant risks: transfer delays, exchange counterparty risk, withdrawal limits, and regulatory uncertainty. Many arbitrage "opportunities" disappear before you can execute. Never transfer funds you cannot afford to lose.
+          </p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">1. What Is Cross-Exchange Arbitrage?</h2>
+        <p>
+          Arbitrage is the simultaneous purchase and sale of an asset on different exchanges to profit from price differences. In efficient markets, these gaps close almost instantly — but crypto markets are <strong>not efficient</strong>.
+        </p>
+        <p>
+          A simple example: BTC trades at $67,200 on Binance and $67,450 on OKX. In theory, you buy on Binance, transfer to OKX, sell at the higher price, and pocket the difference.
+        </p>
+        <div class="card-glass p-5 rounded-xl my-4 font-mono text-sm">
+          <div class="text-[var(--text-muted)] mb-1">Simple Arbitrage Profit Formula:</div>
+          <div class="text-white">Profit = (Sell Price − Buy Price) − Transfer Fees − Trading Fees − Slippage</div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">2. Why Do Price Gaps Exist?</h2>
+        <div class="space-y-4">
+          <div class="card-glass p-5 rounded-xl">
+            <h3 class="font-bold text-white mb-2">Liquidity fragmentation</h3>
+            <p class="text-sm text-[var(--text-muted)]">Each exchange has its own order book. Large trades on one exchange don't instantly affect others.</p>
+          </div>
+          <div class="card-glass p-5 rounded-xl">
+            <h3 class="font-bold text-white mb-2">Transfer time</h3>
+            <p class="text-sm text-[var(--text-muted)]">Moving BTC between exchanges takes 10–60 minutes. During that time, prices can converge or diverge further.</p>
+          </div>
+          <div class="card-glass p-5 rounded-xl">
+            <h3 class="font-bold text-white mb-2">Regional demand</h3>
+            <p class="text-sm text-[var(--text-muted)]">Kimchi Premium (Korea) and other regional spreads persist due to capital controls and local demand.</p>
+          </div>
+          <div class="card-glass p-5 rounded-xl">
+            <h3 class="font-bold text-white mb-2">Exchange risk perception</h3>
+            <p class="text-sm text-[var(--text-muted)]">When FUD hits one exchange, its price may drop relative to others — creating temporary arbitrage.</p>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">3. The Hedge Approach (Lower Risk)</h2>
+        <p>
+          Pure arbitrage requires fast transfers and perfect execution. A <strong>hedge strategy</strong> is more practical for retail traders:
+        </p>
+        <div class="card-glass p-6 rounded-2xl mt-4">
+          <h3 class="font-bold text-white mb-4">Step-by-Step Hedge Setup</h3>
+          <ol class="space-y-3 list-decimal list-inside text-sm text-[var(--text-muted)]">
+            <li class="pl-2"><span class="text-white">Hold inventory on <strong>both</strong> exchanges (pre-positioned capital)</span></li>
+            <li class="pl-2"><span class="text-white">Monitor price spread in real-time (WebSocket, not REST API)</span></li>
+            <li class="pl-2"><span class="text-white">When spread &gt; total fees + buffer: sell on expensive exchange, buy on cheap exchange</span></li>
+            <li class="pl-2"><span class="text-white">Net position stays roughly the same — you're harvesting the spread, not directional trading</span></li>
+          </ol>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">4. Costs That Kill Profit</h2>
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-[var(--border)]">
+                <th class="text-left py-3 px-4 text-[var(--text-muted)] font-medium">Cost Type</th>
+                <th class="text-left py-3 px-4 text-[var(--text-muted)] font-medium">Typical Range</th>
+                <th class="text-left py-3 px-4 text-[var(--text-muted)] font-medium">Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[var(--border)]">
+                <td class="py-3 px-4">Trading fee (taker)</td>
+                <td class="py-3 px-4 text-red-400">0.04%–0.10%</td>
+                <td class="py-3 px-4 text-[var(--text-muted)]">Both sides of trade</td>
+              </tr>
+              <tr class="border-b border-[var(--border)]">
+                <td class="py-3 px-4">Network withdrawal fee</td>
+                <td class="py-3 px-4 text-red-400">BTC: ~$3–15</td>
+                <td class="py-3 px-4 text-[var(--text-muted)]">Per transfer</td>
+              </tr>
+              <tr class="border-b border-[var(--border)]">
+                <td class="py-3 px-4">Slippage (large orders)</td>
+                <td class="py-3 px-4 text-red-400">0.05%–0.50%</td>
+                <td class="py-3 px-4 text-[var(--text-muted)]">Worse on illiquid pairs</td>
+              </tr>
+              <tr class="border-b border-[var(--border)]">
+                <td class="py-3 px-4">Withdrawal delay risk</td>
+                <td class="py-3 px-4 text-amber-400">10–60 min</td>
+                <td class="py-3 px-4 text-[var(--text-muted)]">Price can move against you</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4">Exchange counterparty risk</td>
+                <td class="py-3 px-4 text-red-400">Cannot quantify</td>
+                <td class="py-3 px-4 text-[var(--text-muted)]">Funds frozen / lost</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">5. Common Failure Modes</h2>
+        <div class="space-y-4">
+          <div class="card-glass p-5 rounded-xl border border-red-500/20">
+            <h3 class="font-bold text-red-400 mb-2">❌ The "Free Transfer" Illusion</h3>
+            <p class="text-sm text-[var(--text-muted)]">Internal transfer between sub-accounts is instant — but most traders don't have capital pre-positioned on both sides. The transfer time is where the edge dies.</p>
+          </div>
+          <div class="card-glass p-5 rounded-xl border border-red-500/20">
+            <h3 class="font-bold text-red-400 mb-2">❌ Ignoring withdrawal limits</h3>
+            <p class="text-sm text-[var(--text-muted)]">Exchange suddenly lowers withdrawal limit or requires additional KYC. Your arbitrage is now a holding position.</p>
+          </div>
+          <div class="card-glass p-5 rounded-xl border border-red-500/20">
+            <h3 class="font-bold text-red-400 mb-2">❌ Chase after the spread closes</h3>
+            <p class="text-sm text-[var(--text-muted)]">By the time you see the spread on a dashboard, it may already be gone. Professional arbitrage uses colocated bots with microsecond latency.</p>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mt-10">6. Is It Worth It for Retail Traders?</h2>
+        <p>
+          Honest answer: <strong>pure cross-exchange arbitrage is difficult</strong> for retail. The edge goes to:
+        </p>
+        <ul class="space-y-2 my-4">
+          <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✗</span><span>Trading firms with colocated servers and direct exchange connections</span></li>
+          <li class="flex items-start gap-3"><span class="text-red-400 mt-0.5">✗</span><span>Market makers who earn the spread on both sides</span></li>
+          <li class="flex items-start gap-3"><span class="text-emerald-400 mt-0.5">✓</span><span>Retail traders doing <strong>occasional</strong> manual arb on large spreads (&gt;1%) they already understand</span></li>
+        </ul>
+
+        <div class="card-glass p-6 rounded-2xl mt-10 border border-primary/20">
+          <h3 class="font-bold text-white mb-3">✅ A More Realistic Approach</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+            Instead of pure arbitrage, consider <strong>cross-exchange hedging</strong>: hold positions on two exchanges simultaneously, and periodically rebalance when spreads widen. This reduces transfer frequency and lets you capture larger, more reliable inefficiencies. The key is having inventory on both sides <strong>before</strong> the opportunity appears.
+          </p>
+        </div>
+      </div>
+
+      <!-- Article Footer -->
+      <footer class="mt-12 pt-8 border-t border-[var(--border)] flex items-center justify-between">
+        <a href="/en/learn/" class="text-sm text-primary hover:underline no-underline">← Back to Learn</a>
+        <span class="text-xs text-[var(--text-muted)]">Share: <a href="#" class="text-[var(--text-muted)] hover:text-primary no-underline">Twitter</a> · <a href="#" class="text-[var(--text-muted)] hover:text-primary no-underline">Telegram</a></span>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>

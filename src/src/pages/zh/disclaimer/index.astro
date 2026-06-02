@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "免责声明",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/disclaimer/"
+  }
+}`}></script>
+<BaseLayout title="免责声明" lang="zh" activeNav="disclaimer">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <h1 class="text-3xl font-bold text-white mb-2">免责声明</h1>
+  <p class="text-[var(--text-muted)] mb-8">请在使用本站内容前仔细阅读以下声明。</p>
+  <div class="space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">不构成投资建议</h3><p>本站所有内容仅为个人交易记录和研究分析，不构成任何形式的投资建议或交易信号。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">模拟盘声明</h3><p>本站展示的所有交易记录均为模拟盘（虚拟资金），不代表真实交易结果。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">投资风险</h3><p>加密货币市场高度波动，请在充分了解风险后做出投资决策。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">内容准确性</h3><p>我们尽力确保内容准确，但不保证任何数据的完整性和时效性。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">推荐链接</h3><p>部分链接为推荐链接。详见推荐链接声明。</p></div>
+  </div>
+</div>
+
+</BaseLayout>

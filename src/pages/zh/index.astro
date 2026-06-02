@@ -13,53 +13,10 @@ try {
 }
 const totalPnl = trades.filter(t => t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
 const currentBalance = (1000000 + totalPnl).toLocaleString();
-
-// 服务端获取市场数据（构建时预填）
-let btcPrice = null, btcChange = null, ethPrice = null, ethChange = null, fearValue = null, fearLabel = '';
-try {
-  const priceRes = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', { signal: AbortSignal.timeout(15000) });
-  if (priceRes.ok) {
-    const priceData = await priceRes.json();
-    const btc = priceData.find(d => d.symbol === 'BTCUSDT');
-    const eth = priceData.find(d => d.symbol === 'ETHUSDT');
-    btcPrice = btc?.lastPrice ? Number(btc.lastPrice) : null;
-    btcChange = btc?.priceChangePercent ? Number(btc.priceChangePercent) : null;
-    ethPrice = eth?.lastPrice ? Number(eth.lastPrice) : null;
-    ethChange = eth?.priceChangePercent ? Number(eth.priceChangePercent) : null;
-  }
-} catch {}
-try {
-  const fearRes = await fetch('https://api.alternative.me/fng/?limit=1', { signal: AbortSignal.timeout(5000) });
-  if (fearRes.ok) {
-    const fearData = await fearRes.json();
-    const item = fearData?.data?.[0];
-    if (item) {
-      fearValue = parseInt(item.value);
-      fearLabel = item.value_classification || '';
-    }
-  }
-} catch {}
-
-function fmtPrice(n) {
-  if (n == null) return '--';
-  return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-function fmtChange(v) {
-  if (v == null) return '--';
-  const num = Number(v);
-  const cls = num >= 0 ? 'text-green-400' : 'text-red-400';
-  return `<span class="${cls}">${num >= 0 ? '+' : ''}${num.toFixed(2)}%</span>`;
-}
-function fearColor(v) {
-  if (v == null) return 'text-purple-400';
-  if (v <= 25) return 'text-red-400';
-  if (v <= 45) return 'text-orange-400';
-  if (v <= 55) return 'text-amber-400';
-  if (v <= 75) return 'text-green-400';
-  return 'text-emerald-400';
-}
 ---
-<script type="application/ld+json" set:html={`{
+
+
+  <script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "BTC & ETH 价格行为分析 | 1H币研",
@@ -71,7 +28,7 @@ function fearColor(v) {
     "height": 630
   },
   "datePublished": "2026-05-31T16:20:03+08:00",
-  "dateModified": "2026-06-01T20:00:00+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
   "author": {
     "@type": "Person",
     "name": "1H Crypto Trader"
@@ -144,20 +101,20 @@ function fearColor(v) {
         <!-- BTC Price -->
         <div class="card p-4! hover:border-primary/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">BTC/USDT</div>
-          <div class="metric-value gradient-text text-lg md:text-xl" id="price-btc">{fmtPrice(btcPrice)}</div>
-          <div class="text-xs mt-0.5" id="change-btc"><Fragment set:html={fmtChange(btcChange)} /></div>
+          <div class="metric-value gradient-text text-lg md:text-xl" id="price-btc">--</div>
+          <div class="text-xs mt-0.5" id="change-btc">--</div>
         </div>
         <!-- ETH Price -->
         <div class="card p-4! hover:border-accent/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">ETH/USDT</div>
-          <div class="metric-value text-accent text-lg md:text-xl" id="price-eth">{fmtPrice(ethPrice)}</div>
-          <div class="text-xs mt-0.5" id="change-eth"><Fragment set:html={fmtChange(ethChange)} /></div>
+          <div class="metric-value text-accent text-lg md:text-xl" id="price-eth">--</div>
+          <div class="text-xs mt-0.5" id="change-eth">--</div>
         </div>
         <!-- Fear & Greed -->
         <div class="card p-4! hover:border-purple-500/30 transition-colors cursor-default">
           <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">恐慌/贪婪</div>
-          <div class={`metric-value text-lg md:text-xl ${fearColor(fearValue)}`} id="price-fear">{fearValue ?? '--'}</div>
-          <div class="text-[var(--text-muted)] text-xs mt-0.5" id="fear-label">{fearLabel || '--'}</div>
+          <div class="metric-value text-purple-400 text-lg md:text-xl" id="price-fear">--</div>
+          <div class="text-[var(--text-muted)] text-xs mt-0.5" id="fear-label">--</div>
         </div>
         <!-- Portfolio NAV -->
         <div class="card p-4! hover:border-green-500/30 transition-colors cursor-default">
@@ -274,7 +231,7 @@ function fearColor(v) {
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a
-          href="/zh/daily/"
+          href="/zh/analysis/"
           class="px-8 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 no-underline"
         >
           开始阅读 →
@@ -298,7 +255,7 @@ function fearColor(v) {
       let w, h, points = [];
       function resize() {
         const section = canvas.closest("section");
-        w = canvas.width = section.offsetWidth;
+        w = canvas.width  = section.offsetWidth;
         h = canvas.height = section.offsetHeight;
         initPoints();
       }
@@ -322,6 +279,7 @@ function fearColor(v) {
           p.vy += (p.oy - p.y) * 0.01 + (Math.random() - 0.5) * 0.3;
           p.vx *= 0.95; p.vy *= 0.95;
           p.x += p.vx; p.y += p.vy;
+          // draw connections to neighbors
           const col = (i % Math.round(w / step));
           const row = Math.floor(i / Math.round(w / step));
           const right = i + 1;
@@ -338,6 +296,7 @@ function fearColor(v) {
             ctx.lineTo(points[down].x, points[down].y);
             ctx.stroke();
           }
+          // draw dot
           ctx.fillStyle = "rgba(14, 165, 233, 0.25)";
           ctx.beginPath();
           ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
@@ -353,28 +312,19 @@ function fearColor(v) {
 
   <!-- Real-time Price Fetcher -->
   <script>
-    let priceRetryCount = 0;
-    const MAX_PRICE_RETRIES = 5;
-
     async function fetchPrice() {
       try {
         const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D', {
-          headers: { 'Accept': 'application/json' },
-          signal: AbortSignal.timeout(10000)
+          headers: { 'Accept': 'application/json' }
         });
         if (!res.ok) throw new Error('Binance API error: ' + res.status);
         const data = await res.json();
         const btc = data.find(d => d.symbol === 'BTCUSDT');
         const eth = data.find(d => d.symbol === 'ETHUSDT');
         updatePriceUI({ btc, eth });
-        priceRetryCount = 0;
       } catch (e) {
-        priceRetryCount++;
-        const delay = priceRetryCount <= 2 ? 2000 : 8000;
-        console.warn('[Price] fetch error (attempt ' + priceRetryCount + '), retrying in ' + delay + 'ms:', e.message);
-        if (priceRetryCount < MAX_PRICE_RETRIES) {
-          setTimeout(fetchPrice, delay);
-        }
+        console.warn('[Price] fetch error, retrying in 10s:', e.message);
+        setTimeout(fetchPrice, 10000);
       }
     }
 
@@ -401,20 +351,23 @@ function fearColor(v) {
     function updatePriceUI({ btc, eth }) {
       const btcEl = document.getElementById('price-btc');
       const btcChg = document.getElementById('change-btc');
-      if (btcEl && btc?.lastPrice != null) btcEl.textContent = fmt(btc.lastPrice);
+      if (btcEl && btc?.lastPrice != null) {
+        btcEl.textContent = fmt(btc.lastPrice);
+      }
       if (btcChg) btcChg.innerHTML = fmtChange(btc?.priceChangePercent);
 
       const ethEl = document.getElementById('price-eth');
       const ethChg = document.getElementById('change-eth');
-      if (ethEl && eth?.lastPrice != null) ethEl.textContent = fmt(eth.lastPrice);
+      if (ethEl && eth?.lastPrice != null) {
+        ethEl.textContent = fmt(eth.lastPrice);
+      }
       if (ethChg) ethChg.innerHTML = fmtChange(eth?.priceChangePercent);
     }
 
     async function fetchFearGreed() {
       try {
         const res = await fetch('https://api.alternative.me/fng/?limit=1', {
-          headers: { 'Accept': 'application/json' },
-          signal: AbortSignal.timeout(8000)
+          headers: { 'Accept': 'application/json' }
         });
         if (!res.ok) return;
         const data = await res.json();
@@ -434,6 +387,5 @@ function fearColor(v) {
     fetchPrice();
     fetchFearGreed();
     setInterval(fetchPrice, 60000);
-    setInterval(fetchFearGreed, 300000);
   </script>
 </BaseLayout>

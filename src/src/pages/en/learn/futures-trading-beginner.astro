@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Futures Trading for Beginners — What Do Leverage, Liquidation, and Margin Call Mean? - 1H Crypto",
+  "description": "A beginner-friendly guide to crypto futures trading. Understand leverage, liquidation price, and margin calls before you start.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/futures-trading-beginner/"
+  }
+}`}></script>
+<BaseLayout title="Futures Trading for Beginners — Leverage, Liquidation, Margin Call - 1H Crypto" lang="en" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">Futures Trading for Beginners — What Do Leverage, Liquidation, and Margin Call Mean?</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">Updated: May 2026</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>You might have heard "Someone used $100 with 10x leverage, Bitcoin rose 5%, and he made $500" — that's futures trading.</p>
+    <p>Simply put: <strong>you don't need to actually hold Bitcoin; you just bet on whether it goes up or down, using a small margin to control a large position.</strong></p>
+
+    <h3>Key Concepts You Must Understand</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Leverage</strong>: 10x leverage = using $100 to trade $1,000. If price rises 5%, you make $50 (50% of your principal); if it drops 5%, your principal is gone.</li>
+      <li><strong>Liquidation Price</strong>: When the market price touches this price, the exchange forcibly closes your position, and your margin goes to zero.</li>
+      <li><strong>Maintenance Margin Ratio</strong>: The minimum margin ratio your position must maintain. If it falls below this ratio, you'll be liquidated.</li>
+      <li><strong>Mark Price</strong>: Liquidation is not based on the "last traded price" but on a "fair price" (usually the average of multiple exchanges) to prevent malicious liquidations through momentary price crashes.</li>
+    </ul>
+
+    <h3>A Real Example</h3>
+    <p>Suppose you use $1,000 with 10x leverage to go long on BTC. Your position is worth $10,000.</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>BTC current price $50,000, you bet it will rise</li>
+      <li>If BTC rises to $52,500 (+5%), you make $500 (50% of principal)</li>
+      <li>If BTC drops to $47,500 (-5%), your $1,000 principal is gone — <strong>liquidated</strong></li>
+    </ul>
+    <p class="bg-red-600/10 p-3 rounded">In real markets, due to "Mark Price" fluctuations, you might be liquidated after only a 3% drop. The higher the leverage, the closer the liquidation price is to your entry price.</p>
+
+    <h3>Why Do Beginners Lose Money on Futures?</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Excessive leverage</strong>: 10x, 20x leverage — slight price fluctuations cause liquidation. Experienced traders usually use 3-5x.</li>
+      <li><strong>No stop-loss</strong>: In spot trading, you can hold through losses and wait for recovery; in futures, not using stop-loss means liquidation within hours.</li>
+      <li><strong>Chasing pumps and selling dumps</strong>: Seeing BTC rise and going long, only to enter right before a pullback — this is the classic "getting rekt" pattern.</li>
+      <li><strong>Cross margin mode</strong>: Putting all margin in one position — one coin gets liquidated, and all principal is gone.</li>
+    </ul>
+
+    <h3>Advice for Beginners</h3>
+    <ol class="list-decimal pl-5 space-y-2">
+      <li>Trade spot first, at least for six months, to feel what it's like to "hold through volatility."</li>
+      <li>If you must try futures, use <strong>minimum leverage (2-3x)</strong>, and only with money you can afford to lose completely.</li>
+      <li>Set a stop-loss order when opening a position — don't rely on luck.</li>
+      <li>Use <strong>isolated margin mode</strong> (independent margin per position), not cross margin mode.</li>
+    </ol>
+    <p class="mt-4"><strong>Remember: Futures trading is a "professional skill," not a "get-rich-quick tool."</strong> 90% of futures traders eventually lose money.</p>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 If you want to try futures, <a href="/en/tools/" class="text-primary underline">Bybit and Bitget</a> have the most beginner-friendly futures interfaces, suitable for familiarizing yourself with the operations (use testnet, don't use real money).</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. If you register, subscribe, or purchase through these links, I may earn a small commission. You also get exclusive discounts, cashback, or lower trading fees. All earnings go toward site maintenance, content updates, and server costs — no extra cost to you, and your rights remain unchanged. Thank you for your support and understanding.</p>
+  </div>
+</div>
+
+</BaseLayout>

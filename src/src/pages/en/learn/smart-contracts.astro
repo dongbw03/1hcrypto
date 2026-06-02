@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Smart Contracts: Code That Runs Exactly As Written - 1H Crypto",
+  "description": "Smart contracts are self-executing programs on the blockchain. Here",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/smart-contracts/"
+  }
+}`}></script>
+<BaseLayout title="Smart Contracts: Code That Runs Exactly As Written - 1H Crypto" lang="en" description="Smart contracts are self-executing programs on the blockchain. Here's what they can (and can't) do." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">Smart Contracts: Code That Runs Exactly As Written</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">January 2026 · 8 min read</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">A smart contract is a program deployed on a blockchain that automatically executes when predetermined conditions are met. No lawyers, no middlemen, no trust needed.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Vending Machine Analogy</h2>
+    <p>Think of a smart contract like a vending machine:</p>
+    <ul class="list-disc pl-6 space-y-1 mt-3">
+      <li>You insert $2 (input condition met).</li>
+      <li>The machine automatically gives you a soda (execution).</li>
+      <li>No employee needed. The machine can't "change its mind."</li>
+    </ul>
+    <p class="mt-3">A smart contract is the same — but digital, and can handle millions of dollars.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">What Can Smart Contracts Do?</h2>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">DeFi Applications</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Automated market makers (AMMs), lending protocols, yield aggregators — all are smart contracts.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">NFTs and Digital Ownership</h3>
+        <p class="text-[var(--text-secondary)] text-sm">NFT minting, trading, and royalty payments are all enforced by smart contracts.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">DAO Governance</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Decentralized Autonomous Organizations use smart contracts to let token holders vote on proposals.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Cross-Chain Bridges</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Move assets between blockchains (e.g., ETH → Solana) via smart contracts that lock on one side and mint on the other.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The "Code Is Law" Philosophy</h2>
+    <p>In smart contract systems, the code is the ultimate authority. If there's a bug and someone drains $100M, <strong>there is no refund</strong>. This is both the greatest strength and the greatest weakness of DeFi.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Major Smart Contract Platforms (2026)</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Platform</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Language</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">TVL (approx)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Ethereum</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Solidity</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">~$60B</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Solana</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Rust</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">~$5B</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Arbitrum</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Solidity (EVM)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">~$3B</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Famous Smart Contract Hacks</h2>
+    <div class="space-y-3 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <p class="text-[var(--text-primary)] font-medium text-sm">The DAO Hack (2016) — $60M</p>
+        <p class="text-[var(--text-muted)] text-xs">A reentrancy bug allowed an attacker to drain funds repeatedly. Led to the controversial Ethereum hard fork (ETC/ETH split).</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <p class="text-[var(--text-primary)] font-medium text-sm">Wormhole Bridge (2022) — $326M</p>
+        <p class="text-[var(--text-muted)] text-xs">A signature verification bug allowed fake minting of Wormhole-wrapped ETH.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Bottom Line</h2>
+    <p>Smart contracts are revolutionary — they enable trustless financial systems. But "code is law" means bugs are expensive. Only interact with audited, battle-tested contracts, and never put in more than you can afford to lose.</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 Part of <a href="/en/learn/" class="text-primary hover:underline">Learning Center</a>.</p>
+  </div>
+</div>
+</BaseLayout>

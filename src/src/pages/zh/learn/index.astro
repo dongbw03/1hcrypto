@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "学习中心 - 1H币研",
+  "description": "从零开始学加密货币——20+ 篇原创教程，涵盖买币、交易、安全、DeFi 等核心主题。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/"
+  }
+}`}></script>
+<BaseLayout title="学习中心 - 1H币研" lang="zh" description="从零开始学加密货币——20+ 篇原创教程，涵盖买币、交易、安全、DeFi 等核心主题。" activeNav="learn">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/" class="text-primary hover:underline">← 返回首页</a>
+  </p>
+
+  <h1 class="text-3xl font-bold text-white mb-2">学习中心</h1>
+  <p class="text-[var(--text-secondary)] mb-10">从零开始，系统化学习加密货币。所有文章均为原创，持续更新。</p>
+
+  <!-- 入门基础 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">1</span>
+      入门基础
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/what-is-blockchain" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">什么是区块链？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">十年老韭菜的大白话解释</p>
+      </a>
+      <a href="/zh/learn/how-bitcoin-works" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">比特币是怎么运作的？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">从白皮书到你现在手里那个币</p>
+      </a>
+      <a href="/zh/learn/what-is-ethereum" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">以太坊是什么？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">不只是"比特币2.0"</p>
+      </a>
+      <a href="/zh/learn/what-is-nft" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">NFT 是什么？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">一张图片凭什么卖几万美元？</p>
+      </a>
+      <a href="/zh/learn/stablecoins-guide" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">稳定币是什么？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">USDT、USDC 和 DAI 的区别</p>
+      </a>
+      <a href="/zh/learn/smart-contracts-intro" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">智能合约入门</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">代码即法律，但代码也有 Bug</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 安全 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">2</span>
+      安全防盗（必读）
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/private-key-security" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">私钥、公钥、助记词</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">到底有什么区别？搞不懂这个别碰加密货币</p>
+      </a>
+      <a href="/zh/learn/how-to-avoid-theft" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">加密货币防盗指南</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">我见过太多人把币弄丢了</p>
+      </a>
+      <a href="/zh/learn/how-to-choose-wallet" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">如何选择加密货币钱包？</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">热钱包 vs 冷钱包</p>
+      </a>
+      <a href="/zh/learn/hardware-wallet-guide" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">硬件钱包选购指南</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">不让黑客替你保管比特币</p>
+      </a>
+      <a href="/zh/learn/security-basics" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">区块链安全入门</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">保护你的加密资产不掉坑</p>
+      </a>
+      <a href="/zh/learn/common-scams" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">区块链常见骗局</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">识别土狗币、假空投、杀猪盘</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 买币与交易 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">3</span>
+      买币与交易
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/how-to-register-exchange" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">加密货币交易所注册全流程</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">从零开始，避开新人必踩的坑</p>
+      </a>
+      <a href="/zh/learn/how-to-buy-crypto-p2p" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">如何用法币买币——P2P交易完整指南</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">从银行账户到持有USDT</p>
+      </a>
+      <a href="/zh/learn/how-to-read-candle" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">如何理解K线图</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">从一根蜡烛看透多空博弈</p>
+      </a>
+      <a href="/zh/learn/futures-trading-beginner" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">合约交易入门</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">杠杆、强平、爆仓到底是什么意思？</p>
+      </a>
+      <a href="/zh/learn/position-management-basics" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">仓位管理入门</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">比预测涨跌更重要的事</p>
+      </a>
+      <a href="/zh/learn/dca-strategy" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">定投策略</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">普通人最靠谱的加密货币投资方式</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 进阶 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">4</span>
+      进阶知识
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/defi-intro" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">DeFi 入门</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">把银行扔掉，自己当银行</p>
+      </a>
+      <a href="/zh/learn/ethereum-gas-fees" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">以太坊Gas费详解</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">为什么转一次账要花30美元？</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 交易所评测 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">5</span>
+      交易所评测
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/binance-review" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">Binance 交易所评测</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">全球最大交易所，流动性之王</p>
+      </a>
+      <a href="/zh/learn/okx-review" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">OKX 交易所评测</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">中文用户友好度最高的交易所</p>
+      </a>
+      <a href="/zh/learn/bybit-review" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">Bybit 交易所评测</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">合约交易体验最佳</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 工具 -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-bold">6</span>
+      工具指南
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/zh/learn/tradingview-guide" class="card p-5 hover:border-[var(--primary)]/30 transition-all no-underline group">
+        <h3 class="text-lg font-bold text-white group-hover:text-[var(--primary)] transition-colors">TradingView 使用指南</h3>
+        <p class="text-[var(--text-muted)] text-sm mt-1">专业交易者的图表工具</p>
+      </a>
+    </div>
+  </section>
+
+  <div class="card p-6 text-center">
+    <p class="text-[var(--text-secondary)] text-sm">更多文章持续更新中，欢迎 <a href="/zh/about/" class="text-[var(--primary)] hover:underline">联系我</a> 提议你想看的主题。</p>
+  </div>
+</div>
+
+
+</BaseLayout>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

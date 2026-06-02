@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Position Management Basics — Something More Important than Predicting Price - 1H Crypto",
+  "description": "The vast majority of people lose money not because they predicted the direction wrong, but because position management was a mess. This article explains core strategies like fixed ratio, fixed amount, and pyramid adding.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-01-15T10:00:00+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/position-management-basics/"
+  }
+}`}></script>
+<BaseLayout title="Position Management Basics — Something More Important than Predicting Price - 1H Crypto" lang="en" description="The vast majority of people lose money not because they predicted the direction wrong, but because position management was a mess. This article explains core strategies like fixed ratio, fixed amount, and pyramid adding." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">Position Management Basics — Something More Important than Predicting Price</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">January 2026 · 10 min read</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">A harsh truth: <strong>the vast majority of retail investors lose money not because they predicted the direction wrong, but because position management was a mess.</strong> Being right about direction but getting liquidated hurts more than being wrong.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Core Goals of Position Management</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Survival first</strong>: Ensure no single loss knocks you out (liquidation or sleepless nights).</li>
+      <li><strong>Let profits run</strong>: Positions that are right should grow as the trend develops.</li>
+      <li><strong>Control drawdown</strong>: The drop from peak to trough in account equity must be manageable.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Strategy 1: Fixed Ratio Method (Most Recommended for Beginners)</h2>
+    <p>Risk per trade should not exceed <strong>1%~2%</strong> of total capital.</p>
+    <p class="mt-3">Example: You have 100,000 principal, single trade max loss = 100,000 × 2% = <strong>2,000 yuan</strong>.</p>
+    <p class="mt-3">If stop-loss is 5% from entry price, then:</p>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      Position Value = 2,000 ÷ 5% = 40,000 yuan
+    </div>
+    <p>This means you use 40,000 of your 100,000 principal to open a position. When stop-loss triggers at 5% loss, you lose 2,000 (2% of total capital).</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Strategy 2: Fixed Amount Method</h2>
+    <p>Use a fixed amount for each trade, regardless of total capital changes. Suitable for smaller capital (&lt;50,000) and high-frequency traders.</p>
+    <p class="mt-3">Disadvantage: As capital grows, fixed amount becomes a smaller percentage — low capital utilization. As capital shrinks, fixed amount becomes a larger percentage — accelerates losses.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Strategy 3: Pyramid Adding Method</h2>
+    <p>After trend confirmation, <strong>add to winning positions in batches, but with decreasing add-on sizes</strong>. This keeps average cost favorable and risk controlled.</p>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Batch</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Price</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Add-on Amount</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">1st (Base)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$100</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$2,000</td>
+            <td class="py-3 text-[var(--text-secondary)]">Initial trend confirmation</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">2nd (Add)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$105</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$1,500</td>
+            <td class="py-3 text-[var(--text-secondary)]">Trend continues, move stop to cost</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">3rd (Add)</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$110</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$1,000</td>
+            <td class="py-3 text-[var(--text-secondary)]">Strong trend, move stop to protect profits</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">⚠️ Pyramid adding only works in <strong>trending markets</strong>. In choppy markets, you'll get stopped out repeatedly.</p>
+
+    <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+      <p class="text-sm text-[var(--text-secondary)]">💡 Practice futures on <a href="/en/tools/" class="text-primary underline">Bybit or Bitget</a>'s demo trading. <a href="/en/trading/" class="text-primary underline">This site's demo trading</a> is also worth referencing.</p>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Iron Rules of Position Management for Futures Trading</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Leverage not exceeding 5x</strong> (beginners recommended under 2x). High leverage = high probability of ruin.</li>
+      <li><strong>Use isolated margin mode cautiously</strong>: In cross margin mode, one position's loss can eat the entire account's margin. Recommended to use <strong>isolated margin mode</strong>.</li>
+      <li><strong>Always set stop-loss</strong>: Trading futures without stop-loss is like driving on the highway without a seatbelt.</li>
+      <li><strong>Single direction position not exceeding 30% of total capital</strong>: Diversify across 2-3 uncorrelated assets to reduce correlation risk.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Kelly Formula: Scientifically Optimal Position Sizing</h2>
+    <p>The Kelly Formula gives the theoretically optimal position ratio:</p>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      f* = (p × b - q) / b
+    </div>
+    <p>Where:</p>
+    <ul class="list-disc pl-6 space-y-1 mt-3 text-sm">
+      <li>f* = Optimal position ratio</li>
+      <li>p = Win rate (percentage of profitable trades)</li>
+      <li>q = Loss rate (1 - p)</li>
+      <li>b = Win/loss ratio (average win ÷ average loss)</li>
+    </ul>
+    <p class="mt-3">Example: If your strategy has 55% win rate and 2:1 win/loss ratio, then f* = (0.55×2 - 0.45) / 2 = <strong>32.5%</strong>.</p>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">⚠️ In practice, it's recommended to <strong>halve</strong> the Kelly Formula result (i.e., "half Kelly") because estimates of win rate and win/loss ratio usually have errors.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Summary</h2>
+    <p>Position management is the "survival system" of trading. Compared to accurately predicting the next move, <strong>controlling each trade's risk to 1%~2% of total capital</strong> is what keeps you alive long-term — and staying alive is the only qualification to talk about profits.</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 This article is part of the <a href="/en/learn/" class="text-primary hover:underline">Learning Center</a> series, continuously updated.</p>
+  </div>
+</div>
+</BaseLayout>

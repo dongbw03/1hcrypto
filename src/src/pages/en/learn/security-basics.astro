@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Blockchain Security Basics — Protect Your Crypto Assets From Losing Everything",
+  "description": "Security is the first lesson in crypto. This world has no customer service, no password recovery, no bank bailout. Once stolen, the probability of recovery is near zero.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/security-basics/"
+  }
+}`}></script>
+<BaseLayout title="Blockchain Security Basics — Protect Your Crypto Assets" lang="en" description="Security is the first lesson in crypto. This world has no customer service, no password recovery, no bank bailout." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">Blockchain Security Basics — Protect Your Crypto Assets</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">Updated: May 2026</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>In the crypto world, <strong>security is the first lesson</strong>. There's no customer service, no password recovery, no bank bailout. Once stolen, the probability of recovery is near zero.</p>
+    <p>This article summarizes the security incidents I've seen over the years, giving you a practical security framework.</p>
+
+    <h3>Layer 1 Protection: Device Security</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Dedicated device</strong>: If possible, have a dedicated phone/computer for crypto operations — no games, no clicking unknown links, no jailbreaking/rooting.</li>
+      <li><strong>System updates</strong>: Update phone and computer systems immediately. Many theft cases happen because known vulnerabilities in old systems were exploited.</li>
+      <li><strong>Don't use public WiFi</strong>: Operating exchanges or wallets on cafe or airport WiFi makes you vulnerable to man-in-the-middle attacks. Use mobile data or home WiFi.</li>
+    </ul>
+
+    <h3>Layer 2 Protection: Account Security</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>2FA must use authenticator app</strong>: Don't use SMS verification (SIM cards can be cloned). Use Google Authenticator or Authy. And <strong>backup your authenticator's recovery codes</strong> (otherwise you can't log in if you lose your phone).</li>
+      <li><strong>Password manager</strong>: All exchange and wallet passwords should be different. Use 1Password or Bitwarden to generate and store passwords.</li>
+      <li><strong>Email isolation</strong>: The email used to register exchanges should not be used to register other websites. If this email is compromised, all exchange accounts are at risk.</li>
+    </ul>
+
+    <h3>Layer 3 Protection: Wallet Security</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Handwrite mnemonic phrase</strong>: Never screenshot, never save on computer, never send via WeChat. Handwrite on paper and store in a place only you know.</li>
+      <li><strong>Verify receiving address</strong>: Every time you withdraw coins, <strong>must verify the address on the hardware wallet's screen</strong> (not on the computer/phone screen). This prevents clipboard replacement by malware.</li>
+      <li><strong>Test with small amount first</strong>: First withdraw a small test (e.g., $10-$50) to a new address, confirm it arrives, then withdraw the large amount.</li>
+    </ul>
+
+    <h3>Layer 4 Protection: DeFi Security</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Only authorize needed amount</strong>: When authorizing in DeFi protocols, <strong>don't click "authorize all"</strong>, only authorize the amount you intend to use.</li>
+      <li><strong>Regularly revoke authorizations</strong>: Go to <code>revoke.cash</code> to view all authorizations for your address, and revoke unused protocol authorizations.</li>
+      <li><strong>Only use mainstream protocols on Ethereum</strong>: Uniswap, Aave, Compound — these have been verified over years and are relatively safe. New projects and anonymous team projects — enter cautiously.</li>
+    </ul>
+
+    <h3>A Checklist (Save for Reference)</h3>
+    <div class="bg-[var(--card)] p-4 rounded-lg text-sm space-y-1">
+      <p>□ Mnemonic phrase handwritten and stored in safe place</p>
+      <p>□ Exchange has 2FA enabled (authenticator app, not SMS)</p>
+      <p>□ Exchange password and email password generated with password manager (not reused)</p>
+      <p>□ Large amounts withdrawn to hardware wallet</p>
+      <p>□ Phone/computer not jailbroken/rooted, no unknown apps installed</p>
+      <p>□ Checked revoke.cash and revoked unused authorizations</p>
+    </div>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 If you don't have a hardware wallet yet, <a href="/en/tools/" class="text-primary underline">Ledger on the recommended tools page</a> is the most mature choice currently.</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. If you register, subscribe, or purchase through these links, I may earn a small commission. You also get exclusive discounts, cashback, or lower trading fees. All earnings go toward site maintenance, content updates, and server costs — no extra cost to you, and your rights remain unchanged. Thank you for your support and understanding.</p>
+  </div>
+</div>
+
+</BaseLayout>

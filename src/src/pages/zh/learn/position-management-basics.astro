@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "仓位管理入门——比预测涨跌更重要的事 - 1H币研",
+  "description": "绝大多数人亏钱不是因为方向看错了，而是因为仓位管理混乱。本文讲解固定比例、固定金额、金字塔加仓等核心策略。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/position-management-basics/"
+  }
+}`}></script>
+<BaseLayout title="仓位管理入门——比预测涨跌更重要的事 - 1H币研" lang="zh" description="绝大多数人亏钱不是因为方向看错了，而是因为仓位管理混乱。本文讲解固定比例、固定金额、金字塔加仓等核心策略。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">仓位管理入门——比预测涨跌更重要的事</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 阅读时间约 10 分钟</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">一个残酷的事实：<strong>绝大多数散户亏钱，不是因为方向看错了，而是因为仓位管理混乱。</strong>看对方向但爆仓，比看错方向更令人绝望。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">仓位管理的核心目标</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>生存第一</strong>：确保任何单次亏损都不会让你出局（爆仓或睡不好觉）。</li>
+      <li><strong>让利润奔跑</strong>：做对的仓位要能随着趋势发展而变大。</li>
+      <li><strong>控制回撤</strong>：账户净值从最高点到最低点的跌幅要可控。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">策略一：固定比例法（最推荐新手）</h2>
+    <p>每次交易的风险不超过总资金的 <strong>1%~2%</strong>。</p>
+    <p class="mt-3">举例：你有10万本金，单笔最大亏损 = 10万 × 2% = <strong>2000元</strong>。</p>
+    <p class="mt-3">如果止损幅度是入场价的 5%，那么：</p>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      仓位价值 = 2000 ÷ 5% = 40,000元
+    </div>
+    <p>也就是说，你用10万本金中的4万来开仓，止损5%时亏损2000元（总资金的2%）。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">策略二：固定金额法</h2>
+    <p>每次用固定金额开仓，不考虑总资产变化。适合资金量较小（&lt;5万）且交易频率较高的人。</p>
+    <p class="mt-3">缺点：随着资金增长，固定金额占比会越来越小，资金利用率低；随着资金萎缩，固定金额占比会越来越大，加速亏损。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">策略三：金字塔加仓法</h2>
+    <p>趋势确认后，<strong>顺着盈利方向分批加仓，但每次加仓量递减</strong>。这样平均成本始终有利，且风险可控。</p>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">批次</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">价格</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">加仓金额</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">第1笔（底仓）</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$100</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$2,000</td>
+            <td class="py-3 text-[var(--text-secondary)]">趋势初步确认</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">第2笔（加仓）</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$105</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$1,500</td>
+            <td class="py-3 text-[var(--text-secondary)]">趋势延续，止损移到成本价</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">第3笔（加仓）</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$110</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">$1,000</td>
+            <td class="py-3 text-[var(--text-secondary)]">趋势强劲，移动止损保护利润</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">⚠️ 金字塔加仓只适用于<strong>趋势行情</strong>，震荡行情中会反复打止损。</p>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 练合约建议用<a href="/zh/tools/" class="text-primary underline">Bybit 或 Bitget</a>的模拟盘，<a href="/zh/trading/" class="text-primary underline">本站模拟盘</a>也值得参考。</p>
+  </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">合约交易的仓位管理铁律</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>杠杆不超过5倍</strong>（新手建议2倍以内）。高杠杆 = 高概率归零。</li>
+      <li><strong>全仓模式慎用</strong>：全仓模式下，一个仓位的亏损会吞噬整个账户的保证金。建议用<strong>逐仓模式</strong>。</li>
+      <li><strong>永远设置止损</strong>：合约没有止损，等于在高速公路上不系安全带。</li>
+      <li><strong>单边持仓不超过总资金的30%</strong>：分散到2-3个不相关的标的，降低相关性风险。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">凯利公式：科学的最优仓位</h2>
+    <p>凯利公式给出了理论上最优的仓位比例：</p>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      f* = (p × b - q) / b
+    </div>
+    <p>其中：</p>
+    <ul class="list-disc pl-6 space-y-1 mt-3 text-sm">
+      <li>f* = 最优仓位比例</li>
+      <li>p = 胜率（盈利交易占比）</li>
+      <li>q = 败率（1 - p）</li>
+      <li>b = 盈亏比（平均盈利 ÷ 平均亏损）</li>
+    </ul>
+    <p class="mt-3">举例：如果你的策略胜率55%，盈亏比2:1，那么 f* = (0.55×2 - 0.45) / 2 = <strong>32.5%</strong>。</p>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">⚠️ 实际应用中建议把凯利公式的结果<strong>减半</strong>使用（即"半凯利"），因为胜率和盈亏比的估计通常有误差。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">总结</h2>
+    <p>仓位管理是交易的"生存系统"。比起精准预测下一次涨跌，<strong>控制每笔交易的风险在总资金的1%~2%</strong>更能让你长期存活下来——而活下来，才有资格谈盈利。</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 本文属于<a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>系列，持续更新中。</p>
+  </div>
+</div>
+</BaseLayout>

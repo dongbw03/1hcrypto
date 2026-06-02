@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "比特币是怎么运作的？——从白皮书到你现在手里那个币 - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/how-bitcoin-works/"
+  }
+}`}></script>
+<BaseLayout title="比特币是怎么运作的？——从白皮书到你现在手里那个币 - 1H币研" lang="zh" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">比特币是怎么运作的？——从白皮书到你现在手里那个币</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">更新：2026年5月</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>2008年11月，一个叫中本聪的人（或者一群人，没人知道）发了一篇9页的论文，标题叫《Bitcoin: A Peer-to-Peer Electronic Cash System》。2009年1月3日，比特币创世区块被挖出来，里面写了一句话："The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"（泰晤士报：财政大臣即将对银行实施第二轮救助）。</p>
+    <p>这句话是故意写进去的——它在讽刺2008年金融危机后，银行烂账让纳税人买单，而比特币的初衷就是<strong>建立一个不需要银行、不需要中介的点对点支付系统</strong>。</p>
+
+    <h3>比特币网络里发生了什么？</h3>
+    <p>假设你用比特币给朋友转了0.01个BTC，这个过程是这样的：</p>
+    <ol class="list-decimal pl-5 space-y-2">
+      <li>你用钱包软件发起交易，签上你的数字签名（证明"是我授权的"）。</li>
+      <li>这笔交易广播到比特币全网，等待被打包。</li>
+      <li>矿工（或验证者）把这笔交易和其他几千笔交易打包成一个新区块。</li>
+      <li>新区块被接上区块链，你的朋友收到0.01 BTC。</li>
+    </ol>
+    <p>整个过程不需要银行，不需要支付宝，<strong>只需要比特币网络正常运行</strong>。</p>
+
+    <h3>为什么比特币不会被"超发"？</h3>
+    <p>传统法币，央行想印多少就印多少。比特币的发行规则写在了代码里，全世界任何人都改不了：</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>总量上限：2100万枚</li>
+      <li>减半周期：大约每4年，挖矿奖励减半</li>
+      <li>当前区块奖励：3.125 BTC（2024年4月减半后）</li>
+      <li>预计最后一次减半：约2140年</li>
+    </ul>
+    <p>这种"代码即法律"的特性，是比特币被称为"数字黄金"的核心原因——<strong>黄金总量有限，比特币总量也有限，而且比黄金更容易分割、更容易转移</strong>。</p>
+
+    <h3>比特币真的"匿名"吗？</h3>
+    <p>不。比特币是<strong>伪匿名</strong>的。所有交易都记录在区块链上，任何人都可以查到某个地址的每一笔进出账。如果你不小心把现实身份和某个地址关联起来了（比如在交易所做过KYC，然后用那个交易所提币到你的地址），那你的所有交易记录都是可以被追踪的。</p>
+    <p>真正想要匿名，需要用门罗币（XMR）这种专门设计隐私功能的币，或者用混币服务——但后者在很多国家是灰色地带。</p>
+
+    <h3>普通人怎么买比特币？</h3>
+    <p>最简单的方式：去一个正规交易所（Binance、OKX、Bybit都行），完成实名认证，然后用银行卡买USDT（和美元1:1锚定的稳定币），再用USDT买BTC。</p>
+    <p>买完之后，如果你打算长期持有（几个月甚至几年），<strong>请提到自己的钱包</strong>。交易所不是你的银行，它破产了你的币就没了——FTX暴雷的时候，几十万人学到了这一课。</p>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 新手建议从<a href="/zh/tools/" class="text-primary underline">推荐工具页的交易所</a>开始，Binance 和 OKX 流动性最好、手续费最低。</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+  </div>
+</div>
+
+</BaseLayout>

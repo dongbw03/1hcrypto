@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "区块链安全入门——保护你的加密资产不掉坑",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/security-basics/"
+  }
+}`}></script>
+<BaseLayout title="区块链安全入门——保护你的加密资产不掉坑" lang="zh" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">区块链安全入门——保护你的加密资产不掉坑</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">更新：2026年5月</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>进入币圈，安全是第一课。区块链世界<strong>没有客服、没有密码找回、没有银行兜底</strong>。一旦被盗，追回的概率接近于零。</p>
+    <p>这篇文章总结我多年来见过的安全事故，给你一套可落地的安全方案。</p>
+
+    <h3>第一层防护：设备安全</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>专用设备</strong>：如果可以，最好有一台专门的手机/电脑用来操作加密货币，不装游戏、不点不明链接、不越狱/不ROOT。</li>
+      <li><strong>系统更新</strong>：手机和电脑的系统更新，第一时间更。很多被盗案例都是因为旧系统有已知漏洞被利用。</li>
+      <li><strong>不用公共WiFi</strong>：在咖啡厅、机场的WiFi环境下操作交易所或钱包，很容易被中间人攻击。用手机流量或自家WiFi。</li>
+    </ul>
+
+    <h3>第二层防护：账号安全</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>2FA必须用验证器APP</strong>：不要用短信验证码（SIM卡可以克隆），用Google Authenticator或Authy。并且<strong>备份好验证器的恢复码</strong>（否则手机丢了就登不上了）。</li>
+      <li><strong>密码管理器</strong>：所有交易所、钱包的密码都要不一样。用1Password或Bitwarden来生成和保存密码。</li>
+      <li><strong>邮箱隔离</strong>：注册交易所的邮箱，不要用来注册其他网站。这个邮箱被攻破，所有交易所账号都危险。</li>
+    </ul>
+
+    <h3>第三层防护：钱包安全</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>助记词手抄</strong>：绝对不要截图、不要存电脑、不要发微信。手写在纸上，存放在只有你知道的安全地方。</li>
+      <li><strong>验证接收地址</strong>：每次提币，一定要在硬件钱包的<strong>屏幕上核对地址</strong>（不是在电脑/手机屏幕上核对）。防止电脑中毒后剪贴板被替换。</li>
+      <li><strong>先小额测试</strong>：第一次往新地址提币，先提10-50美元测试，确认到账后再提大额。</li>
+    </ul>
+
+    <h3>第四层防护：DeFi安全</h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>只授权需要的金额</strong>：在DeFi协议里授权时，<strong>不要点"授权全部"</strong>，只授权你打算用的金额。</li>
+      <li><strong>定期撤销授权</strong>：去 <code>revoke.cash</code> 查看你地址的所有授权，把不用的协议授权撤销掉。</li>
+      <li><strong>只用以太坊上主流协议</strong>：Uniswap、Aave、Compound这些经过多年验证的，相对安全。新项目、匿名团队的项目，慎入。</li>
+    </ul>
+
+    <h3>一张检查清单（保存备用）</h3>
+    <div class="bg-[var(--card)] p-4 rounded-lg text-sm space-y-1">
+      <p>□ 助记词已手抄，并存放在安全地方</p>
+      <p>□ 交易所已开启2FA（验证器APP，非短信）</p>
+      <p>□ 交易所密码和邮箱密码已用密码管理器生成（非重复密码）</p>
+      <p>□ 大额资产已提到硬件钱包</p>
+      <p>□ 电脑/手机没有越狱/ROOT，也没有装来路不明的APP</p>
+      <p>□ 去revoke.cash检查过授权，撤销了不用的</p>
+    </div>
+  </article>
+
+  <div class="mt-6 p-4 bg-red-600/10 border-l-4 border-red-600 rounded-r">
+    <p class="text-sm text-red-400">🚨 <strong>血的教训</strong>：我认识的一个朋友，因为在Telegram上把助记词发给"客服"，价值40万人民币的币在20分钟内被转空。记住：<strong>真正的客服永远不会主动私信你，也永远不会要你的助记词。</strong></p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+  </div>
+</div>
+
+</BaseLayout>

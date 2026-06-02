@@ -1,86 +1,96 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import matter from 'gray-matter';
+
+const modules = await import.meta.glob('../../../content/en/daily/*.md', { eager: true });
+const files = Object.entries(modules)
+  .map(([fp, mod]) => {
+    try {
+      const { data, content } = matter(typeof mod.rawContent === 'function' ? mod.rawContent() : mod.default || '');
+      return { data: data || {}, content: content || '' };
+    } catch (e) { return null; }
+  })
+  .filter(f => f && f.data.date)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const latest = files[0] || {
+  data: { title:'BTC & ETH Price Action', date:'2026-06-02', description:'', btc_entry:0, btc_stop:0, btc_tp1:0, btc_tp2:0, eth_entry:0, eth_stop:0, eth_tp1:0, eth_tp2:0 },
+  content: ''
+};
+const { data, content } = latest;
+const fmt = (n) => n ? n.toLocaleString() : '—';
+const btcContent = content.split('## ETH')[0] || '';
+const ethContent = content.split('## ETH')[1]?.split('##')[0] || '';
 ---
-<BaseLayout title="Daily Analysis - BTC & ETH | 1H Crypto" description="BTC/USDT & ETH/USDT hourly price action analysis." lang="en" activeNav="daily">
+
+<BaseLayout title={`Daily Analysis - ${data.title} | 1H Crypto`} description={data.description} lang="en" activeNav="daily">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
     <div class="mb-8 fade-in-on-scroll">
-      <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue">Daily</span><span class="text-xs text-[var(--text-muted)] font-mono">2026-06-01</span></div>
-      <h1 class="text-3xl font-bold text-white mb-2">BTC & ETH Hourly Price Action</h1>
+      <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue">Daily Analysis</span><span class="text-xs text-[var(--text-muted)] font-mono">{data.date}</span></div>
+      <h1 class="text-3xl font-bold text-white mb-2">{data.title}</h1>
+      <p class="text-[var(--text-muted)]">Al Brooks Framework · Published 08:00 Beijing Time · Entry/Stop/TP</p>
     </div>
 
+    <!-- BTC -->
     <div class="card p-6 mb-6 hover:border-primary/30 transition-colors fade-in-on-scroll border-t-4 border-t-primary">
       <div class="flex items-center gap-2 mb-4"><span class="badge badge-blue">BTC/USDT</span><span class="text-xs text-[var(--text-muted)] font-mono">5 min read</span></div>
       <h2 class="text-xl font-bold text-white mb-3">Price Action Analysis</h2>
-      <p class="text-sm text-[var(--text-secondary)] mb-4">Pin Bar at channel lower band · Watch 67,200 breakout · Awaiting long entry</p>
       <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-primary">
         <p class="text-xs text-primary font-semibold mb-2">📌 Key Takeaways</p>
-        <p class="text-sm text-[var(--text-primary)]"><strong>Structure:</strong> Trading range day, 66,800-67,800.<br><strong>Key level:</strong> $67,200 (POC).<br><strong>Thesis:</strong> Wait for breakout confirmation. No chasing.</p>
+        <div class="text-sm text-[var(--text-primary)] leading-relaxed" set:html={btcContent}></div>
       </div>
       <h3 class="text-white font-semibold mb-2">Entry Reference</h3>
-      <div class="grid grid-cols-4 gap-2 mb-4">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-white/5"><div class="text-[10px] text-[var(--text-muted)]">Entry</div><div class="text-sm font-bold text-white font-mono">67,200</div></div>
-        <div class="bg-red-500/5 rounded-lg p-3 text-center border border-red-500/10"><div class="text-[10px] text-red-400">Stop</div><div class="text-sm font-bold text-red-400 font-mono">66,400</div></div>
-        <div class="bg-green-500/5 rounded-lg p-3 text-center border border-green-500/10"><div class="text-[10px] text-green-400">TP1</div><div class="text-sm font-bold text-green-400 font-mono">68,500</div></div>
-        <div class="bg-green-500/5 rounded-lg p-3 text-center border border-green-500/10"><div class="text-[10px] text-green-400">TP2</div><div class="text-sm font-bold text-green-400 font-mono">70,000</div></div>
-      </div>
-      <h3 class="text-white font-semibold mb-2">On-Chain Snapshot</h3>
-      <div class="grid grid-cols-4 gap-2 mb-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">BTC Bal</div><div class="text-sm font-bold text-green-400 font-mono">-3,200</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">OI</div><div class="text-sm font-bold text-accent font-mono">+2.1%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">Funding</div><div class="text-sm font-bold text-red-400 font-mono">0.03%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">Flow7d</div><div class="text-sm font-bold text-green-400 font-mono">-1,800</div></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5"><div class="text-xs text-[var(--text-muted)]">Entry</div><div class="text-lg font-bold text-white font-mono">{fmt(data.btc_entry)}</div></div>
+        <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10"><div class="text-xs text-red-400">Stop</div><div class="text-lg font-bold text-red-400 font-mono">{fmt(data.btc_stop)}</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">TP1</div><div class="text-lg font-bold text-green-400 font-mono">{fmt(data.btc_tp1)}</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">TP2</div><div class="text-lg font-bold text-green-400 font-mono">{fmt(data.btc_tp2)}</div></div>
       </div>
     </div>
 
+    <!-- ETH -->
     <div class="card p-6 mb-6 hover:border-accent/30 transition-colors fade-in-on-scroll border-t-4 border-t-accent" style="animation-delay:0.1s">
       <div class="flex items-center gap-2 mb-4"><span class="badge badge-amber">ETH/USDT</span><span class="text-xs text-[var(--text-muted)] font-mono">4 min read</span></div>
       <h2 class="text-xl font-bold text-white mb-3">Price Action Analysis</h2>
-      <p class="text-sm text-[var(--text-secondary)] mb-4">Double bottom forming · Watch 3,720 neckline · Volume confirming</p>
       <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-accent">
         <p class="text-xs text-accent font-semibold mb-2">📌 Key Takeaways</p>
-        <p class="text-sm text-[var(--text-primary)]"><strong>Structure:</strong> W-bottom forming, 3,600 zone tested twice.<br><strong>Key level:</strong> $3,720.<br><strong>Thesis:</strong> Bullish but wait for confirmed breakout.</p>
+        <div class="text-sm text-[var(--text-primary)] leading-relaxed" set:html={ethContent}></div>
       </div>
       <h3 class="text-white font-semibold mb-2">Entry Reference</h3>
-      <div class="grid grid-cols-4 gap-2 mb-4">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-white/5"><div class="text-[10px] text-[var(--text-muted)]">Entry</div><div class="text-sm font-bold text-white font-mono">3,725</div></div>
-        <div class="bg-red-500/5 rounded-lg p-3 text-center border border-red-500/10"><div class="text-[10px] text-red-400">Stop</div><div class="text-sm font-bold text-red-400 font-mono">3,580</div></div>
-        <div class="bg-green-500/5 rounded-lg p-3 text-center border border-green-500/10"><div class="text-[10px] text-green-400">TP1</div><div class="text-sm font-bold text-green-400 font-mono">3,850</div></div>
-        <div class="bg-green-500/5 rounded-lg p-3 text-center border border-green-500/10"><div class="text-[10px] text-green-400">TP2</div><div class="text-sm font-bold text-green-400 font-mono">4,000</div></div>
-      </div>
-      <h3 class="text-white font-semibold mb-2">On-Chain Snapshot</h3>
-      <div class="grid grid-cols-3 gap-2 mb-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">ETH Bal</div><div class="text-sm font-bold text-green-400 font-mono">-152K</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">OI</div><div class="text-sm font-bold text-green-400 font-mono">+3.5%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-[10px] text-[var(--text-muted)]">Funding</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">0.005%</div></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5"><div class="text-xs text-[var(--text-muted)]">Entry</div><div class="text-lg font-bold text-white font-mono">{fmt(data.eth_entry)}</div></div>
+        <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10"><div class="text-xs text-red-400">Stop</div><div class="text-lg font-bold text-red-400 font-mono">{fmt(data.eth_stop)}</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">TP1</div><div class="text-lg font-bold text-green-400 font-mono">{fmt(data.eth_tp1)}</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">TP2</div><div class="text-lg font-bold text-green-400 font-mono">{fmt(data.eth_tp2)}</div></div>
       </div>
     </div>
 
+    <!-- Mock Trading + Referrals -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 fade-in-on-scroll" style="animation-delay:0.2s">
       <a href="/en/trading/" class="card p-5 bg-[var(--bg-secondary)]/40 border border-primary/20 hover:border-primary/50 transition-colors no-underline block">
         <div class="text-sm text-white font-semibold mb-1">📊 View Paper Trading</div>
         <div class="text-xs text-[var(--text-muted)]">$1M USDT · Win 56% · NAV +11.3%</div>
       </a>
       <div class="card p-5 bg-[var(--bg-card)]/30 border border-[var(--border)]" id="ref-card">
-        <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="ref-text">Loading...</div>
+        <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="ref-text">Loading recommendations...</div>
       </div>
     </div>
 
     <script>
-      (function() {
-        var refs=[{n:"Binance",k:"CPA_00ZIV33RO4",u:"https://accounts.binance.com/register?ref=CPA_00ZIV33RO4"},{n:"OKX",k:"1HCRYPTO",u:"https://www.okx.com/join/1HCRYPTO"},{n:"Bybit",k:"1HCRYPTO",u:"https://www.bybit.com/invite?ref=1HCRYPTO"},{n:"Bitget",k:"1hcrypto",u:"https://www.bitget.com/expressly?shareCode=1hcrypto"},{n:"Gate.io",k:"1hcrypto",u:"https://www.gate.io/signup/1hcrypto"},{n:"KuCoin",k:"1hcrypto",u:"https://www.kucoin.com/r/af/1hcrypto"},{n:"MEXC",k:"1hcrypto",u:"https://www.mexc.com/register?inviteCode=1hcrypto"},{n:"BingX",k:"1hcrypto",u:"https://bingx.com/invite/1hcrypto"},{n:"CoinW",k:"1hcrypto",u:"https://www.coinw.com/front/register?r=1hcrypto"},{n:"BitMart",k:"1hcrypto",u:"https://www.bitmart.com/invite/1hcrypto/en"},{n:"XT.com",k:"1hcrypto",u:"https://www.xt.com/en/accounts/register?ref=1hcrypto"}];
-        var a=refs.slice();
-        for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+      (function(){
+        var r=[{n:"Binance",k:"CPA_00ZIV33RO4",u:"https://www.bsmkweb.cc/activity/referral-entry/CPA?ref=CPA_00ZIV33RO4"},{n:"OKX",k:"47930867",u:"https://www.promoohubly.com/join/47930867"},{n:"Bybit",k:"BKWZKJN",u:"https://www.bybit.com/invite?ref=BKWZKJN"},{n:"Bitget",k:"1hcrypto",u:"https://www.bitget.com/expressly?shareCode=1hcrypto"},{n:"Gate.io",k:"VFJAXQWNBQ",u:"https://www.gatewebsite.net/zh/signup/VFJAXQWNBQ?ref_type=103"},{n:"KuCoin",k:"1hcrypto",u:"https://www.kucoin.com/r/af/1hcrypto"},{n:"MEXC",k:"1hcrypto",u:"https://www.mexc.com/register?inviteCode=1hcrypto"},{n:"BingX",k:"1hcrypto",u:"https://bingx.com/invite/1hcrypto"},{n:"CoinW",k:"1hcrypto",u:"https://www.coinw.com/front/register?r=1hcrypto"},{n:"BitMart",k:"1hcrypto",u:"https://www.bitmart.com/invite/1hcrypto/en"},{n:"XT.com",k:"1hcrypto",u:"https://www.xt.com/en/accounts/register?ref=1hcrypto"}];
+        var a=r.slice(),b;
+        for(var i=a.length-1;i>0;i--){b=Math.floor(Math.random()*(i+1));[a[i],a[b]]=[a[b],a[i]];}
         var r1=a[0],r2=a[1],el=document.getElementById('ref-text');
         if(el)el.innerHTML='<span class="text-[var(--text-secondary)] font-medium">🛠 Support us:</span> Sign up via <a href="'+r1.u+'" target="_blank" rel="sponsored" class="text-primary hover:underline">'+r1.n+' (code: '+r1.k+')</a> or <a href="'+r2.u+'" target="_blank" rel="sponsored" class="text-accent hover:underline">'+r2.n+' (code: '+r2.k+')</a> — no extra cost.';
       })();
     </script>
 
     <div class="mt-4 border border-dashed border-[var(--border)] rounded-lg p-3 text-center fade-in-on-scroll" style="animation-delay:0.25s">
-      <p class="text-xs text-[var(--text-muted)] opacity-50">📢 Ad placement — reserved for AdSense</p>
+      <p class="text-xs text-[var(--text-muted)] opacity-50">📢 Ad Placement — Reserved for AdSense</p>
     </div>
-
     <div class="mt-8 p-4 bg-[var(--bg-card)]/50 border border-[var(--border)] rounded-lg text-xs text-[var(--text-muted)]">
-      <strong class="text-[var(--text-secondary)]">⚠️ Disclaimer:</strong> Educational content only. Crypto trading carries high risk.
+      <strong class="text-[var(--text-secondary)]">⚠️ Disclaimer:</strong> Personal market observations only. Not investment advice. Demo account uses virtual funds. Trading involves high risk.
     </div>
   </div>
 </BaseLayout>

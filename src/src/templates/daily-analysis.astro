@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import fs from "fs";
+import path from "path";
+
+// ===== 自动生成说明 =====
+// 此模板由 scripts/generate_daily.py 自动填充数据后生成对应的 .astro 页面
+// 手动创建时，直接编辑下方变量即可
+//
+// 字段说明：
+//   date:     "YYYY-MM-DD" 格式
+//   pair:     "BTC/USDT" | "ETH/USDT"
+//   direction: "long" | "short" | "neutral"
+//   marketStructure: 价格行为市场结构描述
+//   keyLevel: 最关键的水平位
+//   coreThesis: 核心判断
+//   resistance: [R2, R1] 阻力位
+//   support: [S1, S2] 支撑位
+//   pivot: 中枢位（可选）
+//   onChain: { exchangeBalance, oiChange, funding, netFlow7d }
+//   linkedTradeId: 关联模拟盘交易 ID（可选）
+// ===============================
+
+const articleDate   = "2026-06-01";
+const articleLang   = "zh"; // "zh" | "en"
+const articleTitle  = "BTC/USDT 小时图价格行为分析";
+const articleDesc  = "Pin Bar 出现在通道下轨 · 关注 67,200 突破回踩确认";
+const pair          = "BTC/USDT";
+const direction     = "neutral"; // long / short / neutral
+const marketStructure = "交易区间日。价格在 66,800 - 67,800 之间来回震荡。";
+const keyLevel      = "$67,200（区间中轴 + POC）";
+const coreThesis    = "等待 67,200 的突破确认或通道下轨的二次测试。";
+const resistance    = [68500, 67800];
+const support       = [66800, 66200];
+const pivot        = 67200;
+const onChain = {
+  exchangeBalance: "-3,200",
+  oiChange:       "+2.1%",
+  funding:         "0.03%",
+  netFlow7d:      "-1,800",
+};
+const linkedTradeId = ""; // 关联模拟盘交易 ID，无则留空
+
+const directionLabel = articleLang === "zh"
+  ? (direction === "long" ? "偏多" : direction === "short" ? "偏空" : "中性")
+  : (direction === "long" ? "Bullish" : direction === "short" ? "Bearish" : "Neutral");
+
+const directionColor = direction === "long" ? "text-green-400" : direction === "short" ? "text-red-400" : "text-yellow-400";
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": `${pair} 小时图价格行为分析 - ${articleDate}`,
+  "description": articleDesc,
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630,
+  },
+  "datePublished": `${articleDate}T08:00:00+08:00`,
+  "dateModified": new Date().toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader",
+    "url": `https://1hcrypto.com/${articleLang}/about/`,
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": articleLang === "zh" ? "1H币研" : "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg",
+    },
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://1hcrypto.com/${articleLang}/daily/`,
+  },
+  "keywords": articleLang === "zh"
+    ? "BTC价格行为, ETH技术分析, 阿尔布鲁克斯, 加密货币日内交易"
+    : "BTC price action, ETH technical analysis, Al Brooks, crypto intraday trading",
+};
+---
+
+<BaseLayout
+  title={`${articleTitle} | 1H币研`}
+  description={articleDesc}
+  lang={articleLang}
+  activeNav="daily"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <!-- 面包屑 -->
+    <nav class="text-xs text-[var(--text-muted)] mb-6 flex items-center gap-2">
+      <a href={`/${articleLang}/`} class="hover:text-primary no-underline">{articleLang === "zh" ? "首页" : "Home"}</a>
+      <span>/</span>
+      <a href={`/${articleLang}/daily/`} class="hover:text-primary no-underline">{articleLang === "zh" ? "每日研判" : "Daily"}</a>
+      <span>/</span>
+      <span class="text-[var(--text-secondary)]">{articleDate}</span>
+    </nav>
+
+    <!-- 文章头部 -->
+    <div class="mb-8 fade-in-on-scroll">
+      <div class="flex items-center gap-2 mb-3 flex-wrap">
+        <span class={`badge ${direction === "long" ? "badge-green" : direction === "short" ? "badge-red" : "badge-blue"}`}>
+          {directionLabel}
+        </span>
+        <span class="text-xs text-[var(--text-muted)]">{pair}</span>
+        <span class="text-xs text-[var(--text-muted)]">{articleDate}</span>
+      </div>
+      <h1 class="text-3xl font-bold text-white mb-3">{articleTitle}</h1>
+      <p class="text-[var(--text-secondary)] text-lg">{articleDesc}</p>
+    </div>
+
+    <!-- 核心摘要 -->
+    <div class="p-5 bg-[var(--bg-secondary)] rounded-xl mb-8 border-l-4 border-primary fade-in-on-scroll">
+      <p class="text-xs text-primary font-semibold mb-2">📌 {articleLang === "zh" ? "核心摘要" : "Key Takeaways"}</p>
+      <p class="text-sm text-[var(--text-primary)] leading-relaxed">{coreThesis}</p>
+    </div>
+
+    <!-- 市场结构 -->
+    <div class="card p-6 mb-6 fade-in-on-scroll">
+      <h2 class="text-white font-semibold mb-4">{articleLang === "zh" ? "📊 市场结构" : "📊 Market Structure"}</h2>
+      <p class="text-sm text-[var(--text-primary)] mb-4">{marketStructure}</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "阻力 R2" : "R2"}</div>
+          <div class="text-sm font-bold text-white font-mono">{resistance[0].toLocaleString()}</div>
+        </div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "阻力 R1" : "R1"}</div>
+          <div class="text-sm font-bold text-white font-mono">{resistance[1].toLocaleString()}</div>
+        </div>
+        {pivot && (
+          <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-primary/30">
+            <div class="text-xs text-primary">{articleLang === "zh" ? "中枢 POC" : "Pivot"}</div>
+            <div class="text-sm font-bold text-primary font-mono">{pivot.toLocaleString()}</div>
+          </div>
+        )}
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "支撑 S1" : "S1"}</div>
+          <div class="text-sm font-bold text-white font-mono">{support[0].toLocaleString()}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 链上数据 -->
+    <div class="card p-6 mb-6 fade-in-on-scroll">
+      <h2 class="text-white font-semibold mb-4">{articleLang === "zh" ? "⛓️ 链上数据快照" : "⛓️ On-Chain Snapshot"}</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "交易所余额" : "Exchange Balance"}</div>
+          <div class={`text-sm font-bold font-mono ${onChain.exchangeBalance.startsWith("-") ? "text-green-400" : "text-red-400"}`}>{onChain.exchangeBalance}</div>
+        </div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "未平仓合约" : "Open Interest"}</div>
+          <div class={`text-sm font-bold font-mono ${onChain.oiChange.startsWith("+") ? "text-accent" : "text-[var(--text-secondary)]"}`}>{onChain.oiChange}</div>
+        </div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "资金费率" : "Funding Rate"}</div>
+          <div class={`text-sm font-bold font-mono ${parseFloat(onChain.funding) > 0.01 ? "text-red-400" : parseFloat(onChain.funding) < -0.01 ? "text-green-400" : "text-[var(--text-secondary)]"}`}>{onChain.funding}</div>
+        </div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
+          <div class="text-xs text-[var(--text-muted)]">{articleLang === "zh" ? "净流量 (7d)" : "Net Flow (7d)"}</div>
+          <div class={`text-sm font-bold font-mono ${onChain.netFlow7d.startsWith("-") ? "text-green-400" : "text-red-400"}`}>{onChain.netFlow7d}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关联交易记录 -->
+    {linkedTradeId && (
+      <div class="card p-6 mb-6 border border-accent/30 fade-in-on-scroll">
+        <h2 class="text-white font-semibold mb-3">🔗 {articleLang === "zh" ? "关联交易记录" : "Linked Trade Record"}</h2>
+        <p class="text-sm text-[var(--text-muted)] mb-3">
+          {articleLang === "zh"
+            ? "此分析与以下模拟盘交易关联："
+            : "This analysis is linked to the following paper trade:"}
+        </p>
+        <a
+          href={`/${articleLang}/trading/#${linkedTradeId}`}
+          class="inline-block px-4 py-2 bg-accent/10 text-accent rounded-lg text-sm hover:bg-accent/20 transition-colors no-underline"
+        >
+          → {linkedTradeId}
+        </a>
+      </div>
+    )}
+
+    <!-- 免责声明 -->
+    <div class="mt-8 p-4 bg-[var(--bg-secondary)]/50 rounded-lg text-xs text-[var(--text-muted)] leading-relaxed fade-in-on-scroll">
+      ⚠️ {articleLang === "zh"
+        ? "本文仅供教育参考，不构成任何投资建议。加密货币交易存在极高风险，请谨慎决策。"
+        : "This article is for educational purposes only and does not constitute financial advice. Crypto trading carries extreme risk."}
+    </div>
+
+    <!-- 底部内链 -->
+    <div class="mt-8 pt-6 border-t border-[var(--border)] flex flex-wrap gap-4 text-sm fade-in-on-scroll">
+      <a href={`/${articleLang}/trading/`} class="text-primary hover:underline no-underline">📊 {articleLang === "zh" ? "查看模拟盘" : "View Paper Trading"}</a>
+      <a href={`/${articleLang}/analysis/`} class="text-primary hover:underline no-underline">📈 {articleLang === "zh" ? "价格分析" : "Price Analysis"}</a>
+      <a href={`/${articleLang}/learn/`} class="text-primary hover:underline no-underline">📚 {articleLang === "zh" ? "学习中心" : "Learning Center"}</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="周度复盘 | 1H币研" description="每周比特币 & 以太坊价格行为复盘，基于 Al Brooks 方法论的周度技术分析总结。" lang="zh" activeNav="weekly">
+<script type="application/ld+json">{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "周度复盘",
+  "description": "每周比特币 & 以太坊价格行为复盘，基于 Al Brooks 方法论的周度技术分析总结。",
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-01-05T08:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/weekly/"
+  }
+})}</script>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <!-- Header -->
+  <div class="mb-10">
+    <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">周度复盘</h1>
+    <p class="text-[var(--text-muted)] text-sm">每周日发布 · 基于 <span class="text-primary">Al Brooks 价格行为学</span> 的 BTC & ETH 周度技术分析</p>
+    <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+      <span class="px-2.5 py-1 rounded-full bg-white/5 border border-[var(--border)]">每周日 20:00 更新</span>
+      <span>|</span>
+      <span>交易日历：周一至周五</span>
+    </div>
+  </div>
+
+  <!-- 最新周度复盘 -->
+  <div class="mb-12">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-primary"></div>
+      <h2 class="text-xl font-bold text-white">最新复盘</h2>
+      <span class="text-xs text-[var(--text-muted)] ml-2">2026-06-02 起开始计算</span>
+    </div>
+
+    <div class="card p-8 text-center">
+      <div class="text-4xl mb-4">📊</div>
+      <h3 class="text-lg font-bold text-white mb-2">周度复盘准备中</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">模拟盘将于 2026-06-02 正式启动，首个周度复盘将于 2026-06-07（周日）发布。</p>
+      <div class="flex flex-wrap justify-center gap-3 text-xs text-[var(--text-muted)]">
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">每周日 20:00 更新</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">基于 Al Brooks 价格行为学</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">模拟盘 P&L 透明展示</span>
+      </div>
+      <a href="/zh/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline mt-6">查看每日研判 →</a>
+    </div>
+  </div>
+
+  <!-- 历史周度复盘列表 -->
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-[var(--border)]"></div>
+      <h2 class="text-xl font-bold text-white">历史复盘</h2>
+    </div>
+
+    <div class="card p-6 text-center">
+      <p class="text-sm text-[var(--text-muted)]">暂无历史复盘记录。首个周度复盘将于 2026-06-07 发布。</p>
+    </div>
+  </div>
+
+  <!-- 周度方法论说明 -->
+  <div class="card p-6 bg-white/[0.02] border border-[var(--border)]">
+    <h3 class="text-sm font-semibold text-white mb-3">周度复盘方法论</h3>
+    <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>基于 Al Brooks 价格行为学，聚焦 1H/4H K 线结构</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>每周汇总模拟盘交易记录，P&L 透明展示</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>结合链上数据（交易所净流出/流入）辅助判断</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>下周操作计划：关键位 + 触发条件 + 风险管理</li>
+    </ul>
+  </div>
+</div>
+
+</BaseLayout>

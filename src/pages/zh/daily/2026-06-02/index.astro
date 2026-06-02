@@ -1,96 +1,117 @@
 ---
-import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import matter from 'gray-matter';
+import { readFileSync } from 'fs';
+
+const raw = readFileSync('src/content/zh/daily/2026-06-02.md', 'utf-8');
+const { data, content } = matter(raw);
 ---
-<BaseLayout title="BTC/USDT 小时图价格行为分析 - 2026-06-02 | 1H币研" description="价格持续下跌，形成下降趋势，反弹至阻力位附近可做空。…" lang="zh" activeNav="daily">
-  <script type="application/ld+json">{
+
+<BaseLayout title={`${data.title} - 每日研判 | 1H币研`} description={data.description} lang="zh" activeNav="daily">
+  <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "BTC/USDT 小时图价格行为分析 - 2026-06-02",
-    "description": "价格持续下跌，形成下降趋势，反弹至阻力位附近可做空。",
+    "headline": data.title,
+    "description": data.description,
     "datePublished": "2026-06-02T08:00:00+08:00",
-    "dateModified": "2026-06-02T19:47:08+08:00",
     "author": {"@type": "Person", "name": "1H Crypto Trader"},
     "publisher": {"@type": "Organization", "name": "1H币研"}
-  }</script>
+  })}></script>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-    <div class="mb-8 fade-in-on-scroll">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="badge-red">偏空</span>
-        <span class="text-xs text-[var(--text-muted)]">BTC/USDT</span>
-        <span class="text-xs text-[var(--text-muted)]">2026-06-02</span>
-      </div>
-      <h1 class="text-3xl font-bold text-white mb-3">BTC/USDT 小时图价格行为分析</h1>
-      <p class="text-[var(--text-secondary)] text-lg">价格持续下跌，形成下降趋势，反弹至阻力位附近可做空。…</p>
-    </div>
+  <div class="max-w-[1400px] mx-auto lg:pl-10 lg:pr-1 px-4 py-8 lg:py-12">
+    <div class="lg:flex lg:gap-12">
+      <article class="min-w-0">
+        <header class="mb-12">
+          <div class="flex items-center gap-2 mb-2">
+            <span class={`badge badge-${data.sentiment === '偏多' ? 'green' : data.sentiment === '偏空' ? 'red' : 'blue'}`}>{data.sentiment}</span>
+            <span class="text-xs text-[var(--text-muted)] font-mono">2026-06-02 08:00</span>
+            <span class="text-xs text-[var(--text-muted)] ml-auto">1H</span>
+          </div>
+          <h1 class="text-xl md:text-2xl lg:text-[1.65rem] font-bold text-white leading-[1.35] mb-5 tracking-tight">{data.title}</h1>
+          <div class="flex items-center gap-4 text-xs text-[var(--text-muted)]">
+            <span>📊 市场结构</span>
+            <span>🎯 核心判断</span>
+            <span>📈 入场参考</span>
+          </div>
+        </header>
 
-    <div class="p-5 bg-[var(--bg-secondary)] rounded-xl mb-8 border-l-4 border-primary">
-      <p class="text-xs text-primary font-semibold mb-2">📌 核心摘要</p>
-      <p class="text-sm text-[var(--text-primary)] leading-relaxed">价格持续下跌，形成下降趋势，反弹至阻力位附近可做空。</p>
-    </div>
+        <div class="article-content" set:html={content} />
+      </article>
 
-    <div class="card p-6 mb-6">
-      <h2 class="text-white font-semibold mb-4">📊 市场结构</h2>
-      <p class="text-sm text-[var(--text-primary)] mb-4">高点降低，低点降低，空头趋势明显，当前处于下跌通道中。</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力 R2</div><div class="text-sm font-bold text-white font-mono">70186.91</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力 R1</div><div class="text-sm font-bold text-white font-mono">70881.83</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">中枢 Pivot</div><div class="text-sm font-bold text-primary font-mono">69491.99</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑 S1</div><div class="text-sm font-bold text-white font-mono">68797.07</div></div>
-      </div>
-    </div>
-
-    <div class="card p-6 mb-6">
-      <h2 class="text-white font-semibold mb-4">⛓️ 链上数据快照</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">交易所余额</div>
-          <div class="text-sm font-bold font-mono text-green-400">-3,200</div>
+      <aside class="hidden lg:block w-48 flex-shrink-0">
+        <div class="sticky top-24 bg-[var(--card)] border border-[var(--border)] rounded-xl p-5">
+          <h3 class="text-sm font-bold text-white mb-4">📋 目录</h3>
+          <nav class="toc-nav text-sm space-y-2" id="toc-nav">
+            <a href="#btc-market-structure" class="block py-1 text-[var(--text-muted)] hover:text-primary transition-colors">BTC 市场结构</a>
+            <a href="#btc-core-judgment" class="block py-1 text-[var(--text-muted)] hover:text-primary transition-colors">BTC 核心判断</a>
+            <a href="#btc-key-levels" class="block py-1 text-[var(--text-muted)] hover:text-primary transition-colors">BTC 关键水平</a>
+            <a href="#eth-market-structure" class="block py-1 text-[var(--text-muted)] hover:text-primary transition-colors">ETH 市场结构</a>
+            <a href="#eth-core-judgment" class="block py-1 text-[var(--text-muted)] hover:text-primary transition-colors">ETH 核心判断</a>
+          </nav>
         </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">未平仓变化</div>
-          <div class="text-sm font-bold font-mono text-accent">+2.1%</div>
-        </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">资金费率</div>
-          <div class="text-sm font-bold font-mono text-accent">0.006%</div>
-        </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">净流量(7d)</div>
-          <div class="text-sm font-bold font-mono text-green-400">-1,800</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-8 pt-6 border-t border-[var(--bo    </div>
-    
-    <!-- 交易建议卡片 -->
-    <div class="card p-6 mb-6">
-      <h2 class="text-white font-semibold mb-4">📈 交易建议</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">入场价</div>
-          <div class="text-sm font-bold font-mono text-white">69,491.99</div>
-        </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">止损</div>
-          <div class="text-sm font-bold font-mono text-red-400">70,186.91</div>
-        </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">止盈1</div>
-          <div class="text-sm font-bold font-mono text-green-400">68,797.07</div>
-        </div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center">
-          <div class="text-xs text-[var(--text-muted)]">止盈2</div>
-          <div class="text-sm font-bold font-mono text-green-400">68,102.15</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="mt-8 pt-6 border-t border-[var(--border)] flex flex-wrap gap-4 text-sm">
-      <a href="/zh/trading/" class="text-primary hover:underline no-underline">📊 查看模拟盘</a>
-      <a href="/zh/analysis/" class="text-primary hover:underline no-underline">📈 价格分析</a>
-      <a href="/zh/learn/" class="text-primary hover:underline no-underline">📚 学习中心</a>
+      </aside>
     </div>
   </div>
 </BaseLayout>
+
+<style is:global>
+  .article-content {
+    color: #c9cdd4;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    max-width: 1080px;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  .article-content h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e8e8e8;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #4b9cf5;
+    line-height: 1.45;
+  }
+  .article-content h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #d8d8d8;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .article-content p {
+    margin-bottom: 1.4rem;
+    color: #c9cdd4;
+  }
+  .article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.93rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .article-content th {
+    background: rgba(255,255,255,0.04);
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #d0d0d0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .article-content td {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+    color: #8b949e;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .article-content hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+    margin: 2.5rem 0;
+  }
+</style>

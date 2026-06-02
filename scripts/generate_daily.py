@@ -649,50 +649,53 @@ def main():
         goto_skip_api = False
         print("[WARN] 脚本分析失败，尝试 API 调用...")
 
-    # 1. 拉取市场数据
-    analysis = None
-    klines = []
-
-    if not args.skip_api:
-        # 1.1 拉取小时级 K 线数据（用于分析）
-        print(f"[INFO] Fetching hour-level K-lines for {args.pair}...")
-        klines = fetch_binance_klines_fallback(
-            symbol=args.pair.replace("/", ""),
-            interval="1h",
-            limit=100
-        )
-        
-        if klines:
-            print(f"[OK] Got {len(klines)} K-lines")
-            
-            # 1.2 调用 DeepSeek API 生成分析
-            print(f"[INFO] Calling DeepSeek API for analysis...")
-            analysis = call_deepseek_for_analysis(klines, args.pair)
-        
-        # 1.3 如果 DeepSeek 失败，使用本地分析
-        if analysis is None:
-            print("[WARN] DeepSeek API failed, using local analysis...")
-            analysis = analyze_price_action(klines)
-        
-        # 1.4 获取 CoinGecko 价格（用于展示）
-        cg_data = fetch_coingecko_btc()
-        if cg_data:
-            price = cg_data.get("bitcoin", {}).get("usd", 0)
-            print(f"[INFO] BTC price from CoinGecko: ${price:,}")
-            analysis["latestClose"] = price
-            # 更新 marketStructure 和 coreThesis（如果它们是默认的）
-            if "CoinGecko" not in analysis.get("marketStructure", ""):
-                analysis["marketStructure"] += f"\n\nCoinGecko 实时价格：${price:,}。"
-            if "BTC 当前报价" not in analysis.get("coreThesis", ""):
-                analysis["coreThesis"] += f"\n\nBTC 当前报价 ${price:,}。"
-    else:
-        print("[INFO] Skipping API calls (--skip-api)")
-        analysis = _fallback_analysis()
-
     if analysis is None:
-        analysis = _fallback_analysis()
+        # 1. 拉取市场数据
+        analysis = None
+        klines = []
 
-    onchain = fetch_onchain_data(analysis["direction"], args.pair.replace("/", ""))
+        if not args.skip_api:
+            # 1.1 拉取小时级 K 线数据（用于分析）
+            print(f"[INFO] Fetching hour-level K-lines for {args.pair}...")
+            klines = fetch_binance_klines_fallback(
+                symbol=args.pair.replace("/", ""),
+                interval="1h",
+                limit=100
+            )
+        
+            if klines:
+                print(f"[OK] Got {len(klines)} K-lines")
+            
+                # 1.2 调用 DeepSeek API 生成分析
+                print(f"[INFO] Calling DeepSeek API for analysis...")
+                analysis = call_deepseek_for_analysis(klines, args.pair)
+        
+            # 1.3 如果 DeepSeek 失败，使用本地分析
+            if analysis is None:
+                print("[WARN] DeepSeek API failed, using local analysis...")
+                analysis = analyze_price_action(klines)
+        
+            # 1.4 获取 CoinGecko 价格（用于展示）
+            cg_data = fetch_coingecko_btc()
+            if cg_data:
+                price = cg_data.get("bitcoin", {}).get("usd", 0)
+                print(f"[INFO] BTC price from CoinGecko: ${price:,}")
+                analysis["latestClose"] = price
+                # 更新 marketStructure 和 coreThesis（如果它们是默认的）
+                if "CoinGecko" not in analysis.get("marketStructure", ""):
+                    analysis["marketStructure"] += f"\n\nCoinGecko 实时价格：${price:,}。"
+                if "BTC 当前报价" not in analysis.get("coreThesis", ""):
+                    analysis["coreThesis"] += f"\n\nBTC 当前报价 ${price:,}。"
+        else:
+            print("[INFO] Skipping API calls (--skip-api)")
+            analysis = _fallback_analysis()
+
+        if analysis is None:
+            analysis = _fallback_analysis()
+
+        onchain = fetch_onchain_data(analysis["direction"], args.pair.replace("/", ""))
+    else:
+        pass  # analysis 已有值，跳过 API 调用
 
     # 2. 生成中文页面
     write_page(args.date, args.pair, analysis, onchain, lang="zh", dry_run=args.dry_run)

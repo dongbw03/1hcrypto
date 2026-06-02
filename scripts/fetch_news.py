@@ -13,8 +13,8 @@ import xml.etree.ElementTree as ET
 # ── 配置 ──────────────────────────────────
 API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 API_URL = "https://api.deepseek.com/v1/chat/completions"
-ZH_DIR  = Path(__file__).parent.parent / "src" / "zh" / "news"
-EN_DIR  = Path(__file__).parent.parent / "src" / "en" / "news"
+ZH_DIR  = Path(__file__).parent.parent / "src" / "content" / "zh" / "news"
+EN_DIR  = Path(__file__).parent.parent / "src" / "content" / "en" / "news"
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; 1hcrypto-bot/5.0)"}
 

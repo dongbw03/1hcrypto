@@ -41,6 +41,9 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/auto_trade.py
       
+      - name: Run fetch_altcoins.py（山寨币行情）
+        run: python scripts/fetch_altcoins.py
+      
       - name: Commit and push new content
         run: |
           git config --local user.email "action@github.com"

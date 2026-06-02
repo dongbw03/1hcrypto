@@ -498,6 +498,10 @@ def make_zh_markdown(date_str, pair, analysis, onchain):
         '',
         '*以上分析基于 Al Brooks 价格行为框架，仅供参考，不构成投资建议。*',
         '',
+        '---',
+        '',
+        '> 🤝 **支持本站**：通过 [币安](https://accounts.binance.com/register?ref=CPA_00ZIV33RO4) 或 [OKX](https://www.okx.com/join/1HCRYPTO) 注册，不影响费率，本站获得佣金支持。',
+        '',
     ]
     return "\n".join(lines)
 
@@ -537,7 +541,7 @@ def make_en_markdown(date_str, pair, analysis, onchain):
         '',
         f'**Market Structure** {struct}',
         '',
-        f'**Core Thesis** {core}',
+        f'**Core Judgment** {core}',
         '',
         '**Key Levels**',
         '',
@@ -599,6 +603,10 @@ def make_en_markdown(date_str, pair, analysis, onchain):
         core,
         '',
         '*Analysis based on Al Brooks Price Action framework. For reference only, not financial advice.*',
+        '',
+        '---',
+        '',
+        '> 🤝 **Support 1H Crypto:** Sign up via [Binance](https://accounts.binance.com/register?ref=CPA_00ZIV33RO4) or [OKX](https://www.okx.com/join/1HCRYPTO) — no extra cost, we earn a small commission.',
         '',
     ]
     return "\n".join(lines)

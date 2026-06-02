@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// Read altcoins data at build time
+let altcoinsData = null;
+let error = null;
+
+try {
+  const filePath = path.join(process.cwd(), 'src/data/altcoins.json');
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    altcoinsData = JSON.parse(fileContent);
+  }
+} catch (err) {
+  error = err.message;
+}
+
+// Format helpers
+const formatPrice = (p) => {
+  if (p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  if (p >= 1) return p.toFixed(2);
+  return p.toFixed(4);
+};
+
+const formatMcap = (m) => {
+  if (m >= 1e9) return '$' + (m / 1e9).toFixed(1) + 'B';
+  if (m >= 1e6) return '$' + (m / 1e6).toFixed(1) + 'M';
+  return '$' + m.toFixed(0);
+};
+
+const changeColor = (c) => {
+  if (c > 0) return 'text-green-400';
+  if (c < 0) return 'text-red-400';
+  return 'text-gray-400';
+};
+const changeSign = (c) => {
+  if (c > 0) return '+' + c.toFixed(2);
+  return c.toFixed(2);
+};
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Altcoin Market Overview - 1H Crypto",
+  "description": "Real-time altcoin prices, market cap rankings, and 24h changes for SOL, BNB, XRP, ADA, DOGE, DOT, AVAX, LINK, MATIC",
+  "datePublished": "${new Date().toISOString()}",
+  "dateModified": "${new Date().toISOString()}",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/altcoins/"
+  }
+}`}></script>
+<BaseLayout title="Altcoin Market Overview - 1H Crypto" lang="en" activeNav="altcoins">
+  <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <section class="py-12 px-4 max-w-6xl mx-auto">
+
+      <!-- Page Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Altcoin Market Overview
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] max-w-2xl mx-auto">
+          Real-time altcoin prices, market cap rankings, 24h price changes & trading volume
+        </p>
+        {altcoinsData && (
+          <p class="text-sm text-[var(--text-muted)] mt-4">
+            Last updated: {new Date(altcoinsData.timestamp).toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}
+          </p>
+        )}
+      </div>
+
+      {error && (
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-8">
+          <p class="text-red-400">⚠️ Failed to load data: {error}</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Please run: <code class="font-mono">python scripts/fetch_altcoins.py</code></p>
+        </div>
+      )}
+
+      <!-- Altcoin List -->
+      {altcoinsData && altcoinsData.coins && (
+        <div class="space-y-4 mb-12">
+          {altcoinsData.coins.map((coin, i) => (
+            <div class="bg-[var(--bg-card)] border border-[var(--border)] p-5 rounded-2xl hover:border-[var(--border-hover)] transition-colors">
+              <div class="flex items-center justify-between">
+                <!-- Rank + Icon + Name -->
+                <div class="flex items-center gap-4">
+                  <span class="text-[var(--text-muted)] w-6 text-right text-sm">{i + 1}</span>
+                  <div class="w-10 h-10 rounded-full bg-[var(--bg-primary)]/50 flex items-center justify-center text-lg">
+                    {coin.symbol === 'SOL' ? '◎' :
+                     coin.symbol === 'BNB' ? '◈' :
+                     coin.symbol === 'XRP' ? '✕' :
+                     coin.symbol === 'ADA' ? '◉' :
+                     coin.symbol === 'DOGE' ? '🐕' :
+                     coin.symbol === 'DOT' ? '●' :
+                     coin.symbol === 'AVAX' ? '▲' :
+                     coin.symbol === 'LINK' ? '🔗' :
+                     coin.symbol === 'MATIC' ? '⬡' : '●'}
+                  </div>
+                  <div>
+                    <div class="font-bold text-white">{coin.name}</div>
+                    <div class="text-xs text-[var(--text-muted)]">{coin.symbol}/USDT</div>
+                  </div>
+                </div>
+
+                <!-- Price -->
+                <div class="text-right">
+                  <div class="text-lg font-bold text-white font-mono">${formatPrice(coin.price)}</div>
+                  <div class={`text-sm font-mono ${changeColor(coin.change24h)}`}>
+                    {changeSign(coin.change24h)}%
+                  </div>
+                </div>
+
+                <!-- Market Cap -->
+                <div class="text-right hidden md:block">
+                  <div class="text-sm text-[var(--text-secondary)]">Market Cap</div>
+                  <div class="text-sm font-mono text-white">${formatMcap(coin.market_cap)}</div>
+                </div>
+
+                <!-- 24h Volume -->
+                <div class="text-right hidden lg:block">
+                  <div class="text-sm text-[var(--text-secondary)]">24h Volume</div>
+                  <div class="text-sm font-mono text-white">${formatMcap(coin.volume24h)}</div>
+                </div>
+
+                <!-- Trade Link -->
+                <a
+                  href={`https://www.binance.com/en/trade/${coin.symbol}_USDT`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-xs text-[var(--primary)] hover:underline no-underline ml-4"
+                >
+                  Trade →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- No Data Prompt -->
+      {!altcoinsData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-8 rounded-2xl mb-12 text-center">
+          <div class="text-4xl mb-4">🪙</div>
+          <h2 class="text-xl font-bold mb-2">Data Preparation in Progress</h2>
+          <p class="text-[var(--text-muted)] mb-4 max-w-lg mx-auto">
+            Altcoin market data is fetched from CoinGecko free API. No real-time data is currently available. Please run the data fetch script locally.
+          </p>
+          <div class="bg-[var(--bg-primary)]/50 rounded-lg p-4 inline-block text-left">
+            <p class="text-sm text-[var(--text-secondary)] mb-2 font-mono">python scripts/fetch_altcoins.py</p>
+            <p class="text-xs text-[var(--text-muted)]">Fetches SOL, BNB, XRP, ADA, DOGE, DOT, AVAX, LINK, MATIC prices & market cap</p>
+          </div>
+        </div>
+      )}
+
+      <!-- Data Guide -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+        <h2 class="text-2xl font-bold mb-6">📖 Altcoin Trading Guide</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Market Cap Ranking</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Market cap = price × circulating supply. Larger cap = lower volatility, better liquidity.
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Top 20 by market cap: usually blue-chip alts, lower risk</li>
+              <li>• Rank 20-100: moderate risk, good growth potential</li>
+              <li>• Rank 100+: high risk / high return, trade with caution</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">24h Volume</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Volume reflects market activity. Rising price + surging volume = confirmed trend.
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Price up + volume up: healthy uptrend</li>
+              <li>• Price up + volume down: watch for fakeout</li>
+              <li>• Price down + volume up: panic selling, avoid catching the knife</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Combining with Price Action</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Alts are more volatile than BTC/ETH. combining with Al Brooks price action improves entry timing.
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Reversal bar at key support: high-probability long</li>
+              <li>• Breakout + volume surge: consider chasing</li>
+              <li>• Alts correlate with BTC: avoid alts when BTC is uncertain</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">Risk Warning</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              Altcoins are much more volatile than BTC/ETH. Position sizing is critical.
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• Max 5% per altcoin position</li>
+              <li>• Always use a stop-loss, avoid holding bags</li>
+              <li>• Watch out for "pump and dump" schemes; stick to major alts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Affiliate Disclosure -->
+      <div class="mt-10 pt-6 border-t border-[var(--border)]">
+        <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. Using them may earn me a commission at no extra cost to you. <a href="/en/disclosure/" class="text-[var(--primary)] hover:underline">See Affiliate Disclosure</a>.</p>
+      </div>
+
+    </section>
+  </div>
+</BaseLayout>

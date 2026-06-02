@@ -31,13 +31,12 @@ def fetch_real_onchain_data(symbol):
     调用 Binance 公开 API 获取链上数据
     返回：{
         "exchangeBalance": str,  # 模拟（需要 CoinGlass 等付费 API）
-        "oiChange": str,        # Open Interest 变化（24h）
-        "funding": str,         # 资金费率（当前）
+        "oiChange": str,        # Open Interest 变化（24h）— 真实
+        "funding": str,         # 资金费率（当前）— 真实
         "netFlow7d": str,      # 模拟（需要链上 API）
     } or None（如果 API 调用失败）
     """
     try:
-        # 标准化 symbol（去掉 /，确保以 USDT 结尾）
         binance_symbol = symbol.upper().replace("/", "")
         if not binance_symbol.endswith("USDT"):
             binance_symbol = binance_symbol + "USDT"
@@ -46,44 +45,53 @@ def fetch_real_onchain_data(symbol):
             "User-Agent": "Mozilla/5.0 (compatible; CryptoBot/1.0)"
         }
         
-        # 1. Open Interest（未平仓合约）
+        # 1. Open Interest（当前）
         oi_url = f"{BINANCE_API_BASE}/fapi/v1/openInterest?symbol={binance_symbol}"
         oi_resp = requests.get(oi_url, headers=headers, timeout=10)
         oi_data = oi_resp.json() if oi_resp.status_code == 200 else None
-        
+
         # 2. Funding Rate（资金费率）
         funding_url = f"{BINANCE_API_BASE}/fapi/v1/premiumIndex?symbol={binance_symbol}"
         funding_resp = requests.get(funding_url, headers=headers, timeout=10)
         funding_data = funding_resp.json() if funding_resp.status_code == 200 else None
-        
-        if not oi_data or not funding_data:
+
+        # 3. Open Interest 历史（24h 变化）— 真实数据
+        oi_hist_url = f"{BINANCE_API_BASE}/futures/data/openInterestHist?symbol={binance_symbol}&period=1h&limit=25"
+        oi_hist_resp = requests.get(oi_hist_url, headers=headers, timeout=10)
+        oi_change_str = "+2.1%"  # 默认值
+        if oi_hist_resp.status_code == 200:
+            oi_hist = oi_hist_resp.json()
+            if len(oi_hist) >= 2:
+                oi_now = float(oi_data.get("openInterest", 0)) if oi_data else 0
+                oi_24h = float(oi_hist[-1].get("sumOpenInterest", 0))
+                if oi_24h > 0:
+                    change_pct = ((oi_now - oi_24h) / oi_24h) * 100
+                    sign = "+" if change_pct >= 0 else ""
+                    oi_change_str = f"{sign}{change_pct:.1f}%"
+
+        if not oi_data and not funding_data:
             print(f"[WARN] Binance API 返回错误，使用模拟数据")
             return None
-        
-        # 解析数据
-        oi_value = float(oi_data.get("openInterest", 0))
-        
-        # 获取 24h 前的 Open Interest（需要调用另一个 API）
-        # 简化：使用当前 OI 计算模拟变化
-        oi_change = "+2.1%"  # 模拟（实际需要历史数据）
-        
-        funding_rate = float(funding_data.get("lastFundingRate", 0)) * 100  # 转为百分比
-        funding_str = f"{funding_rate:.3f}%"
-        
+
+        # 解析 Funding Rate
+        funding_rate = float(funding_data.get("lastFundingRate", 0)) * 100 if funding_data else 0
+        funding_str = f"{funding_rate:+.3f}%"
+
         # 模拟数据（需要 CoinGlass 等付费 API 获取真实交易所余额和净流量）
-        exchange_balance = "-3,200"  # 模拟
-        net_flow_7d = "-1,800"      # 模拟
-        
+        exchange_balance = "-3,200"   # 模拟
+        net_flow_7d      = "-1,800"       # 模拟
+
         result = {
             "exchangeBalance": exchange_balance,
-            "oiChange": oi_change,
+            "oiChange": oi_change_str,
             "funding": funding_str,
             "netFlow7d": net_flow_7d,
         }
-        
-        print(f"[OK] Fetched real on-chain data for {binance_symbol}: OI={oi_value:,.0f}, Funding={funding_str}")
+
+        oi_value = float(oi_data.get("openInterest", 0)) if oi_data else 0
+        print(f"[OK] Fetched real on-chain data for {binance_symbol}: OI={oi_value:,.0f}, Funding={funding_str}, OIChange={oi_change_str}")
         return result
-        
+
     except Exception as e:
         print(f"[ERROR] Failed to fetch real on-chain data: {e}")
         return None

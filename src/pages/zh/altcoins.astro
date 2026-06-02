@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// 读取山寨币数据
+let altcoinsData = null;
+let error = null;
+
+try {
+  const filePath = path.join(process.cwd(), 'src/data/altcoins.json');
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    altcoinsData = JSON.parse(fileContent);
+  }
+} catch (err) {
+  error = err.message;
+}
+
+// 格式化价格
+const formatPrice = (p) => {
+  if (p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  if (p >= 1) return p.toFixed(2);
+  return p.toFixed(4);
+};
+
+// 格式化市值
+const formatMcap = (m) => {
+  if (m >= 1e9) return (m / 1e9).toFixed(1) + 'B';
+  if (m >= 1e6) return (m / 1e6).toFixed(1) + 'M';
+  return m.toFixed(0);
+};
+
+// 格式化涨幅
+const changeColor = (c) => {
+  if (c > 0) return 'text-green-400';
+  if (c < 0) return 'text-red-400';
+  return 'text-gray-400';
+};
+const changeSign = (c) => {
+  if (c > 0) return '+' + c.toFixed(2);
+  return c.toFixed(2);
+};
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "山寨币行情资讯 - 1H币研",
+  "description": "主流山寨币实时行情、价格变动、市值排名，涵盖 SOL、BNB、XRP、ADA、DOGE、DOT 等热门山寨币",
+  "datePublished": "${new Date().toISOString()}",
+  "dateModified": "${new Date().toISOString()}",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/altcoins/"
+  }
+}`}></script>
+<BaseLayout title="山寨币行情资讯 - 1H币研" lang="zh" activeNav="altcoins">
+  <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <section class="py-12 px-4 max-w-6xl mx-auto">
+
+      <!-- 页面标题 -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          山寨币行情资讯
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] max-w-2xl mx-auto">
+          实时追踪主流山寨币价格、市值、24h 成交量与涨跌幅度
+        </p>
+        {altcoinsData && (
+          <p class="text-sm text-[var(--text-muted)] mt-4">
+            数据更新时间: {new Date(altcoinsData.timestamp).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
+          </p>
+        )}
+      </div>
+
+      {error && (
+        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 mb-8">
+          <p class="text-red-400">⚠️ 数据加载失败: {error}</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">请确保已运行 python scripts/fetch_altcoins.py</p>
+        </div>
+      )}
+
+      <!-- 山寨币列表 -->
+      {altcoinsData && altcoinsData.coins && (
+        <div class="space-y-4 mb-12">
+          {altcoinsData.coins.map((coin, i) => (
+            <div class="bg-[var(--bg-card)] border border-[var(--border)] p-5 rounded-2xl hover:border-[var(--border-hover)] transition-colors">
+              <div class="flex items-center justify-between">
+                <!-- 排名 + 图标 + 名称 -->
+                <div class="flex items-center gap-4">
+                  <span class="text-[var(--text-muted)] w-6 text-right text-sm">{i + 1}</span>
+                  <div class="w-10 h-10 rounded-full bg-[var(--bg-primary)]/50 flex items-center justify-center text-lg">
+                    {coin.symbol === 'SOL' ? '◎' :
+                     coin.symbol === 'BNB' ? '◈' :
+                     coin.symbol === 'XRP' ? '✕' :
+                     coin.symbol === 'ADA' ? '◉' :
+                     coin.symbol === 'DOGE' ? '🐕' :
+                     coin.symbol === 'DOT' ? '●' :
+                     coin.symbol === 'AVAX' ? '▲' :
+                     coin.symbol === 'LINK' ? '🔗' :
+                     coin.symbol === 'MATIC' ? '⬡' :
+                     coin.symbol === 'UNI' ? '🦄' : '●'}
+                  </div>
+                  <div>
+                    <div class="font-bold text-white">{coin.name}</div>
+                    <div class="text-xs text-[var(--text-muted)]">{coin.symbol}/USDT</div>
+                  </div>
+                </div>
+
+                <!-- 价格 -->
+                <div class="text-right">
+                  <div class="text-lg font-bold text-white font-mono">${formatPrice(coin.price)}</div>
+                  <div class={`text-sm font-mono ${changeColor(coin.change24h)}`}>
+                    {changeSign(coin.change24h)}%
+                  </div>
+                </div>
+
+                <!-- 市值 -->
+                <div class="text-right hidden md:block">
+                  <div class="text-sm text-[var(--text-secondary)]">市值</div>
+                  <div class="text-sm font-mono text-white">${formatMcap(coin.market_cap)}</div>
+                </div>
+
+                <!-- 24h 成交量 -->
+                <div class="text-right hidden lg:block">
+                  <div class="text-sm text-[var(--text-secondary)]">24h 成交</div>
+                  <div class="text-sm font-mono text-white">${formatMcap(coin.volume24h)}</div>
+                </div>
+
+                <!-- 操作 -->
+                <a
+                  href={`https://www.binance.com/en/trade/${coin.symbol}_USDT`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-xs text-[var(--primary)] hover:underline no-underline ml-4"
+                >
+                  交易 →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- 无数据时提示 -->
+      {!altcoinsData && (
+        <div class="bg-[var(--bg-card)] border border-[var(--border)] p-8 rounded-2xl mb-12 text-center">
+          <div class="text-4xl mb-4">🪙</div>
+          <h2 class="text-xl font-bold mb-2">数据准备中</h2>
+          <p class="text-[var(--text-muted)] mb-4 max-w-lg mx-auto">
+            山寨币行情数据需要定期从 CoinGecko 免费 API 获取。当前暂无实时数据，请在本地运行数据抓取脚本。
+          </p>
+          <div class="bg-[var(--bg-primary)]/50 rounded-lg p-4 inline-block text-left">
+            <p class="text-sm text-[var(--text-secondary)] mb-2 font-mono">python scripts/fetch_altcoins.py</p>
+            <p class="text-xs text-[var(--text-muted)]">运行后会自动获取 SOL、BNB、XRP、ADA、DOGE 等山寨币行情</p>
+          </div>
+        </div>
+      )}
+
+      <!-- 数据说明 -->
+      <div class="bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl mb-8">
+        <h2 class="text-2xl font-bold mb-6">📖 山寨币投资参考</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3">市值排名意义</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              市值 = 价格 × 流通供应量。市值越大，价格波动通常越小，流动性越好。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 市值前 20：通常为主流币，风险相对较低</li>
+              <li>• 市值 20-100：中等风险，成长性较好</li>
+              <li>• 市值 100+：高风险高回报，需谨慎</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">24h 成交量解读</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              成交量反映市场活跃度。放量上涨通常代表趋势确认。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 价格上涨 + 成交量放大：趋势健康</li>
+              <li>• 价格上涨 + 成交量萎缩：警惕假突破</li>
+              <li>• 价格下跌 + 成交量放大：恐慌性抛售</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">如何结合价格行为</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              山寨币波动大，结合 Al Brooks 价格行为分析效果更好。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 关键支撑位出现反转 K 线：高胜率做多机会</li>
+              <li>• 突破关键阻力 + 放量：可追涨</li>
+              <li>• 山寨币联动 BTC：BTC 不稳时慎做山寨币</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3">风险提示</h3>
+            <p class="text-[var(--text-secondary)] mb-2">
+              山寨币波动远大于 BTC/ETH，仓位管理尤为重要。
+            </p>
+            <ul class="text-sm text-[var(--text-muted)] space-y-1">
+              <li>• 单币种仓位建议 ≤ 5%</li>
+              <li>• 严格设置止损，避免套牢</li>
+              <li>• 警惕"拉盘"骗局，只做主流山寨币</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 免责声明 -->
+      <div class="mt-10 pt-6 border-t border-[var(--border)]">
+        <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。<a href="/zh/disclosure/" class="text-[var(--primary)] hover:underline">详见推荐链接声明</a>。</p>
+      </div>
+
+    </section>
+  </div>
+</BaseLayout>

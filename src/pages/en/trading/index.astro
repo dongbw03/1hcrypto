@@ -87,7 +87,7 @@ const minVal = Math.min(...allValues);
 const maxVal = Math.max(...allValues);
 const valRange = maxVal - minVal || 1;
 
-function toX(i) { return pad.left + (i / (navSeries.length - 1)) * chartW; }
+function toX(i) { return navSeries.length > 1 ? pad.left + (i / (navSeries.length - 1)) * chartW : pad.left + chartW / 2; }
 function toY(v) { return pad.top + chartH - ((v - minVal) / valRange) * chartH; }
 
 const points = navSeries.map((p, i) => `${toX(i)},${toY(p.value)}`);
@@ -182,7 +182,7 @@ function fmtDate(d) {
     </div>
 
     <!-- NAV Curve -->
-    {navSeries.length >= 2 && (
+    {navSeries.length >= 1 && (
       <div class="card p-5 md:p-6 mb-8">
         <div class="flex items-center justify-between mb-2">
           <h2 class="text-lg font-bold text-white">Net Asset Value Curve</h2>

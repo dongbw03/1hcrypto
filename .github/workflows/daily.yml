@@ -1,0 +1,71 @@
+name: Daily Crypto Analysis & News
+
+on:
+  schedule:
+    # 每天 UTC 0:00 (北京时间 08:00) 运行
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 允许写入仓库（提交生成的文件）
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整历史，方便后续 git commit
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dateutil
+
+      - name: Restore previous data (trades.json)
+        uses: actions/cache@v4
+        with:
+          path: src/data/trades.json
+          key: trades-${{ hashFiles('src/data/trades.json') }}
+          restore-keys: |
+            trades-
+
+      - name: Run generate_daily.py (生成每日分析页面)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: cd scripts && python generate_daily.py
+
+      - name: Run price_analysis.py (生成价格行为学分析文章)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: cd scripts && python price_analysis.py
+
+      - name: Run fetch_news.py (抓取新闻生成快讯)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: cd scripts && python fetch_news.py
+
+      - name: Commit and push generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/ src/pages/ || true
+          git diff --cached --quiet || (git commit -m "auto: daily analysis & news update [skip ci]" && git push)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Cloudflare Pages (可选，如果希望自动部署)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=1hcrypto --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

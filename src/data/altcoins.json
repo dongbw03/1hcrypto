@@ -1,95 +1,95 @@
 {
-  "timestamp": "2026-06-02T13:34:22.792553+00:00",
+  "timestamp": "2026-06-02T16:50:06.789411+00:00",
   "coins": [
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 675.31,
-      "change24h": -2.06052,
-      "market_cap": 91060344177.0,
-      "volume24h": 1644186199.0,
+      "price": 665.98,
+      "change24h": -2.41668,
+      "market_cap": 89768735805.0,
+      "volume24h": 1693711861.0,
       "rank": 4
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.26,
-      "change24h": -2.51226,
-      "market_cap": 78362231731.0,
-      "volume24h": 1941120445.0,
+      "price": 1.24,
+      "change24h": -3.81488,
+      "market_cap": 76723453815.0,
+      "volume24h": 2340956301.0,
       "rank": 5
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 79.05,
-      "change24h": -1.56957,
-      "market_cap": 45720586792.0,
-      "volume24h": 2789420647.0,
+      "price": 77.02,
+      "change24h": -3.57822,
+      "market_cap": 44523187205.0,
+      "volume24h": 3162622664.0,
       "rank": 7
     },
     {
       "id": "dogecoin",
       "symbol": "DOGE",
       "name": "Dogecoin",
-      "price": 0.098712,
-      "change24h": -0.64413,
-      "market_cap": 15252956641.0,
-      "volume24h": 955446157.0,
+      "price": 0.095803,
+      "change24h": -3.10266,
+      "market_cap": 14800875640.0,
+      "volume24h": 1192491504.0,
       "rank": 11
     },
     {
       "id": "cardano",
       "symbol": "ADA",
       "name": "Cardano",
-      "price": 0.22327,
-      "change24h": -2.65618,
-      "market_cap": 8291706248.0,
-      "volume24h": 438408340.0,
+      "price": 0.218444,
+      "change24h": -4.53024,
+      "market_cap": 8114057811.0,
+      "volume24h": 535447205.0,
       "rank": 16
     },
     {
       "id": "chainlink",
       "symbol": "LINK",
       "name": "Chainlink",
-      "price": 8.85,
-      "change24h": -1.16895,
-      "market_cap": 6434160664.0,
-      "volume24h": 296816458.0,
-      "rank": 18
+      "price": 8.65,
+      "change24h": -3.36018,
+      "market_cap": 6290619060.0,
+      "volume24h": 336841147.0,
+      "rank": 20
     },
     {
       "id": "avalanche-2",
       "symbol": "AVAX",
       "name": "Avalanche",
-      "price": 8.7,
-      "change24h": -1.10571,
-      "market_cap": 3754650263.0,
-      "volume24h": 189597390.0,
+      "price": 8.46,
+      "change24h": -3.92239,
+      "market_cap": 3649826821.0,
+      "volume24h": 216499148.0,
       "rank": 31
     },
     {
       "id": "polkadot",
       "symbol": "DOT",
       "name": "Polkadot",
-      "price": 1.14,
-      "change24h": -0.71585,
-      "market_cap": 1920902582.0,
-      "volume24h": 175832058.0,
-      "rank": 45
+      "price": 1.12,
+      "change24h": -1.66689,
+      "market_cap": 1881383045.0,
+      "volume24h": 190213120.0,
+      "rank": 46
     },
     {
       "id": "uniswap",
       "symbol": "UNI",
       "name": "Uniswap",
-      "price": 2.92,
-      "change24h": -0.8965,
-      "market_cap": 1816828186.0,
-      "volume24h": 146123668.0,
-      "rank": 48
+      "price": 2.85,
+      "change24h": -3.35866,
+      "market_cap": 1774524122.0,
+      "volume24h": 163731071.0,
+      "rank": 50
     }
   ]
 }

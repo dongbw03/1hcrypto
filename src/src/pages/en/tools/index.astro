@@ -1,0 +1,458 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Recommended Tools - 1H Crypto",
+  "description": "Curated crypto exchanges, trading tools, hardware wallets, and quant platforms I personally use and recommend, with referral links.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-01T20:00:00+08:00",
+  "dateModified": "2026-06-01T22:00:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/tools/"
+  }
+}`}></script>
+<BaseLayout title="Recommended Tools - 1H Crypto" lang="en" activeNav="tools">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <h1 class="text-3xl font-bold text-white mb-2">Recommended Tools</h1>
+  <p class="text-[var(--text-muted)] mb-8 leading-relaxed">
+    These are tools and services I <span class="text-white">genuinely use</span> in my daily analysis and paper trading.
+    Every recommendation includes why I use it and what stands out. No paid placements — just things that actually work.
+  </p>
+  <div class="mb-8 p-5 bg-amber-600/10 border border-amber-600/20 rounded-lg">
+    <h3 class="text-amber-300 font-semibold mb-2">💡 How to use referral links</h3>
+    <div class="text-sm text-amber-200/80 leading-relaxed space-y-2">
+      <p><strong>Option 1 (Recommended):</strong> Click the "Sign Up via Link" button under each platform. Referral is auto-bound — no manual code entry needed.</p>
+      <p><strong>Option 2 (Backup):</strong> If the link doesn't open, manually enter the referral code on the registration page. You get the same benefits.</p>
+      <p>All referral codes are listed on each card. Click "Copy Code" to copy instantly.</p>
+    </div>
+  </div>
+
+  <!-- Exchanges -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] font-bold text-sm">1</div>
+      <h2 class="text-xl font-bold text-white">Exchanges</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Exchanges are the infrastructure of crypto trading. <strong class="text-white">Why multiple exchanges?</strong>
+      Different exchanges have different listing speeds, liquidity depth, and fee structures. Binance has the deepest liquidity. OKX has the best Chinese UX. Bybit has the most intuitive derivatives UI. Gate.io lists the widest range of altcoins. Multi-exchange positioning lets you capture opportunities across the entire market.
+    </p>
+    <div class="space-y-5">
+      <!-- Binance -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Binance — World's Largest Exchange</h3>
+              <span class="px-1.5 py-0.5 bg-[#F0B90B]/20 rounded text-[9px] text-[#F0B90B] font-medium">Essential</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Binance has the deepest order book globally — minimal slippage when executing at key price action levels. Supports sub-accounts for separating live trading, paper trading, and long-term holdings. Referral link gives you 20% spot / 10% futures fee rebate.</p>
+            </div>
+            <!-- Referral Code -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">CPA_00ZIV33RO4</span>
+              <button onclick="navigator.clipboard.writeText('CPA_00ZIV33RO4').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00ZIV33RO4" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.binance.com/en/support/faq" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Fee Schedule ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OKX -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">OKX — Best for Chinese-Speaking Users</h3>
+              <span class="px-1.5 py-0.5 bg-green-500/20 rounded text-[9px] text-green-400 font-medium">Recommended</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>OKX web and mobile apps are extremely friendly to Chinese-speaking users. The unified account mode lets you trade spot, futures, and options from a single margin pool. Copy trading is well-developed — great for learning-phase users.</p>
+            </div>
+            <!-- Referral Code -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">47930867</span>
+              <button onclick="navigator.clipboard.writeText('47930867').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.promoohubly.com/join/47930867" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.okx.com/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Unified Account Guide ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bybit -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Bybit — Best for Derivatives Trading</h3>
+              <span class="px-1.5 py-0.5 bg-blue-500/20 rounded text-[9px] text-blue-400 font-medium">Derivatives</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Bybit's futures UI is the most intuitive for price action traders — clean K-line charts, easy SL/TP setting. Supports credit card, P2P, and cross-chain bridge for deposits. Bybit Learn offers free education from beginner to advanced.</p>
+            </div>
+            <!-- Referral Code -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">BKWZKJN</span>
+              <button onclick="navigator.clipboard.writeText('BKWZKJN').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.bybit.com/invite?ref=BKWZKJN&medium=referral&utm_campaign=evergreen&share_to=link" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://learn.bybit.com/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Visit Bybit Learn ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gate.io -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Gate.io — Altcoin Discovery Hub</h3>
+              <span class="px-1.5 py-0.5 bg-purple-500/20 rounded text-[9px] text-purple-400 font-medium">Altcoins</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Gate.io lists far more tokens than Binance and OKX — many low-cap tokens list here first. Listing review is relatively lenient, so do your own research (DYOR). Liquidity on small caps can be thin — only use amounts you can afford to lose.</p>
+            </div>
+            <!-- Referral Code -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">VFJAXQWNBQ</span>
+              <button onclick="navigator.clipboard.writeText('VFJAXQWNBQ').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.gatewebsite.net/zh/signup/VFJAXQWNBQ?ref_type=103" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up via Link →</a>
+            <a href="https://www.gate.io/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Risk Warning ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trading Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] font-bold text-sm">2</div>
+      <h2 class="text-xl font-bold text-white">Trading Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Good charting tools make your analysis sharper. <strong class="text-white">Why a dedicated charting platform?</strong>
+      Built-in exchange charts are too basic for price action analysis. TradingView is the industry standard — used by every professional trader I know. Multi-timeframe analysis, custom indicators, real-time alerts — it's indispensable.
+    </p>
+    <div class="space-y-5">
+      <!-- TradingView -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">TradingView — The Standard Charting Platform</h3>
+              <span class="px-1.5 py-0.5 bg-[#2962FF]/20 rounded text-[9px] text-[#2962FF] font-medium">Essential</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Every price action chart on this site was created with TradingView. Chart rendering quality and data accuracy are both industry-leading. Supports custom annotations (lines, text, shapes) — perfect for documenting Al Brooks price action concepts. The free tier is sufficient for most individual traders.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">dongbw03</span>
+              <button onclick="navigator.clipboard.writeText('dongbw03').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.tradingview.com/pricing/?share_your_love=dongbw03" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">View TradingView Plans →</a>
+            <a href="https://www.tradingview.com/support/solutions/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Free vs Pro ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hardware Wallets -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] font-bold text-sm">3</div>
+      <h2 class="text-xl font-bold text-white">Hardware Wallets</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      "<strong class="text-white">Not your keys, not your crypto.</strong>" This is the golden rule. Coins on an exchange are essentially an IOU. If the exchange gets hacked or runs, your assets could vanish. A hardware wallet lets you truly own your assets — essential for long-term holders.
+    </p>
+    <div class="space-y-5">
+      <!-- Ledger -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Ledger — Industry-Standard Hardware Wallet</h3>
+              <span class="px-1.5 py-0.5 bg-[#00A4E4]/20 rounded text-[9px] text-[#00A4E4] font-medium">Security</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Private keys never leave the device. All signing happens inside the hardware — even if your computer is compromised, keys stay safe. Ledger Live supports 5,500+ tokens for send/receive/stake. Always buy from official channels. Never share your recovery phrase with anyone — not even Ledger support.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Official purchase link (with referral reward)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">Referral: 5b63cc287be0</span>
+              <button onclick="navigator.clipboard.writeText('5b63cc287be0').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://shop.ledger.com/?r=5b63cc287be0" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Buy on Official Site →</a>
+            <a href="https://www.ledger.com/academy" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Ledger Academy ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quant Trading Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] font-bold text-sm">4</div>
+      <h2 class="text-xl font-bold text-white">Quant Trading Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Quant tools execute repetitive strategies so you don't have to watch the screen 24/7.
+      <strong class="text-white">Who are these for?</strong> Traders with some experience who understand basic concepts (grid, DCA, TP/SL) but lack the time or coding skills to build their own bots. If you're a complete beginner, trade manually first to understand the logic before using quant tools.
+    </p>
+    <div class="space-y-5">
+      <!-- 3Commas -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">3Commas — Most Comprehensive Quant Platform</h3>
+              <span class="px-1.5 py-0.5 bg-purple-500/20 rounded text-[9px] text-purple-400 font-medium">Comprehensive</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Supports Grid Bots, DCA Bots, and Smart Trading Terminal. Connects to 18+ exchanges (Binance, OKX, Bybit, etc.) from a single account. Copy trading lets you follow successful traders. Start with small amounts and low leverage for testing.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">tc2231897</span>
+              <button onclick="navigator.clipboard.writeText('tc2231897').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://3commas.io/?utm_source=referral&utm_medium=cabinet&c=tc2231897" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on 3Commas →</a>
+            <a href="https://www.3commas.io/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Beginner Tutorial ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bitsgap -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Bitsgap — Best for Grid Trading</h3>
+              <span class="px-1.5 py-0.5 bg-blue-500/20 rounded text-[9px] text-blue-400 font-medium">Grid Expert</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Bitsgap's grid bot setup is intuitive — choose "Smart Grid" (AI auto-calculates parameters) or set grid density and price range manually. Supports strategy backtesting. Connects to 25+ exchanges. The Basic plan ($19/month) supports 2 active bots — enough for most individuals.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">257b2d5</span>
+              <button onclick="navigator.clipboard.writeText('257b2d5').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://bitsgap.com/?ref=257b2d5" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Bitsgap →</a>
+            <a href="https://bitsgap.com/help" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Grid Trading Guide ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coinrule -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Coinrule — No-Code Quant Strategies</h3>
+              <span class="px-1.5 py-0.5 bg-green-500/20 rounded text-[9px] text-green-400 font-medium">No-Code</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Coinrule uses simple If-Then logic — no coding required. Provides strategy templates like "Buy the Dip" and "Trailing Take Profit." Supports 10+ exchanges including Binance and Coinbase. The interface is clean and beginner-friendly.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">lzh8v4</span>
+              <button onclick="navigator.clipboard.writeText('lzh8v4').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://web.coinrule.com/coupon/25REFERRALDISCOUNT?tobilling=true&fpr=lzh8v4" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Coinrule →</a>
+            <a href="https://coinrule.com/learn/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Strategy Learning Center ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cryptohopper -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Cryptohopper — Cloud-Based Automated Trading</h3>
+              <span class="px-1.5 py-0.5 bg-yellow-500/20 rounded text-[9px] text-yellow-400 font-medium">Cloud-Based</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>All bots run 24/7 in the cloud — no need to keep your PC on. Has a strategy marketplace where you can buy strategies from other traders. Supports 130+ technical indicators and connects to 17+ exchanges including Binance and OKX.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">40729</span>
+              <button onclick="navigator.clipboard.writeText('40729').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://www.cryptohopper.com/?atid=40729" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Sign Up on Cryptohopper →</a>
+            <a href="https://www.cryptohopper.com/tutorials/" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">View Tutorials ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tax Tools -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-lg bg-[var(--bg-card)] border border-[var(--primary)]/30 flex items-center justify-center text-[var(--primary)] font-bold text-sm">5</div>
+      <h2 class="text-xl font-bold text-white">Tax Tools</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      If you have tax filing obligations in <strong class="text-white">Western countries</strong>, crypto tax software is essential.
+      Different countries treat crypto differently (capital gains tax, income tax, etc.), and manual calculation is tedious and error-prone.
+      These tools auto-sync exchange and wallet data to generate compliant tax reports.
+    </p>
+    <div class="space-y-5">
+      <!-- Koinly -->
+      <div class="card p-5 hover:border-primary/30 transition-colors">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="text-white font-semibold text-base">Koinly — Crypto Tax Calculator</h3>
+              <span class="px-1.5 py-0.5 bg-amber-500/20 rounded text-[9px] text-amber-400 font-medium">Tax</span>
+            </div>
+            <div class="text-sm text-[var(--text-muted)] leading-relaxed space-y-2">
+              <p>Koinly supports auto-sync from 350+ exchanges and 40+ wallets. Generates tax reports compliant with local laws in 100+ countries (e.g., Form 8949 in the US, Capital Gains Summary in the UK). Supports FIFO, LIFO, HIFO cost basis methods. Primarily for users with tax obligations in Western jurisdictions.</p>
+            </div>
+            <!-- Referral -->
+            <div class="mt-4 px-3 py-2 bg-[var(--bg-primary)] rounded-lg border border-[var(--border)] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
+              <span class="text-xs text-[var(--text-muted)] shrink-0">Referral code (manual entry)</span>
+              <span class="font-mono text-primary font-bold text-sm select-all">E5E574C6</span>
+              <button onclick="navigator.clipboard.writeText('E5E574C6').then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy Code',1500)})" class="px-3 py-1 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors cursor-pointer whitespace-nowrap shrink-0">Copy Code</button>
+            </div>
+          </div>
+          <div class="shrink-0 flex flex-col gap-2">
+            <a href="https://koinly.io/?via=E5E574C6&utm_source=affiliate" target="_blank" rel="sponsored noopener" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors text-sm whitespace-nowrap text-center">Use Koinly →</a>
+            <a href="https://koinly.io/guides" target="_blank" rel="noopener" class="px-4 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 transition-colors text-center">Tax Guides by Country ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Educational Articles -->
+  <section class="mb-12">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center text-white font-bold text-sm">📚</div>
+      <h2 class="text-xl font-bold text-white">Educational Articles</h2>
+    </div>
+    <p class="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
+      Practical crypto trading articles I've written — covering price action, exchange selection, risk management, and more. Continuously updated; bookmark this page.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href="/en/learn/what-is-bitcoin" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary text-lg shrink-0">📊</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">What is Bitcoin?</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Decentralized digital currency, blockchain basics, halving, and why it matters...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="/en/learn/how-to-register-exchange" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-[#F0B90B]/20 flex items-center justify-center text-[#F0B90B] text-lg shrink-0">🏦</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">How to Choose & Register an Exchange</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Binance vs OKX vs Bybit vs Gate.io comparison, registration walkthrough...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="/en/learn/okx-review" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 text-lg shrink-0">🔍</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">OKX Exchange Deep Review</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Unified account, funding rates, copy trading, fee structure fully analyzed...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="/en/learn/risk-management" class="card p-5 hover:border-primary/30 transition-colors block">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400 text-lg shrink-0">⚠️</div>
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-1">Risk Management: Protect Your Capital</h3>
+            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Position sizing, stop-loss placement, leverage selection, black swan response...</p>
+            <div class="mt-2 text-[10px] text-primary">Read Full Article →</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <div class="mt-8 p-5 bg-amber-600/10 border border-amber-600/20 rounded-lg">
+    <h3 class="text-amber-300 font-semibold mb-2">⚠️ Disclaimer & Terms</h3>
+    <div class="text-sm text-amber-200/80 leading-relaxed space-y-2">
+      <p><strong>Referral Link Disclosure:</strong> Some links on this site are referral links. If you register, subscribe, or purchase through these links, I may earn a small commission at no extra cost to you. Commissions go toward site maintenance, content updates, and server costs. Your pricing and benefits are never affected.</p>
+      <p><strong>Risk Warning:</strong> Cryptocurrency trading carries extreme risk and may result in total loss of capital. All content on this site (including recommended tools, educational articles, and analysis opinions) is for learning and communication purposes only — not investment advice. Please make investment decisions cautiously after fully understanding the risks. Past performance does not guarantee future results.</p>
+      <p><strong>Liability Disclaimer:</strong> This site and its author assume no responsibility for any direct or indirect losses caused by using recommended tools or referencing this site's content. Please do your own research (DYOR) and understand the risks before using any recommended tools.</p>
+    </div>
+  </div>
+</div>
+
+</BaseLayout>

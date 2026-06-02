@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "关于本站",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/about/"
+  }
+}`}></script>
+<BaseLayout title="关于本站" lang="zh" activeNav="about">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <h1 class="text-3xl font-bold text-white mb-2">关于 1H币研</h1>
+  <p class="text-[var(--text-muted)] mb-8">用阿尔·布鲁克斯方法做 BTC & ETH 日内分析的独立交易者。</p>
+  <div class="space-y-4 text-[var(--text-secondary)] text-sm leading-relaxed">
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">我不是分析师</h3><p>我是一个使用阿尔·布鲁克斯价格行为学做加密货币日内分析的独立交易者。不提供投资建议，不喊单，不拉群。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">分析框架</h3><p>每天上午 8:30（北京时间），发布一篇 BTC/USDT 和 ETH/USDT 小时图的价格行为分析，涵盖：K 线形态、链上数据、衍生品情绪和模拟盘演示。</p></div>
+    <div class="card p-6"><h3 class="text-white font-semibold mb-2">目标</h3><p>365 天后积累 365 份带验证的价格行为分析记录。</p></div>
+  </div>
+</div>
+
+</BaseLayout>

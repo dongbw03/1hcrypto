@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout lang="zh" title="社媒内容模板 | 1hcrypto" description="Twitter/X 和 Telegram 社媒内容模板，用于日常行情解读和技术分析分享。">
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-[var(--text-primary)] mb-2">📱 社媒内容模板</h1>
+    <p class="text-[var(--text-muted)] mb-10">直接复制使用，保持账号活跃度。每日 8:30 同步更新。</p>
+
+    <!-- Twitter/X Templates -->
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-[var(--text-primary)] mb-6 flex items-center gap-2">
+        <span class="text-2xl">🐦</span> Twitter/X 模板
+      </h2>
+
+      <div class="space-y-6">
+        <!-- Template 1: Daily Analysis -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">每日分析推文</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">📊 BTC 今日分析（2026-05-31）
+
+1H 收盘：71,200
+关键位：
+• 支撑：70,500 / 69,800
+• 阻力：72,000 / 73,500
+
+信号：1H EMA20 上穿，RSI 58，资金费率 -0.003%（空头付费）
+
+判断：偏多，等 70,500 回调进多，止损 69,700。
+
+全文：https://1hcrypto.com/zh/daily/2026-05-31/
+
+#BTC #加密货币 #技术分析</pre>
+        </div>
+
+        <!-- Template 2: Trade Alert -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-amber-500 bg-amber-500/10 px-2 py-1 rounded">交易信号推文</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">⚡ 模拟盘更新
+
+📈 开仓：BTC/USDT 多单
+入场：71,200
+止损：70,400
+目标：73,000（1:2.25）
+
+理由：1H 突破前高 + 资金费率负 + OI 上升
+
+查看分析：https://1hcrypto.com/zh/daily/2026-05-31/
+
+⚠️ 模拟盘，非投资建议
+
+#BTC #交易记录</pre>
+        </div>
+
+        <!-- Template 3: Weekly Recap -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-green-500 bg-green-500/10 px-2 py-1 rounded">周度复盘推文</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">📅 本周复盘（5月26日 - 5月30日）
+
+BTC：+3.2%，周线收阳
+ETH：+5.1%，表现优于 BTC
+准确率：12/18 = 66.7%
+
+下周关键位：
+• BTC 支撑 69,500，阻力 73,000
+• ETH 支撑 3,600，阻力 3,900
+
+全文：https://1hcrypto.com/zh/weekly/
+
+#加密货币 #周复盘</pre>
+        </div>
+
+        <!-- Template 4: Quick Alert -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-red-500 bg-red-500/10 px-2 py-1 rounded">快讯推文</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">🚨 快讯
+
+BTC 1H 大阴线跌破 70,800，成交量放大。
+
+短多止损盘被触发，观察 70,500 是否守住。
+
+实时分析：https://1hcrypto.com/zh/daily/2026-05-31/
+
+#BTC #行情</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telegram Templates -->
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-[var(--text-primary)] mb-6 flex items-center gap-2">
+        <span class="text-2xl">✈️</span> Telegram 模板
+      </h2>
+
+      <div class="space-y-6">
+        <!-- Template 1: Daily Channel Post -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">频道日报</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">📊 【每日分析】2026-05-31
+
+BTC/USDT 1H 分析
+
+💰 当前价格：71,200
+📍 关键支撑：70,500 / 69,800
+📍 关键阻力：72,000 / 73,500
+
+📈 技术指标：
+• EMA20：71,000（价格在上方，偏多）
+• RSI：58（健康多头区间）
+• 资金费率：-0.003%（空头付费，偏多信号）
+• OI：+2.1%（资金流入）
+
+✅ 操作建议：等 70,500 回调进多，止损 69,700，目标 73,000
+
+📖 全文：https://1hcrypto.com/zh/daily/2026-05-31/
+
+⚠️ 仅供参考，非投资建议</pre>
+        </div>
+
+        <!-- Template 2: Trade Notification -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-amber-500 bg-amber-500/10 px-2 py-1 rounded">交易通知</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">🔔 【模拟盘交易通知】
+
+📈 开仓：BTC/USDT 多单
+🕐 时间：2026-05-31 09:15
+💵 入场价：71,200
+🛑 止损：70,400（-1.12%）
+🎯 目标：73,000（+2.52%，1:2.25）
+
+📝 理由：
+• 1H 突破前高 71,800
+• 资金费率负，空头付费
+• OI 上升，资金流入
+
+📖 分析原文：https://1hcrypto.com/zh/daily/2026-05-31/
+
+⚠️ 模拟盘记录，非实盘建议</pre>
+        </div>
+
+        <!-- Template 3: Market Alert -->
+        <div class="p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-red-500 bg-red-500/10 px-2 py-1 rounded">行情警报</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.p-6').querySelector('pre').textContent)" class="text-xs text-[var(--text-muted)] hover:text-primary transition-colors">复制</button>
+          </div>
+          <pre class="text-sm text-[var(--text-primary)] whitespace-pre-wrap font-sans leading-relaxed bg-[var(--bg-card)] p-4 rounded-lg overflow-x-auto">🚨 【行情警报】
+
+BTC 1H 大阴线，跌破 70,800 支撑。
+
+📉 当前价格：70,600（-1.8%）
+📊 成交量：明显高于平均
+💧 清算量：约 $12M 短多被爆
+
+👀 关注：
+• 70,500 是否守住（关键支撑）
+• 若跌破，下一支撑 69,800
+• 成交量是否持续放大
+
+📖 实时更新：https://1hcrypto.com/zh/daily/2026-05-31/
+
+⚠️ 仅供参考</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Guide -->
+    <section class="p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)]">
+      <h3 class="text-lg font-bold text-[var(--text-primary)] mb-4">📋 使用说明</h3>
+      <ul class="space-y-2 text-sm text-[var(--text-secondary)]">
+        <li>✅ 每日 8:30 分析发布后，复制对应模板发布到社媒</li>
+        <li>✅ 开仓后 5 分钟内发布交易通知</li>
+        <li>✅ 止损/止盈触发后发布结果更新</li>
+        <li>✅ 周度复盘发布后同步发布周复盘推文</li>
+        <li>⚠️ 所有模板含免责声明，不删除</li>
+        <li>⚠️ 链接指向对应分析页，不指向首页</li>
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,10 @@
+# Cloudflare Pages deployment config for 1hcrypto.com
+name = "1hcrypto"
+compatibility_date = "2025-01-01"
+
+# Build output directory
+pages_build_output_dir = "dist"
+
+# Environment variables (non-secret)
+[vars]
+SITE_URL = "https://1hcrypto.com"

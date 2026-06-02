@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "如何用法币买币——P2P交易完整指南 - 1H币研",
+  "description": "从银行账户到持有USDT，手把手教你在没有境外银行账户的情况下，安全低成本地买入加密货币。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/how-to-buy-crypto-p2p/"
+  }
+}`}></script>
+<BaseLayout title="如何用法币买币——P2P交易完整指南 - 1H币研" lang="zh" description="从银行账户到持有USDT，手把手教你在没有境外银行账户的情况下，安全低成本地买入加密货币。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">如何用法币买币——P2P交易完整指南</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 阅读时间约 8 分钟</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">对于中国用户来说，"怎么把人民币变成USDT"是进入加密货币世界的第一道门槛。这篇文章把P2P（点对点）买币的完整流程讲清楚。</p>
+
+    <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-8">
+      <p class="text-amber-400 text-sm font-medium">⚠️ 风险提示</p>
+      <p class="text-[var(--text-secondary)] text-sm mt-1">P2P交易涉及银行账户风控、冻卡等风险。本文仅供教育参考，不构成金融建议。操作前请了解当地法律法规。</p>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">什么是P2P？</h2>
+    <p>P2P（Peer-to-Peer）就是"个人对个人"交易——你通过交易所的担保平台，直接用人民币向其他用户购买USDT（或USDC），资金和币都不经过交易所的"资金池"，而是由平台作为<strong>担保方</strong>托管。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">推荐平台对比</h2>
+
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">平台</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">支持支付渠道</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">手续费</th>
+            <th class="py-3 text-[var(--text-primary)] font-semibold">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Binance P2P</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">支付宝、微信、银行卡</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">0%（商家加点差）</td>
+            <td class="py-3 text-[var(--text-secondary)]">流动性最好，商家最多</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">OKX P2P</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">支付宝、微信、银行卡</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">0%（商家加点差）</td>
+            <td class="py-3 text-[var(--text-secondary)]">中文体验好，KYC较严</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Gate.io P2P</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">银行卡、微信</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">0%（商家加点差）</td>
+            <td class="py-3 text-[var(--text-secondary)]">币种较多，流动性一般</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Binance P2P 买币完整步骤</h2>
+    <ol class="list-decimal pl-6 space-y-3">
+      <li><strong>注册并完成KYC</strong>：在 Binance 完成手机/邮箱注册，上传身份证完成实名认证。</li>
+      <li><strong>进入P2P页面</strong>：App 首页点击"买币"→"P2P交易"。</li>
+      <li><strong>筛选商家</strong>：选择 USDT，筛选条件设为"支付宝/微信支付"，商家认证等级选"已认证商家"，完成订单数 &gt;500。</li>
+      <li><strong>下单</strong>：输入购买金额，点击"购买USDT"。系统会把资金托管在平台。</li>
+      <li><strong>付款</strong>：按照商家提供的收款信息，在<strong>15分钟内</strong>完成转账。备注里<strong>不要写</strong>"比特币""USDT"等字眼，只写纯数字备注（如果商家要求）。</li>
+      <li><strong>确认收款</strong>：商家确认收到款项后，平台会把USDT释放到你的现货钱包。</li>
+    </ol>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">降低冻卡风险的 7 条铁律</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>只和<strong>平台认证商家</strong>交易，不要私下转账。</li>
+      <li>单笔金额不要过大，建议 &lt;1万元人民币。</li>
+      <li>专卡专用：准备一张<strong>不常用的银行卡</strong>专门用于P2P收款，主卡资金通过"中转卡"转移。</li>
+      <li>收到款后<strong>不要立刻转出</strong>，在交易所内停留至少24小时。</li>
+      <li>避免夜间（22:00-6:00）大额交易，银行风控系统此时最敏感。</li>
+      <li>如果商家要求"分笔转账"，拒绝——这通常是洗钱行为。</li>
+      <li>保留所有交易截图和聊天记录，万一银行卡被冻结可以作为申诉材料。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">买完USDT之后呢？</h2>
+    <p>USDT到手后，你有几个选择：</p>
+    <ul class="list-disc pl-6 space-y-2 mt-3">
+      <li><strong>持有USDT</strong>：等合适的时机买入BTC/ETH。</li>
+      <li><strong>转入硬件钱包</strong>：如果金额较大，从交易所提到自己的硬件钱包（先小额测试）。</li>
+      <li><strong>参与DeFi</strong>：把USDT/ETH转入MetaMask等钱包，参与去中心化交易或质押（高风险）。</li>
+    </ul>
+
+    <div class="mt-8 p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+      <p class="text-sm text-[var(--text-muted)] mb-1">🛡️ 联盟推荐</p>
+      <p class="text-[var(--text-secondary)] text-sm">注册 Binance 并通过P2P买币，使用以下推荐链接可获得手续费折扣：</p>
+      <a href="https://www.bsmkweb.cc/activity/referral-entry/CPA?ref=CPA_00ZIV33RO4" class="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity" target="_blank" rel="sponsored noopener">注册 Binance（推荐链接）→</a>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">总结</h2>
+    <p>P2P是目前中国用户入金的主要通道，但也是风险最高的环节。选择大平台、认证商家、专卡专用、小额分散——这四条能做到，风险就能控制在一个可接受的范围内。</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 本文属于<a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>系列，持续更新中。</p>
+  </div>
+</div>
+</BaseLayout>

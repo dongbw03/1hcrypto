@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Weekly Review | 1H Crypto" description="Weekly Bitcoin & Ethereum price action review based on Al Brooks methodology. Weekly technical analysis recap." lang="en" activeNav="weekly">
+<script type="application/ld+json">{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Weekly Review",
+  "description": "Weekly Bitcoin & Ethereum price action review based on Al Brooks methodology.",
+  "inLanguage": "en-US",
+  "datePublished": "2026-01-05T20:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": { "@type": "Person", "name": "1H Crypto Trader" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": { "@type": "ImageObject", "url": "https://1hcrypto.com/favicon.svg" }
+  },
+  "mainEntityOfPage": { "@type": "@id", "@id": "https://1hcrypto.com/en/weekly/" }
+})}</script>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+  <div class="mb-10">
+    <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Weekly Review</h1>
+    <p class="text-[var(--text-muted)] text-sm">Published every Sunday · BTC & ETH weekly price action recap + paper trading performance.</p>
+    <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+      <span class="px-2.5 py-1 rounded-full bg-white/5 border border-[var(--border)]">Sundays 20:00 Beijing Time</span>
+      <span>|</span>
+      <span>Trading Calendar: Mon–Fri</span>
+    </div>
+  </div>
+
+  <!-- Latest Weekly -->
+  <div class="mb-12">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-primary"></div>
+      <h2 class="text-xl font-bold text-white">Latest Review</h2>
+      <span class="text-xs text-[var(--text-muted)] ml-2">Starting 2026-06-02</span>
+    </div>
+
+    <div class="card p-8 text-center">
+      <div class="text-4xl mb-4">📊</div>
+      <h3 class="text-lg font-bold text-white mb-2">Weekly Review Preparing</h3>
+      <p class="text-sm text-[var(--text-muted)] mb-4">Paper trading will officially launch on 2026-06-02. The first weekly review will be published on 2026-06-07 (Sunday).</p>
+      <div class="flex flex-wrap justify-center gap-3 text-xs text-[var(--text-muted)]">
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Every Sunday 20:00 UTC+8</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Based on Al Brooks Price Action</span>
+        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-[var(--border)]">Paper Trading P&L Transparent</span>
+      </div>
+      <a href="/en/daily/" class="inline-flex items-center gap-1.5 text-sm text-primary hover:underline mt-6">View Daily Analysis →</a>
+    </div>
+  </div>
+
+  <!-- Historical Weekly -->
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1 h-5 rounded-full bg-[var(--border)]"></div>
+      <h2 class="text-xl font-bold text-white">Historical Reviews</h2>
+    </div>
+
+    <div class="card p-6 text-center">
+      <p class="text-sm text-[var(--text-muted)]">No historical reviews yet. First weekly review will be published on 2026-06-07.</p>
+    </div>
+  </div>
+
+  <div class="card p-6 bg-white/[0.02] border border-[var(--border)]">
+    <h3 class="text-sm font-semibold text-white mb-3">Weekly Review Methodology</h3>
+    <ul class="space-y-2 text-sm text-[var(--text-muted)]">
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Based on Al Brooks price action — focus on 1H/4H K-line structure</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Weekly paper trading record, transparent P&L</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Combined with on-chain data (exchange netflow) for confirmation</li>
+      <li class="flex items-start gap-2"><span class="text-primary mt-0.5">▸</span>Next week plan: key levels + trigger conditions + risk management</li>
+    </ul>
+  </div>
+</div>
+
+</BaseLayout>

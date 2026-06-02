@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// 动态读取 analysis 目录下的 MDX 文件列表
+let analysisPosts = [];
+try {
+  const analysisDir = path.join(process.cwd(), 'src/content/en/analysis');
+  if (fs.existsSync(analysisDir)) {
+    const files = fs.readdirSync(analysisDir)
+      .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
+      .map(f => {
+        const filePath = path.join(analysisDir, f);
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const matter = require('gray-matter');
+        const { data } = matter(content);
+        return {
+          slug: f.replace(/\.(mdx|md)$/, ''),
+          title: data.title || f,
+          date: data.date || '',
+          description: data.description || '',
+          tags: data.tags || []
+        };
+      })
+      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    analysisPosts = files;
+  }
+} catch (err) {
+  console.error('Failed to load analysis posts:', err.message);
+}
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Price Analysis - 1H Crypto",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/analysis/"
+  }
+}`}></script>
+<BaseLayout title="Price Analysis - 1H Crypto" lang="en" activeNav="analysis">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <p class="text-[var(--text-muted)] text-sm mb-2">
+      <a href="/en/" class="text-primary hover:underline">← Home</a>
+    </p>
+    <h1 class="text-3xl font-bold text-white mb-2">📊 Price Analysis</h1>
+    <p class="text-[var(--text-muted)] mb-8">Professional BTC & ETH Technical Analysis Reports (1H Timeframe)</p>
+
+    <div id="analysis-list" class="space-y-6">
+      {analysisPosts.length === 0 && (
+        <div class="text-center py-12 text-[var(--text-muted)]">
+          <p>No analysis reports yet. Check back soon.</p>
+        </div>
+      )}
+
+      {analysisPosts.map((post) => (
+        <a href={`/en/analysis/${post.slug}/`} class="block bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-primary/50 transition-colors no-underline group">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+            <h2 class="text-xl font-semibold text-white group-hover:text-primary transition-colors">{post.title}</h2>
+            <span class="text-xs text-[var(--text-muted)] whitespace-nowrap">{post.date}</span>
+          </div>
+          {post.description && (
+            <p class="text-[var(--text-secondary)] text-sm mb-3 leading-relaxed">{post.description}</p>
+          )}
+          {post.tags && post.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">{tag}</span>
+              ))}
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

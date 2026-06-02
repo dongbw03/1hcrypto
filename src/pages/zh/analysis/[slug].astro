@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob('../../../content/zh/analysis/*.md', { eager: true });
+  return Object.keys(modules).map(filePath => {
+    const slug = filePath.split('/').pop().replace(/\.(md|mdx)$/, '');
+    return { params: { slug } };
+  });
+}
+
+const { slug } = Astro.params;
+
+const modules = import.meta.glob('../../../content/zh/analysis/*.md', { eager: true });
+const entry = Object.entries(modules).find(([fp]) => {
+  const f = fp.split('/').pop().replace(/\.(md|mdx)$/, '');
+  return f === slug;
+});
+
+if (!entry) return Astro.redirect('/zh/analysis/');
+const [ , module] = entry;
+const { data, content } = matter(module.rawContent());
+const htmlContent = marked.parse(content);
+---
+<BaseLayout 
+  title={`${data.title || slug} - 价格分析 | 1H币研`}
+  description={data.description || `价格行为分析：${data.title || slug}`}
+  lang="zh"
+  activeNav="analysis"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": data.title || slug,
+    "description": data.description || "",
+    "datePublished": data.date || new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "author": { "@type": "Person", "name": "1H Crypto Trader" },
+    "publisher": { "@type": "Organization", "name": "1H币研" }
+  })}></script>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-8 fade-in-on-scroll">
+      <a href="/zh/analysis/" class="text-sm text-[var(--text-muted)] hover:text-primary transition-colors no-underline">← 返回价格分析</a>
+    </div>
+
+    <article class="card p-6 sm:p-8 fade-in-on-scroll">
+      <header class="mb-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge badge-blue">价格分析</span>
+          {data.date && <span class="text-xs text-[var(--text-muted)] font-mono">{new Date(data.date).toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' })}</span>}
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-white mb-4 leading-tight">{data.title || slug}</h1>
+        {data.description && <p class="text-[var(--text-secondary)] text-lg leading-relaxed">{data.description}</p>}
+        {data.tags && data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {data.tags.map((tag) => (
+              <span class="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full">{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="article-content" set:html={htmlContent}></div>
+    </article>
+
+    <div class="mt-8 card p-5 bg-[var(--bg-card)]/30 border border-[var(--border)]" id="ref-card-bottom">
+      <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="ref-text-bottom">
+        <span class="text-[var(--text-secondary)] font-medium">🤝 支持本站：</span>正在加载推荐...
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const refs = [
+          {n:"币安",c:"币安",k:"CPA_00ZIV33RO4",u:"https://accounts.binance.com/register?ref=CPA_00ZIV33RO4"},
+          {n:"OKX",c:"OKX",k:"1HCRYPTO",u:"https://www.okx.com/join/1HCRYPTO"},
+          {n:"Bybit",c:"Bybit",k:"1HCRYPTO",u:"https://www.bybit.com/invite?ref=1HCRYPTO"},
+          {n:"Bitget",c:"Bitget",k:"1hcrypto",u:"https://www.bitget.com/expressly?shareCode=1hcrypto"},
+          {n:"Gate.io",c:"Gate",k:"1hcrypto",u:"https://www.gate.io/signup/1hcrypto"},
+          {n:"KuCoin",c:"KuCoin",k:"1hcrypto",u:"https://www.kucoin.com/r/af/1hcrypto"},
+          {n:"MEXC",c:"MEXC",k:"1hcrypto",u:"https://www.mexc.com/register?inviteCode=1hcrypto"},
+          {n:"BingX",c:"BingX",k:"1hcrypto",u:"https://bingx.com/invite/1hcrypto"},
+          {n:"CoinW",c:"CoinW",k:"1hcrypto",u:"https://www.coinw.com/front/register?r=1hcrypto"},
+          {n:"BitMart",c:"BitMart",k:"1hcrypto",u:"https://www.bitmart.com/invite/1hcrypto/en"},
+          {n:"XT.com",c:"XT",k:"1hcrypto",u:"https://www.xt.com/en/accounts/register?ref=1hcrypto"}
+        ];
+        var a = refs.slice();
+        for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random()*(i+1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+        var r1 = a[0], r2 = a[1];
+        var isZh = document.documentElement.lang === 'zh-CN';
+        var el = document.getElementById('ref-text-bottom');
+        if (el) {
+          el.innerHTML = (isZh ?
+            '<span class="text-[var(--text-secondary)] font-medium">🤝 支持本站：</span>通过 <a href="'+r1.u+'" target="_blank" rel="sponsored" class="text-primary hover:underline">'+r1.n+'（'+r1.c+'，邀请码 '+r1.k+'）</a> 或 <a href="'+r2.u+'" target="_blank" rel="sponsored" class="text-accent hover:underline">'+r2.n+'（'+r2.c+'，邀请码 '+r2.k+'）</a> 注册，不影响费率，本站获得佣金。'
+            :
+            '<span class="text-[var(--text-secondary)] font-medium">🤝 Support us:</span> Sign up via <a href="'+r1.u+'" target="_blank" rel="sponsored" class="text-primary hover:underline">'+r1.n+' (code: '+r1.k+')</a> or <a href="'+r2.u+'" target="_blank" rel="sponsored" class="text-accent hover:underline">'+r2.n+' (code: '+r2.k+')</a> — no extra cost, we earn commission.'
+          );
+        }
+      })();
+    </script>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .article-content {
+    color: #c9cdd4;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    max-width: 720px;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .article-content h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #f0f0f0;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: -0.025em;
+  }
+  .article-content h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e8e8e8;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #4b9cf5;
+    line-height: 1.45;
+  }
+  .article-content h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #d8d8d8;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .article-content h3::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #4b9cf5;
+    flex-shrink: 0;
+  }
+  .article-content p { margin-bottom: 1.4rem; color: #c9cdd4; }
+  .article-content a {
+    color: #6baff7;
+    text-decoration: underline;
+    text-decoration-color: rgba(107,175,247,0.3);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: all 0.2s;
+  }
+  .article-content a:hover {
+    color: #9ecffb;
+    text-decoration-color: rgba(107,175,247,0.7);
+    text-decoration-thickness: 2px;
+  }
+  .article-content strong { color: #ececec; font-weight: 600; }
+  .article-content code {
+    color: #8ec8fd;
+    background: rgba(59,130,246,0.08);
+    padding: 0.18em 0.45em;
+    border-radius: 0.375rem;
+    font-size: 0.88em;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    border: 1px solid rgba(59,130,246,0.12);
+  }
+  .article-content pre {
+    background: #0d1117 !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+  .article-content pre code { background: none; padding: 0; border: none; color: #c9d1d9; }
+  .article-content blockquote {
+    border-left: 3px solid #4b9cf5;
+    background: rgba(59,130,246,0.04);
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    color: #8b949e;
+  }
+  .article-content ul, .article-content ol { padding-left: 1.5rem; margin: 1rem 0; }
+  .article-content li { color: #c9cdd4; margin-bottom: 0.55rem; line-height: 1.8; }
+  .article-content table {
+    width: 100%; border-collapse: collapse; margin: 1.5rem 0;
+    font-size: 0.93rem; border-radius: 0.75rem; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .article-content th {
+    background: rgba(255,255,255,0.04); padding: 0.7rem 1rem;
+    text-align: left; font-size: 0.83rem; font-weight: 600;
+    color: #d0d0d0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .article-content td {
+    padding: 0.65rem 1rem; font-size: 0.88rem;
+    color: #8b949e; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .article-content tr:last-child td { border-bottom: none; }
+  .article-content tr:hover td { background: rgba(255,255,255,0.025); }
+  .article-content img {
+    border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.08);
+    margin: 1.5rem 0; max-width: 100%;
+  }
+  .article-content hr {
+    border: none; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+    margin: 2.5rem 0;
+  }
+</style>

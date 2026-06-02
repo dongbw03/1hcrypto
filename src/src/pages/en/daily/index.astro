@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import matter from 'gray-matter';
+
+const dailyFiles = import.meta.glob('../../../content/en/daily/*.md', { eager: true });
+const posts = Object.entries(dailyFiles)
+  .map(([filePath, module]) => {
+    const raw = module.rawContent();
+    const { data } = matter(raw);
+    const fileName = filePath.split('/').pop().replace(/\.md$/, '');
+    return { date: data.date || fileName, title: data.title, description: data.description, sentiment: data.sentiment, fileName };
+  })
+  .sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<BaseLayout title="Daily Analysis - BTC & ETH | 1H Crypto" description="BTC/USDT & ETH/USDT 1H price action analysis. Published daily at 8:00 AM." lang="en" activeNav="daily">
+  <div class="max-w-[1400px] mx-auto lg:pl-10 lg:pr-2 px-4 py-8 lg:py-12">
+    <div class="mb-12 max-w-[1080px]">
+      <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue">Daily Analysis</span><span class="text-xs text-[var(--text-muted)] font-mono">Daily 8:00 AM UTC+8</span></div>
+      <h1 class="text-xl md:text-2xl lg:text-[1.65rem] font-bold text-white leading-[1.35] mb-5 tracking-tight">BTC & ETH 1H Price Action Analysis</h1>
+      <p class="text-[var(--text-muted)]">Al Brooks Framework · Entry/Stop/TP Reference Included · Updated Daily</p>
+    </div>
+
+    <div class="grid gap-6">
+      {posts.map((post, i) => (
+        <a href={`/en/daily/${post.fileName}/`} class="card p-6 hover:border-primary/30 transition-colors fade-in-on-scroll block" style={`animation-delay:${i * 0.08}s`}>
+          <div class="flex items-center gap-2 mb-3">
+            <span class:list={["badge", `badge-${post.sentiment === 'Bullish' || post.sentiment === 'Neutral-Bullish' ? 'green' : post.sentiment === 'Bearish' ? 'red' : 'blue'}`]}>{post.sentiment}</span>
+            <span class="text-xs text-[var(--text-muted)] font-mono">{post.date}</span>
+            <span class="text-xs text-[var(--text-muted)] ml-auto">1H</span>
+          </div>
+          <h2 class="text-xl font-bold text-white mb-2">{post.title}</h2>
+          <p class="text-sm text-[var(--text-secondary)] line-clamp-2">{post.description}</p>
+          <div class="flex items-center gap-4 mt-4 text-xs text-[var(--text-muted)]">
+            <span>📊 Market Structure</span>
+            <span>📌 Core Judgment</span>
+            <span>📈 Entry Ref</span>
+            <span class="ml-auto hover:text-primary transition-colors">Read Full Analysis →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-[var(--border)] flex flex-wrap gap-4 text-sm">
+      <a href="/en/analysis/" class="text-primary hover:underline no-underline">📈 Analysis</a>
+      <a href="/en/trading/" class="text-primary hover:underline no-underline">📊 Paper Trading</a>
+    </div>
+  </div>
+</BaseLayout>

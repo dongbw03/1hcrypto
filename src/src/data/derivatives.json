@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-06-02T00:52:04.141204+00:00",
+  "symbols": {
+    "BTCUSDT": {
+      "sentiment_analysis": {
+        "sentiment": "neutral",
+        "signals": []
+      }
+    },
+    "ETHUSDT": {
+      "sentiment_analysis": {
+        "sentiment": "neutral",
+        "signals": []
+      }
+    }
+  }
+}

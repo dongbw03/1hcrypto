@@ -1,0 +1,309 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import fs from 'fs';
+import path from 'path';
+
+const tradesPath = path.resolve('src/data/trades.json');
+let trades = [];
+try {
+  trades = JSON.parse(fs.readFileSync(tradesPath, 'utf-8'));
+} catch (e) {
+  trades = [];
+}
+const totalPnl = trades.filter(t => t.status === 'closed').reduce((s, t) => s + (t.pnl || 0), 0);
+const currentBalance = (1000000 + totalPnl).toLocaleString();
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BTC & ETH Price Action Analysis | 1H Crypto",
+  "description": "Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain +",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/"
+  }
+}`}></script>
+<BaseLayout
+  title="BTC & ETH Price Action Analysis | 1H Crypto"
+  description="Daily BTC & ETH price action analysis using Al Brooks methodology. Multi-dimensional research: price action + on-chain + derivatives + paper trading."
+  lang="en"
+  activeNav="home"
+>
+  <!-- Hero Section -->
+  <section class="relative hero-glow overflow-hidden py-16 md:py-28">
+    <!-- Hero 动态网格背景 -->
+    <div class="hero-grid-bg" id="hero-grid-en">
+      <canvas id="grid-canvas-en"></canvas>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center fade-in-on-scroll">
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        BTC & ETH intraday analysis using Al Brooks methodology
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
+        <span class="typing-effect">BTC & ETH Hourly</span><br />
+        <span class="gradient-text">Price Action Daily</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed fade-in-on-scroll">
+        Four-dimensional daily research: price action &middot; on-chain data &middot; derivatives &middot; paper trading.
+        No news regurgitation. No hype. Just actionable analysis from a trader's perspective.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/en/daily/"
+          class="px-8 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 no-underline"
+        >
+          Read Daily Analysis →
+        </a>
+        <a
+          href="/en/trading/"
+          class="px-8 py-3.5 bg-[var(--bg-card)] border border-[var(--border)] text-white hover:border-primary/50 font-semibold rounded-xl transition-all hover:-translate-y-0.5 no-underline"
+        >
+          Paper Trading
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Metrics Bar -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-secondary)]/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
+        <!-- BTC Price -->
+        <div class="card p-4! cursor-default">
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">BTC/USDT</div>
+          <div class="metric-value gradient-text text-lg md:text-xl">--,---</div>
+          <div class="text-green-400 text-xs mt-0.5">+0.00%</div>
+        </div>
+        <!-- ETH Price -->
+        <div class="card p-4! cursor-default">
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">ETH/USDT</div>
+          <div class="metric-value text-accent text-lg md:text-xl">-,---</div>
+          <div class="text-green-400 text-xs mt-0.5">+0.00%</div>
+        </div>
+        <!-- Fear & Greed -->
+        <div class="card p-4! cursor-default">
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">Fear & Greed</div>
+          <div class="metric-value text-purple-400 text-lg md:text-xl">--</div>
+          <div class="text-[var(--text-muted)] text-xs mt-0.5">Neutral</div>
+        </div>
+        <!-- Account Balance -->
+        <div class="card p-4! cursor-default">
+          <div class="text-[var(--text-muted)] text-xs uppercase tracking-widest mb-1">Account Balance</div>
+          <div class="metric-value text-green-400 text-lg md:text-xl">{currentBalance}</div>
+          <div class="text-[var(--text-muted)] text-xs mt-0.5">USDT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Dimension Cards -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+    <div class="text-center mb-12 fade-in-on-scroll">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Daily Four-Dimension Research</h2>
+      <p class="text-[var(--text-muted)] max-w-lg mx-auto">Not a single opinion. Four dimensions of cross-validation. Every analysis is evidence-backed.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Card 1: Price Action -->
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.1s">
+        <div class="card-3d-inner card p-6! hover:border-primary/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 16l4-8 4 4 6-6"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Price Action Analysis</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Al Brooks framework: identify candlestick patterns, breakouts, failed signals, and key levels.</p>
+          <div class="mt-auto pt-4 text-xs text-blue-400 font-medium">BTC & ETH daily →</div>
+        </div>
+      </div>
+
+      <!-- Card 2: On-Chain Data -->
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.2s">
+        <div class="card-3d-inner card p-6! hover:border-green-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">On-Chain Data</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Exchange netflow, active addresses, whale transfers — on-chain fundamentals at a glance.</p>
+          <div class="mt-auto pt-4 text-xs text-green-400 font-medium">Updated daily →</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Derivatives -->
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.3s">
+        <div class="card-3d-inner card p-6! hover:border-purple-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Derivatives Sentiment</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">Funding rates, open interest, long/short ratio — decode the derivatives market sentiment game.</p>
+          <div class="mt-auto pt-4 text-xs text-purple-400 font-medium">Updated daily →</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Paper Trading -->
+      <div class="card-3d group cursor-pointer fade-in-on-scroll h-full" style="animation-delay: 0.4s">
+        <div class="card-3d-inner card p-6! hover:border-amber-500/30 transition-colors h-full flex flex-col">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Paper Trading Tracker</h3>
+          <p class="text-sm text-[var(--text-muted)] leading-relaxed">$1M USDT virtual capital. Al Brooks signals strictly executed. Full transparency on real decision-making.</p>
+          <div class="mt-auto pt-4 text-xs text-amber-400 font-medium">Live tracking →</div>
+        </div>
+      </div>
+  </section>
+
+  <!-- Today's Analysis Preview -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 border-t border-[var(--border)]">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-xl md:text-2xl font-bold text-white">Today's Analysis</h2>
+      <a href="/en/daily/" class="text-sm text-primary hover:text-primary/80 transition-colors no-underline">View all →</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- BTC Preview Card -->
+      <a href="/en/daily/" class="card block no-underline hover:no-underline fade-in-on-scroll">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge badge-blue">Price Action</span>
+          <span class="text-xs text-[var(--text-muted)]">2026-05-30</span>
+        </div>
+        <h3 class="text-white font-semibold mb-2">BTC/USDT 1H — Tight Range, Watch 67K Support</h3>
+        <p class="text-sm text-[var(--text-muted)] line-clamp-2">1H EMA20/60 converging, price testing prior low at bar 5. Al Brooks signal: wait for breakout confirmation or failed breakout reversal.</p>
+        <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+          <span>⏱ 5 min read</span>
+          <span>📊 On-chain data</span>
+        </div>
+      </a>
+
+      <!-- ETH Preview Card -->
+      <a href="/en/daily/" class="card block no-underline hover:no-underline fade-in-on-scroll" style="animation-delay: 0.15s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge badge-amber">Price Action</span>
+          <span class="text-xs text-[var(--text-muted)]">2026-05-30</span>
+        </div>
+        <h3 class="text-white font-semibold mb-2">ETH/USDT 1H — Double Bottom Forming, Watch Neckline Breakout</h3>
+        <p class="text-sm text-[var(--text-muted)] line-clamp-2">Potential double bottom near 2,620 with neckline at 2,780. Confirmation requires breakout above neckline with volume.</p>
+        <div class="mt-4 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+          <span>⏱ 5 min read</span>
+          <span>📊 On-chain data</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="border-t border-[var(--border)]">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20 text-center fade-in-on-scroll">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Every Morning. 1H Crypto.</h2>
+      <p class="text-[var(--text-muted)] max-w-lg mx-auto mb-8 leading-relaxed">
+        In 365 days, you will have 365 verified BTC & ETH price action analysis records. This is an edge no one can replicate.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/en/analysis/"
+          class="px-8 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 no-underline"
+        >
+          Start Reading →
+        </a>
+        <a
+          href="/zh/"
+          class="px-8 py-3 bg-transparent border border-[var(--border)] text-[var(--text-muted)] hover:border-primary/50 hover:text-white font-semibold rounded-xl transition-all no-underline"
+        >
+          中文 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Grid Animation Script -->
+  <script>
+    (function() {
+      const canvas = document.getElementById("grid-canvas-en");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      let w, h, points = [];
+      function resize() {
+        const section = canvas.closest("section");
+        w = canvas.width  = section.offsetWidth;
+        h = canvas.height = section.offsetHeight;
+        initPoints();
+      }
+      function initPoints() {
+        points = [];
+        const step = 40;
+        for (let x = 0; x < w; x += step) {
+          for (let y = 0; y < h; y += step) {
+            points.push({ x, y, ox: x, oy: y, vx: 0, vy: 0 });
+          }
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = "rgba(14, 165, 233, 0.08)";
+        ctx.lineWidth = 0.5;
+        const step = 40;
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          p.vx += (p.ox - p.x) * 0.01 + (Math.random() - 0.5) * 0.3;
+          p.vy += (p.oy - p.y) * 0.01 + (Math.random() - 0.5) * 0.3;
+          p.vx *= 0.95; p.vy *= 0.95;
+          p.x += p.vx; p.y += p.vy;
+          const col = (i % Math.round(w / step));
+          const row = Math.floor(i / Math.round(w / step));
+          const right = i + 1;
+          const down  = i + Math.round(w / step);
+          if (right < points.length && (right % Math.round(w / step)) !== 0) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(points[right].x, points[right].y);
+            ctx.stroke();
+          }
+          if (down < points.length) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(points[down].x, points[down].y);
+            ctx.stroke();
+          }
+          ctx.fillStyle = "rgba(14, 165, 233, 0.25)";
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener("resize", resize);
+      resize();
+      draw();
+    })();
+  </script>
+</BaseLayout>

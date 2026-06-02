@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "TradingView 完全指南——加密货币技术分析的最佳工具 - 1H币研",
+  "description": "TradingView 是加密货币技术分析的标准工具，本文教你如何使用它进行K线分析和画线。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/tradingview-guide/"
+  }
+}`}></script>
+<BaseLayout title="TradingView 完全指南——加密货币技术分析的最佳工具 - 1H币研" lang="zh" description="TradingView 是加密货币技术分析的标准工具，本文教你如何使用它进行K线分析和画线。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">TradingView 完全指南——加密货币技术分析的最佳工具</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 阅读时间约 9 分钟</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">如果你认真做技术分析，<strong>TradingView</strong> 是唯一的选择。它免费版就足够新手使用，付费版则提供专业级功能。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">为什么选择 TradingView？</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>数据最准确</strong>：直接对接各大交易所，K线数据比大部分交易所自带图表更准确。</li>
+      <li><strong>画线工具最全</strong>：趋势线、斐波那契、江恩角度——应有尽有。</li>
+      <li><strong>社区最活跃</strong>：你可以看到其他分析师的观点和画线，作为参考。</li>
+      <li><strong>多平台同步</strong>：网页版、桌面端、手机 App 完全同步。</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">免费版 vs. 付费版对比</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">功能</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">免费版</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">Pro（$14.95/月）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">同时打开图表数</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">1</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">2</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">指标数量/图表</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">3</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">10</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">广告</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">有</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">无</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">K线数据保存</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">3个月</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">无限</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">结论：新手用免费版足够。当你需要同时看多个交易对时，再升级 Pro。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">新手必学的 5 个功能</h2>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">1. 切换交易对</h3>
+        <p class="text-[var(--text-secondary)] text-sm">在顶部搜索框输入 "BTCUSDT" 或 "ETHUSDT"，选择 Binance 或 OKX 数据源。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">2. 添加指标</h3>
+        <p class="text-[var(--text-secondary)] text-sm">点击图表上方的 "指标" 按钮，搜索 "MACD"、"RSI"、"布林带" 等常用指标。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">3. 画线工具</h3>
+        <p class="text-[var(--text-secondary)] text-sm">左侧工具栏选择 "趋势线" 或 "斐波那契回调"，在K线图上画出支撑/阻力位。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">4. 多时间周期分析</h3>
+        <p class="text-[var(--text-secondary)] text-sm">同时打开日线（判断趋势）和 4 小时线（找入场点），提高交易胜率。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">5. 设置价格提醒</h3>
+        <p class="text-[var(--text-secondary)] text-sm">右键点击K线图 → "添加价格提醒"，当价格到达指定位置时推送通知到手机。</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">加密货币专用的交易对推荐</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>BTC/USDT（Binance）</strong>：流动性最好，适合大资金。</li>
+      <li><strong>ETH/USDT（Binance）</strong>：以太坊价格的标准参考。</li>
+      <li><strong>BTC/USD（Coinbase）</strong>：机构资金偏好的交易对，走势更"干净"。</li>
+    </ul>
+
+    <div class="mt-10 p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+      <p class="text-sm text-[var(--text-muted)] mb-1">🛡️ 联盟推荐</p>
+      <p class="text-[var(--text-secondary)] text-sm">通过以下推荐链接注册 TradingView Pro，可获得折扣：</p>
+      <a href="https://cn.tradingview.com/pricing/?share_your_love=dongbw03" class="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity" target="_blank" rel="sponsored noopener">注册 TradingView Pro →</a>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">总结</h2>
+    <p>TradingView 是加密货币技术分析的<strong>标准工具</strong>。免费版就能满足大部分新手需求。当你开始认真交易时，Pro 版的"多图表"和"无广告"体验非常值得 $14.95/月。</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 本文属于<a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>系列，持续更新中。</p>
+  </div>
+</div>
+</BaseLayout>

@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "每日研判 - BTC & ETH 小时图价格行为分析",
+  "description": "BTC/USDT & ETH/USDT 小时图价格行为分析。每天上午 8:00 发布。",
+  "image": { "@type": "ImageObject", "url": "https://1hcrypto.com/og-default.png", "width": 1200, "height": 630 },
+  "datePublished": "2026-06-01T00:00:00+08:00",
+  "dateModified": new Date().toISOString(),
+  "author": { "@type": "Person", "name": "1H Crypto Trader" },
+  "publisher": { "@type": "Organization", "name": "1H币研" }
+};
+---
+<BaseLayout title="每日研判 - BTC & ETH | 1H币研" description="BTC/USDT & ETH/USDT 小时图价格行为分析。" lang="zh" activeNav="daily">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-8 fade-in-on-scroll">
+      <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue">每日研判</span><span class="text-xs text-[var(--text-muted)] font-mono">2026-06-01</span></div>
+      <h1 class="text-3xl font-bold text-white mb-2">BTC & ETH 小时图价格行为分析</h1>
+      <p class="text-[var(--text-muted)]">Al Brooks 框架 · 每日 8:00 发布 · 含入场/止损/止盈参考</p>
+    </div>
+
+    <!-- BTC -->
+    <div class="card p-6 mb-6 hover:border-primary/30 transition-colors fade-in-on-scroll border-t-4 border-t-primary">
+      <div class="flex items-center gap-2 mb-4"><span class="badge badge-blue">BTC/USDT</span><span class="text-xs text-[var(--text-muted)] font-mono">5 min read</span></div>
+      <h2 class="text-xl font-bold text-white mb-3">价格行为分析</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Pin Bar 出现在通道下轨 · 关注 67,200 突破回踩确认 · 多头等待入场信号</p>
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-primary">
+        <p class="text-xs text-primary font-semibold mb-2">📌 核心摘要</p>
+        <p class="text-sm text-[var(--text-primary)] leading-relaxed"><strong>市场结构：</strong>交易区间日。66,800 - 67,800 震荡，无明确趋势。<br><strong>最关键水平：</strong>$67,200 — 区间中轴与前两日 POC。<br><strong>核心判断：</strong>等突破确认或下轨二次测试，不宜追单。</p>
+      </div>
+      <h3 class="text-white font-semibold mb-2">入场参考</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5"><div class="text-xs text-[var(--text-muted)]">入场价</div><div class="text-lg font-bold text-white font-mono">67,200</div></div>
+        <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10"><div class="text-xs text-red-400">止损</div><div class="text-lg font-bold text-red-400 font-mono">66,400</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">止盈1</div><div class="text-lg font-bold text-green-400 font-mono">68,500</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">止盈2</div><div class="text-lg font-bold text-green-400 font-mono">70,000</div></div>
+      </div>
+      <h3 class="text-white font-semibold mb-2">关键水平</h3>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力2</div><div class="text-sm font-bold text-white font-mono">68,500</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力1</div><div class="text-sm font-bold text-white font-mono">67,800</div></div>
+        <div class="bg-primary/10 rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">★中枢</div><div class="text-sm font-bold text-primary font-mono">67,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑1</div><div class="text-sm font-bold text-white font-mono">66,800</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑2</div><div class="text-sm font-bold text-white font-mono">66,200</div></div>
+      </div>
+      <h3 class="text-white font-semibold mb-2">链上数据</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">BTC余额</div><div class="text-sm font-bold text-green-400 font-mono">-3,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">持仓量</div><div class="text-sm font-bold text-accent font-mono">+2.1%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">资金费率</div><div class="text-sm font-bold text-red-400 font-mono">0.03%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">净流量7d</div><div class="text-sm font-bold text-green-400 font-mono">-1,800</div></div>
+      </div>
+    </div>
+
+    <!-- ETH -->
+    <div class="card p-6 mb-6 hover:border-accent/30 transition-colors fade-in-on-scroll border-t-4 border-t-accent" style="animation-delay:0.1s">
+      <div class="flex items-center gap-2 mb-4"><span class="badge badge-amber">ETH/USDT</span><span class="text-xs text-[var(--text-muted)] font-mono">4 min read</span></div>
+      <h2 class="text-xl font-bold text-white mb-3">价格行为分析</h2>
+      <p class="text-sm text-[var(--text-secondary)] mb-4">双底形态初现 · 关注 3,720 颈线突破 · 成交量放大确认买盘</p>
+      <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-accent">
+        <p class="text-xs text-accent font-semibold mb-2">📌 核心摘要</p>
+        <p class="text-sm text-[var(--text-primary)] leading-relaxed"><strong>市场结构：</strong>双底形成中，3,600附近两次触底，颈线3,680。<br><strong>最关键水平：</strong>$3,720。<br><strong>核心判断：</strong>偏多但需等突破确认，不提前埋伏。</p>
+      </div>
+      <h3 class="text-white font-semibold mb-2">入场参考</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5"><div class="text-xs text-[var(--text-muted)]">入场价</div><div class="text-lg font-bold text-white font-mono">3,725</div></div>
+        <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10"><div class="text-xs text-red-400">止损</div><div class="text-lg font-bold text-red-400 font-mono">3,580</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">止盈1</div><div class="text-lg font-bold text-green-400 font-mono">3,850</div></div>
+        <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10"><div class="text-xs text-green-400">止盈2</div><div class="text-lg font-bold text-green-400 font-mono">4,000</div></div>
+      </div>
+      <h3 class="text-white font-semibold mb-2">关键水平</h3>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">阻力2</div><div class="text-sm font-bold text-white font-mono">3,850</div></div>
+        <div class="bg-accent/10 rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">★颈线</div><div class="text-sm font-bold text-accent font-mono">3,720</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑1</div><div class="text-sm font-bold text-white font-mono">3,600</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">支撑2</div><div class="text-sm font-bold text-white font-mono">3,550</div></div>
+      </div>
+      <h3 class="text-white font-semibold mb-2">链上数据</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">ETH余额</div><div class="text-sm font-bold text-green-400 font-mono">-15.2万</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">持仓量</div><div class="text-sm font-bold text-green-400 font-mono">+3.5%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">资金费率</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">0.005%</div></div>
+      </div>
+    </div>
+
+    <!-- 模拟盘联动 + 随机推荐注册 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 fade-in-on-scroll" style="animation-delay:0.2s">
+      <a href="/zh/trading/" class="card p-5 bg-[var(--bg-secondary)]/40 border border-primary/20 hover:border-primary/50 transition-colors no-underline block">
+        <div class="text-sm text-white font-semibold mb-1">📊 查看模拟盘实况</div>
+        <div class="text-xs text-[var(--text-muted)]">100万 USDT · 胜率56% · 净值+11.3%</div>
+      </a>
+      <!-- 随机推荐：11个联盟伙伴随机选2 -->
+      <div class="card p-5 bg-[var(--bg-card)]/30 border border-[var(--border)]" id="ref-card">
+        <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="ref-text">
+          <span class="text-[var(--text-secondary)] font-medium">🛠 支持本站：</span>
+          正在加载推荐...
+        </div>
+      </div>
+    </div>
+
+    <!-- 随机推荐脚本 -->
+    <script>
+      (function() {
+        const refs = [
+          {n:"Binance",c:"币安",k:"CPA_00ZIV33RO4",u:"https://accounts.binance.com/register?ref=CPA_00ZIV33RO4"},
+          {n:"OKX",c:"OKX",k:"1HCRYPTO",u:"https://www.okx.com/join/1HCRYPTO"},
+          {n:"Bybit",c:"Bybit",k:"1HCRYPTO",u:"https://www.bybit.com/invite?ref=1HCRYPTO"},
+          {n:"Bitget",c:"Bitget",k:"1hcrypto",u:"https://www.bitget.com/expressly?shareCode=1hcrypto"},
+          {n:"Gate.io",c:"Gate",k:"1hcrypto",u:"https://www.gate.io/signup/1hcrypto"},
+          {n:"KuCoin",c:"KuCoin",k:"1hcrypto",u:"https://www.kucoin.com/r/af/1hcrypto"},
+          {n:"MEXC",c:"MEXC",k:"1hcrypto",u:"https://www.mexc.com/register?inviteCode=1hcrypto"},
+          {n:"BingX",c:"BingX",k:"1hcrypto",u:"https://bingx.com/invite/1hcrypto"},
+          {n:"CoinW",c:"CoinW",k:"1hcrypto",u:"https://www.coinw.com/front/register?r=1hcrypto"},
+          {n:"BitMart",c:"BitMart",k:"1hcrypto",u:"https://www.bitmart.com/invite/1hcrypto/en"},
+          {n:"XT.com",c:"XT",k:"1hcrypto",u:"https://www.xt.com/en/accounts/register?ref=1hcrypto"}
+        ];
+        // 随机选2个不重复
+        var a = refs.slice();
+        for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random()*(i+1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+        var r1 = a[0], r2 = a[1];
+        var isZh = document.documentElement.lang === 'zh-CN';
+        var el = document.getElementById('ref-text');
+        if (el) {
+          el.innerHTML = (isZh ?
+            '<span class="text-[var(--text-secondary)] font-medium">🛠 支持本站：</span>通过 <a href="'+r1.u+'" target="_blank" rel="sponsored" class="text-primary hover:underline">'+r1.n+'（'+r1.c+'，邀请码 '+r1.k+'）</a> 或 <a href="'+r2.u+'" target="_blank" rel="sponsored" class="text-accent hover:underline">'+r2.n+'（'+r2.c+'，邀请码 '+r2.k+'）</a> 注册，不影响费率，本站获得佣金。'
+            :
+            '<span class="text-[var(--text-secondary)] font-medium">🛠 Support us:</span> Sign up via <a href="'+r1.u+'" target="_blank" rel="sponsored" class="text-primary hover:underline">'+r1.n+' (code: '+r1.k+')</a> or <a href="'+r2.u+'" target="_blank" rel="sponsored" class="text-accent hover:underline">'+r2.n+' (code: '+r2.k+')</a> — no extra cost, we earn commission.'
+          );
+        }
+      })();
+    </script>
+
+    <!-- Ads -->
+    <div class="mt-4 border border-dashed border-[var(--border)] rounded-lg p-3 text-center fade-in-on-scroll" style="animation-delay:0.25s">
+      <p class="text-xs text-[var(--text-muted)] opacity-50">📢 广告位 — 预留 AdSense</p>
+    </div>
+
+    <!-- 免责 -->
+    <div class="mt-8 p-4 bg-[var(--bg-card)]/50 border border-[var(--border)] rounded-lg text-xs text-[var(--text-muted)]">
+      <strong class="text-[var(--text-secondary)]">⚠️ 免责声明：</strong>本文仅为个人市场观察，不构成投资建议。模拟盘为虚拟资金。交易有高风险，自行承担决策责任。
+    </div>
+  </div>
+</BaseLayout>

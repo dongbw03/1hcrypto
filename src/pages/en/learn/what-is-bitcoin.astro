@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What is Bitcoin? A No-Nonsense Explanation for Beginners - 1H Crypto",
+  "description": "The only Bitcoin article you need to read before buying your first Sats.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/what-is-bitcoin/"
+  }
+}`}></script>
+<BaseLayout title="What is Bitcoin? A No-Nonsense Explanation for Beginners - 1H Crypto" lang="en" description="The only Bitcoin article you need to read before buying your first Sats." activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">What is Bitcoin? A No-Nonsense Explanation</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">January 2026 · 10 min read</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">If you only read one article before putting money into crypto, make it this one. No hype, no price predictions — just what Bitcoin actually is.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The One-Line Definition</h2>
+    <p>Bitcoin is a <strong>decentralized digital currency</strong> that doesn't need banks, governments, or any central authority to work. It runs on a global network of computers, and the rules are enforced by code — not by people.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Why Does Bitcoin Have Value?</h2>
+    <p>Bitcoin's value comes from a combination of properties that no other asset has:</p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><strong>Scarcity</strong>: Only 21 million BTC will ever exist. No government can print more.</li>
+      <li><strong>Portability</strong>: You can send $1B of BTC across the world in 10 minutes for ~$2.</li>
+      <li><strong>Verifiability</strong>: Anyone can audit the supply by running a node. No "trust me" required.</li>
+      <li><strong>Decentralization</strong>: No single entity can shut it down.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">How Does It Actually Work?</h2>
+    <p>The Bitcoin network is a <strong>public ledger</strong> (called the blockchain) that records every transaction ever made. Every 10 minutes, a new "block" of transactions is added by miners, who compete to solve a mathematical puzzle.</p>
+    <p class="mt-3">This process (Proof-of-Work) makes it computationally expensive to cheat — attacking the network would cost billions in electricity.</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Halving Cycle</h2>
+    <p>Every ~4 years, the reward for mining new blocks gets cut in half. This "halving" slows the rate of new Bitcoin entering circulation, and historically has been followed by major bull markets.</p>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      Next Halving: ~April 2028
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">Common Misconceptions</h2>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">"Bitcoin is too volatile to be money"</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Volatility decreases as the market cap grows. At $2T market cap, BTC is already less volatile than many emerging market currencies.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">"It's too slow for payments"</h3>
+        <p class="text-[var(--text-secondary)] text-sm">The base layer prioritizes security over speed. For daily payments, Lightning Network and custodial solutions exist and work well.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">"It's used for crime"</h3>
+        <p class="text-[var(--text-secondary)] text-sm">Chainalysis data shows &lt;0.5% of crypto transactions are illicit — a lower percentage than the traditional banking system.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">How to Get Your First Sats</h2>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li>Download a self-custody wallet (e.g., <a href="https://www.onekey.so/" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">OneKey</a> or Ledger)</li>
+      <li>Register on a major exchange (Binance, OKX, Bybit)</li>
+      <li>Complete KYC and deposit fiat via P2P</li>
+      <li>Buy USDT first, then convert to BTC</li>
+      <li>Withdraw to your own wallet (start with a small test amount!)</li>
+    </ol>
+
+    <div class="mt-10 p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+      <p class="text-sm text-[var(--text-muted)] mb-1">🛡️ Recommended Hardware Wallet</p>
+      <p class="text-[var(--text-secondary)] text-sm">If you plan to hold &gt;$1,000 of BTC, get a hardware wallet. I use and recommend <a href="https://shop.ledger.com/?r=5b63cc287be03" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">Ledger</a> or <a href="https://www.onekey.so/" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">OneKey</a>.</p>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">The Bottom Line</h2>
+    <p>Bitcoin isn't a "get rich quick" scheme. It's a long-term bet on a decentralized monetary system. If you understand what you're buying and can hold for 4+ years through multiple cycles, it has historically been a profitable (though volatile) investment.</p>
+    <p class="mt-3">If you're looking for 10x in 2 weeks, you're in the wrong place — and you'll probably lose money.</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 Part of the <a href="/en/learn/" class="text-primary hover:underline">Learning Center</a>. More articles coming.</p>
+  </div>
+</div>
+</BaseLayout>

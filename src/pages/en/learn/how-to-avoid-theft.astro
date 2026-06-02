@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Crypto Anti-Theft Guide — I've Seen Too Many People Lose Their Coins - 1H Crypto",
+  "description": "A comprehensive guide to preventing crypto theft, covering phishing, fake customer service, smart contract risks, wrong address transfers, and exchange collapses.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/learn/how-to-avoid-theft/"
+  }
+}`}></script>
+<BaseLayout title="Crypto Anti-Theft Guide — I've Seen Too Many People Lose Their Coins - 1H Crypto" lang="en" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/en/learn/" class="text-primary hover:underline">← Back to Learning Center</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">Crypto Anti-Theft Guide — I've Seen Too Many People Lose Their Coins</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">Updated: May 2026</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>I've been in crypto for ten years, and I've seen too many people lose their coins: some had their mnemonic phrases stolen by phishing sites, some transferred coins to the wrong address, and some lost everything when exchanges collapsed. This article lists all the pitfalls I've seen — hopefully you won't be the next victim.</p>
+
+    <h3>Pitfall #1: Phishing Sites</h3>
+    <p>This is the most common theft method. Scammers typically:</p>
+    <ol class="list-decimal pl-5 space-y-2">
+      <li>Create a fake website that looks exactly like a real wallet/exchange (domain name differs by just one letter)</li>
+      <li>Buy ads on Google search results, ranking above the real website</li>
+      <li>You click in, enter your mnemonic phrase or account password, and the scammer receives it in real-time</li>
+      <li>Your coins are drained within minutes</li>
+    </ol>
+    <p><strong>Defense method</strong>: Only access websites through bookmarks you've saved yourself; check the domain spelling in the browser address bar; enable your browser's "warn about dangerous sites" feature.</p>
+
+    <h3>Pitfall #2: Fake "Official Customer Service"</h3>
+    <p>In Telegram, Discord, and WeChat, people often impersonate "official customer service" for a project, proactively messaging you saying your issue needs attention, asking for your mnemonic phrase or asking you to click a link.</p>
+    <p><strong>Remember: Real official personnel will never message you proactively, and will never ask for your mnemonic phrase.</strong></p>
+
+    <h3>Pitfall #3: Recklessly Authorizing Smart Contracts</h3>
+    <p>When using DeFi, you need to "authorize" a smart contract to use your coins. If the contract you authorize is malicious, it can transfer all your coins away.</p>
+    <p><strong>Defense method</strong>: Only use audited mainstream DeFi protocols; set authorization amounts to "only the amount needed for this transaction," don't click "authorize all"; regularly check and revoke unused authorizations on <code>revoke.cash</code>.</p>
+
+    <h3>Pitfall #4: Transferring Coins to the Wrong Address</h3>
+    <p>Crypto transfers are irreversible. If you transfer BTC to an ETH address, or transfer ERC-20 tokens to a non-ERC-20 address, those coins are permanently lost — there's no way to recover them.</p>
+    <p><strong>Defense method</strong>: For your first transfer, send a small test amount (e.g., $10), confirm it arrives, then transfer the large amount; carefully verify the address format and chain type when withdrawing.</p>
+
+    <h3>Pitfall #5: Exchange Collapse</h3>
+    <p>Not every exchange is as reliable as Binance or Coinbase. With small exchanges, one day you might wake up, the website won't load, customer service disappears, and your coins are gone.</p>
+    <p><strong>Defense method</strong>: Only use top-tier exchanges; don't keep large amounts of assets on exchanges long-term; regularly withdraw to your own hardware wallet.</p>
+
+    <h3>My Personal Security Setup (For Reference)</h3>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>Large amounts (> $5,000): Ledger hardware wallet, mnemonic phrase handwritten on paper, stored in safes at two different locations</li>
+      <li>Medium amounts ($1,000-$5,000): Trust Wallet, only installed on phone, phone not jailbroken/not rooted</li>
+      <li>Small amounts (< $1,000): Kept on exchange, convenient for trading anytime</li>
+      <li>All exchange accounts: Have Google Authenticator enabled (don't use SMS verification)</li>
+    </ul>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 If you don't have a hardware wallet yet, <a href="/en/tools/" class="text-primary underline">Ledger on the recommended tools page</a> is currently the most mature choice.</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">Some links on this site are affiliate links. If you register, subscribe, or purchase through these links, I may earn a small commission. You also get exclusive discounts, cashback, or lower trading fees. All earnings go toward site maintenance, content updates, and server costs — no extra cost to you, and your rights remain unchanged. Thank you for your support and understanding.</p>
+  </div>
+</div>
+
+</BaseLayout>

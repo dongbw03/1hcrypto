@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "加密货币钱包详解：热钱包、冷钱包与一切中间形态 - 1H币研",
+  "description": "不是所有钱包都一个样。了解区别，选对你的需求。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/wallet-guide/"
+  }
+}`}></script>
+<BaseLayout title="加密货币钱包详解：热钱包、冷钱包与一切中间形态 - 1H币研" lang="zh" description="不是所有钱包都一个样。了解区别，选对你的需求。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">加密货币钱包详解：热钱包、冷钱包与一切中间形态</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 9分钟阅读</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">"钱包"并不真的存储你的币——它存储你的<strong>私钥</strong>，私钥证明你在区块链上拥有这些币。丢失私钥 = 永远丢失币。没有备份 = 永远消失。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">热钱包（联网）</h2>
+    <p>热钱包方便但风险更高。适合小额资金和日常使用。</p>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">钱包</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">类型</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">最适合</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">MetaMask</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">浏览器插件</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">以太坊 DeFi</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Phantom</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">浏览器插件</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Solana 生态</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Trust Wallet</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">手机 App</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">多链移动端</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">Rabby</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">浏览器插件</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">MetaMask 更安全替代</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">冷钱包（离线 / 硬件）</h2>
+    <p>冷钱包将私钥离线存储。它们是长期持有的黄金标准。</p>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Ledger Nano X</h3>
+        <p class="text-[var(--text-secondary)] text-sm">最流行。蓝牙，支持5500+币种。<a href="https://shop.ledger.com/?r=5b63cc287be03" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">通过推荐链接购买 →</a></p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">Trezor Safe 5</h3>
+        <p class="text-[var(--text-secondary)] text-sm">开源固件。推荐给注重隐私的用户。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">OneKey Classic</h3>
+        <p class="text-[var(--text-secondary)] text-sm">中国用户性价比最高。CC EAL6+ 认证。<a href="https://www.onekey.so/" class="text-primary hover:underline" target="_blank" rel="sponsored noopener">查看 OneKey →</a></p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">托管 vs. 非托管</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">类型</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">例子</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">你持有私钥？</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">风险</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">托管</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">Binance、Coinbase</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">❌ 没有</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">交易所破产</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">非托管</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">MetaMask、Ledger</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">✅ 有</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">你丢失私钥</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-[var(--text-muted)]">经验法则：如果你不持有私钥，你就不是真正拥有这些加密货币。"Not your keys, not your coins."</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">如何设置一个热钱包（以 MetaMask 为例）</h2>
+    <ol class="list-decimal pl-6 space-y-2">
+      <li>只从官网下载：<code class="text-primary">metamask.io</code></li>
+      <li>选择"创建钱包" → <strong>在纸上</strong>写下12个单词的助记词</li>
+      <li>永远不要分享助记词。不支持、不告诉朋友。</li>
+      <li>在大额入金之前，先发一笔小额测试（$20）。</li>
+      <li>只安装官方 MetaMask 插件——假版本非常常见。</li>
+    </ol>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">底线</h2>
+    <p>用<strong>热钱包做日常交易/小额</strong>（少于一个月工资）。用<strong>硬件钱包做长期持有</strong>（超过一个月工资）。并且，永远、永远把助记词写在纸上——不要存成数字格式。</p>
+
+    <div class="mt-8 p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+      <p class="text-sm text-[var(--text-muted)] mb-1">🤝 联盟披露</p>
+      <p class="text-[var(--text-secondary)] text-sm">本页面部分链接为推荐链接。你会获得折扣；我可能赚取少量佣金来维持本站的运营。不会增加你的成本。</p>
+    </div>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 <a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>的一部分。</p>
+  </div>
+</div>
+</BaseLayout>

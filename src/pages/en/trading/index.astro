@@ -1,0 +1,436 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+const tradesPath = path.resolve('src/data/trades.json');
+let trades = [];
+try {
+  trades = JSON.parse(fs.readFileSync(tradesPath, 'utf-8'));
+} catch (e) {
+  trades = [];
+}
+
+// ========== Basic Stats ==========
+const openTrades = trades.filter(t => t.status === 'open');
+const closedTrades = trades.filter(t => t.status === 'closed');
+const totalPnl = closedTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+const winCount = closedTrades.filter(t => (t.pnl || 0) > 0).length;
+const winRate = closedTrades.length > 0 ? (winCount / closedTrades.length * 100).toFixed(1) : null;
+const initialCapital = 1000000;
+const currentBalance = initialCapital + totalPnl;
+
+// ========== Running Days ==========
+const tradeDates = trades.map(t => t.date).filter(Boolean);
+const launchDate = tradeDates.length > 0
+  ? tradeDates.sort()[0]
+  : new Date().toISOString().slice(0, 10);
+const launch = new Date(launchDate + 'T00:00:00');
+const now = new Date();
+const runningDays = Math.max(1, Math.floor((now.getTime() - launch.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+
+// ========== NAV Series (sorted by date) ==========
+const sortedClosed = [...closedTrades].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+let nav = initialCapital;
+const navSeries = [{ date: launchDate, value: nav, label: 'Initial' }];
+sortedClosed.forEach(t => {
+  nav += (t.pnl || 0);
+  navSeries.push({ date: t.date, value: nav, label: t.pair });
+});
+// Append current NAV point
+const todayStr = new Date().toISOString().slice(0, 10);
+if (navSeries[navSeries.length - 1].date !== todayStr) {
+  navSeries.push({ date: todayStr, value: currentBalance, label: 'Current' });
+}
+
+// ========== Max Drawdown ==========
+let peak = initialCapital;
+let maxDrawdown = 0;
+let maxDrawdownPct = 0;
+navSeries.forEach(pt => {
+  if (pt.value > peak) peak = pt.value;
+  const dd = peak - pt.value;
+  if (dd > maxDrawdown) {
+    maxDrawdown = dd;
+    maxDrawdownPct = peak > 0 ? (dd / peak * 100) : 0;
+  }
+});
+
+// ========== Sharpe Ratio (simplified, need ≥2 trades) ==========
+let sharpe = null;
+if (closedTrades.length >= 2) {
+  const returns = closedTrades.map(t => (t.pnlPct || 0));
+  const avgReturn = returns.reduce((s, r) => s + r, 0) / returns.length;
+  const variance = returns.reduce((s, r) => s + Math.pow(r - avgReturn, 2), 0) / returns.length;
+  const stdDev = Math.sqrt(variance);
+  sharpe = stdDev > 0 ? (avgReturn / stdDev) : null;
+}
+
+// ========== Winning/Losing Trades + Max Single ==========
+const winningTrades = closedTrades.filter(t => (t.pnl || 0) > 0);
+const losingTrades = closedTrades.filter(t => (t.pnl || 0) < 0);
+const totalWin = winningTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+const totalLoss = Math.abs(losingTrades.reduce((s, t) => s + (t.pnl || 0), 0));
+const avgWin = winningTrades.length > 0 ? (totalWin / winningTrades.length) : 0;
+const avgLoss = losingTrades.length > 0 ? (totalLoss / losingTrades.length) : 0;
+const maxSingleWin = winningTrades.length > 0 ? Math.max(...winningTrades.map(t => t.pnl || 0)) : 0;
+const maxSingleLoss = losingTrades.length > 0 ? Math.min(...losingTrades.map(t => t.pnl || 0)) : 0;
+
+// ========== SVG NAV Curve ==========
+const svgW = 900;
+const svgH = 280;
+const pad = { top: 30, right: 40, bottom: 40, left: 95 };
+const chartW = svgW - pad.left - pad.right;
+const chartH = svgH - pad.top - pad.bottom;
+const allValues = navSeries.map(p => p.value);
+const minVal = Math.min(...allValues);
+const maxVal = Math.max(...allValues);
+const valRange = maxVal - minVal || 1;
+
+function toX(i) { return pad.left + (i / (navSeries.length - 1)) * chartW; }
+function toY(v) { return pad.top + chartH - ((v - minVal) / valRange) * chartH; }
+
+const points = navSeries.map((p, i) => `${toX(i)},${toY(p.value)}`);
+const linePath = `M ${points.join(' L ')}`;
+const fillPath = `${linePath} L ${toX(navSeries.length - 1)},${toY(minVal)} L ${toX(0)},${toY(minVal)} Z`;
+
+// Y-axis ticks (3-4)
+const tickCount = 4;
+const yTicks = [];
+for (let i = 0; i <= tickCount; i++) {
+  const v = minVal + (valRange * i / tickCount);
+  yTicks.push({ value: Math.round(v), y: toY(v) });
+}
+
+function fmtDate(d) {
+  const m = d.slice(5, 7);
+  const day = d.slice(8, 10);
+  return `${m}/${day}`;
+}
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Paper Trading - 1H Crypto",
+  "description": "1H Crypto paper trading journal. Strategy-driven automated execution, linked to daily analysis.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-06-02T12:00:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H Crypto",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/en/trading/"
+  }
+}`}></script>
+<BaseLayout title="Paper Trading - 1H Crypto" description="1H Crypto paper trading journal. Strategy-driven automated execution, linked to daily analysis." lang="en" activeNav="trading">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+
+    <!-- Page Title -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-white mb-2">Paper Trading Journal</h1>
+      <p class="text-[var(--text-muted)] text-sm">Strategy-driven · Automated execution · {initialCapital.toLocaleString()} USDT initial capital</p>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Account Balance</div>
+        <div class="text-xl font-bold text-white font-mono">{currentBalance.toLocaleString()}</div>
+        <div class="text-xs text-[var(--text-muted)]">USDT</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Running Days</div>
+        <div class="text-xl font-bold text-primary font-mono">{runningDays}</div>
+        <div class="text-xs text-[var(--text-muted)]">days</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Total P&L</div>
+        <div class={`text-xl font-bold font-mono ${(totalPnl || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          {(totalPnl || 0) >= 0 ? '+' : ''}{(totalPnl || 0).toLocaleString()}
+        </div>
+        <div class="text-xs text-[var(--text-muted)]">USDT</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Win Rate</div>
+        <div class="text-xl font-bold text-primary font-mono">{winRate !== null ? winRate + '%' : '--'}</div>
+        <div class="text-xs text-[var(--text-muted)]">{closedTrades.length} closed</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-xs text-[var(--text-muted)] mb-1">Max Drawdown</div>
+        <div class={`text-xl font-bold font-mono ${maxDrawdownPct <= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          {maxDrawdownPct > 0 ? '-' + maxDrawdownPct.toFixed(2) + '%' : '0.00%'}
+        </div>
+        <div class="text-xs text-[var(--text-muted)]">{maxDrawdown > 0 ? '-' + Math.round(maxDrawdown).toLocaleString() : '0'} USDT</div>
+      </div>
+    </div>
+
+    <!-- NAV Curve -->
+    {navSeries.length >= 2 && (
+      <div class="card p-5 md:p-6 mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-lg font-bold text-white">Net Asset Value Curve</h2>
+          <span class="text-xs text-[var(--text-muted)]">{fmtDate(navSeries[0].date)} — {fmtDate(navSeries[navSeries.length - 1].date)} · {runningDays} days</span>
+        </div>
+
+        <!-- SVG Curve -->
+        <div class="mb-5">
+          <svg viewBox={`0 0 ${svgW} ${svgH}`} class="w-full h-auto" style="max-height: 300px;">
+            <defs>
+              <linearGradient id="navGradEn" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.02" />
+              </linearGradient>
+              <filter id="glowEn">
+                <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Grid dashed lines -->
+            {yTicks.map(tick => (
+              <line x1={pad.left} y1={tick.y} x2={svgW - pad.right} y2={tick.y} stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.35" />
+            ))}
+
+            <!-- Fill area -->
+            <path d={fillPath} fill="url(#navGradEn)" />
+
+            <!-- Polyline (glow) -->
+            <path d={linePath} fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glowEn)" />
+
+            <!-- Data points -->
+            {navSeries.map((p, i) => (
+              <>
+                <circle cx={toX(i)} cy={toY(p.value)} r="3.5" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2" />
+                {i === 0 && (
+                  <text x={toX(i)} y={toY(p.value) + 18} text-anchor="middle" fill="var(--text-muted)" font-size="12" font-family="monospace">
+                    {(p.value / 10000).toFixed(0)}w
+                  </text>
+                )}
+                {i === navSeries.length - 1 && (
+                  <>
+                    <circle cx={toX(i)} cy={toY(p.value)} r="6" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.4" />
+                    <text x={toX(i)} y={toY(p.value) - 16} text-anchor="middle" fill="var(--primary)" font-size="13" font-family="monospace" font-weight="700">
+                      {Math.round(p.value).toLocaleString()}
+                    </text>
+                  </>
+                )}
+              </>
+            ))}
+
+            <!-- Y-axis labels -->
+            {yTicks.map(tick => (
+              <text x={pad.left - 12} y={tick.y + 4} text-anchor="end" fill="var(--text-muted)" font-size="12" font-family="monospace" opacity="0.85">
+                {Math.round(tick.value).toLocaleString()}
+              </text>
+            ))}
+
+            <!-- X-axis date labels -->
+            {(() => {
+              const seen = new Set();
+              return navSeries.map((p, i) => {
+                const step = Math.max(1, Math.floor((navSeries.length - 1) / 5));
+                if (i !== 0 && i !== navSeries.length - 1 && i % step !== 0) return null;
+                const lbl = fmtDate(p.date);
+                if (seen.has(lbl)) return null;
+                seen.add(lbl);
+                return (
+                  <text x={toX(i)} y={svgH - 6} text-anchor="middle" fill="var(--text-muted)" font-size="12" opacity="0.85">
+                    {lbl}
+                  </text>
+                );
+              });
+            })()}
+          </svg>
+        </div>
+
+        <!-- Advanced Metrics Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-[var(--bg-secondary)] rounded-lg p-3.5">
+            <div class="text-[11px] text-[var(--text-muted)] mb-1">Sharpe Ratio</div>
+            <div class="text-xl font-bold text-white font-mono tracking-tight">
+              {sharpe !== null ? sharpe.toFixed(2) : '--'}
+            </div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-1">
+              {sharpe === null ? 'Need ≥2 trades' : sharpe >= 1 ? 'Excellent risk-adjusted return' : sharpe >= 0.5 ? 'Good risk-adjusted return' : 'Average risk-return ratio'}
+            </div>
+          </div>
+          <div class="bg-[var(--bg-secondary)] rounded-lg p-3.5">
+            <div class="text-[11px] text-[var(--text-muted)] mb-1">Best / Worst Trade</div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-base font-bold text-green-400 font-mono">
+                {maxSingleWin > 0 ? '+' + Math.round(maxSingleWin).toLocaleString() : '--'}
+              </span>
+              <span class="text-xs text-[var(--text-muted)]">/</span>
+              <span class="text-base font-bold text-red-400 font-mono">
+                {maxSingleLoss < 0 ? Math.round(maxSingleLoss).toLocaleString() : '--'}
+              </span>
+            </div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-1">Win / Loss · USDT</div>
+          </div>
+          <div class="bg-[var(--bg-secondary)] rounded-lg p-3.5">
+            <div class="text-[11px] text-[var(--text-muted)] mb-1">Avg Win / Loss</div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-base font-bold text-green-400 font-mono">
+                {avgWin > 0 ? '+' + Math.round(avgWin).toLocaleString() : '0'}
+              </span>
+              <span class="text-xs text-[var(--text-muted)]">/</span>
+              <span class="text-base font-bold text-red-400 font-mono">
+                {avgLoss > 0 ? '-' + Math.round(avgLoss).toLocaleString() : '0'}
+              </span>
+            </div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-1">USDT / trade</div>
+          </div>
+          <div class="bg-[var(--bg-secondary)] rounded-lg p-3.5">
+            <div class="text-[11px] text-[var(--text-muted)] mb-1">Total Return</div>
+            <div class={`text-xl font-bold font-mono tracking-tight ${totalPnl >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {totalPnl >= 0 ? '+' : ''}{((totalPnl / initialCapital) * 100).toFixed(2)}%
+            </div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-1">
+              ~ {((totalPnl / initialCapital) * 100 * 365 / runningDays).toFixed(0)}% annualized
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Export Button -->
+    <div class="mb-6">
+      <button id="btn-export" class="px-5 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] hover:border-primary/50 text-[var(--text-secondary)] text-sm rounded-lg transition-colors">
+        ⬇ Export Trade Details
+      </button>
+      <a href="/en/daily/" class="ml-3 px-5 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] hover:border-accent/50 text-[var(--text-secondary)] text-sm rounded-lg transition-colors no-underline inline-block">
+        📊 Today's Analysis
+      </a>
+    </div>
+
+    <!-- Open Positions -->
+    {openTrades.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+          Open Positions · {openTrades.length}
+        </h2>
+        <div class="space-y-4">
+          {openTrades.map((t, i) => (
+            <div class="card p-5 border-l-2 border-yellow-400" style={`animation-delay: ${i * 0.05}s`}>
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <span class={`badge ${t.direction === 'long' ? 'badge-green' : 'badge-red'}`}>{t.direction === 'long' ? 'LONG' : 'SHORT'}</span>
+                  <span class="text-white font-bold font-mono">{t.pair}</span>
+                  <span class="text-xs text-[var(--text-muted)]">{t.session}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 text-sm">
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">Entry</span><div class="font-mono text-white">{t.entryPrice?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">SL</span><div class="font-mono text-red-400">{t.stopLoss?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">TP</span><div class="font-mono text-green-400">{t.takeProfit?.toLocaleString()}</div></div>
+                <div class="bg-[var(--bg-secondary)] rounded-lg p-2 text-center"><span class="text-xs text-[var(--text-muted)]">R:R</span><div class="font-mono text-white">{t.riskReward || '--'}</div></div>
+              </div>
+              {t.reason && <p class="text-xs text-[var(--text-secondary)] mt-3">{t.reason}</p>}
+              {t.linkedAnalysis && (
+                <a href={t.linkedAnalysis} class="inline-block mt-2 text-xs text-primary hover:text-primary/80 no-underline">📊 View Linked Analysis →</a>
+              )}
+              <p class="text-xs text-[var(--text-muted)] mt-2">Opened: {t.date}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Closed Trades -->
+    {closedTrades.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">Closed · {closedTrades.length}</h2>
+        <div class="space-y-3">
+          {closedTrades.map((t, i) => (
+            <div class="card p-4" style={`animation-delay: ${i * 0.03}s`}>
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <span class={`badge ${t.direction === 'long' ? 'badge-green' : 'badge-red'}`}>{t.direction === 'long' ? 'LONG' : 'SHORT'}</span>
+                  <span class="text-white font-bold font-mono">{t.pair}</span>
+                  <span class="text-xs text-[var(--text-muted)]">{t.session}</span>
+                </div>
+                <div class="flex items-center gap-4 text-sm">
+                  <span class={t.pnl >= 0 ? 'text-green-400 font-mono font-bold' : 'text-red-400 font-mono font-bold'}>
+                    {t.pnl >= 0 ? '+' : ''}{t.pnl?.toLocaleString()} USDT
+                  </span>
+                  <span class={t.pnlPct >= 0 ? 'text-green-400 font-mono' : 'text-red-400 font-mono'}>
+                    ({t.pnlPct >= 0 ? '+' : ''}{t.pnlPct?.toFixed(2)}%)
+                  </span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-xs">
+                <div>Entry: <span class="font-mono text-[var(--text-secondary)]">{t.entryPrice?.toLocaleString()}</span></div>
+                <div>Exit: <span class="font-mono text-[var(--text-secondary)]">{t.closePrice?.toLocaleString()}</span></div>
+                <div>SL: <span class="font-mono text-red-400">{t.stopLoss?.toLocaleString()}</span></div>
+                <div>TP: <span class="font-mono text-green-400">{t.takeProfit?.toLocaleString()}</span></div>
+              </div>
+              {t.linkedAnalysis && (
+                <a href={t.linkedAnalysis} class="inline-block mt-1 text-xs text-primary hover:text-primary/80 no-underline">📊 Linked Analysis</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {trades.length === 0 && (
+      <div class="card p-8 text-center">
+        <p class="text-[var(--text-muted)] mb-3">No trades recorded yet.</p>
+        <p class="text-xs text-[var(--text-muted)]">Strategy-driven trades will appear here automatically after signals are triggered.</p>
+      </div>
+    )}
+
+  </div>
+
+  <script>
+    const btnExport = document.getElementById('btn-export');
+
+    btnExport.addEventListener('click', () => {
+      const buildTrades = window.__BUILD_TRADES__ || [];
+      fetch('/trade-viewer.html')
+        .then(r => r.text())
+        .then(html => {
+          const dataStr = JSON.stringify(buildTrades);
+          const filled = html.replace(
+            /let TRADES_DATA\s*=\s*\[\s*\];/,
+            'let TRADES_DATA = ' + dataStr + ';'
+          );
+          const blob = new Blob([filled], {type:'text/html;charset=utf-8'});
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `1H_Crypto_Trades_${new Date().toISOString().slice(0,10)}.html`;
+          a.click();
+          alert('✅ Trade details HTML exported (with latest data)');
+        })
+        .catch(() => {
+          alert('❌ Export failed. Please ensure trade-viewer.html exists in public/');
+        });
+    });
+  </script>
+
+  <script define:vars={{ __TRADES__: trades }}>
+    window.__BUILD_TRADES__ = __TRADES__;
+  </script>
+
+</BaseLayout>

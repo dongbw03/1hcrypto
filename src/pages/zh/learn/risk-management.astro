@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "加密货币交易者风险管理（唯一真正有用的指南）- 1H币研",
+  "description": "仓位管理、止损、投资组合配置。这些无聊的东西能让你留在牌桌上。",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/risk-management/"
+  }
+}`}></script>
+<BaseLayout title="加密货币交易者风险管理（唯一真正有用的指南）- 1H币研" lang="zh" description="仓位管理、止损、投资组合配置。这些无聊的东西能让你留在牌桌上。" activeNav="learn">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold mb-4">风险管理：你真正会用到的唯一指南</h1>
+  <p class="text-[var(--text-muted)] text-sm mb-8">2026年1月 · 10分钟阅读</p>
+
+  <div class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed">
+    <p class="text-lg text-[var(--text-primary)] mb-6">你不需要预测市场就能赚钱。你需要的是<strong>不亏钱</strong>。这是我用的精确风险管理框架。</p>
+
+    <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/30 mb-8">
+      <p class="text-red-400 text-sm font-medium">🚨 黄金法则</p>
+      <p class="text-[var(--text-secondary)] text-sm mt-1">单笔交易风险不超过<strong>总投资组合的2%</strong>。仅这一条就能让你在任何熊市中活下来。</p>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">仓位计算器</h2>
+    <div class="my-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] font-mono text-sm text-[var(--text-primary)] text-center">
+      仓位大小 = (总投资组合 × 2%) ÷ (止损百分比)
+    </div>
+    <p class="text-sm text-[var(--text-muted)]">例子：10万美元投资组合，5%止损 → 仓位大小 = $100,000 × 0.02 ÷ 0.05 = <strong>$40,000</strong>。</p>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">止损策略</h2>
+    <div class="space-y-4 mt-4">
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">固定百分比止损</h3>
+        <p class="text-[var(--text-secondary)] text-sm">总是从入场价设置5-10%的止损。永远不要把止损<em>移远</em>（扩大亏损）。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">追踪止损</h3>
+        <p class="text-[var(--text-secondary)] text-sm">止损<em>跟着</em>价格走。如果价格从峰值回撤5%，你就出场了。自动锁定利润。</p>
+      </div>
+      <div class="p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1">技术止损</h3>
+        <p class="text-[var(--text-secondary)] text-sm">把止损放在主要支撑位下方（不要用$100,000这种整数）。</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">投资组合配置（2026）</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[var(--border-color)]">
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">资产类别</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">保守型</th>
+            <th class="py-3 pr-4 text-[var(--text-primary)] font-semibold">激进型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">BTC</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">50%</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">30%</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">ETH</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">30%</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">20%</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">山寨币（前20）</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">15%</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">30%</td>
+          </tr>
+          <tr class="border-b border-[var(--border-color)]">
+            <td class="py-3 pr-4 text-[var(--text-primary)] font-medium">现金（稳定币）</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">5%</td>
+            <td class="py-3 pr-4 text-[var(--text-secondary)]">20%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold text-[var(--text-primary)] mt-10 mb-4">底线</h2>
+    <p>风险管理<strong>很无聊但必不可少</strong>。市场明天还会在——但如果你今天爆仓了，你就看不到明天的市场了。遵守2%规则，你就能比99%的交易者活得更久。</p>
+  </div>
+
+  <div class="mt-12 pt-8 border-t border-[var(--border-color)]">
+    <p class="text-[var(--text-muted)] text-sm">📚 <a href="/zh/learn/" class="text-primary hover:underline">学习中心</a>的一部分。</p>
+  </div>
+</div>
+</BaseLayout>

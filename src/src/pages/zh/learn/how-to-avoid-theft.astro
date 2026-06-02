@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+
+  <script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "加密货币防盗指南——我见过太多人把币弄丢了 - 1H币研",
+  "description": "Crypto price action analysis",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://1hcrypto.com/og-default.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-05-31T16:20:03+08:00",
+  "dateModified": "2026-05-31T16:20:03+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "1H Crypto Trader"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "1H币研",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://1hcrypto.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "@id",
+    "@id": "https://1hcrypto.com/zh/learn/how-to-avoid-theft/"
+  }
+}`}></script>
+<BaseLayout title="加密货币防盗指南——我见过太多人把币弄丢了 - 1H币研" lang="zh" activeNav="learn">
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <p class="text-[var(--text-muted)] text-sm mb-2">
+    <a href="/zh/learn/" class="text-primary hover:underline">← 返回学习中心</a>
+  </p>
+  <h1 class="text-3xl font-bold text-white mb-2">加密货币防盗指南——我见过太多人把币弄丢了</h1>
+  <p class="text-[var(--text-muted)] mb-8 text-sm">更新：2026年5月</p>
+
+  <article class="prose prose-invert max-w-none text-[var(--text-secondary)] leading-relaxed space-y-4">
+    <p>进入币圈十年，我见过太多人丢币：有被钓鱼网站骗走助记词的，有把币转到错误地址的，有交易所跑路血本无归的。这篇文章把我见过的所有坑都列出来，希望你不要成为下一个。</p>
+
+    <h3>第一大坑：钓鱼网站</h3>
+    <p>这是最常见的被盗方式。骗子的套路通常是：</p>
+    <ol class="list-decimal pl-5 space-y-2">
+      <li>做一个跟真钱包/真交易所一模一样的假网站（域名只差一个字母）</li>
+      <li>在谷歌搜索结果里投放广告，排在真网站上面</li>
+      <li>你点进去，输入助记词或账号密码，骗子在后台实时收到</li>
+      <li>你的币在几分钟内被转空</li>
+    </ol>
+    <p><strong>防御方法</strong>：只通过自己收藏的书签访问网站；检查浏览器地址栏的域名拼写；开启浏览器的"警告危险网站"功能。</p>
+
+    <h3>第二大坑：假"官方客服"</h3>
+    <p>在Telegram、Discord、微信里，经常有人冒充某个项目的"官方客服"，主动私信你，说你的问题需要处理，要你提供助记词或点击某个链接。</p>
+    <p><strong>记住：真正的官方人员永远不会主动私信你，永远不会要你的助记词。</strong></p>
+
+    <h3>第三大坑：乱授权智能合约</h3>
+    <p>用DeFi的时候，你需要"授权"某个智能合约使用你的币。如果你授权的合约是恶意合约，它就能把你的币全部转走。</p>
+    <p><strong>防御方法</strong>：只使用经过审计的主流DeFi协议；授权金额设置为"仅授权本次交易需要的金额"，不要点"授权全部"；定期在 <code>revoke.cash</code> 查看并取消不再使用的授权。</p>
+
+    <h3>第四大坑：把币转到错误地址</h3>
+    <p>加密货币转账是不可逆的。如果你把BTC转到了一个ETH地址，或者把ERC-20代币转到了非ERC-20地址，那些币就永久丢失了，没有任何办法找回。</p>
+    <p><strong>防御方法</strong>：第一次转账先转一小笔测试（比如10美元），确认到账后再转大额；提币时仔细核对地址格式和链类型。</p>
+
+    <h3>第五大坑：交易所跑路</h3>
+    <p>不是每个交易所都像Binance或Coinbase那么靠谱。小交易所有可能某天早上你醒来，网站打不开了，客服消失了，你的币也就没了。</p>
+    <p><strong>防御方法</strong>：只使用头部交易所；不要把大额资产长期放在交易所；定期提到自己的硬件钱包。</p>
+
+    <h3>我的个人安全配置（供参考）</h3>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>大额（>5000美元）：Ledger硬件钱包，助记词手写在纸上，存放在两个不同地点的保险箱</li>
+      <li>中额（1000-5000美元）：Trust Wallet，只在手机上装，手机不越狱/不ROOT</li>
+      <li>小额（&lt;1000美元）：放在交易所，方便随时交易</li>
+      <li>所有交易所账号：都开了Google Authenticator（不要用短信验证码）</li>
+    </ul>
+  </article>
+
+  <div class="mt-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r">
+    <p class="text-sm text-[var(--text-secondary)]">💡 如果你还没有硬件钱包，<a href="/zh/tools/" class="text-primary underline">推荐工具页的Ledger</a>是目前最成熟的选择。</p>
+  </div>
+
+  <div class="mt-10 pt-6 border-t border-[var(--border)]">
+    <p class="text-sm text-[var(--text-muted)]">本站部分链接为推荐合作链接，您通过链接注册、订阅或购买，我可能会获得少量推广佣金；同时您也可享受专属优惠、现金返利或更低交易成本。所得收益将全部用于本站运营维护、内容持续更新与服务器开支，不会增加您任何额外费用，也不影响您原本的权益与定价。感谢您的支持与理解。</p>
+  </div>
+</div>
+
+</BaseLayout>

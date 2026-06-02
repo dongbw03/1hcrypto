@@ -1,0 +1,36 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#020617;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+  
+  <!-- Grid pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="0" x2="1200" y2="630" stroke="#0ea5e9" stroke-width="0.5"/>
+    <line x1="1200" y1="0" x2="0" y2="630" stroke="#0ea5e9" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Main title -->
+  <text x="600" y="250" font-family="Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="url(#text-grad)">1H币研</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="330" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#94a3b8">BTC & ETH Price Action Analysis</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="400" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#64748b">Al Brooks Methodology | On-Chain Data | Derivatives</text>
+  
+  <!-- URL -->
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#0ea5e9">1hcrypto.com</text>
+  
+  <!-- Decorative line -->
+  <line x1="400" y1="460" x2="800" y2="460" stroke="#0ea5e9" stroke-width="2" opacity="0.5"/>
+</svg>

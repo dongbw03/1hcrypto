@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# build output
+dist/
+.build/
+
+# astro
+.astro/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# wrangler
+.wrangler/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+
+# temp files
+tmp_*.py
+/tmp/
+
+# Cloudflare cache
+.cache/

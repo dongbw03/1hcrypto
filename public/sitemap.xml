@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Home -->
+  <url>
+    <loc>https://1hcrypto.com/zh/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://1hcrypto.com/zh/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://1hcrypto.com/zh/"/>
+  </url>
+
+  <!-- Daily Analysis -->
+  <url>
+    <loc>https://1hcrypto.com/zh/daily/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/daily/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/daily/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/daily/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/daily/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/daily/"/>
+  </url>
+
+  <!-- Trading Journal -->
+  <url>
+    <loc>https://1hcrypto.com/zh/trading/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/trading/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/trading/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/trading/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/trading/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/trading/"/>
+  </url>
+
+  <!-- Weekly Review -->
+  <url>
+    <loc>https://1hcrypto.com/zh/weekly/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/weekly/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/weekly/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/weekly/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/weekly/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/weekly/"/>
+  </url>
+
+  <!-- Monthly Deep Dive -->
+  <url>
+    <loc>https://1hcrypto.com/zh/monthly/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/monthly/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/monthly/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/monthly/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/monthly/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/monthly/"/>
+  </url>
+
+  <!-- Tools I Use -->
+  <url>
+    <loc>https://1hcrypto.com/zh/tools/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/tools/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/tools/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/tools/"/>
+  </url>
+
+  <!-- Evergreen Articles (English) -->
+  <url>
+    <loc>https://1hcrypto.com/en/learn/crypto-tax-guide/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/crypto-tax-guide/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/crypto-tax-guide/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/learn/cross-exchange-hedge/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/cross-exchange-hedge/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/cross-exchange-hedge/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/learn/bear-market-survival/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/learn/bear-market-survival/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/learn/bear-market-survival/"/>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://1hcrypto.com/zh/about/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/about/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/about/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/about/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/about/"/>
+  </url>
+
+  <!-- Affiliate Disclosure -->
+  <url>
+    <loc>https://1hcrypto.com/zh/disclosure/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/disclosure/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/disclosure/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/disclosure/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/disclosure/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/disclosure/"/>
+  </url>
+
+  <!-- Disclaimer -->
+  <url>
+    <loc>https://1hcrypto.com/zh/disclaimer/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/disclaimer/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/disclaimer/"/>
+  </url>
+  <url>
+    <loc>https://1hcrypto.com/en/disclaimer/</loc>
+    <lastmod>2026-05-30T00:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://1hcrypto.com/zh/disclaimer/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://1hcrypto.com/en/disclaimer/"/>
+  </url>
+</urlset>

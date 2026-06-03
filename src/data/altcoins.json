@@ -1,4 +1,95 @@
 {
-  "timestamp": "2026-06-03T01:11:01.951357+00:00",
-  "coins": []
+  "timestamp": "2026-06-03T01:12:27.691293+00:00",
+  "coins": [
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 650.8,
+      "change24h": -5.77723,
+      "market_cap": 88079637567.0,
+      "volume24h": 1763812033.0,
+      "rank": 4
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.22,
+      "change24h": -4.75756,
+      "market_cap": 75864322201.0,
+      "volume24h": 3002489712.0,
+      "rank": 6
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 74.69,
+      "change24h": -7.47926,
+      "market_cap": 43285034464.0,
+      "volume24h": 4010262614.0,
+      "rank": 7
+    },
+    {
+      "id": "dogecoin",
+      "symbol": "DOGE",
+      "name": "Dogecoin",
+      "price": 0.092784,
+      "change24h": -7.67953,
+      "market_cap": 14361206339.0,
+      "volume24h": 1413019266.0,
+      "rank": 11
+    },
+    {
+      "id": "cardano",
+      "symbol": "ADA",
+      "name": "Cardano",
+      "price": 0.213338,
+      "change24h": -6.88282,
+      "market_cap": 7922204434.0,
+      "volume24h": 657656773.0,
+      "rank": 16
+    },
+    {
+      "id": "chainlink",
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "price": 8.38,
+      "change24h": -6.71245,
+      "market_cap": 6096697940.0,
+      "volume24h": 387379942.0,
+      "rank": 19
+    },
+    {
+      "id": "avalanche-2",
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "price": 8.21,
+      "change24h": -7.34463,
+      "market_cap": 3543437618.0,
+      "volume24h": 248234835.0,
+      "rank": 31
+    },
+    {
+      "id": "polkadot",
+      "symbol": "DOT",
+      "name": "Polkadot",
+      "price": 1.083,
+      "change24h": -5.87992,
+      "market_cap": 1826495855.0,
+      "volume24h": 206406275.0,
+      "rank": 47
+    },
+    {
+      "id": "uniswap",
+      "symbol": "UNI",
+      "name": "Uniswap",
+      "price": 2.82,
+      "change24h": -4.73007,
+      "market_cap": 1758147815.0,
+      "volume24h": 179276604.0,
+      "rank": 50
+    }
+  ]
 }

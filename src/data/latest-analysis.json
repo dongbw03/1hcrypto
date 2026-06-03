@@ -2,22 +2,26 @@
   "date": "2026-06-03",
   "btc": {
     "direction": "long",
-    "entry": 66436.15,
-    "stop": 65768.45,
-    "tp1": 67437.7,
-    "tp2": 68439.25,
-    "pivot": 66770,
+    "price": 66459,
+    "entry": 66126.705,
+    "stop": 65462.115,
+    "tp1": 67123.59,
+    "tp2": 68120.47499999999,
+    "pivot": 66459,
     "support": [
-      66102.3,
-      65434.6
+      65794.41,
+      65129.82
     ],
     "resistance": [
-      67437.7,
-      68105.4
-    ]
+      67123.59,
+      67788.18000000001
+    ],
+    "marketStructure": "CoinGecko 实时价格：$66,459.00。24h 变化：数据获取中。",
+    "coreThesis": "BTC 当前报价 $66,459.00。等待市场数据接入后更新完整分析。"
   },
   "eth": {
     "direction": "neutral",
+    "price": 0,
     "entry": 0,
     "stop": 0,
     "tp1": 0,
@@ -30,6 +34,22 @@
     "resistance": [
       0,
       0
-    ]
+    ],
+    "marketStructure": "",
+    "coreThesis": ""
+  },
+  "onchain": {
+    "btc": {
+      "exchangeBalance": "-2,800",
+      "oiChange": "+3.2%",
+      "funding": "0.010%",
+      "netFlow7d": "-1,200"
+    },
+    "eth": {
+      "exchangeBalance": "-500",
+      "oiChange": "+0.5%",
+      "funding": "0.001%",
+      "netFlow7d": "-300"
+    }
   }
 }

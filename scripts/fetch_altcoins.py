@@ -76,7 +76,8 @@ def parse_to_coins(binance_data):
             "price":      price,
             "change24h":  change_pct,
             "volume24h":  volume,
-            "rank":       999,   # Binance 不提供排名，默认 999
+            "market_cap": 0,
+            "rank":       999,
         })
 
     # 按币种名称排序

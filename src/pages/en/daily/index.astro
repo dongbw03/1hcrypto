@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import matter from 'gray-matter';
 
 
@@ -10,7 +10,7 @@ try {
   const raw = readFileSync('src/data/latest-analysis.json', 'utf-8');
   analysis = JSON.parse(raw);
 } catch (e) {}
-const dailyFilesEn = new (require('fs')).readdirSync('src/content/en/daily')
+const dailyFilesEn = readdirSync('src/content/en/daily')
   .filter(f => f.endsWith('.md')).sort().reverse();
 const latestFileEn = dailyFilesEn[0];
 let dataEn = {

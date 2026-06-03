@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import matter from 'gray-matter';
 
 
@@ -11,7 +11,7 @@ try {
   analysis = JSON.parse(raw);
 } catch (e) {}
 // Dynamically read the latest daily markdown content
-const dailyFiles = new (require('fs')).readdirSync('src/content/zh/daily')
+const dailyFiles = readdirSync('src/content/zh/daily')
   .filter(f => f.endsWith('.md'))
   .sort()
   .reverse();
@@ -34,7 +34,6 @@ if (latestFile) {
   } catch (e) {}
 }
 
-const fmt = (n) => n ? n.toLocaleString() : '—';
 const btcSection = dailyContent.split('## ETH')[0] || '';
 const ethSection = dailyContent.split('## ETH')[1]?.split('##')[0] || '';
 const fmt = (n) => {

@@ -1,4 +1,86 @@
 {
-  "timestamp": "2026-06-03T03:24:15.536930+00:00",
-  "coins": []
+  "timestamp": "2026-06-03T04:19:19.045899+00:00",
+  "coins": [
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 73.33,
+      "change24h": -9.155,
+      "volume24h": 307985766.75991,
+      "rank": 999
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 636.84,
+      "change24h": -7.821,
+      "volume24h": 233073642.29127,
+      "rank": 999
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.2112,
+      "change24h": -5.692,
+      "volume24h": 212898382.03454,
+      "rank": 999
+    },
+    {
+      "id": "cardano",
+      "symbol": "ADA",
+      "name": "Cardano",
+      "price": 0.2103,
+      "change24h": -7.275,
+      "volume24h": 53873568.74924,
+      "rank": 999
+    },
+    {
+      "id": "dogecoin",
+      "symbol": "DOGE",
+      "name": "Dogecoin",
+      "price": 0.09225,
+      "change24h": -8.318,
+      "volume24h": 126456890.2802,
+      "rank": 999
+    },
+    {
+      "id": "polkadot",
+      "symbol": "DOT",
+      "name": "Polkadot",
+      "price": 1.077,
+      "change24h": -6.429,
+      "volume24h": 12203928.86891,
+      "rank": 999
+    },
+    {
+      "id": "avalanche-2",
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "price": 8.114,
+      "change24h": -8.192,
+      "volume24h": 23997766.0738,
+      "rank": 999
+    },
+    {
+      "id": "chainlink",
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "price": 8.292,
+      "change24h": -7.579,
+      "volume24h": 32171703.93219,
+      "rank": 999
+    },
+    {
+      "id": "polygon",
+      "symbol": "MATIC",
+      "name": "Polygon",
+      "price": 0.3794,
+      "change24h": -0.289,
+      "volume24h": 1074370.70255,
+      "rank": 999
+    }
+  ]
 }

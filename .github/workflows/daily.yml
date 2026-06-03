@@ -40,6 +40,9 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/auto_trade.py
 
+      - name: Run fetch_altcoins.py (Binance API)
+        run: python scripts/fetch_altcoins.py
+
       - name: Run fetch_altcoin_news.py
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -52,6 +55,7 @@ jobs:
           git add src/pages/zh/daily/ src/pages/en/daily/ || true
           git add src/content/zh/analysis/ src/content/en/analysis/ || true
           git add src/data/latest-analysis.json || true
+          git add src/data/altcoins.json || true
           git add src/data/altcoin_news.json || true
           git add trades.json || true
           if git diff --cached --quiet; then

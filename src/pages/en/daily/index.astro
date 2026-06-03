@@ -3,6 +3,13 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 
+
+// 读取 latest-analysis.json
+let analysis = null;
+try {
+  const raw = readFileSync('src/data/latest-analysis.json', 'utf-8');
+  analysis = JSON.parse(raw);
+} catch (e) {}
 const dailyFilesEn = new (require('fs')).readdirSync('src/content/en/daily')
   .filter(f => f.endsWith('.md')).sort().reverse();
 const latestFileEn = dailyFilesEn[0];
@@ -26,6 +33,42 @@ const fmtEn = (n) => n ? n.toLocaleString() : '—';
 const btcEn = contentEn.split('## ETH')[0] || '';
 const ethEn = contentEn.split('## ETH')[1]?.split('##')[0] || '';
 
+const fmt = (n) => {
+  if (!n && n !== 0) return '—';
+  return Number(n).toLocaleString();
+};
+
+const today = dataEn.date || analysis?.date || '2026-06-03';
+
+// 从 latest-analysis.json 获取数据
+const btc = analysis?.btc || {};
+const eth = analysis?.eth || {};
+const onchainData = analysis?.onchain || {};
+const btcOnchain = onchainData?.btc || {};
+const ethOnchain = onchainData?.eth || {};
+
+// BTC fallback
+const btcEntry = btc.entry || dataEn.btc_entry || 71500;
+const btcStop = btc.stop || dataEn.btc_stop || 70200;
+const btcTp1 = btc.tp1 || dataEn.btc_tp1 || 73000;
+const btcTp2 = btc.tp2 || dataEn.btc_tp2 || 74800;
+const btcPivot = btc.pivot || 71000;
+const btcR2 = btc.resistance?.[0] || 73600;
+const btcR1 = btc.resistance?.[1] || 71500;
+const btcS1 = btc.support?.[0] || 70000;
+const btcS2 = btc.support?.[1] || 68500;
+
+// ETH fallback
+const ethEntry = eth.entry || dataEn.eth_entry || 2050;
+const ethStop = eth.stop || dataEn.eth_stop || 1980;
+const ethTp1 = eth.tp1 || dataEn.eth_tp1 || 2120;
+const ethTp2 = eth.tp2 || dataEn.eth_tp2 || 2200;
+const ethPivot = eth.pivot || 2050;
+const ethR2 = eth.resistance?.[0] || 2150;
+const ethR1 = eth.resistance?.[1] || 2100;
+const ethS1 = eth.support?.[0] || 1980;
+const ethS2 = eth.support?.[1] || 1920;
+
 <BaseLayout title={`Daily Analysis - ${dataEn.title} | 1H Crypto`} description={dataEn.description} lang="en" activeNav="daily">
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -43,9 +86,9 @@ const ethEn = contentEn.split('## ETH')[1]?.split('##')[0] || '';
     <div class="mb-8 fade-in-on-scroll">
       <div class="flex items-center gap-2 mb-2">
         <span class="badge badge-blue">Daily Analysis</span>
-        <span class="text-xs text-[var(--text-muted)] font-mono">2026-06-03</span>
+        <span class="text-xs text-[var(--text-muted)] font-mono">{today}</span>
       </div>
-      <h1 class="text-3xl font-bold text-white mb-2">BTC & ETH Hourly Price Action</h1>
+      <h1 class="text-3xl font-bold text-white mb-2">{dataEn.title}</h1>
       <p class="text-[var(--text-muted)]">Al Brooks Framework · Published 8:00 AM · with Entry/Stop/TP Reference</p>
     </div>
 
@@ -69,35 +112,35 @@ const ethEn = contentEn.split('## ETH')[1]?.split('##')[0] || '';
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5">
           <div class="text-xs text-[var(--text-muted)]">Entry</div>
-          <div class="text-lg font-bold text-white font-mono">71,500</div>
+          <div class="text-lg font-bold text-white font-mono">{fmt(btcEntry)}</div>
         </div>
         <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10">
           <div class="text-xs text-red-400">Stop</div>
-          <div class="text-lg font-bold text-red-400 font-mono">70,200</div>
+          <div class="text-lg font-bold text-red-400 font-mono">{fmt(btcStop)}</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP1</div>
-          <div class="text-lg font-bold text-green-400 font-mono">73,000</div>
+          <div class="text-lg font-bold text-green-400 font-mono">{fmt(btcTp1)}</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP2</div>
-          <div class="text-lg font-bold text-green-400 font-mono">74,800</div>
+          <div class="text-lg font-bold text-green-400 font-mono">{fmt(btcTp2)}</div>
         </div>
       </div>
       <h3 class="text-white font-semibold mb-2">Key Levels</h3>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">73,600</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">71,500</div></div>
-        <div class="bg-primary/10 rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">★ Pivot</div><div class="text-sm font-bold text-primary font-mono">71,000</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">70,000</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">68,500</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">{fmt(btcR2)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">{fmt(btcR1)}</div></div>
+        <div class="bg-primary/10 rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">★ Pivot</div><div class="text-sm font-bold text-primary font-mono">{fmt(btcPivot)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">{fmt(btcS1)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">{fmt(btcS2)}</div></div>
       </div>
       <h3 class="text-white font-semibold mb-2">On-chain Data</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">BTC Balance</div><div class="text-sm font-bold text-red-400 font-mono">-5,200</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-red-400 font-mono">-3.2%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-red-400 font-mono">-0.05%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">-3,100</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">BTC Balance</div><div class="text-sm font-bold text-red-400 font-mono">{btcOnchain.exchangeBalance || '-5,200'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-red-400 font-mono">{btcOnchain.oiChange || '-3.2%'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-red-400 font-mono">{btcOnchain.funding || '-0.05%'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">{btcOnchain.netFlow7d || '-3,100'}</div></div>
       </div>
     </div>
 
@@ -121,35 +164,35 @@ const ethEn = contentEn.split('## ETH')[1]?.split('##')[0] || '';
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5">
           <div class="text-xs text-[var(--text-muted)]">Entry</div>
-          <div class="text-lg font-bold text-white font-mono">2,050</div>
+          <div class="text-lg font-bold text-white font-mono">{fmt(ethEntry)}</div>
         </div>
         <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10">
           <div class="text-xs text-red-400">Stop</div>
-          <div class="text-lg font-bold text-red-400 font-mono">1,980</div>
+          <div class="text-lg font-bold text-red-400 font-mono">{fmt(ethStop)}</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP1</div>
-          <div class="text-lg font-bold text-green-400 font-mono">2,120</div>
+          <div class="text-lg font-bold text-green-400 font-mono">{fmt(ethTp1)}</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP2</div>
-          <div class="text-lg font-bold text-green-400 font-mono">2,200</div>
+          <div class="text-lg font-bold text-green-400 font-mono">{fmt(ethTp2)}</div>
         </div>
       </div>
       <h3 class="text-white font-semibold mb-2">Key Levels</h3>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">2,150</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">2,100</div></div>
-        <div class="bg-accent/10 rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">★ Neckline</div><div class="text-sm font-bold text-accent font-mono">2,050</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">1,980</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">1,920</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">{fmt(ethR2)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">{fmt(ethR1)}</div></div>
+        <div class="bg-accent/10 rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">★ Neckline</div><div class="text-sm font-bold text-accent font-mono">{fmt(ethPivot)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">{fmt(ethS1)}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">{fmt(ethS2)}</div></div>
       </div>
       <h3 class="text-white font-semibold mb-2">On-chain Data</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">ETH Balance</div><div class="text-sm font-bold text-green-400 font-mono">-85K</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-green-400 font-mono">+1.2%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">0.002%</div></div>
-        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">-42K</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">ETH Balance</div><div class="text-sm font-bold text-green-400 font-mono">{ethOnchain.exchangeBalance || '-85K'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-green-400 font-mono">{ethOnchain.oiChange || '+1.2%'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">{ethOnchain.funding || '0.002%'}</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">{ethOnchain.netFlow7d || '-42K'}</div></div>
       </div>
     </div>
 

@@ -748,28 +748,40 @@ def main():
     # 5. 输出 latest-analysis.json（供 auto_trade.py 读取）
     if not args.dry_run:
         import json
+        # 获取 ETH 链上数据
+        eth_onchain = fetch_onchain_data("neutral", "ETH")
+        
         latest_analysis = {
             "date": args.date,
             "btc": {
                 "direction": analysis["direction"],
-                "entry": analysis["entry"],
-                "stop": analysis["stop"],
-                "tp1": analysis["tp1"],
-                "tp2": analysis["tp2"],
-                "pivot": analysis["pivot"],
-                "support": analysis["support"],
-                "resistance": analysis["resistance"]
+                "price": analysis.get("latestClose", 0),
+                "entry": analysis.get("entry", 0),
+                "stop": analysis.get("stop", 0),
+                "tp1": analysis.get("tp1", 0),
+                "tp2": analysis.get("tp2", 0),
+                "pivot": analysis.get("pivot", 0),
+                "support": analysis.get("support", [0, 0]),
+                "resistance": analysis.get("resistance", [0, 0]),
+                "marketStructure": analysis.get("marketStructure", ""),
+                "coreThesis": analysis.get("coreThesis", ""),
             },
             "eth": {
-                # TODO: 为 ETH 生成分析
                 "direction": "neutral",
+                "price": 0,
                 "entry": 0,
                 "stop": 0,
                 "tp1": 0,
                 "tp2": 0,
                 "pivot": 0,
                 "support": [0, 0],
-                "resistance": [0, 0]
+                "resistance": [0, 0],
+                "marketStructure": "",
+                "coreThesis": "",
+            },
+            "onchain": {
+                "btc": onchain,
+                "eth": eth_onchain
             }
         }
         latest_file = os.path.join(SRC_ROOT, "data", "latest-analysis.json")

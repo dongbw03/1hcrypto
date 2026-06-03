@@ -2,48 +2,47 @@ name: News Digest (Every 6 Hours)
 
 on:
   schedule:
-    # 每6小时运行一次 (00:00, 06:00, 12:00, 18:00 UTC)
-    - cron: '0 */6 * * *'
-  workflow_dispatch:  # 允许手动触发
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
 
 jobs:
   news-digest:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      
+
       - name: Install dependencies
         run: pip install requests feedparser pyyaml
-      
-      - name: Run fetch_altcoins.py（山寨币行情）
+
+      - name: Run fetch_altcoins.py
         run: python scripts/fetch_altcoins.py
-      
-      - name: Run fetch_altcoin_news.py（山寨币新闻）
+
+      - name: Run fetch_altcoin_news.py
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_altcoin_news.py
-      
-      - name: Run fetch_news.py（资讯抓取 + 中英文分别撰写）
+
+      - name: Run fetch_news.py
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/fetch_news.py
-      
-      - name: Run auto_trade.py --check-only（检查止损止盈）
+
+      - name: Run auto_trade.py --check-only
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/auto_trade.py --check-only
-      
+
       - name: Commit and push new content
         run: |
           git config --local user.email "action@github.com"

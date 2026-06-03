@@ -1,12 +1,42 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { readFileSync } from 'fs';
+import matter from 'gray-matter';
+
+// Dynamically read the latest daily markdown content
+const dailyFiles = new (require('fs')).readdirSync('src/content/zh/daily')
+  .filter(f => f.endsWith('.md'))
+  .sort()
+  .reverse();
+const latestFile = dailyFiles[0];
+let dailyData = {
+  title: 'BTC & ETH 小时图价格行为分析',
+  date: '2026-06-02',
+  description: 'BTC/USDT & ETH/USDT 小时图价格行为分析。每天上午 8:00 发布。',
+  btc_entry: 0, btc_stop: 0, btc_tp1: 0, btc_tp2: 0,
+  eth_entry: 0, eth_stop: 0, eth_tp1: 0, eth_tp2: 0,
+};
+let dailyContent = '';
+
+if (latestFile) {
+  try {
+    const raw = readFileSync(`src/content/zh/daily/${latestFile}`, 'utf-8');
+    const parsed = matter(raw);
+    dailyData = { ...dailyData, ...parsed.data };
+    dailyContent = parsed.content || '';
+  } catch (e) {}
+}
+
+const fmt = (n) => n ? n.toLocaleString() : '—';
+const btcSection = dailyContent.split('## ETH')[0] || '';
+const ethSection = dailyContent.split('## ETH')[1]?.split('##')[0] || '';
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "每日研判 - BTC & ETH 小时图价格行为分析",
-  "description": "BTC/USDT & ETH/USDT 小时图价格行为分析。每天上午 8:00 发布。",
+  "headline": `每日研判 - ${dailyData.title}`,
+  "description": dailyData.description,
   "image": { "@type": "ImageObject", "url": "https://1hcrypto.com/og-default.png", "width": 1200, "height": 630 },
-  "datePublished": "2026-06-02T00:00:00+08:00",
+  "datePublished": `${dailyData.date}T00:00:00+08:00`,
   "dateModified": new Date().toISOString(),
   "author": { "@type": "Person", "name": "1H Crypto Trader" },
   "publisher": { "@type": "Organization", "name": "1H币研" }

@@ -1,62 +1,39 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { readFileSync } from 'fs';
 import matter from 'gray-matter';
-import { marked } from 'marked';
 
-// 读取所有 daily markdown 文件，按日期排序取最新
-const modules = await import.meta.glob('../../../content/en/daily/*.md', { eager: true });
-const files = Object.entries(modules)
-  .map(([filePath, module]) => {
-    try {
-      const { data, content } = matter(module.rawContent());
-      return { filePath, data: data || {}, content: content || '' };
-    } catch (e) {
-      return null;
-    }
-  })
-  .filter(f => f && f.data && f.data.date)
-  .sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
-
-const latest = files[0] || { 
-  data: { title:'',date:'2026-06-02',description:'',sentiment:'',keywords:'',btc_entry:0,btc_stop:0,btc_tp1:0,btc_tp2:0,eth_entry:0,eth_stop:0,eth_tp1:0,eth_tp2:0 }, 
-  content: '' 
+const dailyFilesEn = new (require('fs')).readdirSync('src/content/en/daily')
+  .filter(f => f.endsWith('.md')).sort().reverse();
+const latestFileEn = dailyFilesEn[0];
+let dataEn = {
+  title: 'BTC & ETH Hourly Price Action',
+  date: '2026-06-03',
+  description: 'BTC/USDT & ETH/USDT hourly price action analysis.',
+  btc_entry: 0, btc_stop: 0, btc_tp1: 0, btc_tp2: 0,
+  eth_entry: 0, eth_stop: 0, eth_tp1: 0, eth_tp2: 0,
 };
-
-const { data, content } = latest;
-
-// 解析 BTC 和 ETH 部分
-function parseSection(sectionText) {
-  const marketStructure = (sectionText.match(/\*\*Market Structure\*\*　([\s\S]*?)(?=\*\*Core Judgment\*\*)/) || [])[1] || '';
-  const coreJudgment = (sectionText.match(/\*\*Core Judgment\*\*　([\s\S]*?)(?=\*\*Key Levels\*\*)/) || [])[1] || '';
-  const levelsRaw = (sectionText.match(/\*\*Key Levels\*\*([\s\S]*?)(?=\*\*On-chain Snapshot\*\*)/) || [])[1] || '';
-  const levels = levelsRaw ? marked.parse(levelsRaw) : '';
-  const onchainRaw = (sectionText.match(/\*\*On-chain Snapshot\*\*([\s\S]*?)$/) || [])[1] || '';
-  const onchain = onchainRaw ? marked.parse(onchainRaw) : '';
-  return { marketStructure: marketStructure.trim(), coreJudgment: coreJudgment.trim(), levels, onchain };
+let contentEn = '';
+if (latestFileEn) {
+  try {
+    const raw = readFileSync(`src/content/en/daily/${latestFileEn}`, 'utf-8');
+    const parsed = matter(raw);
+    dataEn = { ...dataEn, ...parsed.data };
+    contentEn = parsed.content || '';
+  } catch (e) {}
 }
+const fmtEn = (n) => n ? n.toLocaleString() : '—';
+const btcEn = contentEn.split('## ETH')[0] || '';
+const ethEn = contentEn.split('## ETH')[1]?.split('##')[0] || '';
 
-const btcSection = (content.match(/## BTC[\s\S]*?(?=## ETH|$)/) || [])[0] || '';
-const ethSection = (content.match(/## ETH[\s\S]*?(?=## Overall|$)/) || [])[0] || '';
-
-const btc = parseSection(btcSection);
-const eth = parseSection(ethSection);
-
-// 解析综合判断
-const overall = (content.match(/## Overall Judgment([\s\S]*?)$/) || [])[1] || '';
-const overallHtml = overall ? marked.parse(overall) : '';
-
-// 格式化数字
-function fmt(n) { return n ? n.toLocaleString('en-US') : '—'; }
----
-
-<BaseLayout title={`Daily Analysis - BTC & ETH | 1H Crypto`} description={data.description || "BTC/USDT & ETH/USDT hourly price action analysis."} lang="en" activeNav="daily">
+<BaseLayout title={`Daily Analysis - ${dataEn.title} | 1H Crypto`} description={dataEn.description} lang="en" activeNav="daily">
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": data.title || "Daily Analysis - BTC & ETH Hourly Price Action",
-    "description": data.description || "",
+    "headline": "Daily Analysis - BTC & ETH Hourly Price Action",
+    "description": "BTC/USDT & ETH/USDT hourly price action analysis.",
     "image": { "@type": "ImageObject", "url": "https://1hcrypto.com/og-default.png", "width": 1200, "height": 630 },
-    "datePublished": (data.date || '2026-06-02') + "T00:00:00+08:00",
+    "datePublished": "2026-06-03T00:00:00+08:00",
     "dateModified": new Date().toISOString(),
     "author": { "@type": "Person", "name": "1H Crypto Trader" },
     "publisher": { "@type": "Organization", "name": "1H Crypto Research" }
@@ -65,10 +42,10 @@ function fmt(n) { return n ? n.toLocaleString('en-US') : '—'; }
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
     <div class="mb-8 fade-in-on-scroll">
       <div class="flex items-center gap-2 mb-2">
-        <span class="badge badge-blue">Daily</span>
-        <span class="text-xs text-[var(--text-muted)] font-mono">{data.date || '2026-06-02'}</span>
+        <span class="badge badge-blue">Daily Analysis</span>
+        <span class="text-xs text-[var(--text-muted)] font-mono">2026-06-03</span>
       </div>
-      <h1 class="text-3xl font-bold text-white mb-2">{data.title || 'BTC & ETH Hourly Price Action'}</h1>
+      <h1 class="text-3xl font-bold text-white mb-2">BTC & ETH Hourly Price Action</h1>
       <p class="text-[var(--text-muted)]">Al Brooks Framework · Published 8:00 AM · with Entry/Stop/TP Reference</p>
     </div>
 
@@ -79,41 +56,49 @@ function fmt(n) { return n ? n.toLocaleString('en-US') : '—'; }
         <span class="text-xs text-[var(--text-muted)] font-mono">5 min read</span>
       </div>
       <h2 class="text-xl font-bold text-white mb-3">Price Action Analysis</h2>
-      <p class="text-sm text-[var(--text-secondary)] mb-4">{btc.marketStructure || 'Market structure data loading...'}</p>
-      
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Consolidation after selling pressure · Watch 71,500 breakout confirmation · Bears dominant, wait for signal</p>
       <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-primary">
-        <p class="text-xs text-primary font-semibold mb-2">📌 Key Takeaways</p>
+        <p class="text-xs text-primary font-semibold mb-2">📌 Core Summary</p>
         <p class="text-sm text-[var(--text-primary)] leading-relaxed">
-          <strong>Structure:</strong> {btc.marketStructure || '—'}<br/>
-          <strong>Core Judgment:</strong> {btc.coreJudgment || '—'}
+          <strong>Market Structure:</strong> Down trend day, consolidating 70,800-71,500, volume drying up.<br/>
+          <strong>Key Level:</strong> $71,500 — coincides with previous high & resistance.<br/>
+          <strong>Core Judgment:</strong> Wait for breakout above 71,500 confirmation or test of 70,000 support before entry. Do not chase shorts.
         </p>
       </div>
-
       <h3 class="text-white font-semibold mb-2">Entry Reference</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5">
           <div class="text-xs text-[var(--text-muted)]">Entry</div>
-          <div class="text-lg font-bold text-white font-mono">{fmt(data.btc_entry)}</div>
+          <div class="text-lg font-bold text-white font-mono">71,500</div>
         </div>
         <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10">
           <div class="text-xs text-red-400">Stop</div>
-          <div class="text-lg font-bold text-red-400 font-mono">{fmt(data.btc_stop)}</div>
+          <div class="text-lg font-bold text-red-400 font-mono">70,200</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP1</div>
-          <div class="text-lg font-bold text-green-400 font-mono">{fmt(data.btc_tp1)}</div>
+          <div class="text-lg font-bold text-green-400 font-mono">73,000</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP2</div>
-          <div class="text-lg font-bold text-green-400 font-mono">{fmt(data.btc_tp2)}</div>
+          <div class="text-lg font-bold text-green-400 font-mono">74,800</div>
         </div>
       </div>
-
       <h3 class="text-white font-semibold mb-2">Key Levels</h3>
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4" set:html={btc.levels}></div>
-
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">73,600</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">71,500</div></div>
+        <div class="bg-primary/10 rounded-lg p-3 text-center border border-primary/30"><div class="text-xs text-primary">★ Pivot</div><div class="text-sm font-bold text-primary font-mono">71,000</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">70,000</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">68,500</div></div>
+      </div>
       <h3 class="text-white font-semibold mb-2">On-chain Data</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3" set:html={btc.onchain}></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">BTC Balance</div><div class="text-sm font-bold text-red-400 font-mono">-5,200</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-red-400 font-mono">-3.2%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-red-400 font-mono">-0.05%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">-3,100</div></div>
+      </div>
     </div>
 
     <!-- ETH -->
@@ -123,50 +108,60 @@ function fmt(n) { return n ? n.toLocaleString('en-US') : '—'; }
         <span class="text-xs text-[var(--text-muted)] font-mono">4 min read</span>
       </div>
       <h2 class="text-xl font-bold text-white mb-3">Price Action Analysis</h2>
-      <p class="text-sm text-[var(--text-secondary)] mb-4">{eth.marketStructure || 'Market structure data loading...'}</p>
-      
+      <p class="text-sm text-[var(--text-secondary)] mb-4">Relatively strong but weak · Watch 2,050 breakout · Volume low, wait for confirmation</p>
       <div class="p-4 bg-[var(--bg-secondary)] rounded-lg mb-4 border-l-3 border-accent">
-        <p class="text-xs text-accent font-semibold mb-2">📌 Key Takeaways</p>
+        <p class="text-xs text-accent font-semibold mb-2">📌 Core Summary</p>
         <p class="text-sm text-[var(--text-primary)] leading-relaxed">
-          <strong>Structure:</strong> {eth.marketStructure || '—'}<br/>
-          <strong>Core Judgment:</strong> {eth.coreJudgment || '—'}
+          <strong>Market Structure:</strong> Range-bound, consolidating 1,980-2,050, volume drying up.<br/>
+          <strong>Key Level:</strong> $2,050 — recent high & resistance.<br/>
+          <strong>Core Judgment:</strong> Leaning bullish but wait for breakout above 2,050 confirmation. Do not front-run.
         </p>
       </div>
-
       <h3 class="text-white font-semibold mb-2">Entry Reference</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <div class="bg-[var(--bg-secondary)] rounded-lg p-4 text-center border border-white/5">
           <div class="text-xs text-[var(--text-muted)]">Entry</div>
-          <div class="text-lg font-bold text-white font-mono">{fmt(data.eth_entry)}</div>
+          <div class="text-lg font-bold text-white font-mono">2,050</div>
         </div>
         <div class="bg-red-500/5 rounded-lg p-4 text-center border border-red-500/10">
           <div class="text-xs text-red-400">Stop</div>
-          <div class="text-lg font-bold text-red-400 font-mono">{fmt(data.eth_stop)}</div>
+          <div class="text-lg font-bold text-red-400 font-mono">1,980</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP1</div>
-          <div class="text-lg font-bold text-green-400 font-mono">{fmt(data.eth_tp1)}</div>
+          <div class="text-lg font-bold text-green-400 font-mono">2,120</div>
         </div>
         <div class="bg-green-500/5 rounded-lg p-4 text-center border border-green-500/10">
           <div class="text-xs text-green-400">TP2</div>
-          <div class="text-lg font-bold text-green-400 font-mono">{fmt(data.eth_tp2)}</div>
+          <div class="text-lg font-bold text-green-400 font-mono">2,200</div>
         </div>
       </div>
-
       <h3 class="text-white font-semibold mb-2">Key Levels</h3>
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4" set:html={eth.levels}></div>
-
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 2</div><div class="text-sm font-bold text-white font-mono">2,150</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Resistance 1</div><div class="text-sm font-bold text-white font-mono">2,100</div></div>
+        <div class="bg-accent/10 rounded-lg p-3 text-center border border-accent/30"><div class="text-xs text-accent">★ Neckline</div><div class="text-sm font-bold text-accent font-mono">2,050</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 1</div><div class="text-sm font-bold text-white font-mono">1,980</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Support 2</div><div class="text-sm font-bold text-white font-mono">1,920</div></div>
+      </div>
       <h3 class="text-white font-semibold mb-2">On-chain Data</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3" set:html={eth.onchain}></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">ETH Balance</div><div class="text-sm font-bold text-green-400 font-mono">-85K</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Open Interest</div><div class="text-sm font-bold text-green-400 font-mono">+1.2%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Funding Rate</div><div class="text-sm font-bold text-[var(--text-muted)] font-mono">0.002%</div></div>
+        <div class="bg-[var(--bg-secondary)] rounded-lg p-3 text-center"><div class="text-xs text-[var(--text-muted)]">Net Flow 7d</div><div class="text-sm font-bold text-red-400 font-mono">-42K</div></div>
+      </div>
     </div>
 
     <!-- Overall Judgment -->
-    {overallHtml && (
-      <div class="card p-6 mb-6 fade-in-on-scroll" style="animation-delay:0.15s">
-        <h2 class="text-xl font-bold text-white mb-4">Overall Judgment</h2>
-        <div class="text-sm text-[var(--text-secondary)] leading-relaxed" set:html={overallHtml}></div>
+    <div class="card p-6 mb-6 fade-in-on-scroll" style="animation-delay:0.15s">
+      <h2 class="text-xl font-bold text-white mb-4">Overall Judgment</h2>
+      <div class="text-sm text-[var(--text-secondary)] leading-relaxed">
+        <p class="mb-3"><strong>BTC:</strong> Sold off -3.83% yesterday, now consolidating around 70,800 with drying volume. Al Brooks framework: TR (Trading Range) within down trend. Wait for 71,500 breakout confirmation or 70,000 support test before entry. Do not chase shorts — risk/reward unfavorable.</p>
+        <p class="mb-3"><strong>ETH:</strong> Relatively strong, only -0.40% drop, outperforming BTC. Consolidating in 1,980-2,050 range. Wait for 2,050 breakout confirmation before leaning bullish.</p>
+        <p><strong>Overall:</strong> Market sentiment bearish, BTC leading the drop. Wait for key level breakout confirmations before entry. Strict stop loss discipline.</p>
       </div>
-    )}
+    </div>
 
     <!-- Paper Trading + Random Referral -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 fade-in-on-scroll" style="animation-delay:0.2s">

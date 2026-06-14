@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-06-14T05:00:27.189713+00:00",
+  "timestamp": "2026-06-14T09:51:08.954981+00:00",
   "news": [
     {
       "title_zh": "Solana DeFi锁仓量周涨12%",
       "title_en": "Solana DeFi TVL Rises 12% This Week",
-      "summary_zh": "据DeFiLlama数据，Solana生态总锁仓量本周上涨12%，主因新晋去中心化交易所交易量增长。",
-      "summary_en": "Solana's total DeFi TVL increased 12% this week, driven by growing trading volume on new DEXes, per DeFiLlama.",
+      "summary_zh": "DeFiLlama数据显示，Solana生态总锁仓量本周上涨12%，主要受新晋DEX交易量增长推动。",
+      "summary_en": "Solana's total value locked increased 12% this week, driven by growing trading volume on new DEXes, according to DeFiLlama.",
       "coin": "solana",
       "source": "CoinGecko",
       "url": "https://solana.com",
       "published_at": ""
     },
     {
-      "title_zh": "Cardano公布Plutus V4升级路线图",
-      "title_en": "Cardano Unveils Plutus V4 Upgrade Roadmap for 2026",
-      "summary_zh": "IOG团队发布Plutus V4技术路线图，预计2026年Q3上线主网，将增强智能合约表达能力并降低手续费。",
-      "summary_en": "IOG released the Plutus V4 technical roadmap, targeting mainnet launch in Q3 2026. The upgrade promises stronger smart contract expressiveness and lower fees.",
+      "title_zh": "Cardano 公布Plutus V4升级路线图",
+      "title_en": "Cardano Reveals Plutus V4 Upgrade Roadmap for 2026",
+      "summary_zh": "IOG团队发布Plutus V4技术路线图，预计Q3上线主网，将增强智能合约能力并降低手续费。",
+      "summary_en": "IOG team released Plutus V4 technical roadmap, targeting mainnet launch in Q3 2026, enabling stronger smart contract expressiveness and lower fees.",
       "coin": "cardano",
       "source": "CoinGecko",
       "url": "https://cardano.org",
@@ -24,18 +24,18 @@
     {
       "title_zh": "Chainlink CCIP新增支持5条公链",
       "title_en": "Chainlink CCIP Adds Support for 5 Major Blockchains",
-      "summary_zh": "Chainlink跨链互操作协议CCIP宣布新增支持Avalanche、Polygon zkEVM、Base、Arbitrum和Optimism五条主流公链。",
-      "summary_en": "Chainlink’s Cross-Chain Interoperability Protocol (CCIP) now supports Avalanche, Polygon zkEVM, Base, Arbitrum, and Optimism, expanding multi-chain connectivity.",
+      "summary_zh": "Chainlink跨链互操作协议CCIP宣布新增支持Avalanche、Polygon zkEVM、Base、Arbitrum和Optimism，扩展跨链生态。",
+      "summary_en": "Chainlink’s Cross-Chain Interoperability Protocol (CCIP) now supports Avalanche, Polygon zkEVM, Base, Arbitrum, and Optimism, expanding its multi-chain capabilities.",
       "coin": "chainlink",
       "source": "CoinGecko",
       "url": "https://chain.link",
       "published_at": ""
     },
     {
-      "title_zh": "狗狗币核心开发者提议引入ZK-Rollup方案",
-      "title_en": "Dogecoin devs propose ZK-Rollup Layer2 scaling solution",
-      "summary_zh": "狗狗币基金会发布草案，探讨基于ZK-Rollup的Layer2扩容方案，旨在降低小额转账手续费。",
-      "summary_en": "The Dogecoin Foundation released a draft exploring a ZK-Rollup-based Layer2 scaling solution to reduce transaction fees for small transfers.",
+      "title_zh": "狗狗币拟推ZK-Rollup扩容方案",
+      "title_en": "Dogecoin Core Dev Proposes ZK-Rollup Layer2 Solution",
+      "summary_zh": "Dogecoin基金会研究小组发布草案，探讨基于ZK-Rollup的Layer2方案，旨在降低小额转账手续费。",
+      "summary_en": "Dogecoin Foundation research group released a draft exploring a ZK-Rollup-based Layer2 scaling solution aimed at reducing transaction fees for micro-payments.",
       "coin": "dogecoin",
       "source": "CoinGecko",
       "url": "https://dogecoin.com",

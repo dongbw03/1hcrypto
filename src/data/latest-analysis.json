@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-26",
+  "date": "2026-08-27",
   "btc": {
     "direction": "neutral",
-    "price": 78609,
-    "entry": 78215.955,
-    "stop": 77429.865,
-    "tp1": 79395.09,
-    "tp2": 80574.22499999999,
-    "pivot": 78609,
+    "price": 78639,
+    "entry": 78245.805,
+    "stop": 77459.415,
+    "tp1": 79425.39,
+    "tp2": 80604.97499999999,
+    "pivot": 78639,
     "support": [
-      77822.91,
-      77036.81999999999
+      77852.61,
+      77066.22
     ],
     "resistance": [
-      79395.09,
-      80181.18000000001
+      79425.39,
+      80211.78
     ],
-    "marketStructure": "CoinGecko 实时价格：$78,609.00。24h 变化：数据获取中。",
-    "coreThesis": "BTC 当前报价 $78,609.00。等待市场数据接入后更新完整分析。"
+    "marketStructure": "CoinGecko 实时价格：$78,639.00。24h 变化：数据获取中。",
+    "coreThesis": "BTC 当前报价 $78,639.00。等待市场数据接入后更新完整分析。"
   },
   "eth": {
     "direction": "neutral",
@@ -40,16 +40,16 @@
   },
   "onchain": {
     "btc": {
-      "exchangeBalance": "-3,200",
-      "oiChange": "+0.4%",
-      "funding": "+0.007%",
-      "netFlow7d": "-1,800"
+      "exchangeBalance": "-500",
+      "oiChange": "+0.5%",
+      "funding": "0.001%",
+      "netFlow7d": "-300"
     },
     "eth": {
-      "exchangeBalance": "-3,200",
-      "oiChange": "+0.3%",
-      "funding": "+0.004%",
-      "netFlow7d": "-1,800"
+      "exchangeBalance": "-500",
+      "oiChange": "+0.5%",
+      "funding": "0.001%",
+      "netFlow7d": "-300"
     }
   }
 }
